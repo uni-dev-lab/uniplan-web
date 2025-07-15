@@ -1,14 +1,40 @@
-import { Component } from '@angular/core';
-import { LoginAuthService } from '../../login-auth-service';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { LoginAuthService } from '../../login-auth-service';
 
 @Component({
   selector: 'app-navmenu-component',
-  imports: [CommonModule],
   standalone: true,
+  imports: [CommonModule],
   templateUrl: './navmenu-component.html',
-  styleUrl: './navmenu-component.scss'
+  styleUrls: ['./navmenu-component.scss'] 
 })
-export class NavmenuComponent {
-     constructor(public authService: LoginAuthService) {}
+export class NavmenuComponent implements OnInit {
+  isSidebarCollapsed = false;
+  isMobileView = window.innerWidth <= 768;
+
+  constructor(public authService: LoginAuthService) {}
+
+  ngOnInit(): void {
+    this.checkViewport();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event): void {
+    this.checkViewport();
+  }
+
+  private checkViewport(): void {
+    const isNowMobile = window.innerWidth <= 768;
+    if (this.isMobileView !== isNowMobile) {
+      this.isMobileView = isNowMobile;
+    }
+    if (!this.isMobileView) {
+      this.isSidebarCollapsed = false;
+    }
+  }
+
+  toggleSidebar(): void {
+    this.isSidebarCollapsed = !this.isSidebarCollapsed;
+  }
 }
