@@ -1,29 +1,48 @@
- <div class="sidebar">
-    <div class="logo">
-      <h2>Logo</h2> 
-    </div>
-    <div class="sidebar-content">
-      <ul class="lists">
-        <li class="list"><a href="#" class="nav-link"><span class="link">Факултет</span></a></li>
-        <li class="list"><a href="#" class="nav-link"><span class="link">Дисциплина</span></a></li>
-
-        <li class="list dropdown">
-          <a href="#" class="nav-link">
-            <span class="link">Специалност</span>
-            <i class="bx bx-chevron-down icon"></i>
-          </a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Бакалавър</a></li>
-            <li><a href="#">Магистър</a></li>
-          </ul>
-           <li class="list"><a href="#" class="nav-link"><span class="link">Стаи</span></a></li>
-            <li class="list"><a href="#" class="nav-link"><span class="link">Студенти</span></a></li>
-            <li class="list"><a href="#" class="nav-link"><span class="link">Предмети</span></a></li>
-      </ul>
-
-      <ul class="lists">
-        <li class="list"><a href="#" class="nav-link"><i class="bx bx-cog icon"></i><span class="link">Настройки</span></a></li>
-        <li class="list"><a href="#" class="nav-link"><i class="bx bx-log-out icon"></i><span class="link">Изход</span></a></li>
-      </ul>
-    </div>
+<div class="sidebar">
+  <div class="logo">
+    <h2>Logo</h2>
   </div>
+  <div class="sidebar-content">
+    <ul class="list">
+      <li class="list"><a href="#" class="nav-link"><span class="link">Начало</span></a></li>
+      <li class="list" *ngIf="!authService.isLoggedIn()"><a href="#" class="nav-link"><span class="link">Създай разписание</span></a></li>
+      <li class="list"><a href="#" class="nav-link"><span class="link">Факултет</span></a></li>
+      <li class="list"><a href="#" class="nav-link"><span class="link">Дисциплина</span></a></li>
+
+      <li class="list dropdown" *ngIf="!authService.isLoggedIn()">
+        <a href="#" class="nav-link">
+          <span class="link">Специалност</span>
+          <i class="bx bx-chevron-down icon"></i>
+        </a>
+        <ul class="dropdown-menu">
+          <li><a href="#">Бакалавър</a></li>
+          <li><a href="#">Магистър</a></li>
+        </ul>
+      </li>
+
+      <li class="list" ><a href="#" class="nav-link"><span class="link">Стаи</span></a></li>
+      <li class="list"><a href="#" class="nav-link"><span class="link">Студенти</span></a></li>
+      <li class="list"><a href="#" class="nav-link"><span class="link">Предмети</span></a></li>
+    </ul>
+
+    <ul class="list">
+      <li class="list"><a href="#" class="nav-link"><i class="bx bx-cog icon"></i><span class="link">Настройки</span></a></li>
+
+      <li class="list dropdown profile" *ngIf="!authService.isLoggedIn()">
+        <a href="#" class="nav-link">
+          <div class="profile-link">
+            <img src="" class="profile-img" />
+            <span class="profile-name">Иван Иванов</span>
+           <!-- <i class="bx bx-chevron-down icon"></i> -->
+          </div>
+        </a>
+        <ul class="dropdown-menu">
+          <li><a href="#"><span class="link">Отвори</span></a></li>
+          <li class="logout"><a href="#"><i class="bx bx-log-out icon"></i><span class="link">Изход</span></a></li>
+        </ul>
+      </li>
+
+      <li class="list" *ngIf="!authService.isLoggedIn()"><a href="#" class="nav-link"><i class="bx bx-log-in icon"></i><span class="link">Вход</span></a></li> 
+    </ul>
+  </div>
+</div>
