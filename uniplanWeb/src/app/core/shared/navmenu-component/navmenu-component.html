@@ -1,9 +1,10 @@
-<div class="sidebar" [ngClass]="{ 'collapsed': isSidebarCollapsed && isMobileView }">
-<div class="hamburger" *ngIf="isMobileView" (click)="toggleSidebar()">
-  <span></span>
-  <span></span>
-  <span></span>
-</div>
+<div class="sidebar"
+  [ngClass]="{ 'collapsed': isSidebarCollapsed && isMobileView }">
+  <div class="hamburger" *ngIf="isMobileView" (click)="toggleSidebar()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
 
   <div class="logo">
     <h2>Logo</h2>
@@ -11,14 +12,18 @@
 
   <div class="sidebar-content">
     <ul class="list">
-      <li class="list"><a href="#" class="nav-link"><span class="link">Начало</span></a></li>
-      <li class="list" *ngIf="!authService.isLoggedIn()">
-        <a href="#" class="nav-link"><span class="link">Създай разписание</span></a>
+      <li class="list"><a href="#" class="nav-link"><span
+            class="link">Начало</span></a></li>
+      <li class="list" *ngIf="authService.isLoggedIn()">
+        <a href="#" class="nav-link"><span class="link">Създай
+            разписание</span></a>
       </li>
-      <li class="list"><a href="#" class="nav-link"><span class="link">Факултет</span></a></li>
-      <li class="list"><a href="#" class="nav-link"><span class="link">Дисциплина</span></a></li>
+      <li class="list"><a href="#" class="nav-link"><span
+            class="link">Факултет</span></a></li>
+      <li class="list"><a href="#" class="nav-link"><span
+            class="link">Дисциплина</span></a></li>
 
-      <li class="list dropdown" *ngIf="!authService.isLoggedIn()">
+      <li class="list dropdown" *ngIf="authService.isLoggedIn()">
         <a href="#" class="nav-link">
           <span class="link">Специалност</span>
           <i class="bx bx-chevron-down icon"></i>
@@ -29,33 +34,39 @@
         </ul>
       </li>
 
-      <li class="list"><a href="#" class="nav-link"><span class="link">Стаи</span></a></li>
-      <li class="list"><a href="#" class="nav-link"><span class="link">Студенти</span></a></li>
-      <li class="list"><a href="#" class="nav-link"><span class="link">Предмети</span></a></li>
+      <li class="list"><a href="#" class="nav-link"><span
+            class="link">Стаи</span></a></li>
+      <li class="list"><a href="#" class="nav-link"><span
+            class="link">Студенти</span></a></li>
+      <li class="list"><a href="#" class="nav-link"><span
+            class="link">Предмети</span></a></li>
     </ul>
 
     <ul class="list">
       <li class="list">
-        <a href="#" class="nav-link"><i class="bx bx-cog icon"></i><span class="link">Настройки</span></a>
+        <a href="#" class="nav-link"><i class="bx bx-cog icon"></i><span
+            class="link">Настройки</span></a>
       </li>
 
-      <li class="list dropdown profile" *ngIf="!authService.isLoggedIn()">
+      <li class="list dropdown profile" *ngIf="authService.isLoggedIn()">
         <a href="#" class="nav-link">
           <div class="profile-link">
-            <img src="" class="profile-img" />
+            <img src class="profile-img" />
             <span class="profile-name">Иван Иванов</span>
           </div>
         </a>
         <ul class="dropdown-menu">
           <li><a href="#"><span class="link">Отвори</span></a></li>
           <li class="logout">
-            <a href="#"><i class="bx bx-log-out icon"></i><span class="link">Изход</span></a>
+            <a href="#"><i class="bx bx-log-out icon"></i><span
+                class="link">Изход</span></a>
           </li>
         </ul>
       </li>
 
       <li class="list" *ngIf="!authService.isLoggedIn()">
-        <a href="#" class="nav-link"><i class="bx bx-log-in icon"></i><span class="link">Вход</span></a>
+        <a href="#" class="nav-link"><i class="bx bx-log-in icon"></i><span
+            class="link">Вход</span></a>
       </li>
     </ul>
   </div>
