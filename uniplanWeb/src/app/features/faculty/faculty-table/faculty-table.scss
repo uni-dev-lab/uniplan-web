@@ -1,12 +1,31 @@
-table {
-  margin-top: 2%;
-  width: 100%;
+.scrollable-table {
+  max-height: 500px;
+  margin-top: 1%;
+  overflow-y: auto;       
+  overflow-x: hidden;   
   background-color: #fff;
+  border-radius: 10px;
+  width: 100%;
+  border-collapse: separate;
 }
 
-th,
-td {
+table {
+  width: 100%;           
+  border-collapse: collapse;
+  border-radius: 10px;
+  background-color: #fff;
+  table-layout: fixed;  
+}
+
+table tr:hover {
+  background-color: #f7f7f7; 
+  cursor: pointer; 
+}
+
+th, td {
   text-align: center;
+  padding: 8px 10px;
+  word-wrap: break-word;
 }
 
 .col-position {
@@ -29,9 +48,6 @@ td {
 }
 
 .scrollable-table {
-  display: block;           
-  overflow: auto;           
-  max-height: 500px;       
-  border-collapse: collapse;
-  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
+
