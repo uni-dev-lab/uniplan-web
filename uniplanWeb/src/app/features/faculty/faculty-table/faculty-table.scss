@@ -1,5 +1,5 @@
 .scrollable-table {
-  max-height: 500px;
+  max-height: 580px;
   margin-top: 1%;
   overflow-y: auto;
   overflow-x: hidden;
@@ -22,7 +22,8 @@ table tr:hover {
   cursor: pointer;
 }
 
-th, td {
+th,
+td {
   text-align: center;
   padding: 8px 10px;
   word-wrap: break-word;
@@ -52,6 +53,5 @@ th {
 }
 
 .scrollable-table {
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-

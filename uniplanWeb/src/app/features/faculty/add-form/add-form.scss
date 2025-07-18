@@ -1,0 +1,31 @@
+mat-dialog-content {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+mat-dialog-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #3f51b5;
+}
+
+input {
+  border-radius: 10px;
+}
+
+button[mat-button] {
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+  margin: 1%;
+  padding: 2%;
+}
+
+button[mat-button]:hover {
+  background-color: #f1f1f1;
+  border-radius: 5px;
+}

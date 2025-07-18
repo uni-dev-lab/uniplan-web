@@ -6,7 +6,7 @@ import { MatTableModule } from '@angular/material/table';
 
 @Component({
   selector: 'app-faculty-table',
-  imports: [CommonModule ,MatTableModule, MatIconModule, MatButtonModule],
+  imports: [CommonModule, MatTableModule, MatIconModule, MatButtonModule],
   standalone: true,
   templateUrl: './faculty-table.html',
   styleUrl: './faculty-table.scss'
