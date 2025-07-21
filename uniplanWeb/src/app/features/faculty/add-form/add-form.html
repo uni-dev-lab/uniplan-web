@@ -14,6 +14,8 @@
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-    <button mat-button mat-dialog-close>Затвори</button>
-    <button mat-button (click)="save()">Запази</button>
+    <button mat-raised-button mat-dialog-close
+        class="exitButton">Затвори</button>
+    <button mat-raised-button (click)="save()"
+        class="saveButton">Запази</button>
 </mat-dialog-actions>
