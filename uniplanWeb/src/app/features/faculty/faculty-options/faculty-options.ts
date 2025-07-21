@@ -3,8 +3,8 @@ import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
-import { AddForm } from '../add-form/add-form';
 import { MatDialog } from '@angular/material/dialog';
+import { FacultyAddForm } from '../faculty-add-form/faculty-add-form';
 
 @Component({
   selector: 'app-faculty-options',
@@ -13,7 +13,7 @@ import { MatDialog } from '@angular/material/dialog';
     MatTableModule,
     MatIconModule,
     MatButtonModule,
-    AddForm,
+    FacultyAddForm,
   ],
   standalone: true,
   templateUrl: './faculty-options.html',
@@ -23,7 +23,7 @@ export class FacultyOptions {
   constructor(private dialog: MatDialog) {}
 
   openAddForm() {
-    this.dialog.open(AddForm, {
+    this.dialog.open(FacultyAddForm, {
       width: '400px',
     });
   }
