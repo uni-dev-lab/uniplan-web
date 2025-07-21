@@ -1,18 +1,11 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-add-form',
-  imports: [
-    MatDialogModule,
-    MatFormField,
-    MatLabel,
-    FormsModule,
-    MatInputModule,
-  ],
+  imports: [MatDialogModule, FormsModule, MatInputModule],
   standalone: true,
   templateUrl: './add-form.html',
   styleUrl: './add-form.scss',

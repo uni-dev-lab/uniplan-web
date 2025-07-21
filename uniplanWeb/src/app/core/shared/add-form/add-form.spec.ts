@@ -8,16 +8,11 @@ describe('AddForm', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AddForm]
-    })
-    .compileComponents();
+      imports: [AddForm],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(AddForm);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
   });
 });

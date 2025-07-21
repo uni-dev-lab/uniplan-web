@@ -1,7 +1,8 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoginAuthService } from '../../login-auth-service';
-import { ViewService } from '../view.service';
+
+import { ViewService } from './view.service';
+import { LoginAuthService } from '../../services/login-auth-service';
 
 @Component({
   selector: 'app-navmenu-component',
