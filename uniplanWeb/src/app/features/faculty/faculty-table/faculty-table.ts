@@ -9,7 +9,7 @@ import { MatTableModule } from '@angular/material/table';
   imports: [CommonModule, MatTableModule, MatIconModule, MatButtonModule],
   standalone: true,
   templateUrl: './faculty-table.html',
-  styleUrl: './faculty-table.scss'
+  styleUrl: './faculty-table.scss',
 })
 export class FacultyTable {
   @Input() dataSource: any[] = [];

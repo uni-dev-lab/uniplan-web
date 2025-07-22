@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Table } from './table/table';
 import { FacultyOptions } from '../../../features/faculty/faculty-options/faculty-options';
-import { ViewService } from '../navmenu-component/view.service';
+import { ViewService } from './view.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
