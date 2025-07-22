@@ -1,0 +1,12 @@
+<div class="mainPanel">
+    <div class="components-wrapper">
+        <ng-container *ngIf="currentView === 'faculty'">
+            <app-faculty-options></app-faculty-options>
+            <app-table></app-table>
+        </ng-container>
+
+        <ng-container *ngIf="currentView === 'home'">
+            <h1>Main!</h1>
+        </ng-container>
+    </div>
+</div>
