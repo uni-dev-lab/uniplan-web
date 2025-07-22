@@ -27,11 +27,11 @@ export class FacultyAddForm {
 
   save() {
     if (!this.facultyName.trim()) {
-      alert('Please enter a faculty name.');
+      alert('Please enter faculty name.');
       return;
     }
     if (!this.location.trim()) {
-      alert('Please enter a location.');
+      alert('Please enter location.');
       return;
     }
 

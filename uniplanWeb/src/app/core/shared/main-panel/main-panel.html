@@ -2,11 +2,16 @@
     <div class="components-wrapper">
         <ng-container *ngIf="currentView === 'faculty'">
             <app-faculty-options></app-faculty-options>
-            <app-table></app-table>
+            <app-faculty-table></app-faculty-table>
         </ng-container>
 
         <ng-container *ngIf="currentView === 'home'">
             <h1>Main!</h1>
+        </ng-container>
+
+        <ng-container *ngIf="currentView === 'major'">
+            <app-major-options></app-major-options>
+            <app-major-table></app-major-table>
         </ng-container>
     </div>
 </div>

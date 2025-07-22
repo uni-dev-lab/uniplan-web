@@ -3,10 +3,20 @@ import { Table } from './table/table';
 import { FacultyOptions } from '../../../features/faculty/faculty-options/faculty-options';
 import { ViewService } from './view.service';
 import { CommonModule } from '@angular/common';
+import { MajorOptions } from '../../../features/major/major-options/major-options';
+import { FacultyTable } from '../../../features/faculty/faculty-table/faculty-table';
+import { MajorTable } from '../../../features/major/major-table/major-table';
 
 @Component({
   selector: 'app-main-panel',
-  imports: [CommonModule, Table, FacultyOptions],
+  imports: [
+    CommonModule,
+    Table,
+    FacultyOptions,
+    MajorOptions,
+    FacultyTable,
+    MajorTable,
+  ],
   standalone: true,
   templateUrl: './main-panel.html',
   styleUrl: './main-panel.scss',

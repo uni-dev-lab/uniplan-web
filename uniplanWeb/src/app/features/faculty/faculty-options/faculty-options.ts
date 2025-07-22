@@ -8,13 +8,7 @@ import { FacultyAddForm } from '../faculty-add-form/faculty-add-form';
 
 @Component({
   selector: 'app-faculty-options',
-  imports: [
-    CommonModule,
-    MatTableModule,
-    MatIconModule,
-    MatButtonModule,
-    FacultyAddForm,
-  ],
+  imports: [CommonModule, MatTableModule, MatIconModule, MatButtonModule],
   standalone: true,
   templateUrl: './faculty-options.html',
   styleUrl: './faculty-options.scss',

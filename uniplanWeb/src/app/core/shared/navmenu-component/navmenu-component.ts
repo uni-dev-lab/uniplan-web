@@ -50,4 +50,8 @@ export class NavmenuComponent implements OnInit {
   onFacultyClick(): void {
     this.viewService.setView('faculty');
   }
+
+  onMajorClick(): void {
+    this.viewService.setView('major');
+  }
 }
