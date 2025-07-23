@@ -1,17 +1,47 @@
 <div class="mainPanel">
     <div class="components-wrapper">
         <ng-container *ngIf="currentView === 'faculty'">
-            <app-faculty-options></app-faculty-options>
-            <app-faculty-table></app-faculty-table>
+            <div class="component-panel faculty">
+                <app-faculty-options></app-faculty-options>
+                <app-faculty-table></app-faculty-table>
+            </div>
         </ng-container>
 
         <ng-container *ngIf="currentView === 'home'">
-            <h1>Main!</h1>
+            <div class="component-panel home">
+                <h1>Main!</h1>
+            </div>
         </ng-container>
 
         <ng-container *ngIf="currentView === 'major'">
-            <app-major-options></app-major-options>
-            <app-major-table></app-major-table>
+            <div class="component-panel major">
+                <div class="major-controls-row">
+                    <app-major-options></app-major-options>
+                    <app-major-filters
+                        [faculties]="faculties"
+                        [types]="types"
+                        [subtypes]="subtypes"
+                        [selectedFaculty]="selectedFaculty"
+                        [selectedType]="selectedType"
+                        [selectedSubtype]="selectedSubtype"
+                        [searchText]="searchText"
+                        (facultyChange)="selectedFaculty = $event"
+                        (typeChange)="selectedType = $event"
+                        (subtypeChange)="selectedSubtype = $event"
+                        (searchTextChange)="searchText = $event">
+                    </app-major-filters>
+                </div>
+                <app-major-table
+                    [faculty]="selectedFaculty"
+                    [type]="selectedType"
+                    [subtype]="selectedSubtype"
+                    [searchText]="searchText"
+                    [faculties]="faculties"
+                    [types]="types"
+                    [subtypes]="subtypes">
+                </app-major-table>
+            </div>
+
         </ng-container>
     </div>
 </div>

@@ -1,3 +1,9 @@
-<div class="filters-container">
-
-</div>
+<mat-form-field appearance="outline" class="filter-field">
+    <mat-label>{{ label }}</mat-label>
+    <mat-select [value]="selected" (selectionChange)="onChange($event.value)">
+        <mat-option value>Всички</mat-option>
+        <mat-option *ngFor="let option of options" [value]="option">
+            {{ option }}
+        </mat-option>
+    </mat-select>
+</mat-form-field>

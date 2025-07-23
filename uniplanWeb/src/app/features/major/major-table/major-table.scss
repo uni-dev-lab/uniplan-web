@@ -2,7 +2,6 @@
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  margin-top: 1%;
   background-color: #fff;
 }
 
@@ -12,7 +11,7 @@
 }
 
 .scrollable-body {
-  max-height: 645px;
+  max-height: 625px;
   overflow-y: auto;
   overflow-x: hidden;
 }

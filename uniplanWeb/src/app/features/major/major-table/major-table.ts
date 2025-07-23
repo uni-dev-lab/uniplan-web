@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { MajorElm } from '../../../core/interfaces/major-elm';
 
-const ELEMENT_DATA: MajorElm[] = [
+export const ELEMENT_DATA: MajorElm[] = [
   {
     position: 1,
     name: 'Софтуерно инженерство',
@@ -120,7 +120,7 @@ const ELEMENT_DATA: MajorElm[] = [
   templateUrl: './major-table.html',
   styleUrl: './major-table.scss',
 })
-export class MajorTable {
+export class MajorTable implements OnChanges {
   displayedColumns: string[] = [
     'position',
     'name',
@@ -137,5 +137,55 @@ export class MajorTable {
 
   onDelete(element: MajorElm): void {
     console.log('Deleting:', element);
+  }
+
+  @Input() searchText = '';
+
+  @Input() faculty: string = '';
+  @Input() type: string = '';
+  @Input() subtype: string = '';
+
+  @Input() faculties: string[] = [];
+  @Input() types: string[] = [];
+  @Input() subtypes: string[] = [];
+
+  originalData: MajorElm[] = ELEMENT_DATA;
+  dataSourceFilter: MajorElm[] = ELEMENT_DATA;
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.applyFilters();
+  }
+
+  applyFilters(): void {
+    this.dataSourceFilter = this.originalData.filter((el) => {
+      const matchesFaculty = !this.faculty || el.faculty === this.faculty;
+      const matchesType = !this.type || el.type === this.type;
+      const matchesSubtype = !this.subtype || el.subtype === this.subtype;
+      const matchesSearch =
+        !this.searchText ||
+        el.name.toLowerCase().includes(this.searchText.toLowerCase());
+
+      return matchesFaculty && matchesType && matchesSubtype && matchesSearch;
+    });
+  }
+  static getFilterOptions(data: MajorElm[]) {
+    return {
+      faculties: [...new Set(data.map((e) => e.faculty))],
+      types: [...new Set(data.map((e) => e.type))],
+      subtypes: [...new Set(data.map((e) => e.subtype))],
+    };
+  }
+
+  get filteredMajors(): MajorElm[] {
+    return this.originalData.filter((major) => {
+      const matchesFaculty = !this.faculty || major.faculty === this.faculty;
+      const matchesType = !this.type || major.type === this.type;
+      const matchesSubtype = !this.subtype || major.subtype === this.subtype;
+      const matchesSearch =
+        !this.searchText ||
+        major.name.toLowerCase().includes(this.searchText.toLowerCase());
+
+      return matchesFaculty && matchesType && matchesSubtype && matchesSearch;
+    });
   }
 }
