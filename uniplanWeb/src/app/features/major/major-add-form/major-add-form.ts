@@ -52,11 +52,19 @@ export class MajorAddForm {
       return;
     }
 
-    console.log('Saving major:', this.majorName, this.type);
+    console.log(
+      'Saving major:',
+      this.majorName,
+      this.faculty,
+      this.type,
+      this.subtype
+    );
 
     this.dialogRef.close({
       name: this.majorName,
-      location: this.type,
+      faculty: this.faculty,
+      type: this.type,
+      subtype: this.subtype,
     });
   }
 }
