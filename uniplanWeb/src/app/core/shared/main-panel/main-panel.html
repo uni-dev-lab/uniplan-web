@@ -41,7 +41,12 @@
                     [subtypes]="subtypes">
                 </app-major-table>
             </div>
+        </ng-container>
 
+        <ng-container *ngIf="currentView === 'student'">
+            <div class="component-panel student">
+                <h1>Student</h1>
+            </div>
         </ng-container>
     </div>
 </div>
