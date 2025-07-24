@@ -4,6 +4,7 @@ import { FiltersForm } from '../../../core/shared/filters-form/filters-form';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
+import { InputFilter } from '../../../core/shared/input-filter/input-filter';
 
 @Component({
   selector: 'app-major-filters',
@@ -13,14 +14,14 @@ import { MatIconModule } from '@angular/material/icon';
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
+    InputFilter,
   ],
   standalone: true,
   templateUrl: './major-filters.html',
   styleUrl: './major-filters.scss',
 })
 export class MajorFilters {
-  @Input() searchText = '';
-  @Output() searchTextChange = new EventEmitter<string>();
+  @Input() internalSearchText = '';
 
   @Input() faculties: string[] = [];
   @Input() types: string[] = [];
@@ -33,4 +34,5 @@ export class MajorFilters {
   @Output() facultyChange = new EventEmitter<string>();
   @Output() typeChange = new EventEmitter<string>();
   @Output() subtypeChange = new EventEmitter<string>();
+  @Output() searchTextChange = new EventEmitter<string>();
 }

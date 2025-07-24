@@ -1,14 +1,9 @@
 <div class="filters-panel">
-    <mat-form-field appearance="outline" class="filter search-input"
-        floatLabel="always">
-        <mat-label>Специалност</mat-label>
-        <mat-icon matPrefix>search</mat-icon>
-        <input
-            matInput
-            type="text"
-            [value]="searchText"
-            (input)="searchTextChange.emit($any($event).target.value)" />
-    </mat-form-field>
+    <app-input-filter
+        [label]="'Специалност'"
+        [(searchText)]="internalSearchText"
+        (searchTextChange)="searchTextChange.emit($event)">
+    </app-input-filter>
 
     <app-filters-form
         [label]="'Факултет'"
