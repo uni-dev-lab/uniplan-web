@@ -11,9 +11,21 @@
 }
 
 .scrollable-body {
-  max-height: 625px;
+  max-height: 510px;
   overflow-y: auto;
   overflow-x: hidden;
+}
+
+@media (min-width: 900px) {
+  .scrollable-body {
+    max-height: 510px;
+  }
+}
+
+@media (min-width: 1800px) {
+  .scrollable-body {
+    max-height: 680px;
+  }
 }
 
 .table-body {
