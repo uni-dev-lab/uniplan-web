@@ -32,7 +32,7 @@
   }
 }
 
-.component-panel .major {
+.component-panel .major .component-panel .student {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: auto 1fr;
@@ -46,7 +46,7 @@
   margin-top: 4%;
 }
 
-.major-controls-row {
+.controls-row {
   display: grid;
   grid-template-columns: auto 1fr;
   gap: 16px;

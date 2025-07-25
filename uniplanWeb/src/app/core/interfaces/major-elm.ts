@@ -3,5 +3,5 @@ export interface MajorElm {
   faculty: string;
   position: number;
   type: 'Бакалавър' | 'Магистър';
-  subtype: 'Редовно' | 'Платено';
+  subtype: 'редовно' | 'задочно';
 }

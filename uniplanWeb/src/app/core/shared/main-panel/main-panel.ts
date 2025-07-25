@@ -9,6 +9,12 @@ import {
   ELEMENT_DATA,
 } from '../../../features/major/major-table/major-table';
 import { MajorFilters } from '../../../features/major/major-filters/major-filters';
+import { StudentOptions } from '../../../features/student/student-options/student-options';
+import {
+  ELEMENT_STUDENT_DATA,
+  StudentTable,
+} from '../../../features/student/student-table/student-table';
+import { StudentFilters } from '../../../features/student/student-filters/student-filters';
 
 @Component({
   selector: 'app-main-panel',
@@ -19,6 +25,9 @@ import { MajorFilters } from '../../../features/major/major-filters/major-filter
     FacultyTable,
     MajorTable,
     MajorFilters,
+    StudentOptions,
+    StudentTable,
+    StudentFilters,
   ],
   standalone: true,
   templateUrl: './main-panel.html',
@@ -34,8 +43,13 @@ export class MainPanel {
   }
 
   majors = ELEMENT_DATA;
+  students = ELEMENT_STUDENT_DATA;
 
   searchText = '';
+  searchFacNum = '';
+  searchMajor = '';
+  selectedStudentSubtype = '';
+  studentSubtypes: string[] = [];
 
   selectedFaculty = '';
   selectedType = '';
@@ -46,9 +60,12 @@ export class MainPanel {
   subtypes: string[] = [];
 
   ngOnInit(): void {
-    const filterOptions = MajorTable.getFilterOptions(this.majors);
-    this.faculties = filterOptions.faculties;
-    this.types = filterOptions.types;
-    this.subtypes = filterOptions.subtypes;
+    const filterOptionsMajor = MajorTable.getFilterOptions(this.majors);
+    this.faculties = filterOptionsMajor.faculties;
+    this.types = filterOptionsMajor.types;
+    this.subtypes = filterOptionsMajor.subtypes;
+
+    const filterOptionsStudent = StudentTable.getFilterOptions(this.students);
+    this.studentSubtypes = filterOptionsStudent.subtypes;
   }
 }

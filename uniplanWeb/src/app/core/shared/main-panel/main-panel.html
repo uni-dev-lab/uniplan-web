@@ -15,7 +15,7 @@
 
         <ng-container *ngIf="currentView === 'major'">
             <div class="component-panel major">
-                <div class="major-controls-row">
+                <div class="controls-row">
                     <app-major-options class="options"></app-major-options>
                     <app-major-filters
                         [faculties]="faculties"
@@ -45,7 +45,27 @@
 
         <ng-container *ngIf="currentView === 'student'">
             <div class="component-panel student">
-                <h1>Student</h1>
+                <div class="controls-row">
+                    <app-student-options class="options"></app-student-options>
+                    <app-student-filters
+                        [internalSearchText]="searchText"
+                        (searchTextChange)="searchText = $event"
+                        [internalSearchFacNum]="searchFacNum"
+                        (searchFacNumChange)="searchFacNum = $event"
+                        [internalSearchMajor]="searchMajor"
+                        (searchMajorChange)="searchMajor = $event"
+                        [subtypes]="studentSubtypes"
+                        [selectedSubtype]="selectedStudentSubtype"
+                        (subtypeChange)="selectedStudentSubtype = $event">
+                    </app-student-filters>
+                </div>
+                <app-student-table
+                    [searchText]="searchText"
+                    [searchFacNum]="searchFacNum"
+                    [searchMajor]="searchMajor"
+                    [subtype]="selectedStudentSubtype"
+                    [subtypes]="studentSubtypes">
+                </app-student-table>
             </div>
         </ng-container>
     </div>
