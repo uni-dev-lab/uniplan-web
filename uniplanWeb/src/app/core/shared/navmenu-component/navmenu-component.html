@@ -14,7 +14,7 @@
     <ul class="list">
       <li class="list"><a href="#" class="nav-link" (click)="onHomeClick()">
           <span class="link">Начало</span></a></li>
-      <li class="list" *ngIf="authService.isLoggedIn()">
+      <li class="list" *ngIf="!authService.isLoggedIn()">
         <a href="#" class="nav-link"><span class="link">Създай
             разписание</span></a>
       </li>
@@ -30,6 +30,8 @@
       <li class="list"><a href="#" class="nav-link"
           (click)="onStudentClick()"><span
             class="link">Студенти</span></a></li>
+      <li class="list"><a href="#" class="nav-link"><span
+            class="link">Преподаватели</span></a></li>
       <li class="list"><a href="#" class="nav-link"><span
             class="link">Предмети</span></a></li>
     </ul>
