@@ -6,7 +6,9 @@ export interface FacultyApiResponse {
 }
 
 export interface FacultyElm {
-  name: string;
+  id: string;
+  facultyName: string;
   position: number;
   location: string;
+  universityId: string;
 }

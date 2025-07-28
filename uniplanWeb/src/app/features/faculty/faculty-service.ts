@@ -20,8 +20,10 @@ export class FacultyService {
     return this.http.get<FacultyApiResponse[]>(this.apiUrl).pipe(
       map((faculties) =>
         faculties.map((faculty, index) => ({
-          name: faculty.facultyName,
+          id: faculty.id,
+          facultyName: faculty.facultyName,
           location: faculty.location,
+          universityId: faculty.universityId,
           position: index + 1,
         }))
       )
@@ -34,6 +36,31 @@ export class FacultyService {
     location: string;
   }): Observable<any> {
     return this.http.post(`${this.apiUrl}`, faculty).pipe(
+      map((res) => {
+        this.refreshNeeded.next();
+        return res;
+      })
+    );
+  }
+
+  editFaculty(
+    id: string,
+    updatedFaculty: {
+      universityId: string;
+      facultyName: string;
+      location: string;
+    }
+  ): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${id}`, updatedFaculty).pipe(
+      map((res) => {
+        this.refreshNeeded.next();
+        return res;
+      })
+    );
+  }
+
+  deleteFaculty(id: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${id}`).pipe(
       map((res) => {
         this.refreshNeeded.next();
         return res;
