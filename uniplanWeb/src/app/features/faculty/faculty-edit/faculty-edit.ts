@@ -61,11 +61,6 @@ export class FacultyEdit {
       return;
     }
 
-    if (!this.universityId.trim()) {
-      alert('Please select a university.');
-      return;
-    }
-
     this.facultyService
       .editFaculty(this.data.id, {
         facultyName: this.facultyName,

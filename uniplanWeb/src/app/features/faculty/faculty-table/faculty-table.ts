@@ -3,10 +3,7 @@ import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
-import {
-  FacultyApiResponse,
-  FacultyElm,
-} from '../../../core/interfaces/faculty-elm';
+import { FacultyElm } from '../../../core/interfaces/faculty-elm';
 import { FacultyService } from '../faculty-service';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { FacultyEdit } from '../faculty-edit/faculty-edit';
@@ -53,7 +50,7 @@ export class FacultyTable {
     });
   }
 
-  onEdit(element: FacultyApiResponse): void {
+  onEdit(element: FacultyElm): void {
     this.dialog.open(FacultyEdit, {
       data: {
         id: element.id,

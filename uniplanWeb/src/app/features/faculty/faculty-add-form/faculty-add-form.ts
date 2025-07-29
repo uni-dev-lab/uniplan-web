@@ -7,7 +7,11 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { AddForm } from '../../../core/shared/add-form/add-form';
 import { FacultyService } from '../faculty-service';
-import { UniversityService } from '../../university/university-service'; // Make sure path is correct
+import {
+  UniversityElm,
+  UniversityService,
+} from '../../university/university-service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-faculty-add-form',
@@ -21,19 +25,33 @@ import { UniversityService } from '../../university/university-service'; // Make
     MatSelectModule,
     MatOptionModule,
     AddForm,
+    CommonModule,
   ],
   templateUrl: './faculty-add-form.html',
   styleUrl: './faculty-add-form.scss',
 })
-export class FacultyAddForm {
+export class FacultyAddForm implements OnInit {
   facultyName = '';
   location = '';
   universityId = '';
+  universities: UniversityElm[] = [];
 
   constructor(
     private dialogRef: MatDialogRef<AddForm>,
-    private facultyService: FacultyService
+    private facultyService: FacultyService,
+    private universityService: UniversityService
   ) {}
+
+  ngOnInit(): void {
+    this.universityService.getAllUniversities().subscribe({
+      next: (data) => {
+        this.universities = data;
+      },
+      error: (err) => {
+        console.error('Failed to load universities', err);
+      },
+    });
+  }
 
   save() {
     if (!this.facultyName.trim()) {
@@ -43,11 +61,6 @@ export class FacultyAddForm {
 
     if (!this.location.trim()) {
       alert('Please enter location.');
-      return;
-    }
-
-    if (!this.universityId.trim()) {
-      alert('Please select a university.');
       return;
     }
 

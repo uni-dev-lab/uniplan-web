@@ -1,10 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable, Subject } from 'rxjs';
-import {
-  FacultyApiResponse,
-  FacultyElm,
-} from '../../core/interfaces/faculty-elm';
+import { FacultyElm } from '../../core/interfaces/faculty-elm';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +14,7 @@ export class FacultyService {
   constructor(private http: HttpClient) {}
 
   getFaculties(): Observable<FacultyElm[]> {
-    return this.http.get<FacultyApiResponse[]>(this.apiUrl).pipe(
+    return this.http.get<FacultyElm[]>(this.apiUrl).pipe(
       map((faculties) =>
         faculties.map((faculty, index) => ({
           id: faculty.id,
