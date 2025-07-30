@@ -4,3 +4,6 @@ import { LayoutComponent } from './layout-component/layout-component';
 export const routes: Routes = [
     {path: "" , component: LayoutComponent}
 ];
+
+export const routes: Routes = [];
+
