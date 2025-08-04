@@ -1,28 +1,72 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
+import { FacultyElm } from '../../../core/interfaces/faculty-elm';
+import { FacultyService } from '../faculty-service';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { FacultyEdit } from '../faculty-edit/faculty-edit';
+import { FacultyDeleteForm } from '../faculty-delete-form/faculty-delete-form';
 
 @Component({
   selector: 'app-faculty-table',
-  imports: [CommonModule ,MatTableModule, MatIconModule, MatButtonModule],
   standalone: true,
+  imports: [
+    CommonModule,
+    MatTableModule,
+    MatIconModule,
+    MatButtonModule,
+    MatDialogModule,
+  ],
   templateUrl: './faculty-table.html',
-  styleUrl: './faculty-table.scss'
+  styleUrl: './faculty-table.scss',
 })
 export class FacultyTable {
-  @Input() dataSource: any[] = [];
-  @Input() displayedColumns: string[] = [];
+  displayedColumns: string[] = [
+    'position',
+    'facultyName',
+    'location',
+    'actions',
+  ];
+  dataSource: FacultyElm[] = [];
 
-  @Output() edit = new EventEmitter<any>();
-  @Output() delete = new EventEmitter<any>();
+  constructor(
+    private facultyService: FacultyService,
+    private dialog: MatDialog
+  ) {}
 
-  onEdit(element: any): void {
-    this.edit.emit(element);
+  ngOnInit(): void {
+    this.loadFaculties();
+
+    this.facultyService.refreshNeeded.subscribe(() => {
+      this.loadFaculties();
+    });
   }
 
-  onDelete(element: any): void {
-    this.delete.emit(element);
+  loadFaculties(): void {
+    this.facultyService.getFaculties().subscribe((data) => {
+      this.dataSource = data;
+    });
+  }
+
+  onEdit(element: FacultyElm): void {
+    this.dialog.open(FacultyEdit, {
+      data: {
+        id: element.id,
+        facultyName: element.facultyName,
+        location: element.location,
+        universityId: element.universityId,
+      },
+    });
+  }
+
+  onDelete(element: FacultyElm): void {
+    this.dialog.open(FacultyDeleteForm, {
+      data: {
+        id: element.id,
+        facultyName: element.facultyName,
+      },
+    });
   }
 }

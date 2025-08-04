@@ -12,32 +12,26 @@
 
   <div class="sidebar-content">
     <ul class="list">
-      <li class="list"><a href="#" class="nav-link"><span
-            class="link">Начало</span></a></li>
-      <li class="list" *ngIf="authService.isLoggedIn()">
+      <li class="list"><a href="#" class="nav-link" (click)="onHomeClick()">
+          <span class="link">Начало</span></a></li>
+      <li class="list" *ngIf="!authService.isLoggedIn()">
         <a href="#" class="nav-link"><span class="link">Създай
             разписание</span></a>
       </li>
-      <li class="list"><a href="#" class="nav-link"><span
+      <li class="list"><a href="#" class="nav-link"
+          (click)="onFacultyClick()"><span
             class="link">Факултет</span></a></li>
       <li class="list"><a href="#" class="nav-link"><span
-            class="link">Дисциплина</span></a></li>
-
-      <li class="list dropdown" *ngIf="authService.isLoggedIn()">
-        <a href="#" class="nav-link">
-          <span class="link">Специалност</span>
-          <i class="bx bx-chevron-down icon"></i>
-        </a>
-        <ul class="dropdown-menu">
-          <li><a href="#">Бакалавър</a></li>
-          <li><a href="#">Магистър</a></li>
-        </ul>
-      </li>
-
+            class="link">Катедра</span></a></li>
+      <li class="list"><a href="#" class="nav-link" (click)="onMajorClick()">
+          <span class="link">Специалност</span></a></li>
       <li class="list"><a href="#" class="nav-link"><span
             class="link">Стаи</span></a></li>
-      <li class="list"><a href="#" class="nav-link"><span
+      <li class="list"><a href="#" class="nav-link"
+          (click)="onStudentClick()"><span
             class="link">Студенти</span></a></li>
+      <li class="list"><a href="#" class="nav-link"><span
+            class="link">Преподаватели</span></a></li>
       <li class="list"><a href="#" class="nav-link"><span
             class="link">Предмети</span></a></li>
     </ul>
