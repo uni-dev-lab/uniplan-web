@@ -23,6 +23,7 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './student-add-form.scss',
 })
 export class StudentAddForm {
+  //todo
   studentName = '';
   facultyNumber = '';
   faculty = '';

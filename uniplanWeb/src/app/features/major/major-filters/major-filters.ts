@@ -21,6 +21,7 @@ import { FacultyService } from '../../faculty/faculty-service';
   styleUrl: './major-filters.scss',
 })
 export class MajorFilters {
+  //todo
   @Input() internalSearchText = '';
 
   @Input() faculties: { id: string; name: string }[] = [];

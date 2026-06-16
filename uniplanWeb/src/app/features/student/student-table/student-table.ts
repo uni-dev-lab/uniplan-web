@@ -113,6 +113,7 @@ export const ELEMENT_STUDENT_DATA: StudentElm[] = [
   styleUrl: './student-table.scss',
 })
 export class StudentTable implements OnInit, OnChanges {
+  //todo
   @Input() searchText = '';
   @Input() searchFacNum = '';
   @Input() searchMajor = '';

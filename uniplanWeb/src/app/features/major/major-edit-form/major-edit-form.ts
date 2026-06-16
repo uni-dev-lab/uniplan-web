@@ -32,6 +32,7 @@ import { FacultyElm } from '../../../core/interfaces/faculty-elm';
   styleUrl: './major-edit-form.scss',
 })
 export class MajorEditForm implements OnInit {
+  //todo
   majorName = '';
   facultyId = '';
 

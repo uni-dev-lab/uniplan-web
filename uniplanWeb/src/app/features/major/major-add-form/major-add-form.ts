@@ -31,6 +31,7 @@ import { FacultyService } from '../../faculty/faculty-service';
   styleUrl: './major-add-form.scss',
 })
 export class MajorAddForm implements OnInit {
+  //todo
   majorName = '';
   faculty = '';
   type = '';

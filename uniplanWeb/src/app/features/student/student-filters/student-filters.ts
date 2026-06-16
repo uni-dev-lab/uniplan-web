@@ -10,6 +10,7 @@ import { FiltersForm } from '../../../core/shared/filters-form/filters-form';
   styleUrl: './student-filters.scss',
 })
 export class StudentFilters {
+  //todo
   @Input() internalSearchText = '';
   @Output() searchTextChange = new EventEmitter<string>();
 
