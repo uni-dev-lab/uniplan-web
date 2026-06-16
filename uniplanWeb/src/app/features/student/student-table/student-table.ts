@@ -5,6 +5,7 @@ import {
   effect,
   OnChanges,
   OnInit,
+  signal,
   ChangeDetectionStrategy
 } from '@angular/core';
 import { StudentElm } from '../../../core/interfaces/student-elm';
@@ -108,17 +109,17 @@ export const ELEMENT_STUDENT_DATA: StudentElm[] = [
 
 @Component({
   selector: 'app-student-table',
-  imports: [MatTableModule, MatIconModule, MatButtonModule],
   templateUrl: './student-table.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './student-table.scss',
+  imports: [MatTableModule, MatIconModule, MatButtonModule],
+
 })
 export class StudentTable implements OnInit {
   searchText = input<string>('');
   searchFacNum = input<string>('');
   searchMajor = input<string>('');
-  subtype = input<string>('');
-  //!
+  subtype = signal<string>('');
   subtypes: string[] = [];
 
   displayedColumns: string[] = [
@@ -136,7 +137,7 @@ export class StudentTable implements OnInit {
   dataSourceFilter: StudentElm[] = ELEMENT_STUDENT_DATA;
 
   ngOnInit(): void {
-    this.subtypes = StudentTable.getFilterOptions(this.originalData).subtypes;
+    //this.subtypes = StudentTable.getFilterOptions(this.originalData).subtypes;
     this.applyFilters();
   }
 

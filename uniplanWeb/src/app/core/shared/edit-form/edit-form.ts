@@ -1,16 +1,16 @@
-import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
+import { Component, EventEmitter, input, Output, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialogModule } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-edit-form',
-  imports: [MatDialogModule],
   standalone: true,
   templateUrl: './edit-form.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './edit-form.scss',
+  imports: [MatDialogModule],
 })
 export class EditForm {
-  @Input() title: string = '';
+  title = input<string>('');
 
   @Output() saveClicked = new EventEmitter<void>();
 }

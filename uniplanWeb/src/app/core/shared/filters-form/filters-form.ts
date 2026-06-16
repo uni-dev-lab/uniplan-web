@@ -1,25 +1,25 @@
 
-import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
+import { Component, EventEmitter, input, Output, ChangeDetectionStrategy } from '@angular/core';
 import { MatOptionModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-filters-form',
-  imports: [MatFormFieldModule, MatSelectModule, MatOptionModule],
   standalone: true,
   templateUrl: './filters-form.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './filters-form.scss',
+  imports: [MatFormFieldModule, MatSelectModule, MatOptionModule],
 })
 export class FiltersForm {
-  @Input() label = '';
+  label = input<string>('');
 
-  @Input() options: string[] = [];
+  options = input<string[]>([]);
 
-  @Input() objectOptions: { id: string; name: string }[] = [];
+  objectOptions = input<{ id: string; name: string }[]>([]);
 
-  @Input() selected = '';
+  selected = input<string>('');
   @Output() selectionChange = new EventEmitter<string>();
 
   onChange(value: string) {

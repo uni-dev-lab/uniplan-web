@@ -16,8 +16,8 @@
 
     <app-filters-form
         [label]="'Форма на обучение'"
-        [options]="subtypes"
-        [selected]="selectedSubtype"
+        [options]="subtypes()"
+        [selected]="selectedSubtype()"
         (selectionChange)="subtypeChange.emit($event)"
         class="filter">
     </app-filters-form>

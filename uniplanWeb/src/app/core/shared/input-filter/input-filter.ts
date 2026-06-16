@@ -1,5 +1,5 @@
 
-import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
+import { Component, EventEmitter, input, Output, ChangeDetectionStrategy } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormField, MatInputModule } from '@angular/material/input';
 
@@ -12,7 +12,7 @@ import { MatFormField, MatInputModule } from '@angular/material/input';
   styleUrl: './input-filter.scss',
 })
 export class InputFilter {
-  @Input() label: string = '';
-  @Input() searchText = '';
+  label = input<string>('');
+  searchText = input<string>('');
   @Output() searchTextChange = new EventEmitter<string>();
 }
