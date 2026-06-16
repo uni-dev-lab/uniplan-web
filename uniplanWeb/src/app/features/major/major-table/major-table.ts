@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, Input, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -12,7 +12,7 @@ import { FacultyService } from '../../faculty/faculty-service';
 
 @Component({
   selector: 'app-major-table',
-  imports: [CommonModule, MatTableModule, MatIconModule, MatButtonModule],
+  imports: [MatTableModule, MatIconModule, MatButtonModule],
   standalone: true,
   templateUrl: './major-table.html',
   styleUrl: './major-table.scss',

@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FiltersForm } from '../../../core/shared/filters-form/filters-form';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -10,13 +10,12 @@ import { FacultyService } from '../../faculty/faculty-service';
 @Component({
   selector: 'app-major-filters',
   imports: [
-    CommonModule,
     FiltersForm,
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
-    InputFilter,
-  ],
+    InputFilter
+],
   standalone: true,
   templateUrl: './major-filters.html',
   styleUrl: './major-filters.scss',

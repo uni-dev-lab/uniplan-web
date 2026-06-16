@@ -10,7 +10,7 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+
 import { MajorService } from '../major-service';
 import { FacultyService } from '../../faculty/faculty-service';
 import { FacultyElm } from '../../../core/interfaces/faculty-elm';
@@ -26,9 +26,8 @@ import { FacultyElm } from '../../../core/interfaces/faculty-elm';
     FormsModule,
     MatInputModule,
     MatSelectModule,
-    MatOptionModule,
-    CommonModule,
-  ],
+    MatOptionModule
+],
   templateUrl: './major-edit-form.html',
   styleUrl: './major-edit-form.scss',
 })

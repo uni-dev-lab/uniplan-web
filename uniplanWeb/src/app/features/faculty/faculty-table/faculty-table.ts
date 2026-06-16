@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -13,12 +13,11 @@ import { FacultyDeleteForm } from '../faculty-delete-form/faculty-delete-form';
   selector: 'app-faculty-table',
   standalone: true,
   imports: [
-    CommonModule,
     MatTableModule,
     MatIconModule,
     MatButtonModule,
-    MatDialogModule,
-  ],
+    MatDialogModule
+],
   templateUrl: './faculty-table.html',
   styleUrl: './faculty-table.scss',
 })

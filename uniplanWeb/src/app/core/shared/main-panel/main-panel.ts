@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FacultyOptions } from '../../../features/faculty/faculty-options/faculty-options';
 import { ViewService } from './view.service';
 import { MajorOptions } from '../../../features/major/major-options/major-options';
@@ -19,7 +19,6 @@ import { FacultyService } from '../../../features/faculty/faculty-service';
 @Component({
   selector: 'app-main-panel',
   imports: [
-    CommonModule,
     FacultyOptions,
     MajorOptions,
     FacultyTable,
@@ -27,8 +26,8 @@ import { FacultyService } from '../../../features/faculty/faculty-service';
     MajorFilters,
     StudentOptions,
     StudentTable,
-    StudentFilters,
-  ],
+    StudentFilters
+],
   standalone: true,
   templateUrl: './main-panel.html',
   styleUrl: './main-panel.scss',

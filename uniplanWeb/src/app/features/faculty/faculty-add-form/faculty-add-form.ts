@@ -11,7 +11,7 @@ import {
   UniversityElm,
   UniversityService,
 } from '../../university/university-service';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-faculty-add-form',
@@ -24,9 +24,8 @@ import { CommonModule } from '@angular/common';
     MatInputModule,
     MatSelectModule,
     MatOptionModule,
-    AddForm,
-    CommonModule,
-  ],
+    AddForm
+],
   templateUrl: './faculty-add-form.html',
   styleUrl: './faculty-add-form.scss',
 })

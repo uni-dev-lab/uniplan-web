@@ -12,7 +12,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MajorService } from '../major-service';
 import { FacultyElm } from '../../../core/interfaces/faculty-elm';
 import { FacultyService } from '../../faculty/faculty-service';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-major-add-form',
@@ -24,9 +24,8 @@ import { CommonModule } from '@angular/common';
     MatInputModule,
     AddForm,
     MatFormFieldModule,
-    MatSelectModule,
-    CommonModule,
-  ],
+    MatSelectModule
+],
   standalone: true,
   templateUrl: './major-add-form.html',
   styleUrl: './major-add-form.scss',
