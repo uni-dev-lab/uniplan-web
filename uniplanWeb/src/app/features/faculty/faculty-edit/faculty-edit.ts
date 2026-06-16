@@ -15,7 +15,6 @@ import { EditForm } from '../../../core/shared/edit-form/edit-form';
 
 @Component({
   selector: 'app-faculty-edit',
-  standalone: true,
   templateUrl: './faculty-edit.html',
   styleUrl: './faculty-edit.scss',
   changeDetection: ChangeDetectionStrategy.Eager,

@@ -10,7 +10,6 @@ import { FacultyService } from '../faculty-service';
 @Component({
   selector: 'app-faculty-delete-form',
   imports: [DeleteForm, MatDialogModule],
-  standalone: true,
   templateUrl: './faculty-delete-form.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './faculty-delete-form.scss',

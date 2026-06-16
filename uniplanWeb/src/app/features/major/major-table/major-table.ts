@@ -13,7 +13,6 @@ import { FacultyService } from '../../faculty/faculty-service';
 @Component({
   selector: 'app-major-table',
   imports: [MatTableModule, MatIconModule, MatButtonModule],
-  standalone: true,
   templateUrl: './major-table.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './major-table.scss',

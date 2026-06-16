@@ -16,7 +16,6 @@ import { FacultyService } from '../../faculty/faculty-service';
     MatIconModule,
     InputFilter
 ],
-  standalone: true,
   templateUrl: './major-filters.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './major-filters.scss',

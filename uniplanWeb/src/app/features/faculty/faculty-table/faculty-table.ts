@@ -11,7 +11,6 @@ import { FacultyDeleteForm } from '../faculty-delete-form/faculty-delete-form';
 
 @Component({
   selector: 'app-faculty-table',
-  standalone: true,
   imports: [
     MatTableModule,
     MatIconModule,

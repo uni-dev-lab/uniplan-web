@@ -6,7 +6,6 @@ import { StudentAddForm } from '../student-add-form/student-add-form';
 @Component({
   selector: 'app-student-options',
   imports: [AddButton],
-  standalone: true,
   templateUrl: './student-options.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './student-options.scss',

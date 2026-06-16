@@ -15,7 +15,6 @@ import {
 
 @Component({
   selector: 'app-faculty-add-form',
-  standalone: true,
   imports: [
     MatDialogModule,
     MatFormField,

@@ -5,7 +5,6 @@ import { FiltersForm } from '../../../core/shared/filters-form/filters-form';
 @Component({
   selector: 'app-student-filters',
   imports: [InputFilter, FiltersForm],
-  standalone: true,
   templateUrl: './student-filters.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './student-filters.scss',

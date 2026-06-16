@@ -15,7 +15,6 @@ import { AddButton } from '../../../core/shared/add-button/add-button';
     MatButtonModule,
     AddButton
 ],
-  standalone: true,
   templateUrl: './faculty-options.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './faculty-options.scss',

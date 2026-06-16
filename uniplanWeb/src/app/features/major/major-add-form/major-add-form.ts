@@ -26,7 +26,6 @@ import { FacultyService } from '../../faculty/faculty-service';
     MatFormFieldModule,
     MatSelectModule
 ],
-  standalone: true,
   templateUrl: './major-add-form.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './major-add-form.scss',

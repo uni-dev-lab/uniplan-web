@@ -107,7 +107,6 @@ export const ELEMENT_STUDENT_DATA: StudentElm[] = [
 
 @Component({
   selector: 'app-student-table',
-  standalone: true,
   imports: [MatTableModule, MatIconModule, MatButtonModule],
   templateUrl: './student-table.html',
   changeDetection: ChangeDetectionStrategy.Eager,

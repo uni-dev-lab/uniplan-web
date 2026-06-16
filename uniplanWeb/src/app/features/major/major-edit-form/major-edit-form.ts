@@ -17,7 +17,6 @@ import { FacultyElm } from '../../../core/interfaces/faculty-elm';
 
 @Component({
   selector: 'app-major-edit-form',
-  standalone: true,
   imports: [
     EditForm,
     MatDialogModule,
