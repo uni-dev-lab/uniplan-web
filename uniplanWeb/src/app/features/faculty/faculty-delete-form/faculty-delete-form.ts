@@ -9,10 +9,10 @@ import { FacultyService } from '../faculty-service';
 
 @Component({
   selector: 'app-faculty-delete-form',
-  imports: [DeleteForm, MatDialogModule],
   templateUrl: './faculty-delete-form.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './faculty-delete-form.scss',
+  imports: [DeleteForm, MatDialogModule],
 })
 export class FacultyDeleteForm {
   constructor(
@@ -20,7 +20,7 @@ export class FacultyDeleteForm {
     private dialogRef: MatDialogRef<FacultyDeleteForm>,
     @Inject(MAT_DIALOG_DATA)
     public data: { id: string; facultyName: string }
-  ) {}
+  ) { }
 
   deleteFaculty(): void {
     this.facultyService.deleteFaculty(this.data.id).subscribe({

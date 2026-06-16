@@ -11,15 +11,15 @@ import { FacultyDeleteForm } from '../faculty-delete-form/faculty-delete-form';
 
 @Component({
   selector: 'app-faculty-table',
+  templateUrl: './faculty-table.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
+  styleUrl: './faculty-table.scss',
   imports: [
     MatTableModule,
     MatIconModule,
     MatButtonModule,
     MatDialogModule
-],
-  templateUrl: './faculty-table.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
-  styleUrl: './faculty-table.scss',
+  ],
 })
 export class FacultyTable {
   displayedColumns: string[] = [
@@ -33,7 +33,7 @@ export class FacultyTable {
   constructor(
     private facultyService: FacultyService,
     private dialog: MatDialog
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.loadFaculties();

@@ -17,6 +17,9 @@ import { FacultyElm } from '../../../core/interfaces/faculty-elm';
 
 @Component({
   selector: 'app-major-edit-form',
+  templateUrl: './major-edit-form.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
+  styleUrl: './major-edit-form.scss',
   imports: [
     EditForm,
     MatDialogModule,
@@ -26,13 +29,9 @@ import { FacultyElm } from '../../../core/interfaces/faculty-elm';
     MatInputModule,
     MatSelectModule,
     MatOptionModule
-],
-  templateUrl: './major-edit-form.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
-  styleUrl: './major-edit-form.scss',
+  ],
 })
 export class MajorEditForm implements OnInit {
-  //todo
   majorName = '';
   facultyId = '';
 

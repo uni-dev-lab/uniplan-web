@@ -16,6 +16,9 @@ import { FacultyService } from '../../faculty/faculty-service';
 
 @Component({
   selector: 'app-major-add-form',
+  templateUrl: './major-add-form.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
+  styleUrl: './major-add-form.scss',
   imports: [
     MatDialogModule,
     MatFormField,
@@ -25,13 +28,9 @@ import { FacultyService } from '../../faculty/faculty-service';
     AddForm,
     MatFormFieldModule,
     MatSelectModule
-],
-  templateUrl: './major-add-form.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
-  styleUrl: './major-add-form.scss',
+  ],
 })
 export class MajorAddForm implements OnInit {
-  //todo
   majorName = '';
   faculty = '';
   type = '';
@@ -43,7 +42,7 @@ export class MajorAddForm implements OnInit {
     private dialogRef: MatDialogRef<AddForm>,
     private majorService: MajorService,
     private facultyService: FacultyService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.facultyService.getFaculties().subscribe({
