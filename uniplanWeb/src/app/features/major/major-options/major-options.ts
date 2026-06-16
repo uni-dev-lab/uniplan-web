@@ -9,18 +9,18 @@ import { AddButton } from '../../../core/shared/add-button/add-button';
 
 @Component({
   selector: 'app-major-options',
+  templateUrl: './major-options.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
+  styleUrl: './major-options.scss',
   imports: [
     MatTableModule,
     MatIconModule,
     MatButtonModule,
     AddButton
-],
-  templateUrl: './major-options.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
-  styleUrl: './major-options.scss',
+  ],
 })
 export class MajorOptions {
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog) { }
 
   openAddForm() {
     this.dialog.open(MajorAddForm, {

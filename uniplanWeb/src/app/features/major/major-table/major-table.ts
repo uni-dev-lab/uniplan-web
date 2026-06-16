@@ -12,10 +12,10 @@ import { FacultyService } from '../../faculty/faculty-service';
 
 @Component({
   selector: 'app-major-table',
-  imports: [MatTableModule, MatIconModule, MatButtonModule],
   templateUrl: './major-table.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './major-table.scss',
+  imports: [MatTableModule, MatIconModule, MatButtonModule],
 })
 export class MajorTable implements OnInit {
   displayedColumns: string[] = [
