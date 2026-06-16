@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
   MatDialogModule,
@@ -15,9 +15,9 @@ import { EditForm } from '../../../core/shared/edit-form/edit-form';
 
 @Component({
   selector: 'app-faculty-edit',
-  standalone: true,
   templateUrl: './faculty-edit.html',
   styleUrl: './faculty-edit.scss',
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     EditForm,
     MatDialogModule,

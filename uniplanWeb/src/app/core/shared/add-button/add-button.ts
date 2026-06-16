@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
@@ -6,6 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
   imports: [MatIconModule],
   standalone: true,
   templateUrl: './add-button.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './add-button.scss',
 })
 export class AddButton {

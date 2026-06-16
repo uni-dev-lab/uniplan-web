@@ -1,19 +1,22 @@
 <mat-form-field appearance="outline" class="filter-field">
-    <mat-label>{{ label }}</mat-label>
-    <mat-select [value]="selected" (selectionChange)="onChange($event.value)">
-        <mat-option value>Всички</mat-option>
+  <mat-label>{{ label }}</mat-label>
+  <mat-select [value]="selected" (selectionChange)="onChange($event.value)">
+    <mat-option value>Всички</mat-option>
 
-        <ng-container *ngIf="isObjectMode(); else stringMode">
-            <mat-option *ngFor="let option of objectOptions"
-                [value]="option.id">
-                {{ option.name }}
-            </mat-option>
-        </ng-container>
+    @if (isObjectMode()) {
+      @for (option of objectOptions; track option) {
+        <mat-option
+          [value]="option.id">
+          {{ option.name }}
+        </mat-option>
+      }
+    } @else {
+      @for (option of options; track option) {
+        <mat-option [value]="option">
+          {{ option }}
+        </mat-option>
+      }
+    }
 
-        <ng-template #stringMode>
-            <mat-option *ngFor="let option of options" [value]="option">
-                {{ option }}
-            </mat-option>
-        </ng-template>
-    </mat-select>
+  </mat-select>
 </mat-form-field>

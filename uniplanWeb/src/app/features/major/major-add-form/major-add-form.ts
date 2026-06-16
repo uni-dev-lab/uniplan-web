@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { AddForm } from '../../../core/shared/add-form/add-form';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import {
@@ -12,7 +12,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MajorService } from '../major-service';
 import { FacultyElm } from '../../../core/interfaces/faculty-elm';
 import { FacultyService } from '../../faculty/faculty-service';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-major-add-form',
@@ -24,14 +24,14 @@ import { CommonModule } from '@angular/common';
     MatInputModule,
     AddForm,
     MatFormFieldModule,
-    MatSelectModule,
-    CommonModule,
-  ],
-  standalone: true,
+    MatSelectModule
+],
   templateUrl: './major-add-form.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './major-add-form.scss',
 })
 export class MajorAddForm implements OnInit {
+  //todo
   majorName = '';
   faculty = '';
   type = '';

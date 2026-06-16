@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { EditForm } from '../../../core/shared/edit-form/edit-form';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import {
@@ -10,14 +10,13 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+
 import { MajorService } from '../major-service';
 import { FacultyService } from '../../faculty/faculty-service';
 import { FacultyElm } from '../../../core/interfaces/faculty-elm';
 
 @Component({
   selector: 'app-major-edit-form',
-  standalone: true,
   imports: [
     EditForm,
     MatDialogModule,
@@ -26,13 +25,14 @@ import { FacultyElm } from '../../../core/interfaces/faculty-elm';
     FormsModule,
     MatInputModule,
     MatSelectModule,
-    MatOptionModule,
-    CommonModule,
-  ],
+    MatOptionModule
+],
   templateUrl: './major-edit-form.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './major-edit-form.scss',
 })
 export class MajorEditForm implements OnInit {
+  //todo
   majorName = '';
   facultyId = '';
 

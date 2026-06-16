@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, ChangeDetectionStrategy } from '@angular/core';
 import { DeleteForm } from '../../../core/shared/delete-form/delete-form';
 import {
   MAT_DIALOG_DATA,
@@ -10,8 +10,8 @@ import { FacultyService } from '../faculty-service';
 @Component({
   selector: 'app-faculty-delete-form',
   imports: [DeleteForm, MatDialogModule],
-  standalone: true,
   templateUrl: './faculty-delete-form.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './faculty-delete-form.scss',
 })
 export class FacultyDeleteForm {

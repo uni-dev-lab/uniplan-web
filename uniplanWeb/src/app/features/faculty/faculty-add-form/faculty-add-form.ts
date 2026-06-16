@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
@@ -11,11 +11,10 @@ import {
   UniversityElm,
   UniversityService,
 } from '../../university/university-service';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-faculty-add-form',
-  standalone: true,
   imports: [
     MatDialogModule,
     MatFormField,
@@ -24,10 +23,10 @@ import { CommonModule } from '@angular/common';
     MatInputModule,
     MatSelectModule,
     MatOptionModule,
-    AddForm,
-    CommonModule,
-  ],
+    AddForm
+],
   templateUrl: './faculty-add-form.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './faculty-add-form.scss',
 })
 export class FacultyAddForm implements OnInit {

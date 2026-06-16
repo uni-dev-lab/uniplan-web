@@ -1,15 +1,16 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
 import { InputFilter } from '../../../core/shared/input-filter/input-filter';
 import { FiltersForm } from '../../../core/shared/filters-form/filters-form';
 
 @Component({
   selector: 'app-student-filters',
   imports: [InputFilter, FiltersForm],
-  standalone: true,
   templateUrl: './student-filters.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './student-filters.scss',
 })
 export class StudentFilters {
+  //todo
   @Input() internalSearchText = '';
   @Output() searchTextChange = new EventEmitter<string>();
 

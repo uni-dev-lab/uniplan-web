@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+
+import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
 import { FiltersForm } from '../../../core/shared/filters-form/filters-form';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -10,18 +10,18 @@ import { FacultyService } from '../../faculty/faculty-service';
 @Component({
   selector: 'app-major-filters',
   imports: [
-    CommonModule,
     FiltersForm,
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
-    InputFilter,
-  ],
-  standalone: true,
+    InputFilter
+],
   templateUrl: './major-filters.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './major-filters.scss',
 })
 export class MajorFilters {
+  //todo
   @Input() internalSearchText = '';
 
   @Input() faculties: { id: string; name: string }[] = [];

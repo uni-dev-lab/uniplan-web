@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
@@ -11,15 +11,14 @@ import { FacultyDeleteForm } from '../faculty-delete-form/faculty-delete-form';
 
 @Component({
   selector: 'app-faculty-table',
-  standalone: true,
   imports: [
-    CommonModule,
     MatTableModule,
     MatIconModule,
     MatButtonModule,
-    MatDialogModule,
-  ],
+    MatDialogModule
+],
   templateUrl: './faculty-table.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './faculty-table.scss',
 })
 export class FacultyTable {

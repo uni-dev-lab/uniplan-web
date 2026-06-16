@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { AddForm } from '../../../core/shared/add-form/add-form';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import {
@@ -18,11 +18,12 @@ import { FormsModule } from '@angular/forms';
     MatInputModule,
     AddForm,
   ],
-  standalone: true,
   templateUrl: './student-add-form.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './student-add-form.scss',
 })
 export class StudentAddForm {
+  //todo
   studentName = '';
   facultyNumber = '';
   faculty = '';

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
   selector: 'app-delete-form',
   imports: [MatDialogModule, FormsModule, MatInputModule],
   templateUrl: './delete-form.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './delete-form.scss',
 })
 export class DeleteForm {

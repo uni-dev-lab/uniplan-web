@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, ChangeDetectionStrategy } from '@angular/core';
 import { DeleteForm } from '../../../core/shared/delete-form/delete-form';
 import {
   MAT_DIALOG_DATA,
@@ -12,6 +12,7 @@ import { switchMap } from 'rxjs';
   selector: 'app-major-delete-form',
   imports: [DeleteForm, MatDialogModule],
   templateUrl: './major-delete-form.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './major-delete-form.scss',
 })
 export class MajorDeleteForm {

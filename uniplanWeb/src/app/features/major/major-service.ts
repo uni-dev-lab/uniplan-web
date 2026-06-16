@@ -7,9 +7,9 @@ import { MajorElm } from '../../core/interfaces/major-elm';
   providedIn: 'root',
 })
 export class MajorService {
-  private apiUrl = 'http://localhost:8080/majors/all';
-  private apiUrlMajor = 'http://localhost:8080/majors';
-  private apiUrlCourse = 'http://localhost:8080/courses';
+  private apiUrl = 'http://localhost:8080/api/majors';
+  private apiUrlMajor = 'http://localhost:8080/api/majors';
+  private apiUrlCourse = 'http://localhost:8080/api/courses';
 
   refreshNeeded = new Subject<void>();
 
