@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { AddForm } from '../../../core/shared/add-form/add-form';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import {
@@ -28,6 +28,7 @@ import { FacultyService } from '../../faculty/faculty-service';
 ],
   standalone: true,
   templateUrl: './major-add-form.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './major-add-form.scss',
 })
 export class MajorAddForm implements OnInit {

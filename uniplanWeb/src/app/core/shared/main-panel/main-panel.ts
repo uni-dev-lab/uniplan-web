@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 import { FacultyOptions } from '../../../features/faculty/faculty-options/faculty-options';
 import { ViewService } from './view.service';
@@ -30,6 +30,7 @@ import { FacultyService } from '../../../features/faculty/faculty-service';
 ],
   standalone: true,
   templateUrl: './main-panel.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './main-panel.scss',
 })
 export class MainPanel {

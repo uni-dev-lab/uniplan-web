@@ -1,5 +1,5 @@
 
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
@@ -19,6 +19,7 @@ import { FacultyDeleteForm } from '../faculty-delete-form/faculty-delete-form';
     MatDialogModule
 ],
   templateUrl: './faculty-table.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './faculty-table.scss',
 })
 export class FacultyTable {

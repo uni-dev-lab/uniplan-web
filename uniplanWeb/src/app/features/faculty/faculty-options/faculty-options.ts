@@ -1,5 +1,5 @@
 
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
@@ -17,6 +17,7 @@ import { AddButton } from '../../../core/shared/add-button/add-button';
 ],
   standalone: true,
   templateUrl: './faculty-options.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './faculty-options.scss',
 })
 export class FacultyOptions {

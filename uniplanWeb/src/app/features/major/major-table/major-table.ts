@@ -1,5 +1,5 @@
 
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
@@ -15,6 +15,7 @@ import { FacultyService } from '../../faculty/faculty-service';
   imports: [MatTableModule, MatIconModule, MatButtonModule],
   standalone: true,
   templateUrl: './major-table.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './major-table.scss',
 })
 export class MajorTable implements OnInit {

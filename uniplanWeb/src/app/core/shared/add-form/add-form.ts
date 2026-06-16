@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
   imports: [MatDialogModule, FormsModule, MatInputModule],
   standalone: true,
   templateUrl: './add-form.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './add-form.scss',
 })
 export class AddForm {

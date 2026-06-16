@@ -4,6 +4,7 @@ import {
   SimpleChanges,
   OnChanges,
   OnInit,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { StudentElm } from '../../../core/interfaces/student-elm';
 
@@ -109,6 +110,7 @@ export const ELEMENT_STUDENT_DATA: StudentElm[] = [
   standalone: true,
   imports: [MatTableModule, MatIconModule, MatButtonModule],
   templateUrl: './student-table.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './student-table.scss',
 })
 export class StudentTable implements OnInit, OnChanges {

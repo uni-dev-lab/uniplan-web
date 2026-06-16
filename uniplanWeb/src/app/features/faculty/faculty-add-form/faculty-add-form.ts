@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
@@ -27,6 +27,7 @@ import {
     AddForm
 ],
   templateUrl: './faculty-add-form.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './faculty-add-form.scss',
 })
 export class FacultyAddForm implements OnInit {

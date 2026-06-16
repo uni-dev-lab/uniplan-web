@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ViewService } from '../main-panel/view.service';
@@ -9,6 +9,7 @@ import { LoginAuthService } from '../../../services/login-auth-service';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './navmenu-component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./navmenu-component.scss'],
 })
 export class NavmenuComponent implements OnInit {

@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { EditForm } from '../../../core/shared/edit-form/edit-form';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import {
@@ -29,6 +29,7 @@ import { FacultyElm } from '../../../core/interfaces/faculty-elm';
     MatOptionModule
 ],
   templateUrl: './major-edit-form.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './major-edit-form.scss',
 })
 export class MajorEditForm implements OnInit {

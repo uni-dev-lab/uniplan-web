@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { AddButton } from '../../../core/shared/add-button/add-button';
 import { MatDialog } from '@angular/material/dialog';
 import { StudentAddForm } from '../student-add-form/student-add-form';
@@ -8,6 +8,7 @@ import { StudentAddForm } from '../student-add-form/student-add-form';
   imports: [AddButton],
   standalone: true,
   templateUrl: './student-options.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './student-options.scss',
 })
 export class StudentOptions {
