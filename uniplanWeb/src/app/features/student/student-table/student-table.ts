@@ -1,7 +1,8 @@
 import {
   Component,
-  Input,
+  input,
   SimpleChanges,
+  effect,
   OnChanges,
   OnInit,
   ChangeDetectionStrategy
@@ -112,14 +113,13 @@ export const ELEMENT_STUDENT_DATA: StudentElm[] = [
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './student-table.scss',
 })
-export class StudentTable implements OnInit, OnChanges {
-  //todo
-  @Input() searchText = '';
-  @Input() searchFacNum = '';
-  @Input() searchMajor = '';
-  @Input() subtype = '';
-
-  @Input() subtypes: string[] = [];
+export class StudentTable implements OnInit {
+  searchText = input<string>('');
+  searchFacNum = input<string>('');
+  searchMajor = input<string>('');
+  subtype = input<string>('');
+  //!
+  subtypes: string[] = [];
 
   displayedColumns: string[] = [
     'position',
@@ -140,20 +140,22 @@ export class StudentTable implements OnInit, OnChanges {
     this.applyFilters();
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    this.applyFilters();
+  constructor() {
+    effect(() => {
+      this.applyFilters();
+    });
   }
 
   applyFilters(): void {
-    const name = this.searchText.toLowerCase();
-    const major = this.searchMajor.toLowerCase();
+    const name = this.searchText().toLowerCase();
+    const major = this.searchMajor().toLowerCase();
     const facNum = this.searchFacNum;
 
     this.dataSourceFilter = this.originalData.filter((student) => {
       const matchName = !name || student.name.toLowerCase().includes(name);
       const matchMajor = !major || student.major.toLowerCase().includes(major);
-      const matchFacNum = !facNum || student.facultyNumber.includes(facNum);
-      const matchSubtype = !this.subtype || student.subtype === this.subtype;
+      const matchFacNum = !facNum || student.facultyNumber.includes(facNum());
+      const matchSubtype = !this.subtype || student.subtype === this.subtype();
 
       return matchName && matchMajor && matchFacNum && matchSubtype;
     });

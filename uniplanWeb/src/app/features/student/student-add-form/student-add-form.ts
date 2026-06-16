@@ -10,6 +10,9 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-student-add-form',
+  templateUrl: './student-add-form.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
+  styleUrl: './student-add-form.scss',
   imports: [
     MatDialogModule,
     MatFormField,
@@ -18,12 +21,8 @@ import { FormsModule } from '@angular/forms';
     MatInputModule,
     AddForm,
   ],
-  templateUrl: './student-add-form.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
-  styleUrl: './student-add-form.scss',
 })
 export class StudentAddForm {
-  //todo
   studentName = '';
   facultyNumber = '';
   faculty = '';
@@ -31,7 +30,7 @@ export class StudentAddForm {
   course = '';
   type = '';
 
-  constructor(private dialogRef: MatDialogRef<AddForm>) {}
+  constructor(private dialogRef: MatDialogRef<AddForm>) { }
 
   save() {
     if (!this.studentName.trim()) {
