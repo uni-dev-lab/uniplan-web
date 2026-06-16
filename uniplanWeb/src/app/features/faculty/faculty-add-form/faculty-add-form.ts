@@ -64,11 +64,7 @@ export class FacultyAddForm implements OnInit {
   }
 
   save(): void {
-    const formValues = this.facultyForm.value;
-
-    const facultyName = formValues.facultyName || '';
-    const location = formValues.location || '';
-    const universityId = formValues.universityId || '';
+    const {facultyName, location, universityId} = this.facultyForm.value;
 
     if (!facultyName.trim()) {
       alert('Please enter faculty name.');

@@ -1,15 +1,15 @@
 <app-add-form title="Добави Специалност" (saveClicked)="save()">
-  <mat-dialog-content>
+  <mat-dialog-content [formGroup]="majorForm">
 
     <mat-form-field appearance="fill">
       <mat-label>Име:</mat-label>
-      <input matInput [(ngModel)]="majorName" />
+      <input matInput formControlName="majorName" />
     </mat-form-field>
 
     <mat-form-field appearance="fill">
       <mat-label>Факултет:</mat-label>
-      <mat-select [(ngModel)]="faculty">
-        @for (fac of faculties; track fac) {
+      <mat-select formControlName="faculty">
+        @for (fac of faculties; track fac.id) {
           <mat-option [value]="fac.id">
             {{ fac.facultyName }}
           </mat-option>
@@ -19,7 +19,7 @@
 
     <mat-form-field appearance="fill">
       <mat-label>Тип:</mat-label>
-      <mat-select [(ngModel)]="type">
+      <mat-select formControlName="type">
         <mat-option value="бакалавър">Бакалавър</mat-option>
         <mat-option value="магистър">Магистър</mat-option>
       </mat-select>
@@ -27,7 +27,7 @@
 
     <mat-form-field appearance="fill">
       <mat-label>Форма на обучение:</mat-label>
-      <mat-select [(ngModel)]="subtype">
+      <mat-select formControlName="subtype">
         <mat-option value="платено">Платено</mat-option>
         <mat-option value="редовно">Редовно</mat-option>
       </mat-select>

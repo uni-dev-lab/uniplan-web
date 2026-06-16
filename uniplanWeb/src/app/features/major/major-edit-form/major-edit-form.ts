@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Inject, OnInit, ChangeDetectionStrategy, inject} from '@angular/core';
 import { EditForm } from '../../../core/shared/edit-form/edit-form';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import {
@@ -9,7 +9,7 @@ import {
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 
 import { MajorService } from '../major-service';
 import { FacultyService } from '../../faculty/faculty-service';
@@ -22,7 +22,7 @@ import { FacultyElm } from '../../../core/interfaces/faculty-elm';
     MatDialogModule,
     MatFormField,
     MatLabel,
-    FormsModule,
+    ReactiveFormsModule,
     MatInputModule,
     MatSelectModule,
     MatOptionModule
@@ -32,44 +32,50 @@ import { FacultyElm } from '../../../core/interfaces/faculty-elm';
   styleUrl: './major-edit-form.scss',
 })
 export class MajorEditForm implements OnInit {
-  //todo
-  majorName = '';
-  facultyId = '';
+  private formBuilder = inject(FormBuilder)
+  majorForm!: FormGroup;
 
   faculties: FacultyElm[] = [];
+
+  public data = inject<{
+    id: string;
+    majorName: string;
+    facultyId?: string;
+  }>(MAT_DIALOG_DATA);
 
   constructor(
     private dialogRef: MatDialogRef<EditForm>,
     private majorService: MajorService,
     private facultyService: FacultyService,
-    @Inject(MAT_DIALOG_DATA)
-    public data: {
-      id: string;
-      majorName: string;
-      facultyId?: string;
-    }
-  ) {
-    this.majorName = data.majorName;
-    this.facultyId = data.facultyId || '';
-  }
+  ) {}
 
   ngOnInit(): void {
     this.facultyService.getFaculties().subscribe({
       next: (data) => (this.faculties = data),
       error: (err) => console.error('Failed to load faculties', err),
     });
+
+    this.initForm()
   }
 
-  save() {
-    if (!this.majorName.trim()) {
+  private initForm(): void{
+    this.majorForm = this.formBuilder.group({
+      majorName: ['', [Validators.required]],
+      facultyId: ['', [Validators.required]]
+    });
+  }
+
+  save(): void {
+    const { majorName, facultyId} = this.majorForm.value;
+    if (!majorName.trim()) {
       alert('Please enter the major name.');
       return;
     }
 
     this.majorService
       .editMajor(this.data.id, {
-        majorName: this.majorName,
-        facultyId: this.facultyId,
+        majorName: majorName,
+        facultyId: facultyId,
       })
       .subscribe({
         next: () => this.dialogRef.close(true),

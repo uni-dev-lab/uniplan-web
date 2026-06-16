@@ -1,19 +1,21 @@
 <app-edit-form title="Редактирай Специалност" (saveClicked)="save()">
+  <mat-dialogue-content [formGroup]="majorForm">
 
-  <mat-form-field appearance="fill">
-    <mat-label>Име:</mat-label>
-    <input matInput [(ngModel)]="majorName" />
-  </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Име:</mat-label>
+      <input matInput formControlName="majorName" />
+    </mat-form-field>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Факултет:</mat-label>
-    <mat-select [(ngModel)]="facultyId">
-      @for (fac of faculties; track fac) {
+    <mat-form-field appearance="fill">
+      <mat-label>Факултет:</mat-label>
+      <mat-select formControlName="facultyId">
+        @for (fac of faculties; track fac.id) {
         <mat-option [value]="fac.id">
           {{ fac.facultyName }}
         </mat-option>
-      }
-    </mat-select>
-  </mat-form-field>
+        }
+      </mat-select>
+    </mat-form-field>
 
+  </mat-dialogue-content>
 </app-edit-form>
