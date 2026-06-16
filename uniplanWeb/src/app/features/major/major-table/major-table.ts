@@ -1,5 +1,5 @@
 
-import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
@@ -35,11 +35,9 @@ export class MajorTable implements OnInit {
   @Input() type: string = '';
   @Input() subtype: string = '';
 
-  constructor(
-    private dialog: MatDialog,
-    private service: MajorService,
-    private facultyService: FacultyService
-  ) {}
+    private dialog = inject(MatDialog);
+    private service = inject(MajorService);
+    private facultyService = inject(FacultyService);
 
   ngOnInit(): void {
     this.loadMajors();

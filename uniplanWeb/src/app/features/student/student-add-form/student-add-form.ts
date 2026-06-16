@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { AddForm } from '../../../core/shared/add-form/add-form';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import {
@@ -31,7 +31,7 @@ export class StudentAddForm {
   course = '';
   type = '';
 
-  constructor(private dialogRef: MatDialogRef<AddForm>) {}
+  private dialogRef = inject(MatDialogRef<AddForm>);
 
   save() {
     if (!this.studentName.trim()) {

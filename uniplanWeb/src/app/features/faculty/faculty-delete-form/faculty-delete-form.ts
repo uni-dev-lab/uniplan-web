@@ -1,4 +1,4 @@
-import { Component, Inject, ChangeDetectionStrategy } from '@angular/core';
+import {Component, ChangeDetectionStrategy, inject} from '@angular/core';
 import { DeleteForm } from '../../../core/shared/delete-form/delete-form';
 import {
   MAT_DIALOG_DATA,
@@ -15,12 +15,10 @@ import { FacultyService } from '../faculty-service';
   styleUrl: './faculty-delete-form.scss',
 })
 export class FacultyDeleteForm {
-  constructor(
-    private facultyService: FacultyService,
-    private dialogRef: MatDialogRef<FacultyDeleteForm>,
-    @Inject(MAT_DIALOG_DATA)
-    public data: { id: string; facultyName: string }
-  ) {}
+
+  private facultyService = inject(FacultyService);
+  private dialogRef = inject(MatDialogRef<FacultyDeleteForm>);
+  public data = inject<{ id: string; facultyName: string }>(MAT_DIALOG_DATA);
 
   deleteFaculty(): void {
     this.facultyService.deleteFaculty(this.data.id).subscribe({

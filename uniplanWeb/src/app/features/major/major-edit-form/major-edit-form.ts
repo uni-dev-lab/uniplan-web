@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
 import { EditForm } from '../../../core/shared/edit-form/edit-form';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import {
@@ -32,26 +32,20 @@ import { FacultyElm } from '../../../core/interfaces/faculty-elm';
   styleUrl: './major-edit-form.scss',
 })
 export class MajorEditForm implements OnInit {
-  //todo
-  majorName = '';
-  facultyId = '';
 
   faculties: FacultyElm[] = [];
 
-  constructor(
-    private dialogRef: MatDialogRef<EditForm>,
-    private majorService: MajorService,
-    private facultyService: FacultyService,
-    @Inject(MAT_DIALOG_DATA)
-    public data: {
-      id: string;
-      majorName: string;
-      facultyId?: string;
-    }
-  ) {
-    this.majorName = data.majorName;
-    this.facultyId = data.facultyId || '';
-  }
+  private dialogRef = inject(MatDialogRef<EditForm>);
+  private majorService = inject(MajorService);
+  private facultyService = inject(FacultyService);
+  public data = inject<{
+    id: string;
+    majorName: string;
+    facultyId?: string;
+  }>(MAT_DIALOG_DATA);
+
+  majorName = this.data.majorName;
+  facultyId = this.data.facultyId || '';
 
   ngOnInit(): void {
     this.facultyService.getFaculties().subscribe({

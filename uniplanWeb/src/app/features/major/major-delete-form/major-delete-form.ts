@@ -1,4 +1,4 @@
-import { Component, Inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { DeleteForm } from '../../../core/shared/delete-form/delete-form';
 import {
   MAT_DIALOG_DATA,
@@ -16,12 +16,10 @@ import { switchMap } from 'rxjs';
   styleUrl: './major-delete-form.scss',
 })
 export class MajorDeleteForm {
-  constructor(
-    private majorService: MajorService,
-    private dialogRef: MatDialogRef<MajorDeleteForm>,
-    @Inject(MAT_DIALOG_DATA)
-    public data: { id: string; courseId: string; name: string }
-  ) {}
+
+  private majorService = inject(MajorService);
+  private dialogRef = inject(MatDialogRef<MajorDeleteForm>);
+  public data = inject<{ id: string; courseId: string; name: string }>(MAT_DIALOG_DATA);
 
   deleteMajor(): void {
     this.majorService

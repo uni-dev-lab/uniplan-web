@@ -1,4 +1,4 @@
-import { Component, Inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
   MatDialogModule,
@@ -30,25 +30,19 @@ import { EditForm } from '../../../core/shared/edit-form/edit-form';
   ],
 })
 export class FacultyEdit {
-  facultyName = '';
-  location = '';
-  universityId = '';
 
-  constructor(
-    private dialogRef: MatDialogRef<EditForm>,
-    private facultyService: FacultyService,
-    @Inject(MAT_DIALOG_DATA)
-    public data: {
-      id: string;
-      facultyName: string;
-      location: string;
-      universityId: string;
-    }
-  ) {
-    this.facultyName = data.facultyName;
-    this.location = data.location;
-    this.universityId = data.universityId;
-  }
+  private dialogRef = inject(MatDialogRef<EditForm>);
+  private facultyService = inject(FacultyService);
+  public data = inject<{
+    id: string;
+    facultyName: string;
+    location: string;
+    universityId: string;
+  }>(MAT_DIALOG_DATA);
+
+  facultyName = this.data.facultyName;
+  location = this.data.location;
+  universityId = this.data.universityId;
 
   save() {
     if (!this.facultyName.trim()) {

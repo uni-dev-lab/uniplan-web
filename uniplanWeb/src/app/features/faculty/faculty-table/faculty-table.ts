@@ -1,5 +1,5 @@
 
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
@@ -30,10 +30,8 @@ export class FacultyTable {
   ];
   dataSource: FacultyElm[] = [];
 
-  constructor(
-    private facultyService: FacultyService,
-    private dialog: MatDialog
-  ) {}
+    private facultyService = inject(FacultyService);
+    private dialog = inject(MatDialog);
 
   ngOnInit(): void {
     this.loadFaculties();
