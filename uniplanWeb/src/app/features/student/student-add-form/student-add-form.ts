@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject, OnInit } from '@angular/core';
 import { AddForm } from '../../../core/shared/add-form/add-form';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import {
@@ -6,7 +6,7 @@ import {
   MatInputModule,
   MatLabel,
 } from '@angular/material/input';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-student-add-form',
@@ -14,7 +14,7 @@ import { FormsModule } from '@angular/forms';
     MatDialogModule,
     MatFormField,
     MatLabel,
-    FormsModule,
+    ReactiveFormsModule,
     MatInputModule,
     AddForm,
   ],
@@ -22,60 +22,80 @@ import { FormsModule } from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './student-add-form.scss',
 })
-export class StudentAddForm {
-  //todo
-  studentName = '';
-  facultyNumber = '';
-  faculty = '';
-  major = '';
-  course = '';
-  type = '';
+export class StudentAddForm implements OnInit {
+  private formBuilder = inject(FormBuilder)
 
-  constructor(private dialogRef: MatDialogRef<AddForm>) {}
+  studentForm!: FormGroup
 
-  save() {
-    if (!this.studentName.trim()) {
+  constructor(private dialogRef: MatDialogRef<AddForm>) { }
+  
+  ngOnInit(): void {
+    this.initForm()
+  }
+
+  private initForm(): void{
+    this.studentForm = this.formBuilder.group({
+      studentName: ['', [Validators.required]],
+      facultyNumber: ['', [Validators.required]],
+      faculty: ['', [Validators.required]],
+      major: ['', [Validators.required]],
+      course: ['', [Validators.required]],
+      type: ['', [Validators.required]]
+    });
+  }
+
+  save(): void {
+    const {
+      studentName,
+      facultyNumber,
+      faculty,
+      major,
+      course,
+      type
+    } = this.studentForm.value
+
+    if (!studentName.trim()) {
       alert('Please enter student name.');
       return;
     }
-    if (!this.facultyNumber.trim()) {
+    if (!facultyNumber.trim()) {
       alert('Please enter faculty numbe.');
       return;
     }
-    if (!this.faculty.trim()) {
+    if (!faculty.trim()) {
       alert('Please enter faculty.');
       return;
     }
-    if (!this.major.trim()) {
+    if (!major.trim()) {
       alert('Please enter major.');
       return;
     }
-    if (!this.course.trim()) {
+    if (!course.trim()) {
       alert('Please enter course.');
       return;
     }
-    if (!this.type.trim()) {
+    if (!type.trim()) {
       alert('Please enter type.');
       return;
     }
 
     console.log(
       'Saving Student:',
-      this.studentName,
-      this.facultyNumber,
-      this.faculty,
-      this.major,
-      this.course,
-      this.type
+      studentName,
+      facultyNumber,
+      faculty,
+      major,
+      course,
+      type
     );
 
     this.dialogRef.close({
-      name: this.studentName,
-      facultyNumber: this.facultyNumber,
-      faculty: this.faculty,
-      major: this.major,
-      course: this.course,
-      type: this.type,
+      name,
+      facultyNumber,
+      faculty,
+      major,
+      course,
+      type
     });
   }
 }
