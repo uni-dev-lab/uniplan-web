@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, HostListener, OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ViewService } from '../main-panel/view.service';
@@ -16,10 +16,8 @@ export class NavmenuComponent implements OnInit {
   isSidebarCollapsed = false;
   isMobileView = window.innerWidth <= 768;
 
-  constructor(
-    public authService: LoginAuthService,
-    public viewService: ViewService
-  ) {}
+    public authService = inject(LoginAuthService);
+    public viewService = inject(ViewService);
 
   ngOnInit(): void {
     this.checkViewport();

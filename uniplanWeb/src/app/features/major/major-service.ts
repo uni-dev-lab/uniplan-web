@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { map, Observable, Subject, switchMap } from 'rxjs';
 import { MajorElm } from '../../core/interfaces/major-elm';
 
@@ -13,7 +13,7 @@ export class MajorService {
 
   refreshNeeded = new Subject<void>();
 
-  constructor(private http: HttpClient) {}
+  private http = inject(HttpClient);
 
   getMajors(): Observable<MajorElm[]> {
     return this.http.get<MajorElm[]>(this.apiUrl).pipe(

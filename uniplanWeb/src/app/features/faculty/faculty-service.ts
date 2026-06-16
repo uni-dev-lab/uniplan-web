@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { map, Observable, Subject } from 'rxjs';
 import { FacultyElm } from '../../core/interfaces/faculty-elm';
 
@@ -11,7 +11,7 @@ export class FacultyService {
 
   refreshNeeded = new Subject<void>();
 
-  constructor(private http: HttpClient) {}
+  private http = inject(HttpClient);
 
   getFaculties(): Observable<FacultyElm[]> {
     return this.http.get<FacultyElm[]>(this.apiUrl).pipe(
