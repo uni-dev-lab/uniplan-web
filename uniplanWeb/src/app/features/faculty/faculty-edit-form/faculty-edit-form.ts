@@ -14,9 +14,9 @@ import { FacultyService } from '../faculty-service';
 import { EditForm } from '../../../core/shared/edit-form/edit-form';
 
 @Component({
-  selector: 'app-faculty-edit',
-  templateUrl: './faculty-edit.html',
-  styleUrl: './faculty-edit.scss',
+  selector: 'app-faculty-edit-form',
+  templateUrl: './faculty-edit-form.html',
+  styleUrl: './faculty-edit-form.scss',
   changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     EditForm,
@@ -29,7 +29,7 @@ import { EditForm } from '../../../core/shared/edit-form/edit-form';
     MatOptionModule,
   ],
 })
-export class FacultyEdit implements OnInit {
+export class FacultyEditForm implements OnInit {
   private formBuilder = inject(FormBuilder)
 
   facultyForm!: FormGroup;

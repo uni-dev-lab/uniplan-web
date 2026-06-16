@@ -6,7 +6,7 @@ import { MatTableModule } from '@angular/material/table';
 import { FacultyElm } from '../../../core/interfaces/faculty-elm';
 import { FacultyService } from '../faculty-service';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { FacultyEdit } from '../faculty-edit/faculty-edit';
+import { FacultyEditForm } from '../faculty-edit-form/faculty-edit-form';
 import { FacultyDeleteForm } from '../faculty-delete-form/faculty-delete-form';
 
 @Component({
@@ -50,7 +50,7 @@ export class FacultyTable {
   }
 
   onEdit(element: FacultyElm): void {
-    this.dialog.open(FacultyEdit, {
+    this.dialog.open(FacultyEditForm, {
       data: {
         id: element.id,
         facultyName: element.facultyName,
