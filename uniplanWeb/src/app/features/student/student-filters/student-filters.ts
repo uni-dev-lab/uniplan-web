@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
+import { Component, EventEmitter, input, Output, ChangeDetectionStrategy } from '@angular/core';
 import { InputFilter } from '../../../core/shared/input-filter/input-filter';
 import { FiltersForm } from '../../../core/shared/filters-form/filters-form';
 
@@ -10,17 +10,16 @@ import { FiltersForm } from '../../../core/shared/filters-form/filters-form';
   styleUrl: './student-filters.scss',
 })
 export class StudentFilters {
-  //todo
-  @Input() internalSearchText = '';
+  internalSearchText = input<string>('');
   @Output() searchTextChange = new EventEmitter<string>();
 
-  @Input() internalSearchFacNum = '';
+  internalSearchFacNum = input<string>('');
   @Output() searchFacNumChange = new EventEmitter<string>();
 
-  @Input() internalSearchMajor = '';
+  internalSearchMajor = input<string>('');
   @Output() searchMajorChange = new EventEmitter<string>();
 
-  @Input() subtypes: string[] = [];
-  @Input() selectedSubtype = '';
+  subtypes = input<string[]>([]);
+  selectedSubtype = input<string>('');
   @Output() subtypeChange = new EventEmitter<string>();
 }
