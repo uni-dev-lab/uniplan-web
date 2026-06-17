@@ -70,7 +70,8 @@
   cursor: pointer;
 }
 
-.list .nav-link:hover {
+.list .nav-link:hover,
+.list .nav-link.active {
   background-color: hsl(224, 89%, 60%);
   color: #fff;
 }
@@ -88,7 +89,9 @@
 
 .list .nav-link:hover .icon,
 .list .nav-link:hover .link,
-.list .nav-link:hover .profile-name {
+.list .nav-link:hover .profile-name,
+.list .nav-link.active .icon,
+.list .nav-link.active .link {
   color: #fff;
 }
 
