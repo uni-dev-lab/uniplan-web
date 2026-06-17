@@ -7,11 +7,6 @@ import { FacultyTable } from '../faculty-table/faculty-table';
   selector: 'app-faculty-panel',
   standalone: true,
   imports: [FacultyOptions, FacultyTable],
-  template: `
-    <div class="component-panel faculty">
-      <app-faculty-options></app-faculty-options>
-      <app-faculty-table></app-faculty-table>
-    </div>
-  `,
+  templateUrl: './faculty-panel.html',
 })
 export class FacultyPanel {}
