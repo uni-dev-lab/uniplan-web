@@ -1,0 +1,24 @@
+<div class="component-panel major">
+  <div class="controls-row">
+    <app-major-options class="options"></app-major-options>
+    <app-major-filters
+      [faculties]="faculties"
+      [types]="types"
+      [subtypes]="subtypes"
+      [selectedFaculty]="selectedFaculty"
+      [selectedType]="selectedType"
+      [selectedSubtype]="selectedSubtype"
+      [internalSearchText]="searchText"
+      (facultyChange)="selectedFaculty = $event"
+      (typeChange)="selectedType = $event"
+      (subtypeChange)="selectedSubtype = $event"
+      (searchTextChange)="searchText = $event">
+    </app-major-filters>
+  </div>
+  <app-major-table
+    [faculty]="selectedFaculty"
+    [type]="selectedType"
+    [subtype]="selectedSubtype"
+    [searchText]="searchText">
+  </app-major-table>
+</div>
