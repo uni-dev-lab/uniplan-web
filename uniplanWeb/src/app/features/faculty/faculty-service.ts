@@ -7,7 +7,7 @@ import { FacultyElm } from '../../core/interfaces/faculty-elm';
   providedIn: 'root',
 })
 export class FacultyService {
-  private apiUrl = 'http://localhost:8080/api/faculties';
+  private apiUrl = '/api/faculties';
 
   refreshNeeded = new Subject<void>();
 
