@@ -1,13 +1,13 @@
 import { Component, HostListener, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
-import { ViewService } from '../main-panel/view.service';
 import { LoginAuthService } from '../../../services/login-auth-service';
 
 @Component({
   selector: 'app-navmenu-component',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink, RouterLinkActive],
   templateUrl: './navmenu-component.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./navmenu-component.scss'],
@@ -16,10 +16,7 @@ export class NavmenuComponent implements OnInit {
   isSidebarCollapsed = false;
   isMobileView = window.innerWidth <= 768;
 
-  constructor(
-    public authService: LoginAuthService,
-    public viewService: ViewService
-  ) {}
+  constructor(public authService: LoginAuthService) {}
 
   ngOnInit(): void {
     this.checkViewport();
@@ -42,21 +39,5 @@ export class NavmenuComponent implements OnInit {
 
   toggleSidebar(): void {
     this.isSidebarCollapsed = !this.isSidebarCollapsed;
-  }
-
-  onHomeClick(): void {
-    this.viewService.setView('home');
-  }
-
-  onFacultyClick(): void {
-    this.viewService.setView('faculty');
-  }
-
-  onMajorClick(): void {
-    this.viewService.setView('major');
-  }
-
-  onStudentClick(): void {
-    this.viewService.setView('student');
   }
 }
