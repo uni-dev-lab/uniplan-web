@@ -4,10 +4,10 @@ import { MainPanel } from "../core/shared/main-panel/main-panel";
 
 @Component({
   selector: 'app-layout-component',
-  imports: [NavmenuComponent, MainPanel],
   templateUrl: './layout-component.html',
   changeDetection: ChangeDetectionStrategy.Eager,
-  styleUrl: './layout-component.scss'
+  styleUrl: './layout-component.scss',
+  imports: [NavmenuComponent, MainPanel],
 })
 export class LayoutComponent {
 

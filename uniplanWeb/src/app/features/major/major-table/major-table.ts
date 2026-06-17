@@ -69,12 +69,12 @@ export class MajorTable implements OnInit {
 
   get filteredMajors(): MajorElm[] {
     return this.dataSource.filter((major) => {
-      const matchesFaculty = !this.faculty || major.facultyId === this.faculty();
-      const matchesType = !this.type || major.courseType === this.type();
+      const matchesFaculty = !this.faculty() || major.facultyId === this.faculty();
+      const matchesType = !this.type() || major.courseType === this.type();
       const matchesSubtype =
-        !this.subtype || major.courseSubtype === this.subtype();
+        !this.subtype() || major.courseSubtype === this.subtype();
       const matchesSearch =
-        !this.searchText ||
+        !this.searchText() ||
         major.majorName.toLowerCase().includes(this.searchText().toLowerCase());
 
       return matchesFaculty && matchesType && matchesSubtype && matchesSearch;

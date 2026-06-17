@@ -12,6 +12,7 @@ import { MatSelectModule } from '@angular/material/select';
   styleUrl: './filters-form.scss',
   imports: [MatFormFieldModule, MatSelectModule, MatOptionModule],
 })
+
 export class FiltersForm {
   label = input<string>('');
 
@@ -20,6 +21,7 @@ export class FiltersForm {
   objectOptions = input<{ id: string; name: string }[]>([]);
 
   selected = input<string>('');
+  
   @Output() selectionChange = new EventEmitter<string>();
 
   onChange(value: string) {

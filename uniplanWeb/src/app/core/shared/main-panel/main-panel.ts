@@ -18,6 +18,9 @@ import { FacultyService } from '../../../features/faculty/faculty-service';
 
 @Component({
   selector: 'app-main-panel',
+  templateUrl: './main-panel.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
+  styleUrl: './main-panel.scss',
   imports: [
     FacultyOptions,
     MajorOptions,
@@ -27,11 +30,7 @@ import { FacultyService } from '../../../features/faculty/faculty-service';
     StudentOptions,
     StudentTable,
     StudentFilters
-],
-  standalone: true,
-  templateUrl: './main-panel.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
-  styleUrl: './main-panel.scss',
+  ],
 })
 export class MainPanel {
   currentView = 'home';

@@ -12,7 +12,7 @@ import { MatInputModule } from '@angular/material/input';
   imports: [MatDialogModule, FormsModule, MatInputModule],
 })
 export class AddForm {
-  title=input<string>('');
+  title = input<string>('');
 
   @Output() saveClicked = new EventEmitter<void>();
 }

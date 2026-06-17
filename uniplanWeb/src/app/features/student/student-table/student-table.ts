@@ -5,7 +5,7 @@ import {
   effect,
   OnChanges,
   OnInit,
-  signal,
+  effect,
   ChangeDetectionStrategy
 } from '@angular/core';
 import { StudentElm } from '../../../core/interfaces/student-elm';
@@ -113,14 +113,14 @@ export const ELEMENT_STUDENT_DATA: StudentElm[] = [
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './student-table.scss',
   imports: [MatTableModule, MatIconModule, MatButtonModule],
-
 })
-export class StudentTable implements OnInit {
+export class StudentTable {
   searchText = input<string>('');
   searchFacNum = input<string>('');
   searchMajor = input<string>('');
-  subtype = signal<string>('');
-  subtypes: string[] = [];
+  subtype = input<string>('');
+
+  subtypes = input<string[]>([]);
 
   displayedColumns: string[] = [
     'position',
@@ -136,13 +136,13 @@ export class StudentTable implements OnInit {
   originalData: StudentElm[] = ELEMENT_STUDENT_DATA;
   dataSourceFilter: StudentElm[] = ELEMENT_STUDENT_DATA;
 
-  ngOnInit(): void {
-    //this.subtypes = StudentTable.getFilterOptions(this.originalData).subtypes;
-    this.applyFilters();
-  }
-
   constructor() {
     effect(() => {
+      this.searchText();
+      this.searchMajor();
+      this.searchFacNum();
+      this.subtype();
+
       this.applyFilters();
     });
   }
@@ -150,13 +150,13 @@ export class StudentTable implements OnInit {
   applyFilters(): void {
     const name = this.searchText().toLowerCase();
     const major = this.searchMajor().toLowerCase();
-    const facNum = this.searchFacNum;
+    const facNum = this.searchFacNum();
 
     this.dataSourceFilter = this.originalData.filter((student) => {
       const matchName = !name || student.name.toLowerCase().includes(name);
       const matchMajor = !major || student.major.toLowerCase().includes(major);
-      const matchFacNum = !facNum || student.facultyNumber.includes(facNum());
-      const matchSubtype = !this.subtype || student.subtype === this.subtype();
+      const matchFacNum = !facNum || student.facultyNumber.includes(facNum);
+      const matchSubtype = !this.subtype() || student.subtype === this.subtype();
 
       return matchName && matchMajor && matchFacNum && matchSubtype;
     });

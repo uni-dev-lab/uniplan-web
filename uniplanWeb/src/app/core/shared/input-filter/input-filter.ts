@@ -5,11 +5,11 @@ import { MatFormField, MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-input-filter',
-  imports: [MatFormField, MatInputModule, MatIconModule],
   standalone: true,
   templateUrl: './input-filter.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './input-filter.scss',
+  imports: [MatFormField, MatInputModule, MatIconModule],
 })
 export class InputFilter {
   label = input<string>('');

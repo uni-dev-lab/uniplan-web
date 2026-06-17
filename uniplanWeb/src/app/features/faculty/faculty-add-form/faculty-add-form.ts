@@ -15,6 +15,9 @@ import {
 
 @Component({
   selector: 'app-faculty-add-form',
+  templateUrl: './faculty-add-form.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
+  styleUrl: './faculty-add-form.scss',
   imports: [
     MatDialogModule,
     MatFormField,
@@ -24,10 +27,7 @@ import {
     MatSelectModule,
     MatOptionModule,
     AddForm
-],
-  templateUrl: './faculty-add-form.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
-  styleUrl: './faculty-add-form.scss',
+  ],
 })
 export class FacultyAddForm implements OnInit {
   facultyName = '';
@@ -39,7 +39,7 @@ export class FacultyAddForm implements OnInit {
     private dialogRef: MatDialogRef<AddForm>,
     private facultyService: FacultyService,
     private universityService: UniversityService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.universityService.getAllUniversities().subscribe({

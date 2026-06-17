@@ -2,10 +2,9 @@ import { Component, ViewChild, ViewContainerRef, ChangeDetectionStrategy } from 
 
 @Component({
   selector: 'app-table',
-  standalone: true,
-  imports: [],
   templateUrl: './table.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './table.scss',
+  imports: [],
 })
-export class Table {}
+export class Table { }

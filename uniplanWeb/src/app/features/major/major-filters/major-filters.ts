@@ -1,5 +1,5 @@
 
-import { Component, EventEmitter, input, Output, ChangeDetectionStrategy } from '@angular/core';
+import { Component, EventEmitter, input, Output, ChangeDetectionStrategy, model } from '@angular/core';
 import { FiltersForm } from '../../../core/shared/filters-form/filters-form';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -21,8 +21,10 @@ import { FacultyService } from '../../faculty/faculty-service';
   ],
 })
 export class MajorFilters {
-  internalSearchText = input<string>('');
+  internalSearchText = model<string>('');
+
   faculties = input<{ id: string; name: string }[]>([]);
+
   types = input<string[]>([]);
   subtypes = input<string[]>([]);
 

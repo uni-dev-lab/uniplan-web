@@ -6,11 +6,10 @@ import { LoginAuthService } from '../../../services/login-auth-service';
 
 @Component({
   selector: 'app-navmenu-component',
-  standalone: true,
-  imports: [CommonModule],
   templateUrl: './navmenu-component.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./navmenu-component.scss'],
+  imports: [CommonModule],
 })
 export class NavmenuComponent implements OnInit {
   isSidebarCollapsed = false;
@@ -19,7 +18,7 @@ export class NavmenuComponent implements OnInit {
   constructor(
     public authService: LoginAuthService,
     public viewService: ViewService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.checkViewport();

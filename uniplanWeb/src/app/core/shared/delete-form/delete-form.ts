@@ -11,7 +11,7 @@ import { MatInputModule } from '@angular/material/input';
   imports: [MatDialogModule, FormsModule, MatInputModule],
 })
 export class DeleteForm {
-  title=input<string>('');
+  title = input<string>('');
 
   @Output() deleteClicked = new EventEmitter<void>();
 }
