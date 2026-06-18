@@ -9,16 +9,12 @@ import {API_ENDPOINTS} from '../../config/endpoints';
   providedIn: 'root',
 })
 export class MajorService {
-  private apiUrl = API_ENDPOINTS.courses;
-  private apiUrlMajor = API_ENDPOINTS.majors;
-  private apiUrlCourse = API_ENDPOINTS.courses;
-
   refreshNeeded = new Subject<void>();
 
   constructor(private http: HttpClient) {}
 
   getMajors(): Observable<MajorElm[]> {
-    return this.http.get<MajorElm[]>(this.apiUrl).pipe(
+    return this.http.get<MajorElm[]>(API_ENDPOINTS.courses).pipe(
       map((majors) =>
         majors.map((major, index) => ({
           majorId: major.majorId,
@@ -37,7 +33,7 @@ export class MajorService {
     facultyId: string;
     majorName: string;
   }): Observable<any> {
-    return this.http.post(`${this.apiUrlMajor}`, createMajor).pipe(
+    return this.http.post(`${API_ENDPOINTS.majors}`, createMajor).pipe(
       map((res) => {
         this.refreshNeeded.next();
         return res;
@@ -51,7 +47,7 @@ export class MajorService {
     courseType: string;
     courseSubtype: string;
   }): Observable<any> {
-    return this.http.post(`${this.apiUrlCourse}`, course).pipe(
+    return this.http.post(`${API_ENDPOINTS.courses}`, course).pipe(
       map((res) => {
         this.refreshNeeded.next();
         return res;
@@ -80,7 +76,7 @@ export class MajorService {
   }
 
   deleteMajor(id: string): Observable<any> {
-    return this.http.delete(`${this.apiUrlMajor}/${id}`).pipe(
+    return this.http.delete(`${API_ENDPOINTS.majors}/${id}`).pipe(
       map((res) => {
         this.refreshNeeded.next();
         return res;
@@ -89,7 +85,7 @@ export class MajorService {
   }
 
   deleteCourse(courseId: string): Observable<any> {
-    return this.http.delete(`${this.apiUrlCourse}/${courseId}`);
+    return this.http.delete(`${API_ENDPOINTS.courses}/${courseId}`);
   }
 
   deleteMajorWithCourse(major: MajorElm): Observable<any> {
@@ -102,7 +98,7 @@ export class MajorService {
     id: string,
     updateMajor: { facultyId: string; majorName: string }
   ): Observable<any> {
-    return this.http.put(`${this.apiUrlMajor}/${id}`, updateMajor).pipe(
+    return this.http.put(`${API_ENDPOINTS.majors}/${id}`, updateMajor).pipe(
       map((res) => {
         this.refreshNeeded.next();
         return res;

@@ -8,14 +8,12 @@ import {API_ENDPOINTS} from '../../config/endpoints';
   providedIn: 'root',
 })
 export class FacultyService {
-  private apiUrl = API_ENDPOINTS.faculties;
-
   refreshNeeded = new Subject<void>();
 
   constructor(private http: HttpClient) {}
 
   getFaculties(): Observable<FacultyElm[]> {
-    return this.http.get<FacultyElm[]>(this.apiUrl).pipe(
+    return this.http.get<FacultyElm[]>(API_ENDPOINTS.faculties).pipe(
       map((faculties) =>
         faculties.map((faculty, index) => ({
           id: faculty.id,
@@ -33,7 +31,7 @@ export class FacultyService {
     facultyName: string;
     location: string;
   }): Observable<any> {
-    return this.http.post(`${this.apiUrl}`, faculty).pipe(
+    return this.http.post(`${API_ENDPOINTS.faculties}`, faculty).pipe(
       map((res) => {
         this.refreshNeeded.next();
         return res;
@@ -49,7 +47,7 @@ export class FacultyService {
       location: string;
     }
   ): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${id}`, updatedFaculty).pipe(
+    return this.http.put(`${API_ENDPOINTS.faculties}/${id}`, updatedFaculty).pipe(
       map((res) => {
         this.refreshNeeded.next();
         return res;
@@ -58,7 +56,7 @@ export class FacultyService {
   }
 
   deleteFaculty(id: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${id}`).pipe(
+    return this.http.delete(`${API_ENDPOINTS.faculties}/${id}`).pipe(
       map((res) => {
         this.refreshNeeded.next();
         return res;

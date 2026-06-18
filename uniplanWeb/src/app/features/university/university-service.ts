@@ -16,11 +16,9 @@ export interface UniversityElm {
   providedIn: 'root',
 })
 export class UniversityService {
-private apiUrl = API_ENDPOINTS.universities;
-
   constructor(private http: HttpClient) {}
 
   getAllUniversities(): Observable<UniversityElm[]> {
-    return this.http.get<UniversityElm[]>(this.apiUrl);
+    return this.http.get<UniversityElm[]>(API_ENDPOINTS.universities);
   }
 }
