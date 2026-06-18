@@ -47,6 +47,8 @@ export class FacultyEditForm implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.initForm()
+    
     if (this.data) {
       this.facultyForm.patchValue({
         facultyName: this.data.facultyName,
@@ -54,8 +56,6 @@ export class FacultyEditForm implements OnInit {
         universityId: this.data.universityId,
       });
     }
-
-    this.initForm()
   }
 
   private initForm() {
