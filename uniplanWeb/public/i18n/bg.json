@@ -1,30 +1,42 @@
 {
   "features": {
-    "name-label": "Име:",
+    "name-label": "Име",
     "faculty-label": "Факултет",
     "actions-label": "Действия",
     "type-label": "Тип",
-    "study-mode-label": "Форма на обучение:",
-    "major-label": "Специалност"
+    "study-mode-label": "Форма на обучение",
+    "major-label": "Специалност",
+    "location-label": "Местоположение"
   },
   "faculty": {
-    "location-label": "Местоположение",
-    "delete-button": "Изтрии",
-    "edit-button": "Редактирай"
+    "delete-button": "Изтрий",
+    "edit-button": "Редактирай",
+    "uni-label": "Университет",
+    "add": {
+      "title": "Добави факултет"
+    }
   },
   "major": {
     "paid-option": "Платено",
     "full-time-option": "Редовно",
-    "delete-confirmation": "Сигурни ли сте, че искате да изтриете факултет с име: "
+    "delete-confirmation": "Сигурни ли сте, че искате да изтриете факултет с име: ",
+    "bachelor-option": "Бакалавър",
+    "master-option": "Магистър",
+    "add": {
+      "title": "Добави специалност"
+    }
   },
   "student": {
-    "faculty-number-label": "Факултетен номер:",
+    "faculty-number-label": "Факултетен номер",
     "course-label": "Курс",
-    "qualification-level-label": "Квалификационна степен"
+    "qualification-level-label": "Квалификационна степен",
+    "add": {
+      "title": "Добави Студент"
+    }
   },
   "settings": {
     "title": "Заглавие",
-    "span": "Смени езика: ",
+    "span": "Смени езика",
     "bulgarian": "български",
     "english": "английски"
   },

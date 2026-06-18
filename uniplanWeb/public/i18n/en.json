@@ -1,43 +1,48 @@
 {
-    "faculty": {
-        "name-label": "Name:",
+    "features": {
+        "name-label": "Name",
         "faculty-label": "Faculty",
-        "location-label": "Location",
         "actions-label": "Actions",
+        "type-label": "Type",
+        "study-mode-label": "Study mode",
+        "major-label": "Major",
+        "location-label": "Location"
+    },
+    "faculty": {
         "delete-button": "Delete",
-        "edit-button": "Edit"
+        "edit-button": "Edit",
+        "uni-label": "University",
+        "add": {
+            "title": "Add faculty"
+        }
     },
     "major": {
-        "name-label": "Name:",
-        "faculty-label": "Faculty",
-        "type-label": "Type",
-        "study-mode-label": "Study mode",
         "paid-option": "Paid",
         "full-time-option": "Full-time",
-        "delete-confirmation": "Are you sure you wanna delete faculty with name: ",
-        "major-label": "Major",
-        "actions-label": "Actions"
+        "delete-confirmation": "Are you sure you want to delete the faculty named: ",
+        "bachelor-option": "Bachelor",
+        "master-option": "Master",
+        "add": {
+            "title": "Add major"
+        }
     },
     "student": {
-        "name-label": "Name",
-        "faculty-number-label": "Faculty number",
-        "faculty-label": "Faculty",
-        "major-label": "Major",
+        "faculty-number-label": "Student ID",
         "course-label": "Course",
-        "type-label": "Type",
-        "study-mode-label": "Study mode",
-        "actions-label": "Actions",
-        "qualification-level-label": "Qualification level"
+        "qualification-level-label": "Qualification level",
+        "add": {
+            "title": "Add student"
+        }
     },
     "settings": {
         "title": "Title",
-        "span": "Switch languages at runtime:",
-        "bulgarian": "bulgarian",
-        "english": "english"
+        "span": "Change language",
+        "bulgarian": "Bulgarian",
+        "english": "English"
     },
-    "forms": {
+    "shared": {
         "add-button": "Add",
-        "exit-button": "Exit",
+        "exit-button": "Cancel",
         "save-button": "Save",
         "delete-button": "Delete",
         "option-all": "All"

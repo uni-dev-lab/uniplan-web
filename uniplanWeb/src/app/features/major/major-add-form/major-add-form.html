@@ -1,4 +1,4 @@
-<app-add-form title="Добави Специалност" (saveClicked)="save()">
+<app-add-form [title]="'major.add.title' | translate" (saveClicked)="save()">
   <mat-dialog-content>
 
     <mat-form-field appearance="fill">
@@ -20,8 +20,8 @@
     <mat-form-field appearance="fill">
       <mat-label>{{ 'features.type-label' | translate }}</mat-label>
       <mat-select [(ngModel)]="type">
-        <mat-option value="бакалавър">Бакалавър</mat-option>
-        <mat-option value="магистър">Магистър</mat-option>
+        <mat-option value="бакалавър">{{ 'major.bachelor-option' | translate }}</mat-option>
+        <mat-option value="магистър">{{ 'major.master-option' | translate }}</mat-option>
       </mat-select>
     </mat-form-field>
 

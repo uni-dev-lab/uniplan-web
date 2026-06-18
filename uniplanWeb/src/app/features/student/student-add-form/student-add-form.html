@@ -1,4 +1,4 @@
-<app-add-form title="Добави Студент" (saveClicked)="save()">
+<app-add-form [title]="'student.add.title' | translate" (saveClicked)="save()">
     <mat-dialog-content>
 
         <mat-form-field appearance="fill">
