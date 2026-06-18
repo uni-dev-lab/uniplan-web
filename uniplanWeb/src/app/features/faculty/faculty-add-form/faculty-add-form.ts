@@ -43,6 +43,8 @@ export class FacultyAddForm implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.initForm()
+
     this.universityService.getAllUniversities().subscribe({
       next: (data) => {
         this.universities = data;
@@ -51,8 +53,6 @@ export class FacultyAddForm implements OnInit {
         console.error('Failed to load universities', err);
       },
     });
-
-    this.initForm()
   }
 
   private initForm() {

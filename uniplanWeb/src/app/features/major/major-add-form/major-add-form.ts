@@ -44,14 +44,14 @@ export class MajorAddForm implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.initForm()
+
     this.facultyService.getFaculties().subscribe({
       next: (data) => {
         this.faculties = data;
       },
       error: (err) => console.error('Failed to load faculties', err),
     });
-
-    this.initForm()
   }
 
   private initForm(): void {
