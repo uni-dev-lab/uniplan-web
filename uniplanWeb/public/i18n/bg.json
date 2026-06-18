@@ -27,10 +27,19 @@
     "type-label": "Тип",
     "study-mode-label": "Форма на обучение:",
     "actions-label": "Действия",
-    "qualification-level-label":"Квалификационна степен"
+    "qualification-level-label": "Квалификационна степен"
   },
   "settings": {
     "title": "Заглавие",
-    "span": "Смени езика: "
+    "span": "Смени езика: ",
+    "bulgarian": "български",
+    "english": "английски"
+  },
+  "shared": {
+    "add-button": "Добави",
+    "exit-button": "Отмени",
+    "save-button": "Запази",
+    "delete-button": "Изтрий",
+    "option-all":"Всички"
   }
 }

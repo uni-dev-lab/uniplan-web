@@ -31,6 +31,15 @@
     },
     "settings": {
         "title": "Title",
-        "span": "Switch languages at runtime:"
+        "span": "Switch languages at runtime:",
+        "bulgarian": "bulgarian",
+        "english": "english"
+    },
+    "forms": {
+        "add-button": "Add",
+        "exit-button": "Exit",
+        "save-button": "Save",
+        "delete-button": "Delete",
+        "option-all": "All"
     }
 }

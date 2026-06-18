@@ -1,13 +1,14 @@
 import { Component, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
+import { TranslatePipe, TranslateDirective } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-add-button',
-  imports: [MatIconModule],
   standalone: true,
   templateUrl: './add-button.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './add-button.scss',
+  imports: [MatIconModule, TranslatePipe, TranslateDirective],
 })
 export class AddButton {
   @Output() addClicked = new EventEmitter<void>();
