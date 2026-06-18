@@ -39,10 +39,10 @@
       <ng-container matColumnDef="actions">
         <td mat-cell *matCellDef="let element" class="col-actions">
           <button mat-icon-button color="primary" (click)="onEdit(element)">
-            <mat-icon>{{ 'faculty.edit-button' | translate }}</mat-icon>
+            <mat-icon>edit</mat-icon>
           </button>
           <button mat-icon-button color="warn" (click)="onDelete(element)">
-            <mat-icon>{{ 'faculty.delete-button' | translate }}</mat-icon>
+            <mat-icon>delete</mat-icon>
           </button>
         </td>
       </ng-container>
