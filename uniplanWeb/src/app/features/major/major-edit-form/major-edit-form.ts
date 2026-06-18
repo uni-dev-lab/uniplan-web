@@ -13,7 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { MajorService } from '../major-service';
 import { FacultyService } from '../../faculty/faculty-service';
 import { FacultyElm } from '../../../core/interfaces/faculty-elm';
-import { TranslatePipe, TranslateDirective } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-major-edit-form',
@@ -29,9 +29,7 @@ import { TranslatePipe, TranslateDirective } from '@ngx-translate/core';
     MatInputModule,
     MatSelectModule,
     MatOptionModule,
-    TranslatePipe,
-    TranslateDirective
-  ],
+    TranslatePipe],
 })
 export class MajorEditForm implements OnInit {
   //todo

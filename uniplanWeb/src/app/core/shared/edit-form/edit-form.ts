@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialogModule } from '@angular/material/dialog';
-import { TranslatePipe, TranslateDirective } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-edit-form',
@@ -8,7 +8,7 @@ import { TranslatePipe, TranslateDirective } from '@ngx-translate/core';
   templateUrl: './edit-form.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './edit-form.scss',
-  imports: [MatDialogModule, TranslatePipe, TranslateDirective],
+  imports: [MatDialogModule, TranslatePipe],
 
 })
 export class EditForm {

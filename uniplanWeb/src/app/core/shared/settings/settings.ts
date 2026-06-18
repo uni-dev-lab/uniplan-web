@@ -1,12 +1,12 @@
-import { Component, inject, signal } from '@angular/core';
-import { TranslatePipe, TranslateDirective, TranslateService } from '@ngx-translate/core';
+import { Component, inject } from '@angular/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import {MatButtonModule} from '@angular/material/button';
 
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.html',
   styleUrl: './settings.scss',
-  imports: [TranslatePipe, TranslateDirective,MatButtonModule],
+  imports: [TranslatePipe,MatButtonModule],
 
 })
 export class Settings {

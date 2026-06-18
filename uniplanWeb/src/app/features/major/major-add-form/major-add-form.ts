@@ -12,7 +12,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MajorService } from '../major-service';
 import { FacultyElm } from '../../../core/interfaces/faculty-elm';
 import { FacultyService } from '../../faculty/faculty-service';
-import { TranslatePipe, TranslateDirective } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
  
 @Component({
   selector: 'app-major-add-form',
@@ -29,7 +29,6 @@ import { TranslatePipe, TranslateDirective } from '@ngx-translate/core';
     MatFormFieldModule,
     MatSelectModule,
     TranslatePipe,
-    TranslateDirective
   ],
 })
 

@@ -11,7 +11,7 @@ import {
   UniversityElm,
   UniversityService,
 } from '../../university/university-service';
-import { TranslatePipe, TranslateDirective } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 
 
 @Component({
@@ -24,8 +24,8 @@ import { TranslatePipe, TranslateDirective } from '@ngx-translate/core';
     MatInputModule,
     MatSelectModule,
     MatOptionModule,
-    AddForm, TranslatePipe,
-    TranslateDirective
+    AddForm,
+    TranslatePipe,
   ],
   templateUrl: './faculty-add-form.html',
   changeDetection: ChangeDetectionStrategy.Eager,

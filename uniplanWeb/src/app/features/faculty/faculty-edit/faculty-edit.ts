@@ -12,7 +12,7 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatLabel } from '@angular/material/form-field';
 import { FacultyService } from '../faculty-service';
 import { EditForm } from '../../../core/shared/edit-form/edit-form';
-import { TranslatePipe, TranslateDirective } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-faculty-edit',
@@ -29,7 +29,6 @@ import { TranslatePipe, TranslateDirective } from '@ngx-translate/core';
     MatSelectModule,
     MatOptionModule,
     TranslatePipe,
-    TranslateDirective
   ],
 })
 export class FacultyEdit {

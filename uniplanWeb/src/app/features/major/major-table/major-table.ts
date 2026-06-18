@@ -9,14 +9,14 @@ import { MatDialog } from '@angular/material/dialog';
 import { MajorDeleteForm } from '../major-delete-form/major-delete-form';
 import { MajorService } from '../major-service';
 import { FacultyService } from '../../faculty/faculty-service';
-import { TranslatePipe, TranslateDirective } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-major-table',
   templateUrl: './major-table.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './major-table.scss',
-  imports: [MatTableModule, MatIconModule, MatButtonModule, TranslatePipe, TranslateDirective],
+  imports: [MatTableModule, MatIconModule, MatButtonModule, TranslatePipe],
 })
 export class MajorTable implements OnInit {
   displayedColumns: string[] = [

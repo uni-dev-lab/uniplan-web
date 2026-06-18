@@ -3,7 +3,7 @@ import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from 
 import { MatOptionModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
-import { TranslatePipe, TranslateDirective } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-filters-form',
@@ -11,7 +11,7 @@ import { TranslatePipe, TranslateDirective } from '@ngx-translate/core';
   templateUrl: './filters-form.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './filters-form.scss',
-  imports: [MatFormFieldModule, MatSelectModule, MatOptionModule, TranslatePipe, TranslateDirective],
+  imports: [MatFormFieldModule, MatSelectModule, MatOptionModule, TranslatePipe],
 })
 export class FiltersForm {
   @Input() label = '';
