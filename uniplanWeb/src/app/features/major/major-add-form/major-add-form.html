@@ -2,12 +2,12 @@
   <mat-dialog-content>
 
     <mat-form-field appearance="fill">
-      <mat-label>Име:</mat-label>
+      <mat-label>{{ 'major.name-label' | translate }}</mat-label> 
       <input matInput [(ngModel)]="majorName" />
     </mat-form-field>
 
     <mat-form-field appearance="fill">
-      <mat-label>Факултет:</mat-label>
+      <mat-label>{{ 'major.faculty-label' | translate }}</mat-label>
       <mat-select [(ngModel)]="faculty">
         @for (fac of faculties; track fac) {
           <mat-option [value]="fac.id">
@@ -18,7 +18,7 @@
     </mat-form-field>
 
     <mat-form-field appearance="fill">
-      <mat-label>Тип:</mat-label>
+      <mat-label>{{ 'major.type-label' | translate }}</mat-label>
       <mat-select [(ngModel)]="type">
         <mat-option value="бакалавър">Бакалавър</mat-option>
         <mat-option value="магистър">Магистър</mat-option>
@@ -26,10 +26,10 @@
     </mat-form-field>
 
     <mat-form-field appearance="fill">
-      <mat-label>Форма на обучение:</mat-label>
+      <mat-label>{{ 'major.type-label' | translate }}</mat-label>
       <mat-select [(ngModel)]="subtype">
-        <mat-option value="платено">Платено</mat-option>
-        <mat-option value="редовно">Редовно</mat-option>
+        <mat-option value="платено">{{ 'major.paid-option' | translate }}</mat-option>
+        <mat-option value="редовно">{{ 'major.full-time-option' | translate }}</mat-option>
       </mat-select>
     </mat-form-field>
 

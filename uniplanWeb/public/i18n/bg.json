@@ -1,0 +1,36 @@
+{
+  "faculty": {
+    "name-label": "Име:",
+    "faculty-label": "Факултет",
+    "location-label": "Местоположение",
+    "actions-label": "Действия",
+    "delete-button": "Изтрии",
+    "edit-button": "Редактирай"
+  },
+  "major": {
+    "name-label": "Име:",
+    "faculty-label": "Факултет",
+    "type-label": "Тип",
+    "study-mode-label": "Форма на обучение:",
+    "paid-option": "Платено",
+    "full-time-option": "Редовно",
+    "delete-confirmation": "Сигурни ли сте, че искате да изтриете факултет с име: ",
+    "major-label": "Специалност",
+    "actions-label": "Действия"
+  },
+  "student": {
+    "name-label": "Име:",
+    "faculty-number-label": "Факултетен номер:",
+    "faculty-label": "Факултет:",
+    "major-label": "Специалност:",
+    "course-label": "Курс",
+    "type-label": "Тип",
+    "study-mode-label": "Форма на обучение:",
+    "actions-label": "Действия",
+    "qualification-level-label":"Квалификационна степен"
+  },
+  "settings": {
+    "title": "Заглавие",
+    "span": "Смени езика: "
+  }
+}

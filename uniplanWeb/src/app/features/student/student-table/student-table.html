@@ -7,41 +7,40 @@
         </ng-container>
 
         <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef class="col-name"> Име
+            <th mat-header-cell *matHeaderCellDef class="col-name">{{ 'student.name-label' | translate }}
             </th>
         </ng-container>
 
         <ng-container matColumnDef="facultyNumber">
             <th mat-header-cell *matHeaderCellDef class="col-fac-number">
-                Факултетен номер
+                {{ 'student.faculty-number-label' | translate }}
             </th>
         </ng-container>
 
         <ng-container matColumnDef="major">
             <th mat-header-cell *matHeaderCellDef class="col-major">
-                Специалност
+                {{ 'student.major-label' | translate }}
             </th>
         </ng-container>
 
         <ng-container matColumnDef="majorType">
             <th mat-header-cell *matHeaderCellDef class="col-major-type">
-                Квалификационна степен
+                {{'student.qualification-level-label' | translate}}
             </th>
         </ng-container>
 
         <ng-container matColumnDef="course">
-            <th mat-header-cell *matHeaderCellDef class="col-course"> Курс
+            <th mat-header-cell *matHeaderCellDef class="col-course"> {{ 'student.course-label' | translate }}
             </th>
         </ng-container>
 
         <ng-container matColumnDef="subtype">
-            <th mat-header-cell *matHeaderCellDef class="col-subtype"> Форма на
-                обучение
+            <th mat-header-cell *matHeaderCellDef class="col-subtype">{{ 'student.study-mode-label' | translate }}
             </th>
         </ng-container>
 
         <ng-container matColumnDef="actions">
-            <th mat-header-cell *matHeaderCellDef class="col-actions"> Действия
+            <th mat-header-cell *matHeaderCellDef class="col-actions"> {{ 'student.actions-label' | translate }}
             </th>
         </ng-container>
 

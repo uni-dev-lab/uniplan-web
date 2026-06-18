@@ -7,13 +7,15 @@ import {
 } from '@angular/material/dialog';
 import { MajorService } from '../major-service';
 import { switchMap } from 'rxjs';
+import { TranslatePipe, TranslateDirective } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-major-delete-form',
-  imports: [DeleteForm, MatDialogModule],
   templateUrl: './major-delete-form.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './major-delete-form.scss',
+  imports: [DeleteForm, MatDialogModule,
+    TranslatePipe, TranslateDirective],
 })
 export class MajorDeleteForm {
   constructor(
@@ -21,7 +23,7 @@ export class MajorDeleteForm {
     private dialogRef: MatDialogRef<MajorDeleteForm>,
     @Inject(MAT_DIALOG_DATA)
     public data: { id: string; courseId: string; name: string }
-  ) {}
+  ) { }
 
   deleteMajor(): void {
     this.majorService

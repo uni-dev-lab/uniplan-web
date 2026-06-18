@@ -2,7 +2,7 @@
   <mat-dialog-content>
 
     <mat-form-field appearance="fill">
-      <mat-label>Име:</mat-label>
+      <mat-label>{{ 'faculty.name-label' | translate }}</mat-label>
       <input matInput [(ngModel)]="facultyName" />
     </mat-form-field>
 
@@ -15,9 +15,9 @@
       <mat-label>Университет:</mat-label>
       <mat-select [(ngModel)]="universityId">
         @for (uni of universities; track uni) {
-          <mat-option [value]="uni.id">
-            {{uni.uniName}})
-          </mat-option>
+        <mat-option [value]="uni.id">
+          {{uni.uniName}}
+        </mat-option>
         }
       </mat-select>
     </mat-form-field>

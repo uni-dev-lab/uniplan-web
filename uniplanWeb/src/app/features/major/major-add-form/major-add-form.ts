@@ -12,10 +12,13 @@ import { MatSelectModule } from '@angular/material/select';
 import { MajorService } from '../major-service';
 import { FacultyElm } from '../../../core/interfaces/faculty-elm';
 import { FacultyService } from '../../faculty/faculty-service';
-
-
+import { TranslatePipe, TranslateDirective } from '@ngx-translate/core';
+ 
 @Component({
   selector: 'app-major-add-form',
+  templateUrl: './major-add-form.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
+  styleUrl: './major-add-form.scss',
   imports: [
     MatDialogModule,
     MatFormField,
@@ -24,12 +27,12 @@ import { FacultyService } from '../../faculty/faculty-service';
     MatInputModule,
     AddForm,
     MatFormFieldModule,
-    MatSelectModule
-],
-  templateUrl: './major-add-form.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
-  styleUrl: './major-add-form.scss',
+    MatSelectModule,
+    TranslatePipe,
+    TranslateDirective
+  ],
 })
+
 export class MajorAddForm implements OnInit {
   //todo
   majorName = '';
@@ -43,7 +46,7 @@ export class MajorAddForm implements OnInit {
     private dialogRef: MatDialogRef<AddForm>,
     private majorService: MajorService,
     private facultyService: FacultyService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.facultyService.getFaculties().subscribe({

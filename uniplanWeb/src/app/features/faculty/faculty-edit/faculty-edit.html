@@ -2,12 +2,12 @@
     <mat-dialog-content>
 
         <mat-form-field appearance="fill">
-            <mat-label>Име:</mat-label>
+            <mat-label>{{ 'faculty.faculty-label' | translate }}</mat-label>
             <input matInput [(ngModel)]="facultyName" />
         </mat-form-field>
 
         <mat-form-field appearance="fill">
-            <mat-label>Локация:</mat-label>
+            <mat-label>{{ 'faculty.location-label' | translate }}</mat-label>
             <input matInput [(ngModel)]="location" />
         </mat-form-field>
 

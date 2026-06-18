@@ -1,0 +1,36 @@
+{
+    "faculty": {
+        "name-label": "Name:",
+        "faculty-label": "Faculty",
+        "location-label": "Location",
+        "actions-label": "Actions",
+        "delete-button": "Delete",
+        "edit-button": "Edit"
+    },
+    "major": {
+        "name-label": "Name:",
+        "faculty-label": "Faculty",
+        "type-label": "Type",
+        "study-mode-label": "Study mode",
+        "paid-option": "Paid",
+        "full-time-option": "Full-time",
+        "delete-confirmation": "Are you sure you wanna delete faculty with name: ",
+        "major-label": "Major",
+        "actions-label": "Actions"
+    },
+    "student": {
+        "name-label": "Name",
+        "faculty-number-label": "Faculty number",
+        "faculty-label": "Faculty",
+        "major-label": "Major",
+        "course-label": "Course",
+        "type-label": "Type",
+        "study-mode-label": "Study mode",
+        "actions-label": "Actions",
+        "qualification-level-label": "Qualification level"
+    },
+    "settings": {
+        "title": "Title",
+        "span": "Switch languages at runtime:"
+    }
+}
