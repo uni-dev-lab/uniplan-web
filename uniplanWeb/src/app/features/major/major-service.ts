@@ -14,7 +14,7 @@ export class MajorService {
   constructor(private http: HttpClient) {}
 
   getMajors(): Observable<MajorElm[]> {
-    return this.http.get<MajorElm[]>(API_ENDPOINTS.courses).pipe(
+    return this.http.get<MajorElm[]>(API_ENDPOINTS.majors).pipe(
       map((majors) =>
         majors.map((major, index) => ({
           majorId: major.majorId,
