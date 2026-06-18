@@ -56,7 +56,8 @@ export class FacultyAddForm implements OnInit {
   }
 
   private initForm() {
-    this.facultyForm = this.formBuilder.group({
+    this.facultyForm = this.formBuilder.nonNullable
+    .group({
       facultyName: ['', [Validators.required]],
       location: ['', [Validators.required]],
       universityId: ['', [Validators.required]]

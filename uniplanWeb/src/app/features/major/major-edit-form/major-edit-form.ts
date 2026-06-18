@@ -59,7 +59,8 @@ export class MajorEditForm implements OnInit {
   }
 
   private initForm(): void{
-    this.majorForm = this.formBuilder.group({
+    this.majorForm = this.formBuilder.nonNullable
+    .group({
       majorName: ['', [Validators.required]],
       facultyId: ['', [Validators.required]]
     });
