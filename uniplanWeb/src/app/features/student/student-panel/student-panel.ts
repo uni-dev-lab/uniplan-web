@@ -7,9 +7,9 @@ import { StudentTable, ELEMENT_STUDENT_DATA } from '../student-table/student-tab
 
 @Component({
   selector: 'app-student-panel',
-  standalone: true,
   imports: [StudentOptions, StudentFilters, StudentTable],
   templateUrl: './student-panel.html',
+  styleUrl: './student-panel.scss'
 })
 export class StudentPanel implements OnInit {
   searchText = '';
