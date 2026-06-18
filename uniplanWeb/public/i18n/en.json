@@ -12,18 +12,25 @@
         "delete-button": "Delete",
         "edit-button": "Edit",
         "uni-label": "University",
+        "delete-confirmation": "Are you sure you want to delete the faculty named: ",
         "add": {
             "title": "Add faculty"
+        },
+        "edit": {
+            "title": "Edit faculty"
         }
     },
     "major": {
         "paid-option": "Paid",
         "full-time-option": "Full-time",
-        "delete-confirmation": "Are you sure you want to delete the faculty named: ",
+        "delete-confirmation": "Are you sure you want to delete the major named: ",
         "bachelor-option": "Bachelor",
         "master-option": "Master",
         "add": {
             "title": "Add major"
+        },
+        "edit": {
+            "title": "Edit major"
         }
     },
     "student": {

@@ -1,4 +1,4 @@
-<app-edit-form title="Редактирай Специалност" (saveClicked)="save()">
+<app-edit-form [title]="'major.edit-title' | translate" (saveClicked)="save()">
 
   <mat-form-field appearance="fill">
     <mat-label>{{ 'features.name-label' | translate }}</mat-label>
