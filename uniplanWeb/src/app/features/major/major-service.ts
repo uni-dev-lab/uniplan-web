@@ -2,14 +2,16 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable, Subject, switchMap } from 'rxjs';
 import { MajorElm } from '../../core/interfaces/major-elm';
+import {environment} from '../../../environments/environment';
+import {API_ENDPOINTS} from '../../config/endpoints';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MajorService {
-  private apiUrl = 'http://localhost:8080/api/majors';
-  private apiUrlMajor = 'http://localhost:8080/api/majors';
-  private apiUrlCourse = 'http://localhost:8080/api/courses';
+  private apiUrl = API_ENDPOINTS.courses;
+  private apiUrlMajor = API_ENDPOINTS.majors;
+  private apiUrlCourse = API_ENDPOINTS.courses;
 
   refreshNeeded = new Subject<void>();
 
