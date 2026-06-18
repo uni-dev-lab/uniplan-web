@@ -1,0 +1,16 @@
+@mixin panel-styles {
+  .component-panel {
+    margin-top: 4%;
+  }
+
+  .controls-row {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 16px;
+    align-items: center;
+  }
+
+  .options {
+    padding-bottom: 20px;
+  }
+}

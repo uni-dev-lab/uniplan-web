@@ -10,9 +10,9 @@ import { MajorService } from '../major-service';
 
 @Component({
   selector: 'app-major-panel',
-  standalone: true,
   imports: [MajorOptions, MajorFilters, MajorTable],
   templateUrl: './major-panel.html',
+  styleUrl: './major-panel.scss'
 })
 export class MajorPanel implements OnInit {
   searchText = '';
