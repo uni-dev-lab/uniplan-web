@@ -53,7 +53,13 @@ export class MajorEditForm implements OnInit {
     this.initForm()
 
     this.facultyService.getFaculties().subscribe({
-      next: (data) => (this.faculties = data),
+      next: (data) => (
+        this.faculties = data,
+        this.majorForm.patchValue({
+          majorName: this.data.majorName,
+          facultyId: this.data.facultyId
+        })
+      ),
       error: (err) => console.error('Failed to load faculties', err),
     });
   }
