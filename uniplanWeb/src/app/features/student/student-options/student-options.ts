@@ -13,7 +13,7 @@ import { StudentAddForm } from '../student-add-form/student-add-form';
 export class StudentOptions {
   constructor(private dialog: MatDialog) {}
 
-  openAddForm() {
+  openAddForm(): void {
     this.dialog.open(StudentAddForm, {
       width: '400px',
     });

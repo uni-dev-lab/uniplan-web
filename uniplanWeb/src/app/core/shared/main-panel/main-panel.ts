@@ -15,6 +15,8 @@ import { StudentFilters } from '../../../features/student/student-filters/studen
 import { MajorElm } from '../../interfaces/major-elm';
 import { MajorService } from '../../../features/major/major-service';
 import { FacultyService } from '../../../features/faculty/faculty-service';
+import {StudentElm} from '../../interfaces/student-elm';
+import {FacultyElm} from '../../interfaces/faculty-elm';
 
 @Component({
   selector: 'app-main-panel',
@@ -34,33 +36,33 @@ import { FacultyService } from '../../../features/faculty/faculty-service';
   styleUrl: './main-panel.scss',
 })
 export class MainPanel {
-  currentView = 'home';
+  currentView: string = 'home';
 
   majors: MajorElm[] = [];
-  students = ELEMENT_STUDENT_DATA;
+  students: StudentElm[] = ELEMENT_STUDENT_DATA;
 
-  searchText = '';
-  searchFacNum = '';
-  searchMajor = '';
-  selectedStudentSubtype = '';
+  searchText: string = '';
+  searchFacNum: string = '';
+  searchMajor: string = '';
+  selectedStudentSubtype: string = '';
   studentSubtypes: string[] = [];
 
-  selectedFaculty = '';
-  selectedType = '';
-  selectedSubtype = '';
+  selectedFaculty: string = '';
+  selectedType: string = '';
+  selectedSubtype: string = '';
 
   faculties: { id: string; name: string }[] = [];
   types: string[] = [];
   subtypes: string[] = [];
 
-  private facultyMap = new Map<string, string>();
+  private facultyMap: Map<string, string> = new Map<string, string>();
 
   constructor(
     private viewService: ViewService,
     private majorService: MajorService,
     private facultyService: FacultyService
   ) {
-    this.viewService.currentView$.subscribe((view) => {
+    this.viewService.currentView$.subscribe((view: string): void => {
       this.currentView = view;
     });
   }
@@ -69,20 +71,20 @@ export class MainPanel {
     this.loadMajorFilters();
     this.loadStudentFilters();
 
-    this.majorService.refreshNeeded.subscribe(() => {
+    this.majorService.refreshNeeded.subscribe((): void => {
       this.loadMajorFilters();
     });
 
-    this.viewService.currentView$.subscribe((view) => {
+    this.viewService.currentView$.subscribe((view: string): void => {
       this.currentView = view;
     });
   }
 
   private loadMajorFilters(): void {
-    this.facultyService.getFaculties().subscribe((faculties) => {
-      this.facultyMap = new Map(faculties.map((f) => [f.id, f.facultyName]));
+    this.facultyService.getFaculties().subscribe((faculties: FacultyElm[]): void => {
+      this.facultyMap = new Map(faculties.map((f: FacultyElm): [any, any] => [f.id, f.facultyName]));
 
-      this.majorService.getMajors().subscribe((data) => {
+      this.majorService.getMajors().subscribe((data: MajorElm[]): void => {
         this.majors = data;
 
         const filterOptionsMajor = MajorTable.getFilterOptions(

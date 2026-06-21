@@ -12,5 +12,5 @@ import { MatDialogModule } from '@angular/material/dialog';
 export class EditForm {
   @Input() title: string = '';
 
-  @Output() saveClicked = new EventEmitter<void>();
+  @Output() saveClicked:EventEmitter<void> = new EventEmitter<void>();
 }

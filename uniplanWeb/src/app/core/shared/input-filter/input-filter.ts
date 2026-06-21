@@ -13,6 +13,6 @@ import { MatFormField, MatInputModule } from '@angular/material/input';
 })
 export class InputFilter {
   @Input() label: string = '';
-  @Input() searchText = '';
-  @Output() searchTextChange = new EventEmitter<string>();
+  @Input() searchText: string = '';
+  @Output() searchTextChange: EventEmitter<string> = new EventEmitter<string>();
 }

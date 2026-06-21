@@ -3,10 +3,10 @@ import { BehaviorSubject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class ViewService {
-  private viewSubject = new BehaviorSubject<string>('home');
-  currentView$ = this.viewSubject.asObservable();
+  private viewSubject: BehaviorSubject<string> = new BehaviorSubject<string>('home');
+  currentView$: any = this.viewSubject.asObservable();
 
-  public setView(view: string) {
+  public setView(view: string): void {
     this.viewSubject.next(view);
   }
 }

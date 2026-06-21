@@ -23,17 +23,16 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './student-add-form.scss',
 })
 export class StudentAddForm {
-  //todo
-  studentName = '';
-  facultyNumber = '';
-  faculty = '';
-  major = '';
-  course = '';
-  type = '';
+  studentName: string = '';
+  facultyNumber: string = '';
+  faculty: string = '';
+  major: string = '';
+  course: string = '';
+  type: string = '';
 
   constructor(private dialogRef: MatDialogRef<AddForm>) {}
 
-  save() {
+  save(): void {
     if (!this.studentName.trim()) {
       alert('Please enter student name.');
       return;

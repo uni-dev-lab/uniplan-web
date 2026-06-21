@@ -10,17 +10,16 @@ import { FiltersForm } from '../../../core/shared/filters-form/filters-form';
   styleUrl: './student-filters.scss',
 })
 export class StudentFilters {
-  //todo
-  @Input() internalSearchText = '';
-  @Output() searchTextChange = new EventEmitter<string>();
+  @Input() internalSearchText: string = '';
+  @Output() searchTextChange: EventEmitter<string> = new EventEmitter<string>();
 
-  @Input() internalSearchFacNum = '';
-  @Output() searchFacNumChange = new EventEmitter<string>();
+  @Input() internalSearchFacNum: string = '';
+  @Output() searchFacNumChange: EventEmitter<string> = new EventEmitter<string>();
 
-  @Input() internalSearchMajor = '';
-  @Output() searchMajorChange = new EventEmitter<string>();
+  @Input() internalSearchMajor: string = '';
+  @Output() searchMajorChange: EventEmitter<string> = new EventEmitter<string>();
 
   @Input() subtypes: string[] = [];
-  @Input() selectedSubtype = '';
-  @Output() subtypeChange = new EventEmitter<string>();
+  @Input() selectedSubtype: string = '';
+  @Output() subtypeChange: EventEmitter<string> = new EventEmitter<string>();
 }

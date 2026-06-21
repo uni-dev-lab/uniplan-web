@@ -22,7 +22,7 @@ import { AddButton } from '../../../core/shared/add-button/add-button';
 export class FacultyOptions {
   constructor(private dialog: MatDialog) {}
 
-  openAddForm() {
+  openAddForm(): void {
     this.dialog.open(FacultyAddForm, {
       width: '400px',
     });

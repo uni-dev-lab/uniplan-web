@@ -13,7 +13,7 @@ import { MatSelectModule } from '@angular/material/select';
   styleUrl: './filters-form.scss',
 })
 export class FiltersForm {
-  @Input() label = '';
+  @Input() label: string = '';
 
   @Input() options: string[] = [];
 

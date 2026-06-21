@@ -113,11 +113,10 @@ export const ELEMENT_STUDENT_DATA: StudentElm[] = [
   styleUrl: './student-table.scss',
 })
 export class StudentTable implements OnInit, OnChanges {
-  //todo
-  @Input() searchText = '';
-  @Input() searchFacNum = '';
-  @Input() searchMajor = '';
-  @Input() subtype = '';
+  @Input() searchText: string = '';
+  @Input() searchFacNum: string = '';
+  @Input() searchMajor: string = '';
+  @Input() subtype: string = '';
 
   @Input() subtypes: string[] = [];
 
@@ -145,15 +144,15 @@ export class StudentTable implements OnInit, OnChanges {
   }
 
   applyFilters(): void {
-    const name = this.searchText.toLowerCase();
-    const major = this.searchMajor.toLowerCase();
-    const facNum = this.searchFacNum;
+    const name: string = this.searchText.toLowerCase();
+    const major: string = this.searchMajor.toLowerCase();
+    const facNum: string = this.searchFacNum;
 
     this.dataSourceFilter = this.originalData.filter((student) => {
-      const matchName = !name || student.name.toLowerCase().includes(name);
-      const matchMajor = !major || student.major.toLowerCase().includes(major);
-      const matchFacNum = !facNum || student.facultyNumber.includes(facNum);
-      const matchSubtype = !this.subtype || student.subtype === this.subtype;
+      const matchName: boolean = !name || student.name.toLowerCase().includes(name);
+      const matchMajor: boolean = !major || student.major.toLowerCase().includes(major);
+      const matchFacNum: boolean = !facNum || student.facultyNumber.includes(facNum);
+      const matchSubtype: boolean = !this.subtype || student.subtype === this.subtype;
 
       return matchName && matchMajor && matchFacNum && matchSubtype;
     });
@@ -161,7 +160,7 @@ export class StudentTable implements OnInit, OnChanges {
 
   static getFilterOptions(data: StudentElm[]) {
     return {
-      subtypes: [...new Set(data.map((e) => e.subtype))],
+      subtypes: [...new Set(data.map((e: StudentElm) => e.subtype))],
     };
   }
 

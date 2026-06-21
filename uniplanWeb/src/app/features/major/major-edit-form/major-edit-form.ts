@@ -32,9 +32,8 @@ import { FacultyElm } from '../../../core/interfaces/faculty-elm';
   styleUrl: './major-edit-form.scss',
 })
 export class MajorEditForm implements OnInit {
-  //todo
-  majorName = '';
-  facultyId = '';
+  majorName: string = '';
+  facultyId: string = '';
 
   faculties: FacultyElm[] = [];
 
@@ -55,12 +54,12 @@ export class MajorEditForm implements OnInit {
 
   ngOnInit(): void {
     this.facultyService.getFaculties().subscribe({
-      next: (data) => (this.faculties = data),
-      error: (err) => console.error('Failed to load faculties', err),
+      next: (data: FacultyElm[]): FacultyElm[] => (this.faculties = data),
+      error: (err: any): void => console.error('Failed to load faculties', err),
     });
   }
 
-  save() {
+  save(): void {
     if (!this.majorName.trim()) {
       alert('Please enter the major name.');
       return;
@@ -72,8 +71,8 @@ export class MajorEditForm implements OnInit {
         facultyId: this.facultyId,
       })
       .subscribe({
-        next: () => this.dialogRef.close(true),
-        error: () => alert('Failed to update major.'),
+        next: (): void => this.dialogRef.close(true),
+        error: (): void => alert('Failed to update major.'),
       });
   }
 }

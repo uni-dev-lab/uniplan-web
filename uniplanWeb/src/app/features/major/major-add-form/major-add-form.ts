@@ -31,11 +31,10 @@ import { FacultyService } from '../../faculty/faculty-service';
   styleUrl: './major-add-form.scss',
 })
 export class MajorAddForm implements OnInit {
-  //todo
-  majorName = '';
-  faculty = '';
-  type = '';
-  subtype = '';
+  majorName: string = '';
+  faculty: string = '';
+  type: string = '';
+  subtype: string = '';
 
   faculties: FacultyElm[] = [];
 
@@ -47,14 +46,14 @@ export class MajorAddForm implements OnInit {
 
   ngOnInit(): void {
     this.facultyService.getFaculties().subscribe({
-      next: (data) => {
+      next: (data: FacultyElm[]) => {
         this.faculties = data;
       },
-      error: (err) => console.error('Failed to load faculties', err),
+      error: (err: any): void => console.error('Failed to load faculties', err),
     });
   }
 
-  save() {
+  save(): void {
     if (
       !this.majorName.trim() ||
       !this.faculty ||
@@ -73,10 +72,10 @@ export class MajorAddForm implements OnInit {
         subtype: this.subtype,
       })
       .subscribe({
-        next: () => {
+        next: (): void => {
           this.dialogRef.close(true);
         },
-        error: () => alert('Failed to create major or course.'),
+        error: (): void => alert('Failed to create major or course.'),
       });
   }
 }

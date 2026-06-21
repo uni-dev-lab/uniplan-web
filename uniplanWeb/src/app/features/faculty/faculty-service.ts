@@ -15,8 +15,8 @@ export class FacultyService {
 
   getFaculties(): Observable<FacultyElm[]> {
     return this.http.get<FacultyElm[]>(this.apiUrl).pipe(
-      map((faculties) =>
-        faculties.map((faculty, index) => ({
+      map((faculties: FacultyElm[]) =>
+        faculties.map((faculty: FacultyElm, index: number) => ({
           id: faculty.id,
           facultyName: faculty.facultyName,
           location: faculty.location,
@@ -33,7 +33,7 @@ export class FacultyService {
     location: string;
   }): Observable<any> {
     return this.http.post(`${this.apiUrl}`, faculty).pipe(
-      map((res) => {
+      map((res: Object): Object => {
         this.refreshNeeded.next();
         return res;
       })

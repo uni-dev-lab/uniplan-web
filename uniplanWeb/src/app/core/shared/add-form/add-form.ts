@@ -14,5 +14,5 @@ import { MatInputModule } from '@angular/material/input';
 export class AddForm {
   @Input() title: string = '';
 
-  @Output() saveClicked = new EventEmitter<void>();
+  @Output() saveClicked :EventEmitter<void> = new EventEmitter<void>();
 }

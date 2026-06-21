@@ -6,7 +6,7 @@ import {
   MatDialogRef,
 } from '@angular/material/dialog';
 import { MajorService } from '../major-service';
-import { switchMap } from 'rxjs';
+import {Observable, switchMap} from 'rxjs';
 
 @Component({
   selector: 'app-major-delete-form',
@@ -26,12 +26,12 @@ export class MajorDeleteForm {
   deleteMajor(): void {
     this.majorService
       .deleteCourse(this.data.courseId)
-      .pipe(switchMap(() => this.majorService.deleteMajor(this.data.id)))
+      .pipe(switchMap((): Observable<any> => this.majorService.deleteMajor(this.data.id)))
       .subscribe({
-        next: () => {
+        next: (): void => {
           this.dialogRef.close(true);
         },
-        error: () => {
+        error: (): void => {
           alert('Възникна грешка при изтриването на специалността или курса.');
         },
       });

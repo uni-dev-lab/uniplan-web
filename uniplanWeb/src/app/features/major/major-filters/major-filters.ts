@@ -21,7 +21,6 @@ import { FacultyService } from '../../faculty/faculty-service';
   styleUrl: './major-filters.scss',
 })
 export class MajorFilters {
-  //todo
   @Input() internalSearchText = '';
 
   @Input() faculties: { id: string; name: string }[] = [];
@@ -29,12 +28,12 @@ export class MajorFilters {
   @Input() types: string[] = [];
   @Input() subtypes: string[] = [];
 
-  @Input() selectedFaculty = '';
-  @Input() selectedType = '';
-  @Input() selectedSubtype = '';
+  @Input() selectedFaculty: string = '';
+  @Input() selectedType: string = '';
+  @Input() selectedSubtype: string = '';
 
-  @Output() facultyChange = new EventEmitter<string>();
-  @Output() typeChange = new EventEmitter<string>();
-  @Output() subtypeChange = new EventEmitter<string>();
-  @Output() searchTextChange = new EventEmitter<string>();
+  @Output() facultyChange: EventEmitter<string> = new EventEmitter<string>();
+  @Output() typeChange: EventEmitter<string> = new EventEmitter<string>();
+  @Output() subtypeChange: EventEmitter<string> = new EventEmitter<string>();
+  @Output() searchTextChange: EventEmitter<string> = new EventEmitter<string>();
 }

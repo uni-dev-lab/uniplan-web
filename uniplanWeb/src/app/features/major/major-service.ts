@@ -7,18 +7,18 @@ import { MajorElm } from '../../core/interfaces/major-elm';
   providedIn: 'root',
 })
 export class MajorService {
-  private apiUrl = 'http://localhost:8080/api/majors';
-  private apiUrlMajor = 'http://localhost:8080/api/majors';
-  private apiUrlCourse = 'http://localhost:8080/api/courses';
+  private apiUrl: string = 'http://localhost:8080/api/majors';
+  private apiUrlMajor: string = 'http://localhost:8080/api/majors';
+  private apiUrlCourse: string = 'http://localhost:8080/api/courses';
 
-  refreshNeeded = new Subject<void>();
+  refreshNeeded: Subject<void> = new Subject<void>();
 
   constructor(private http: HttpClient) {}
 
   getMajors(): Observable<MajorElm[]> {
     return this.http.get<MajorElm[]>(this.apiUrl).pipe(
-      map((majors) =>
-        majors.map((major, index) => ({
+      map((majors: MajorElm[]): any =>
+        majors.map((major: MajorElm, index: number) => ({
           majorId: major.majorId,
           majorName: major.majorName,
           courseId: major.courseId,
@@ -36,7 +36,7 @@ export class MajorService {
     majorName: string;
   }): Observable<any> {
     return this.http.post(`${this.apiUrlMajor}`, createMajor).pipe(
-      map((res) => {
+      map((res: Object): Object => {
         this.refreshNeeded.next();
         return res;
       })
@@ -50,7 +50,7 @@ export class MajorService {
     courseSubtype: string;
   }): Observable<any> {
     return this.http.post(`${this.apiUrlCourse}`, course).pipe(
-      map((res) => {
+      map((res: Object): Object => {
         this.refreshNeeded.next();
         return res;
       })
@@ -66,7 +66,7 @@ export class MajorService {
       facultyId: majorData.facultyId,
       majorName: majorData.majorName,
     }).pipe(
-      switchMap((createdMajor: any) => {
+      switchMap((createdMajor: any): Observable<any> => {
         return this.createCourse({
           majorId: createdMajor.id,
           courseType: majorData.type,
@@ -79,7 +79,7 @@ export class MajorService {
 
   deleteMajor(id: string): Observable<any> {
     return this.http.delete(`${this.apiUrlMajor}/${id}`).pipe(
-      map((res) => {
+      map((res: Object): Object => {
         this.refreshNeeded.next();
         return res;
       })
@@ -92,7 +92,7 @@ export class MajorService {
 
   deleteMajorWithCourse(major: MajorElm): Observable<any> {
     return this.deleteCourse(major.courseId).pipe(
-      switchMap(() => this.deleteMajor(major.majorId))
+      switchMap((): Observable<any> => this.deleteMajor(major.majorId))
     );
   }
 
@@ -101,7 +101,7 @@ export class MajorService {
     updateMajor: { facultyId: string; majorName: string }
   ): Observable<any> {
     return this.http.put(`${this.apiUrlMajor}/${id}`, updateMajor).pipe(
-      map((res) => {
+      map((res: Object): Object => {
         this.refreshNeeded.next();
         return res;
       })

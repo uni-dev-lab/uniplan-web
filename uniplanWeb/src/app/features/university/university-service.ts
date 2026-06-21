@@ -15,7 +15,7 @@ export interface UniversityElm {
   providedIn: 'root',
 })
 export class UniversityService {
-private apiUrl = 'http://localhost:8080/api/universities';
+private apiUrl: string = 'http://localhost:8080/api/universities';
 
   constructor(private http: HttpClient) {}
 
