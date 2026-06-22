@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable, Subject, switchMap } from 'rxjs';
 import { MajorElm } from '../../core/interfaces/major-elm';
+import { MajorOptionElm } from '../../core/interfaces/major-option-elm';
 
 @Injectable({
   providedIn: 'root',
@@ -106,5 +107,9 @@ export class MajorService {
         return res;
       })
     );
+  }
+
+  public getMajorOptions(): Observable<MajorOptionElm[]> {
+    return this.http.get<MajorOptionElm[]>(this.apiUrlMajor);
   }
 }

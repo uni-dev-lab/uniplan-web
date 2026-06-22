@@ -17,16 +17,17 @@
             <input matInput [(ngModel)]="faculty" />
         </mat-form-field>
 
-        <mat-form-field appearance="fill">
-            <mat-label>Специалност:</mat-label>
-          <mat-select [value]="major" (selectionChange)="onMajorChange($event.value)">
-            @for (majorItem of majors; track majorItem.majorId) {
-              <mat-option [value]="majorItem.majorName">
-                {{ majorItem.majorName }}
-              </mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Специалност:</mat-label>
+
+        <mat-select [value]="major" (selectionChange)="onMajorChange($event.value)">
+          @for (majorItem of majors; track majorItem.id) {
+            <mat-option [value]="majorItem.majorName">
+              {{ majorItem.majorName }}
+            </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
 
         <mat-form-field appearance="fill">
             <mat-label>Курс:</mat-label>

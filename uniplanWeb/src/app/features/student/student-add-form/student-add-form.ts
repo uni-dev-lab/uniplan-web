@@ -11,6 +11,7 @@ import { MajorElm } from '../../../core/interfaces/major-elm';
 import { MajorService } from '../../major/major-service';
 import {MatSelectModule} from '@angular/material/select';
 import {MatOptionModule} from '@angular/material/core';
+import { MajorOptionElm } from '../../../core/interfaces/major-option-elm';
 
 @Component({
   selector: 'app-student-add-form',
@@ -36,7 +37,7 @@ export class StudentAddForm implements OnInit {
   protected course: string = '';
   protected type: string = '';
 
-  protected majors: MajorElm[] = [];
+  protected majors: MajorOptionElm[] = [];
   protected courses: string[] = ['1', '2', '3', '4'];
   protected types: string[] = [];
 
@@ -46,19 +47,15 @@ export class StudentAddForm implements OnInit {
   private readonly majorService: MajorService = inject(MajorService);
 
   public ngOnInit(): void {
-    this.majorService.getMajors().subscribe({
-      next: (majors: MajorElm[]): void => {
+    console.log('StudentAddForm opened');
+
+    this.majorService.getMajorOptions().subscribe({
+      next: (majors: MajorOptionElm[]): void => {
+        console.log('Major dropdown data:', majors);
         this.majors = majors;
-        this.types = [
-          ...new Set(
-            majors
-              .map((major: MajorElm): string => major.courseType)
-              .filter((type: string): boolean => !!type)
-          ),
-        ];
       },
       error: (err: unknown): void => {
-        console.error('Failed to load majors', err);
+        console.error('Failed to load major options', err);
       },
     });
   }
