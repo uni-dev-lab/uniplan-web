@@ -1,4 +1,5 @@
 export interface StudentElm {
+  id: string;
   position: number;
   name: string;
   facultyNumber: string;

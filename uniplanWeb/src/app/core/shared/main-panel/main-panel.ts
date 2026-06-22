@@ -8,8 +8,7 @@ import { MajorTable } from '../../../features/major/major-table/major-table';
 import { MajorFilters } from '../../../features/major/major-filters/major-filters';
 import { StudentOptions } from '../../../features/student/student-options/student-options';
 import {
-  StudentTable,
-  ELEMENT_STUDENT_DATA,
+  StudentTable
 } from '../../../features/student/student-table/student-table';
 import { StudentFilters } from '../../../features/student/student-filters/student-filters';
 import { MajorElm } from '../../interfaces/major-elm';
@@ -37,7 +36,7 @@ export class MainPanel {
   currentView = 'home';
 
   majors: MajorElm[] = [];
-  students = ELEMENT_STUDENT_DATA;
+  students = [];
 
   searchText = '';
   searchFacNum = '';
