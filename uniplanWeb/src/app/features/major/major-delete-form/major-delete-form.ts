@@ -6,7 +6,6 @@ import {
   MatDialogRef,
 } from '@angular/material/dialog';
 import { MajorService } from '../major-service';
-import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-major-delete-form',
@@ -25,8 +24,7 @@ export class MajorDeleteForm {
 
   deleteMajor(): void {
     this.majorService
-      .deleteCourse(this.data.courseId)
-      .pipe(switchMap(() => this.majorService.deleteMajor(this.data.id)))
+      .deleteMajor(this.data.id)
       .subscribe({
         next: () => {
           this.dialogRef.close(true);
