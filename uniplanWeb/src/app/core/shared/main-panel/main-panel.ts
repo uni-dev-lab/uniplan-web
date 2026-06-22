@@ -15,6 +15,7 @@ import { StudentFilters } from '../../../features/student/student-filters/studen
 import { MajorElm } from '../../interfaces/major-elm';
 import { MajorService } from '../../../features/major/major-service';
 import { FacultyService } from '../../../features/faculty/faculty-service';
+import { LoginForm } from '../../../features/login/login-form/login-form';
 
 @Component({
   selector: 'app-main-panel',
@@ -26,7 +27,8 @@ import { FacultyService } from '../../../features/faculty/faculty-service';
     MajorFilters,
     StudentOptions,
     StudentTable,
-    StudentFilters
+    StudentFilters,
+    LoginForm,
 ],
   standalone: true,
   templateUrl: './main-panel.html',

@@ -1,5 +1,4 @@
-<div class="mainPanel">
-  <div class="components-wrapper">
+<div class="mainPanel" [class.login-view]="currentView === 'login'">  <div class="components-wrapper">
     @if (currentView === 'faculty') {
       <div class="component-panel faculty">
         <app-faculty-options></app-faculty-options>
@@ -10,6 +9,12 @@
     @if (currentView === 'home') {
       <div class="component-panel home">
         <h1>Main!</h1>
+      </div>
+    }
+
+    @if (currentView === 'login') {
+      <div class="component-panel login">
+        <app-login-form></app-login-form>
       </div>
     }
 

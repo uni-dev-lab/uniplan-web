@@ -59,4 +59,17 @@ export class NavmenuComponent implements OnInit {
   onStudentClick(): void {
     this.viewService.setView('student');
   }
+
+  protected onLoginClick(): void {
+    this.viewService.setView('login');
+  }
+
+  protected onLogoutClick(): void {
+    this.authService.logout();
+    this.viewService.setView('home');
+  }
+
+  protected onProfileOpenClick(): void {
+    this.viewService.setView('home');
+  }
 }

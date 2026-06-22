@@ -6,6 +6,16 @@
   justify-content: center;
 }
 
+.component-panel.login {
+  width: 100%;
+  min-height: calc(100vh - 80px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  box-sizing: border-box;
+}
+
 .components-wrapper {
   position: relative;
   margin-left: 8%;
@@ -56,3 +66,33 @@
 .options {
   padding-bottom: 20px;
 }
+
+.mainPanel.login-view {
+  align-items: center;
+  justify-content: center;
+}
+
+.mainPanel.login-view .components-wrapper {
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 0;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.component-panel.login {
+  width: 100%;
+  min-height: 100%;
+  margin-top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  box-sizing: border-box;
+}
+
+
