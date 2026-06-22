@@ -30,9 +30,9 @@ import { EditForm } from '../../../core/shared/edit-form/edit-form';
   ],
 })
 export class FacultyEdit {
-  facultyName: string = '';
-  location: string = '';
-  universityId: string = '';
+  protected facultyName: string = '';
+  protected location: string = '';
+  protected universityId: string = '';
 
   constructor(
     private dialogRef: MatDialogRef<EditForm>,
@@ -49,8 +49,7 @@ export class FacultyEdit {
     this.location = data.location;
     this.universityId = data.universityId;
   }
-
-  save(): void {
+  protected save(): void {
     if (!this.facultyName.trim()) {
       alert('Please enter faculty name.');
       return;

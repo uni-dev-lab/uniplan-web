@@ -10,7 +10,7 @@ import { MatDialogModule } from '@angular/material/dialog';
   styleUrl: './edit-form.scss',
 })
 export class EditForm {
-  @Input() title: string = '';
+  @Input() public title: string = '';
 
-  @Output() saveClicked:EventEmitter<void> = new EventEmitter<void>();
+  @Output() public readonly saveClicked:EventEmitter<void> = new EventEmitter<void>();
 }

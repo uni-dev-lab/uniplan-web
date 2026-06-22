@@ -30,10 +30,10 @@ import {
   styleUrl: './faculty-add-form.scss',
 })
 export class FacultyAddForm implements OnInit {
-  facultyName: string = '';
-  location: string = '';
-  universityId: string = '';
-  universities: UniversityElm[] = [];
+  protected facultyName: string = '';
+  protected location: string = '';
+  protected universityId: string = '';
+  protected universities: UniversityElm[] = [];
 
   constructor(
     private dialogRef: MatDialogRef<AddForm>,
@@ -41,7 +41,7 @@ export class FacultyAddForm implements OnInit {
     private universityService: UniversityService
   ) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.universityService.getAllUniversities().subscribe({
       next: (data: UniversityElm[]): void => {
         this.universities = data;
@@ -52,7 +52,7 @@ export class FacultyAddForm implements OnInit {
     });
   }
 
-  save(): void {
+  protected save(): void {
     if (!this.facultyName.trim()) {
       alert('Please enter faculty name.');
       return;

@@ -13,20 +13,20 @@ import { MatSelectModule } from '@angular/material/select';
   styleUrl: './filters-form.scss',
 })
 export class FiltersForm {
-  @Input() label: string = '';
+  @Input() public label: string = '';
 
-  @Input() options: string[] = [];
+  @Input() public options: string[] = [];
 
-  @Input() objectOptions: { id: string; name: string }[] = [];
+  @Input() public objectOptions: { id: string; name: string }[] = [];
 
-  @Input() selected = '';
-  @Output() selectionChange = new EventEmitter<string>();
+  @Input() public selected = '';
+  @Output() public readonly selectionChange = new EventEmitter<string>();
 
-  onChange(value: string) {
+  public onChange(value: string) {
     this.selectionChange.emit(value);
   }
 
-  isObjectMode(): boolean {
+  public isObjectMode(): boolean {
     return this.objectOptions && this.objectOptions.length > 0;
   }
 }

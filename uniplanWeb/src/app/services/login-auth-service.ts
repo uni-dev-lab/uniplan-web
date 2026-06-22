@@ -10,11 +10,11 @@ export class LoginAuthService {
     this.loggedIn = !!localStorage.getItem('user');
   }
 
-  isLoggedIn(): boolean {
+  public isLoggedIn(): boolean {
     return this.loggedIn;
   }
 
-  logout(): void {
+  public logout(): void {
     localStorage.removeItem('user');
     this.loggedIn = false;
   }

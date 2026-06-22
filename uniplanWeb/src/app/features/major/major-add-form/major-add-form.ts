@@ -31,12 +31,12 @@ import { FacultyService } from '../../faculty/faculty-service';
   styleUrl: './major-add-form.scss',
 })
 export class MajorAddForm implements OnInit {
-  majorName: string = '';
-  faculty: string = '';
-  type: string = '';
-  subtype: string = '';
+  protected majorName: string = '';
+  protected faculty: string = '';
+  protected type: string = '';
+  protected subtype: string = '';
 
-  faculties: FacultyElm[] = [];
+  protected faculties: FacultyElm[] = [];
 
   constructor(
     private dialogRef: MatDialogRef<AddForm>,
@@ -44,7 +44,7 @@ export class MajorAddForm implements OnInit {
     private facultyService: FacultyService
   ) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.facultyService.getFaculties().subscribe({
       next: (data: FacultyElm[]) => {
         this.faculties = data;
@@ -53,7 +53,7 @@ export class MajorAddForm implements OnInit {
     });
   }
 
-  save(): void {
+  protected save(): void {
     if (
       !this.majorName.trim() ||
       !this.faculty ||

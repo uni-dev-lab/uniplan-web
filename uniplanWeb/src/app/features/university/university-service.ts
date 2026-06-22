@@ -19,7 +19,7 @@ private apiUrl: string = 'http://localhost:8080/api/universities';
 
   constructor(private http: HttpClient) {}
 
-  getAllUniversities(): Observable<UniversityElm[]> {
+  public getAllUniversities(): Observable<UniversityElm[]> {
     return this.http.get<UniversityElm[]>(this.apiUrl);
   }
 }

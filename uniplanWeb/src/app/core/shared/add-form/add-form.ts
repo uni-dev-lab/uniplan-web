@@ -12,7 +12,7 @@ import { MatInputModule } from '@angular/material/input';
   styleUrl: './add-form.scss',
 })
 export class AddForm {
-  @Input() title: string = '';
+  @Input() public title: string = '';
 
-  @Output() saveClicked :EventEmitter<void> = new EventEmitter<void>();
+  @Output() public readonly saveClicked :EventEmitter<void> = new EventEmitter<void>();
 }

@@ -23,7 +23,7 @@ export class MajorDeleteForm {
     public data: { id: string; courseId: string; name: string }
   ) {}
 
-  deleteMajor(): void {
+  protected deleteMajor(): void {
     this.majorService
       .deleteCourse(this.data.courseId)
       .pipe(switchMap((): Observable<any> => this.majorService.deleteMajor(this.data.id)))

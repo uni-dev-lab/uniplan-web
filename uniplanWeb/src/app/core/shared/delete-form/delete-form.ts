@@ -11,7 +11,7 @@ import { MatInputModule } from '@angular/material/input';
   styleUrl: './delete-form.scss',
 })
 export class DeleteForm {
-  @Input() title: string = '';
+  @Input() public title: string = '';
 
-  @Output() deleteClicked:EventEmitter<void> = new EventEmitter<void>();
+  @Output() public readonly deleteClicked:EventEmitter<void> = new EventEmitter<void>();
 }

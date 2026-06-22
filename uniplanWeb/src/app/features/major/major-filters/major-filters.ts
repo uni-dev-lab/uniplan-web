@@ -21,19 +21,19 @@ import { FacultyService } from '../../faculty/faculty-service';
   styleUrl: './major-filters.scss',
 })
 export class MajorFilters {
-  @Input() internalSearchText = '';
+  @Input() public internalSearchText = '';
 
-  @Input() faculties: { id: string; name: string }[] = [];
+  @Input() public faculties: { id: string; name: string }[] = [];
 
-  @Input() types: string[] = [];
-  @Input() subtypes: string[] = [];
+  @Input() public types: string[] = [];
+  @Input() public subtypes: string[] = [];
 
-  @Input() selectedFaculty: string = '';
-  @Input() selectedType: string = '';
-  @Input() selectedSubtype: string = '';
+  @Input() public selectedFaculty: string = '';
+  @Input() public selectedType: string = '';
+  @Input() public selectedSubtype: string = '';
 
-  @Output() facultyChange: EventEmitter<string> = new EventEmitter<string>();
-  @Output() typeChange: EventEmitter<string> = new EventEmitter<string>();
-  @Output() subtypeChange: EventEmitter<string> = new EventEmitter<string>();
-  @Output() searchTextChange: EventEmitter<string> = new EventEmitter<string>();
+  @Output() public readonly facultyChange: EventEmitter<string> = new EventEmitter<string>();
+  @Output() public readonly typeChange: EventEmitter<string> = new EventEmitter<string>();
+  @Output() public readonly subtypeChange: EventEmitter<string> = new EventEmitter<string>();
+  @Output() public readonly searchTextChange: EventEmitter<string> = new EventEmitter<string>();
 }

@@ -36,28 +36,28 @@ import {FacultyElm} from '../../interfaces/faculty-elm';
   styleUrl: './main-panel.scss',
 })
 export class MainPanel {
-  currentView: string = 'home';
+  protected currentView: string = 'home';
 
-  majors: MajorElm[] = [];
-  students: StudentElm[] = ELEMENT_STUDENT_DATA;
+  protected majors: MajorElm[] = [];
+  protected students: StudentElm[] = ELEMENT_STUDENT_DATA;
 
-  searchText: string = '';
-  searchFacNum: string = '';
-  searchMajor: string = '';
-  selectedStudentSubtype: string = '';
-  studentSubtypes: string[] = [];
+  protected searchText: string = '';
+  protected searchFacNum: string = '';
+  protected searchMajor: string = '';
+  protected selectedStudentSubtype: string = '';
+  protected studentSubtypes: string[] = [];
 
-  selectedFaculty: string = '';
-  selectedType: string = '';
-  selectedSubtype: string = '';
+  protected selectedFaculty: string = '';
+  protected selectedType: string = '';
+  protected selectedSubtype: string = '';
 
-  faculties: { id: string; name: string }[] = [];
-  types: string[] = [];
-  subtypes: string[] = [];
+  protected faculties: { id: string; name: string }[] = [];
+  protected types: string[] = [];
+  protected subtypes: string[] = [];
 
   private facultyMap: Map<string, string> = new Map<string, string>();
 
-  constructor(
+  public constructor(
     private viewService: ViewService,
     private majorService: MajorService,
     private facultyService: FacultyService
@@ -67,7 +67,7 @@ export class MainPanel {
     });
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.loadMajorFilters();
     this.loadStudentFilters();
 

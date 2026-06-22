@@ -113,12 +113,12 @@ export const ELEMENT_STUDENT_DATA: StudentElm[] = [
   styleUrl: './student-table.scss',
 })
 export class StudentTable implements OnInit, OnChanges {
-  @Input() searchText: string = '';
-  @Input() searchFacNum: string = '';
-  @Input() searchMajor: string = '';
-  @Input() subtype: string = '';
+  @Input() public searchText: string = '';
+  @Input() public searchFacNum: string = '';
+  @Input() public searchMajor: string = '';
+  @Input() public subtype: string = '';
 
-  @Input() subtypes: string[] = [];
+  @Input() public subtypes: string[] = [];
 
   displayedColumns: string[] = [
     'position',
@@ -131,19 +131,19 @@ export class StudentTable implements OnInit, OnChanges {
     'actions',
   ];
 
-  originalData: StudentElm[] = ELEMENT_STUDENT_DATA;
-  dataSourceFilter: StudentElm[] = ELEMENT_STUDENT_DATA;
+  protected originalData: StudentElm[] = ELEMENT_STUDENT_DATA;
+  protected dataSourceFilter: StudentElm[] = ELEMENT_STUDENT_DATA;
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.subtypes = StudentTable.getFilterOptions(this.originalData).subtypes;
     this.applyFilters();
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  public ngOnChanges(changes: SimpleChanges): void {
     this.applyFilters();
   }
 
-  applyFilters(): void {
+  private applyFilters(): void {
     const name: string = this.searchText.toLowerCase();
     const major: string = this.searchMajor.toLowerCase();
     const facNum: string = this.searchFacNum;
@@ -158,17 +158,17 @@ export class StudentTable implements OnInit, OnChanges {
     });
   }
 
-  static getFilterOptions(data: StudentElm[]) {
+  public static getFilterOptions(data: StudentElm[]) {
     return {
       subtypes: [...new Set(data.map((e: StudentElm) => e.subtype))],
     };
   }
 
-  onEdit(element: StudentElm): void {
+  protected onEdit(element: StudentElm): void {
     console.log('Editing:', element);
   }
 
-  onDelete(element: StudentElm): void {
+  protected onDelete(element: StudentElm): void {
     console.log('Deleting:', element);
   }
 }

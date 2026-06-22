@@ -9,11 +9,11 @@ import { FacultyElm } from '../../core/interfaces/faculty-elm';
 export class FacultyService {
   private apiUrl = 'http://localhost:8080/api/faculties';
 
-  refreshNeeded = new Subject<void>();
+  public readonly refreshNeeded = new Subject<void>();
 
   constructor(private http: HttpClient) {}
 
-  getFaculties(): Observable<FacultyElm[]> {
+  public getFaculties(): Observable<FacultyElm[]> {
     return this.http.get<FacultyElm[]>(this.apiUrl).pipe(
       map((faculties: FacultyElm[]) =>
         faculties.map((faculty: FacultyElm, index: number) => ({
@@ -27,7 +27,7 @@ export class FacultyService {
     );
   }
 
-  createFaculty(faculty: {
+  public createFaculty(faculty: {
     universityId: string;
     facultyName: string;
     location: string;
@@ -40,7 +40,7 @@ export class FacultyService {
     );
   }
 
-  editFaculty(
+  public editFaculty(
     id: string,
     updatedFaculty: {
       universityId: string;
@@ -56,7 +56,7 @@ export class FacultyService {
     );
   }
 
-  deleteFaculty(id: string): Observable<any> {
+  public deleteFaculty(id: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`).pipe(
       map((res) => {
         this.refreshNeeded.next();

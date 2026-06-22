@@ -12,7 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
 export class AddButton {
   @Output() addClicked = new EventEmitter<void>();
 
-  onClick(): void {
+  public onClick(): void {
     this.addClicked.emit();
   }
 }

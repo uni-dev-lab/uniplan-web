@@ -13,20 +13,20 @@ import { LoginAuthService } from '../../../services/login-auth-service';
   styleUrls: ['./navmenu-component.scss'],
 })
 export class NavmenuComponent implements OnInit {
-  isSidebarCollapsed: boolean = false;
-  isMobileView: boolean = window.innerWidth <= 768;
+  protected isSidebarCollapsed: boolean = false;
+  protected isMobileView: boolean = window.innerWidth <= 768;
 
   constructor(
-    public authService: LoginAuthService,
-    public viewService: ViewService
+    protected authService: LoginAuthService,
+    private readonly viewService: ViewService
   ) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.checkViewport();
   }
 
   @HostListener('window:resize', ['$event'])
-  onResize(event: Event): void {
+  protected onResize(event: Event): void {
     this.checkViewport();
   }
 
@@ -40,23 +40,23 @@ export class NavmenuComponent implements OnInit {
     }
   }
 
-  toggleSidebar(): void {
+  protected toggleSidebar(): void {
     this.isSidebarCollapsed = !this.isSidebarCollapsed;
   }
 
-  onHomeClick(): void {
+  protected onHomeClick(): void {
     this.viewService.setView('home');
   }
 
-  onFacultyClick(): void {
+  protected onFacultyClick(): void {
     this.viewService.setView('faculty');
   }
 
-  onMajorClick(): void {
+  protected onMajorClick(): void {
     this.viewService.setView('major');
   }
 
-  onStudentClick(): void {
+  protected onStudentClick(): void {
     this.viewService.setView('student');
   }
 }

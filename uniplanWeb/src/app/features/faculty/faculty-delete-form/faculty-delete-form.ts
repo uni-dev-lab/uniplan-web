@@ -22,7 +22,7 @@ export class FacultyDeleteForm {
     public data: { id: string; facultyName: string }
   ) {}
 
-  deleteFaculty(): void {
+  protected deleteFaculty(): void {
     this.facultyService.deleteFaculty(this.data.id).subscribe({
       next: (): void => {
         this.dialogRef.close(true);
