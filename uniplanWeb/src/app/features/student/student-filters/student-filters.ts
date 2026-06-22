@@ -11,7 +11,6 @@ import { TranslatePipe } from '@ngx-translate/core';
   imports: [InputFilter, FiltersForm, TranslatePipe],
 })
 export class StudentFilters {
-  //todo
   @Input() internalSearchText = '';
   @Output() searchTextChange = new EventEmitter<string>();
 

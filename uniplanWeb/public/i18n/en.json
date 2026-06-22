@@ -52,6 +52,7 @@
         "exit-button": "Cancel",
         "save-button": "Save",
         "delete-button": "Delete",
-        "option-all": "All"
+        "option-all": "All",
+        "confirm-delete": "Confirm deletion"
     }
 }

@@ -23,7 +23,6 @@ import { TranslatePipe } from '@ngx-translate/core';
   ],
 })
 export class MajorFilters {
-  //todo
   @Input() internalSearchText = '';
 
   @Input() faculties: { id: string; name: string }[] = [];

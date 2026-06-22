@@ -52,6 +52,7 @@
     "exit-button": "Отмени",
     "save-button": "Запази",
     "delete-button": "Изтрий",
-    "option-all": "Всички"
+    "option-all": "Всички",
+    "confirm-delete": "Потвърдете изтриването"
   }
 }

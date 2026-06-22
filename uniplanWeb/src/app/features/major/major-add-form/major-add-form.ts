@@ -33,7 +33,6 @@ import { TranslatePipe } from '@ngx-translate/core';
 })
 
 export class MajorAddForm implements OnInit {
-  //todo
   majorName = '';
   faculty = '';
   type = '';
