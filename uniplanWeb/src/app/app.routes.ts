@@ -27,6 +27,8 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/student/student-panel/student-panel').then(m => m.StudentPanel),
       },
+      { path: '**', loadComponent: () =>
+          import('./features/not-found/not-found-panel/not-found-panel').then(m => m.NotFoundPanel),  },
     ],
   },
 ];
