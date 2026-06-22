@@ -18,9 +18,8 @@ export class StudentPanel implements OnInit {
   selectedStudentSubtype = '';
   studentSubtypes: string[] = [];
 
-  students: StudentElm[] = ELEMENT_STUDENT_DATA;
-
   ngOnInit(): void {
-    this.studentSubtypes = StudentTable.getFilterOptions(this.students).subtypes;
+    const students: StudentElm[] = ELEMENT_STUDENT_DATA;
+    this.studentSubtypes = StudentTable.getFilterOptions(students).subtypes;
   }
 }
