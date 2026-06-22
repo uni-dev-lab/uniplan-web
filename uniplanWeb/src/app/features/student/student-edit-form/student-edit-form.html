@@ -1,0 +1,44 @@
+<app-edit-form title="Редактирай студент" (saveClicked)="save()">
+  <mat-dialog-content>
+    <mat-form-field appearance="fill">
+      <mat-label>Име:</mat-label>
+      <input matInput [(ngModel)]="name" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Факултетен номер:</mat-label>
+      <input matInput [(ngModel)]="facultyNumber" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Специалност:</mat-label>
+      <input matInput [(ngModel)]="major" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Квалификационна степен:</mat-label>
+      <mat-select [(ngModel)]="majorType">
+        <mat-option value="бакалавър">бакалавър</mat-option>
+        <mat-option value="магистър">магистър</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Курс:</mat-label>
+      <mat-select [(ngModel)]="course">
+        <mat-option value="1">1</mat-option>
+        <mat-option value="2">2</mat-option>
+        <mat-option value="3">3</mat-option>
+        <mat-option value="4">4</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Форма на обучение:</mat-label>
+      <mat-select [(ngModel)]="subtype">
+        <mat-option value="редовно">редовно</mat-option>
+        <mat-option value="задочно">задочно</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </mat-dialog-content>
+</app-edit-form>

@@ -4,13 +4,16 @@ import {
   SimpleChanges,
   OnChanges,
   OnInit,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
+  inject
 } from '@angular/core';
 import { StudentElm } from '../../../core/interfaces/student-elm';
 
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import {MatDialog, MatDialogModule} from '@angular/material/dialog';
+import {StudentEditForm} from '../student-edit-form/student-edit-form';
 
 export const ELEMENT_STUDENT_DATA: StudentElm[] = [
   {
@@ -107,12 +110,14 @@ export const ELEMENT_STUDENT_DATA: StudentElm[] = [
 
 @Component({
   selector: 'app-student-table',
-  imports: [MatTableModule, MatIconModule, MatButtonModule],
+  imports: [MatTableModule, MatIconModule, MatButtonModule, MatDialogModule],
   templateUrl: './student-table.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './student-table.scss',
 })
 export class StudentTable implements OnInit, OnChanges {
+  private readonly dialog: MatDialog = inject(MatDialog);
+
   @Input() public searchText: string = '';
   @Input() public searchFacNum: string = '';
   @Input() public searchMajor: string = '';
@@ -120,7 +125,7 @@ export class StudentTable implements OnInit, OnChanges {
 
   @Input() public subtypes: string[] = [];
 
-  displayedColumns: string[] = [
+  protected displayedColumns: string[] = [
     'position',
     'name',
     'facultyNumber',
@@ -165,7 +170,22 @@ export class StudentTable implements OnInit, OnChanges {
   }
 
   protected onEdit(element: StudentElm): void {
-    console.log('Editing:', element);
+    const dialogRef = this.dialog.open(StudentEditForm, {
+      width: '500px',
+      data: { ...element },
+    });
+
+    dialogRef.afterClosed().subscribe((updatedStudent: StudentElm | undefined): void => {
+      if (!updatedStudent) {
+        return;
+      }
+
+      this.originalData = this.originalData.map((student: StudentElm): StudentElm =>
+        student.position === element.position ? updatedStudent : student
+      );
+
+      this.applyFilters();
+    });
   }
 
   protected onDelete(element: StudentElm): void {
