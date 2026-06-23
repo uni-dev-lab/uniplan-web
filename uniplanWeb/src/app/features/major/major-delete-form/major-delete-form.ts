@@ -27,8 +27,7 @@ export class MajorDeleteForm {
 
   deleteMajor(): void {
     this.majorService
-      .deleteCourse(this.data.courseId)
-      .pipe(switchMap(() => this.majorService.deleteMajor(this.data.id)))
+      .deleteMajor(this.data.id)
       .subscribe({
         next: () => {
           this.dialogRef.close(true);

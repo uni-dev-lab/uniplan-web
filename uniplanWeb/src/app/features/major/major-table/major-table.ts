@@ -85,7 +85,7 @@ export class MajorTable implements OnInit {
   onEdit(element: MajorElm): void {
     this.dialog.open(MajorEditForm, {
       data: {
-        id: element.majorId,
+        id: element.id,
         majorName: element.majorName,
         facultyId: element.facultyId,
       },
@@ -95,7 +95,7 @@ export class MajorTable implements OnInit {
   onDelete(element: MajorElm): void {
     this.dialog.open(MajorDeleteForm, {
       data: {
-        id: element.majorId,
+        id: element.id,
         courseId: element.courseId,
         majorName: element.majorName,
         facultyId: element.facultyId,

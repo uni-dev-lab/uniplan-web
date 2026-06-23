@@ -67,8 +67,8 @@ export class MajorEditForm implements OnInit {
 
     this.majorService
       .editMajor(this.data.id, {
-        majorName: this.majorName,
         facultyId: this.facultyId,
+        majorName: this.majorName,
       })
       .subscribe({
         next: () => this.dialogRef.close(true),
