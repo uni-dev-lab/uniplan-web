@@ -2,7 +2,6 @@ import {
   Component,
   input,
   SimpleChanges,
-  effect,
   OnChanges,
   OnInit,
   effect,
