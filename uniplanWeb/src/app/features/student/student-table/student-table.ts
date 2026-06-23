@@ -128,10 +128,10 @@ export class StudentTable implements OnInit, OnChanges {
     'position',
     'name',
     'facultyNumber',
-    'major',
+    'majorName',
     'majorType',
-    'subtype',
-    'course',
+    'courseSubtype',
+    'courseType',
     'actions',
   ];
 
@@ -140,9 +140,9 @@ export class StudentTable implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.loadStudents();
-  this.studentService.refreshNeeded.subscribe(() => {
-    this.loadStudents();
-  });
+    this.studentService.refreshNeeded.subscribe(() => {
+      this.loadStudents();
+    });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -169,9 +169,9 @@ export class StudentTable implements OnInit, OnChanges {
 
     this.dataSourceFilter = this.originalData.filter((student) => {
       const matchName = !name || student.name.toLowerCase().includes(name);
-      const matchMajor = !major || student.major.toLowerCase().includes(major);
+      const matchMajor = !major || student.majorName.toLowerCase().includes(major);
       const matchFacNum = !facNum || student.facultyNumber.includes(facNum);
-      const matchSubtype = !this.subtype || student.subtype === this.subtype;
+      const matchSubtype = !this.subtype || student.courseSubtype === this.subtype;
 
       return matchName && matchMajor && matchFacNum && matchSubtype;
     });
@@ -179,7 +179,7 @@ export class StudentTable implements OnInit, OnChanges {
 
   static getFilterOptions(data: StudentElm[]) {
     return {
-      subtypes: [...new Set(data.map((e) => e.subtype))],
+      subtypes: [...new Set(data.map((e) => e.courseSubtype))],
     };
   }
 

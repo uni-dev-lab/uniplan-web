@@ -21,10 +21,10 @@ export class StudentService {
                     position: index + 1,
                     name: student.name,
                     facultyNumber: student.facultyNumber,
-                    major: student.major,
+                    majorName: student.majorName,
                     majorType: student.majorType,
-                    course: student.course,
-                    subtype: student.subtype,
+                    courseType: student.courseType,
+                    courseSubtype: student.courseSubtype as 'редовно' | 'задочно',
                 }))
             )
         );
