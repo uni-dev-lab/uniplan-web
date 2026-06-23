@@ -16,7 +16,7 @@
     <ul class="list">
       <li class="list"><a href="#" class="nav-link" (click)="onHomeClick()">
         <span class="link">Начало</span></a></li>
-        @if (!authService.isLoggedIn()) {
+        @if (authService.isLoggedIn()) {
           <li class="list">
             <a href="#" class="nav-link"><span class="link">Създай
             разписание</span></a>
