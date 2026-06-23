@@ -1,4 +1,4 @@
-import { Component, Inject, ChangeDetectionStrategy } from '@angular/core';
+import {Component, ChangeDetectionStrategy, inject} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
   MAT_DIALOG_DATA,
@@ -31,24 +31,16 @@ import { StudentElm } from '../../../core/interfaces/student-elm';
   styleUrl: './student-edit-form.scss',
 })
 export class StudentEditForm {
-  protected name: string = '';
-  protected facultyNumber: string = '';
-  protected major: string = '';
-  protected majorType: StudentElm['majorType'] = 'бакалавър';
-  protected course: string = '';
-  protected subtype: StudentElm['subtype'] = 'редовно';
 
-  public constructor(
-    private readonly dialogRef: MatDialogRef<StudentEditForm>,
-    @Inject(MAT_DIALOG_DATA) protected readonly data: StudentElm
-  ) {
-    this.name = data.name;
-    this.facultyNumber = data.facultyNumber;
-    this.major = data.major;
-    this.majorType = data.majorType;
-    this.course = data.course;
-    this.subtype = data.subtype;
-  }
+  private readonly dialogRef = inject(MatDialogRef<StudentEditForm>);
+  protected readonly data = inject<StudentElm>(MAT_DIALOG_DATA);
+
+  protected name: string = this.data.name;
+  protected facultyNumber: string = this.data.facultyNumber;
+  protected major: string = this.data.major;
+  protected majorType: string = this.data.majorType;
+  protected course: string = this.data.course;
+  protected subtype = this.data.subtype;
 
   protected save(): void {
     if (!this.name.trim()) {
