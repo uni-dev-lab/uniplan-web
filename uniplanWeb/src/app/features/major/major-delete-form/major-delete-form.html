@@ -1,7 +1,7 @@
 <app-delete-form (deleteClicked)="deleteMajor()">
     <mat-dialog-content>
         <p>
-            Сигурни ли сте, че искате да изтриете факултет с име:
+            {{ 'major.delete-confirmation' | translate }}
             <strong>{{ data.name }}</strong>?
         </p>
     </mat-dialog-content>
