@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
+import { Component, EventEmitter, input, Output, ChangeDetectionStrategy } from '@angular/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { TranslatePipe } from '@ngx-translate/core';
 
@@ -12,7 +12,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 
 })
 export class EditForm {
-  @Input() title: string = '';
+  title = input<string>('');
 
   @Output() saveClicked = new EventEmitter<void>();
 }

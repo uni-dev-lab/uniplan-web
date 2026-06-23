@@ -2,17 +2,17 @@
     <app-input-filter
        [label]="'features.name-label' | translate"
         [(searchText)]="internalSearchText"
-        (searchTextChange)="searchTextChange.emit($event)">></app-input-filter>
+        (searchTextChange)="searchTextChange.emit($event)"></app-input-filter>
 
     <app-input-filter
         [label]="'student.faculty-number-label' | translate"
         [(searchText)]="internalSearchFacNum"
-        (searchTextChange)="searchFacNumChange.emit($event)">></app-input-filter>
+        (searchTextChange)="searchFacNumChange.emit($event)"></app-input-filter>
 
     <app-input-filter
         [label]="'features.major-label' | translate"
         [(searchText)]="internalSearchMajor"
-        (searchTextChange)="searchMajorChange.emit($event)">></app-input-filter>
+        (searchTextChange)="searchMajorChange.emit($event)"></app-input-filter>
 
     <app-filters-form
         [label]="'features.study-mode-label' | translate"

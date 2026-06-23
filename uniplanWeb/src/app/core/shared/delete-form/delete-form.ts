@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
+import { Component, EventEmitter, input, Output, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
@@ -12,7 +12,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   imports: [MatDialogModule, FormsModule, MatInputModule, TranslatePipe],
 })
 export class DeleteForm {
-  @Input() title: string = '';
+  title = input<string>('');
 
   @Output() deleteClicked = new EventEmitter<void>();
 }

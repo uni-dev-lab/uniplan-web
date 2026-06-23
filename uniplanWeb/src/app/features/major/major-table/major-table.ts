@@ -1,5 +1,5 @@
 
-import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, input, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
@@ -31,10 +31,10 @@ export class MajorTable implements OnInit {
   dataSource: MajorElm[] = [];
   facultyMap = new Map<string, string>();
 
-  @Input() searchText = '';
-  @Input() faculty: string = '';
-  @Input() type: string = '';
-  @Input() subtype: string = '';
+  searchText = input<string>('');
+  faculty = input<string>('');
+  type = input<string>('');
+  subtype = input<string>('');
 
   constructor(
     private dialog: MatDialog,
@@ -70,13 +70,13 @@ export class MajorTable implements OnInit {
 
   get filteredMajors(): MajorElm[] {
     return this.dataSource.filter((major) => {
-      const matchesFaculty = !this.faculty || major.facultyId === this.faculty;
-      const matchesType = !this.type || major.courseType === this.type;
+      const matchesFaculty = !this.faculty() || major.facultyId === this.faculty();
+      const matchesType = !this.type() || major.courseType === this.type();
       const matchesSubtype =
-        !this.subtype || major.courseSubtype === this.subtype;
+        !this.subtype() || major.courseSubtype === this.subtype();
       const matchesSearch =
-        !this.searchText ||
-        major.majorName.toLowerCase().includes(this.searchText.toLowerCase());
+        !this.searchText() ||
+        major.majorName.toLowerCase().includes(this.searchText().toLowerCase());
 
       return matchesFaculty && matchesType && matchesSubtype && matchesSearch;
     });

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
+import { Component, EventEmitter, input, model, Output, ChangeDetectionStrategy } from '@angular/core';
 import { InputFilter } from '../../../core/shared/input-filter/input-filter';
 import { FiltersForm } from '../../../core/shared/filters-form/filters-form';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -14,13 +14,13 @@ export class StudentFilters {
   @Input() internalSearchText = '';
   @Output() searchTextChange = new EventEmitter<string>();
 
-  @Input() internalSearchFacNum = '';
+  internalSearchFacNum = model<string>('');
   @Output() searchFacNumChange = new EventEmitter<string>();
 
-  @Input() internalSearchMajor = '';
+  internalSearchMajor = model<string>('');
   @Output() searchMajorChange = new EventEmitter<string>();
 
-  @Input() subtypes: string[] = [];
-  @Input() selectedSubtype = '';
+  subtypes = input<string[]>([]);
+  selectedSubtype = input<string>('');
   @Output() subtypeChange = new EventEmitter<string>();
 }

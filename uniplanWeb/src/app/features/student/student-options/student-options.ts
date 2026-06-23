@@ -5,13 +5,13 @@ import { StudentAddForm } from '../student-add-form/student-add-form';
 
 @Component({
   selector: 'app-student-options',
-  imports: [AddButton],
   templateUrl: './student-options.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './student-options.scss',
+  imports: [AddButton],
 })
 export class StudentOptions {
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog) { }
 
   openAddForm() {
     this.dialog.open(StudentAddForm, {

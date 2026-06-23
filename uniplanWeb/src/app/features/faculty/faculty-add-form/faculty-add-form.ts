@@ -16,6 +16,9 @@ import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-faculty-add-form',
+  templateUrl: './faculty-add-form.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
+  styleUrl: './faculty-add-form.scss',
   imports: [
     MatDialogModule,
     MatFormField,

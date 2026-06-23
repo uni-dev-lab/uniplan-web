@@ -1,18 +1,18 @@
 
-import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
+import { Component, EventEmitter, input, Output, ChangeDetectionStrategy } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormField, MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-input-filter',
-  imports: [MatFormField, MatInputModule, MatIconModule],
   standalone: true,
   templateUrl: './input-filter.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './input-filter.scss',
+  imports: [MatFormField, MatInputModule, MatIconModule],
 })
 export class InputFilter {
-  @Input() label: string = '';
-  @Input() searchText = '';
+  label = input<string>('');
+  searchText = input<string>('');
   @Output() searchTextChange = new EventEmitter<string>();
 }
