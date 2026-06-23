@@ -30,7 +30,7 @@ export class MajorDeleteForm {
           this.dialogRef.close(true);
         },
         error: () => {
-          alert('Възникна грешка при изтриването на специалността или курса.');
+          alert('Възникна грешка при изтриването на специалността.');
         },
       });
   }
