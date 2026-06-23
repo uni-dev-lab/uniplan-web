@@ -1,0 +1,14 @@
+<div class="filters-panel">
+    <app-input-filter
+        [label]="'Катедра'"
+        [(searchText)]="internalSearchText"
+        (searchTextChange)="searchTextChange.emit($event)">
+    </app-input-filter>
+    <app-filters-form
+        [label]="'Факултет'"
+        [objectOptions]="faculties"
+        [selected]="selectedFaculty"
+        (selectionChange)="facultyChange.emit($event)"
+        class="filter">
+    </app-filters-form>
+</div>

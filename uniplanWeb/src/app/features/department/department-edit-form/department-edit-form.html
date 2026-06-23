@@ -1,0 +1,19 @@
+<app-edit-form title="Редактирай Катедра" (saveClicked)="save()">
+
+  <mat-form-field appearance="fill">
+    <mat-label>Име:</mat-label>
+    <input matInput [(ngModel)]="departmentName" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Факултет:</mat-label>
+    <mat-select [(ngModel)]="facultyId">
+      @for (fac of faculties; track fac) {
+        <mat-option [value]="fac.id">
+          {{ fac.facultyName }}
+        </mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+</app-edit-form>
