@@ -10,10 +10,10 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
-
 import { MajorService } from '../major-service';
 import { FacultyService } from '../../faculty/faculty-service';
 import { FacultyElm } from '../../../core/interfaces/faculty-elm';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-major-edit-form',
@@ -28,8 +28,8 @@ import { FacultyElm } from '../../../core/interfaces/faculty-elm';
     FormsModule,
     MatInputModule,
     MatSelectModule,
-    MatOptionModule
-  ],
+    MatOptionModule,
+    TranslatePipe],
 })
 export class MajorEditForm implements OnInit {
   majorName = '';
@@ -67,8 +67,8 @@ export class MajorEditForm implements OnInit {
 
     this.majorService
       .editMajor(this.data.id, {
-        majorName: this.majorName,
         facultyId: this.facultyId,
+        majorName: this.majorName,
       })
       .subscribe({
         next: () => this.dialogRef.close(true),

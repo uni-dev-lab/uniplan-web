@@ -8,6 +8,7 @@ import {
   ChangeDetectionStrategy
 } from '@angular/core';
 import { StudentElm } from '../../../core/interfaces/student-elm';
+import { TranslatePipe } from '@ngx-translate/core';
 
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
@@ -111,13 +112,13 @@ export const ELEMENT_STUDENT_DATA: StudentElm[] = [
   templateUrl: './student-table.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './student-table.scss',
-  imports: [MatTableModule, MatIconModule, MatButtonModule],
+  imports: [MatTableModule, MatIconModule, MatButtonModule, TranslatePipe],
 })
-export class StudentTable {
-  searchText = input<string>('');
-  searchFacNum = input<string>('');
-  searchMajor = input<string>('');
-  subtype = input<string>('');
+export class StudentTable implements OnInit, OnChanges {
+  @Input() searchText = '';
+  @Input() searchFacNum = '';
+  @Input() searchMajor = '';
+  @Input() subtype = '';
 
   subtypes = input<string[]>([]);
 

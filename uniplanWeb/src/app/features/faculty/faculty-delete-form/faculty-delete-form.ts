@@ -6,13 +6,14 @@ import {
   MatDialogRef,
 } from '@angular/material/dialog';
 import { FacultyService } from '../faculty-service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-faculty-delete-form',
   templateUrl: './faculty-delete-form.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './faculty-delete-form.scss',
-  imports: [DeleteForm, MatDialogModule],
+  imports: [DeleteForm, MatDialogModule, TranslatePipe],
 })
 export class FacultyDeleteForm {
   constructor(

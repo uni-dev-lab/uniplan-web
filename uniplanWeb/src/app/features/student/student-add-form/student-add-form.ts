@@ -7,6 +7,7 @@ import {
   MatLabel,
 } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-student-add-form',
@@ -20,6 +21,7 @@ import { FormsModule } from '@angular/forms';
     FormsModule,
     MatInputModule,
     AddForm,
+    TranslatePipe
   ],
 })
 export class StudentAddForm {

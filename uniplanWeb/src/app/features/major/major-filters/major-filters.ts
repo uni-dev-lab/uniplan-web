@@ -6,6 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { InputFilter } from '../../../core/shared/input-filter/input-filter';
 import { FacultyService } from '../../faculty/faculty-service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-major-filters',
@@ -17,11 +18,12 @@ import { FacultyService } from '../../faculty/faculty-service';
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
-    InputFilter
+    InputFilter,
+    TranslatePipe
   ],
 })
 export class MajorFilters {
-  internalSearchText = model<string>('');
+  @Input() internalSearchText = '';
 
   faculties = input<{ id: string; name: string }[]>([]);
 
