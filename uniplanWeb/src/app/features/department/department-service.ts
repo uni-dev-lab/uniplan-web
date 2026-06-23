@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import { map, Observable, Subject } from 'rxjs';
 import { DepartmentElm } from '../../core/interfaces/department-elm';
 
@@ -11,7 +11,7 @@ export class DepartmentService {
 
   refreshNeeded = new Subject<void>();
 
-  constructor(private http: HttpClient) {}
+  private http = inject(HttpClient);
 
   getDepartments(): Observable<DepartmentElm[]> {
     return this.http.get<DepartmentElm[]>(this.apiUrl).pipe(
