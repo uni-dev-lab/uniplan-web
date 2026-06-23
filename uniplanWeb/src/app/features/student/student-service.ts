@@ -22,9 +22,9 @@ export class StudentService {
                     name: student.name,
                     facultyNumber: student.facultyNumber,
                     majorName: student.majorName,
-                    majorType: student.majorType,
                     courseType: student.courseType,
-                    courseSubtype: student.courseSubtype as 'редовно' | 'задочно',
+                    courseSubtype: student.courseSubtype,
+                    courseYear: student.courseYear,
                 }))
             )
         );
