@@ -19,7 +19,7 @@ export class MajorDeleteForm {
     private majorService: MajorService,
     private dialogRef: MatDialogRef<MajorDeleteForm>,
     @Inject(MAT_DIALOG_DATA)
-    public data: { id: string; courseId: string; name: string }
+    public data: { id: string; name: string }
   ) {}
 
   deleteMajor(): void {
