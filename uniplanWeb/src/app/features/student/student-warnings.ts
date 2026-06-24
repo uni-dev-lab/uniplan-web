@@ -1,9 +1,9 @@
 export const StudentWarnings = {
-  firstNameMissing: 'Моля въведете първо име на студента.',
-  lastNameMissing: 'Моля въведете фамилия на студента',
-  facultyNumberMissing: 'Моля въведете факултетен номер',
-  majorMissing: 'Моля изберете специалност',
-  courseSubtypeMissing: 'Моля изберете форма на обучение',
-  courseTypeMissing: 'Моля изберете квалификационна степен',
-  courseYearMissing: 'Моля изберете курс',
+    firstName: 'Моля въведете първо име на студента.',
+    lastName: 'Моля въведете фамилия на студента',
+    facultyNumber: 'Моля въведете факултетен номер',
+    major: 'Моля изберете специалност',
+    courseSubtype: 'Моля изберете форма на обучение',
+    courseType: 'Моля изберете квалификационна степен',
+    courseYear: 'Моля изберете курс',
 };
