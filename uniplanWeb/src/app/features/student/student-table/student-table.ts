@@ -14,6 +14,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { StudentService } from '../student-service';
 import { MatDialog } from '@angular/material/dialog';
+import { StudentEdit } from '../student-edit-form/student-edit-form';
 
 @Component({
   selector: 'app-student-table',
@@ -42,7 +43,7 @@ export class StudentTable implements OnInit, OnChanges {
     'courseType',
     'courseYear',
     'actions',
-];
+  ];
 
   originalData: StudentElm[] = [];
   dataSourceFilter: StudentElm[] = [];
@@ -93,7 +94,9 @@ export class StudentTable implements OnInit, OnChanges {
   }
 
   onEdit(element: StudentElm): void {
-    console.log('Editing:', element);
+    this.dialog.open(StudentEdit, {
+      data: element
+    });
   }
 
   onDelete(element: StudentElm): void {

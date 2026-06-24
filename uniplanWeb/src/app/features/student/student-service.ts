@@ -39,7 +39,9 @@ export class StudentService {
     }
 
     editStudent(id: string,
-         updatedStudent: Omit<StudentElm, 'position' | 'id'>): Observable<any> {
+        updatedStudent: {
+            firstName: string; lastName: string; facultyNumber: string; courseId: string
+        }): Observable<any> {
         return this.http.put(`${this.apiUrl}/${id}`, updatedStudent).pipe(
             map((res) => {
                 this.refreshNeeded.next();

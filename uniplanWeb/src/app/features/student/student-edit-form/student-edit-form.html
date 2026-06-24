@@ -1,0 +1,77 @@
+<app-edit-form title="Редактирай студент" (saveClicked)="save()">
+  <mat-dialog-content [formGroup]="studentForm">
+
+    <mat-form-field appearance="fill">
+      <mat-label>Първо име:</mat-label>
+      <input matInput formControlName="firstName" />
+      @if (studentForm.get('firstName')?.invalid && studentForm.get('firstName')?.touched) {
+        <mat-error>{{ warnings.firstNameMissing }}</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Фамилия:</mat-label>
+      <input matInput formControlName="lastName" />
+      @if (studentForm.get('lastName')?.invalid && studentForm.get('lastName')?.touched) {
+        <mat-error>{{ warnings.lastNameMissing }}</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Факултетен номер:</mat-label>
+      <input matInput formControlName="facultyNumber" />
+      @if (studentForm.get('facultyNumber')?.invalid && studentForm.get('facultyNumber')?.touched) {
+        <mat-error>{{ warnings.facultyNumberMissing }}</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Специалност:</mat-label>
+      <mat-select formControlName="majorId" (selectionChange)="onMajorChange($event.value)">
+        @for (major of majors; track major.id) {
+          <mat-option [value]="major.id">{{ major.majorName }}</mat-option>
+        }
+      </mat-select>
+      @if (studentForm.get('majorId')?.invalid && studentForm.get('majorId')?.touched) {
+        <mat-error>{{ warnings.majorMissing }}</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Форма на обучение:</mat-label>
+      <mat-select formControlName="courseSubtype" (selectionChange)="onSubtypeChange($event.value)">
+        @for (subtype of uniqueSubtypes; track subtype) {
+          <mat-option [value]="subtype">{{ subtype }}</mat-option>
+        }
+      </mat-select>
+      @if (studentForm.get('courseSubtype')?.invalid && studentForm.get('courseSubtype')?.touched) {
+        <mat-error>{{ warnings.courseSubtypeMissing }}</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Квалификационна степен:</mat-label>
+      <mat-select formControlName="courseType" (selectionChange)="onTypeChange($event.value)">
+        @for (type of uniqueTypes; track type) {
+          <mat-option [value]="type">{{ type }}</mat-option>
+        }
+      </mat-select>
+      @if (studentForm.get('courseType')?.invalid && studentForm.get('courseType')?.touched) {
+        <mat-error>{{ warnings.courseTypeMissing }}</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Курс:</mat-label>
+      <mat-select formControlName="courseYear">
+        @for (year of uniqueYears; track year) {
+          <mat-option [value]="year">{{ year }}</mat-option>
+        }
+      </mat-select>
+      @if (studentForm.get('courseYear')?.invalid && studentForm.get('courseYear')?.touched) {
+        <mat-error>{{ warnings.courseYearMissing }}</mat-error>
+      }
+    </mat-form-field>
+
+  </mat-dialog-content>
+</app-edit-form>
