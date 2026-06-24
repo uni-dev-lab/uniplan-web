@@ -3,6 +3,7 @@ export interface StudentElm {
   position: number;
   name: string;
   facultyNumber: string;
+  majorId: string;
   majorName: string;
   courseType: string;
   courseSubtype: 'редовно' | 'задочно';
