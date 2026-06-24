@@ -1,0 +1,29 @@
+<app-edit-form title="Редактирай Преподавател" (saveClicked)="save()">
+
+  <mat-form-field appearance="fill">
+    <mat-label>Собствено Име:</mat-label>
+    <input matInput [(ngModel)]="firstName" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Фамилия:</mat-label>
+    <input matInput [(ngModel)]="lastName" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Имейл:</mat-label>
+    <input matInput type="email" [(ngModel)]="email" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Факултет:</mat-label>
+    <mat-select [(ngModel)]="facultyId">
+      @for (fac of faculties; track fac) {
+        <mat-option [value]="fac.id">
+          {{ fac.facultyName }}
+        </mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+</app-edit-form>
