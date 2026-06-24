@@ -1,6 +1,6 @@
 import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import {catchError, combineLatest, map, merge, of, switchMap } from 'rxjs';
+import { catchError, combineLatest, map, merge, of, switchMap } from 'rxjs';
 
 import { MajorElm } from '../../../core/interfaces/major-elm';
 import { FacultyService } from '../../faculty/faculty-service';
@@ -16,18 +16,18 @@ import { MajorService } from '../major-service';
   styleUrl: './major-panel.scss'
 })
 export class MajorPanel implements OnInit {
-  searchText = '';
-  selectedFaculty = '';
-  selectedType = '';
-  selectedSubtype = '';
+  searchText: string = '';
+  selectedFaculty: string = '';
+  selectedType: string = '';
+  selectedSubtype: string = '';
 
   faculties: { id: string; name: string }[] = [];
   types: string[] = [];
   subtypes: string[] = [];
 
   private majors: MajorElm[] = [];
-  private facultyMap = new Map<string, string>();
-  private destroyRef = inject(DestroyRef);
+  private facultyMap: Map<string, string> = new Map<string, string>();
+  private destroyRef: DestroyRef = inject(DestroyRef);
 
   constructor(
     private majorService: MajorService,
