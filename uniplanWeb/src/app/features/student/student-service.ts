@@ -21,6 +21,7 @@ export class StudentService {
                     position: index + 1,
                     name: student.name,
                     facultyNumber: student.facultyNumber,
+                    majorId: student.majorId,
                     majorName: student.majorName,
                     courseType: student.courseType,
                     courseSubtype: student.courseSubtype,
