@@ -13,6 +13,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { StudentService } from '../student-service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-student-table',
@@ -22,6 +23,7 @@ import { StudentService } from '../student-service';
   styleUrl: './student-table.scss',
 })
 export class StudentTable implements OnInit, OnChanges {
+  private dialog = inject(MatDialog)
   private studentService = inject(StudentService)
   //todo
   @Input() searchText = '';
