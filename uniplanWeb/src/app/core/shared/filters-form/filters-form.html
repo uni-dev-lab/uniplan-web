@@ -1,7 +1,7 @@
 <mat-form-field appearance="outline" class="filter-field">
   <mat-label>{{ label }}</mat-label>
   <mat-select [value]="selected" (selectionChange)="onChange($event.value)">
-    <mat-option value>Всички</mat-option>
+    <mat-option value>{{'shared.option-all' | translate}}</mat-option>
 
     @if (isObjectMode()) {
       @for (option of objectOptions; track option) {

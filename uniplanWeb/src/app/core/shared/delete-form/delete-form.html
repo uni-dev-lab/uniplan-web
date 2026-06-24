@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>Потвърдете изтриването</h2>
+<h2 mat-dialog-title>{{'shared.confirm-delete' | translate}}</h2>
 <mat-dialog-content>
 
     <ng-content></ng-content>
@@ -6,7 +6,7 @@
 
 <mat-dialog-actions align="end">
     <button mat-raised-button mat-dialog-close
-        class="exitButton">Откажи</button>
+        class="exitButton">{{'shared.exit-button' | translate}}</button>
     <button mat-raised-button (click)="deleteClicked.emit()"
-        class="deleteButton">Изтрий</button>
+        class="deleteButton">{{'shared.delete-button' | translate}}</button>
 </mat-dialog-actions>
