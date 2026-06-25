@@ -42,14 +42,22 @@
         "major-label": "Major",
         "study-mode-label": "Study mode",
         "add": {
-            "title": "Add student",
-            "first-name-warning": "Please enter the student's first name.",
-            "last-name-warning": "Please enter the student's last name.",
-            "faculty-number-warning": "Please enter the faculty number.",
-            "major-warning": "Please select a major.",
-            "study-mode-warning": "Please select a study mode.",
-            "qualification-warning": "Please select a qualification level.",
-            "course-warning": "Please select a course."
+            "title": "Add student"
+        },
+        "edit": {
+            "title": "Edit student"
+        },
+        "delete":{
+            "title": "Delete student"
+        },
+        "warnings": {
+            "first-name": "Please enter the student's first name.",
+            "last-name": "Please enter the student's last name.",
+            "faculty-number": "Please enter the faculty number.",
+            "major": "Please select a major.",
+            "study-mode": "Please select a study mode.",
+            "qualification": "Please select a qualification level.",
+            "course": "Please select a course."
         }
     },
     "settings": {
