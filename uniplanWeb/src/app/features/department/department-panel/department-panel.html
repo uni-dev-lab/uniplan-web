@@ -1,0 +1,16 @@
+<div class="component-panel department">
+  <div class="panel-controls-row">
+    <app-department-options class="panel-options"></app-department-options>
+    <app-department-filters
+      [faculties]="faculties"
+      [internalSearchText]="searchText"
+      [selectedFaculty]="selectedFaculty"
+      (searchTextChange)="searchText = $event"
+      (facultyChange)="selectedFaculty = $event">
+    </app-department-filters>
+  </div>
+  <app-department-table
+    [searchText]="searchText"
+    [faculty]="selectedFaculty">
+  </app-department-table>
+</div>
