@@ -9,7 +9,7 @@ import { CourseService } from '../../course/course-service';
 import { StudentService } from '../student-service';
 import { MajorElm } from '../../../core/interfaces/major-elm';
 import { CourseElm } from '../../../core/interfaces/course-elm';
-import { StudentWarnings } from '../student-warnings';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-student-add-form',
@@ -34,7 +34,6 @@ export class StudentAddForm implements OnInit {
   private studentService = inject(StudentService);
   private dialogRef = inject(MatDialogRef<AddForm>);
 
-  readonly warnings = StudentWarnings;
   studentForm!: FormGroup;
   majors: MajorElm[] = [];
   courses: CourseElm[] = [];
