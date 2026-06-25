@@ -1,0 +1,10 @@
+<app-delete-form (deleteClicked)="delete()">
+  <mat-dialog-content>
+    <p>
+      Сигурни ли сте, че искате да изтриете студент с име:
+      <strong>{{ data.name }}</strong>
+       и фак. номер 
+       <strong>{{data.facultyNumber}}</strong>?
+    </p>
+  </mat-dialog-content>
+</app-delete-form>

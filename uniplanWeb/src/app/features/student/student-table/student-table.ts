@@ -14,6 +14,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { StudentService } from '../student-service';
 import { MatDialog } from '@angular/material/dialog';
+import { StudentDeleteForm } from '../student-delete-form/student-delete-form';
 
 @Component({
   selector: 'app-student-table',
@@ -42,7 +43,7 @@ export class StudentTable implements OnInit, OnChanges {
     'courseType',
     'courseYear',
     'actions',
-];
+  ];
 
   originalData: StudentElm[] = [];
   dataSourceFilter: StudentElm[] = [];
@@ -97,6 +98,12 @@ export class StudentTable implements OnInit, OnChanges {
   }
 
   onDelete(element: StudentElm): void {
-    console.log('Deleting:', element);
+    this.dialog.open(StudentDeleteForm, {
+      data: {
+        id: element.id,
+        name: element.name,
+        facultyNumber: element.facultyNumber
+      }
+    });
   }
 }
