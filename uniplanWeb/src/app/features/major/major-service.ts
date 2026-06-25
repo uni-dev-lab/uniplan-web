@@ -19,7 +19,7 @@ export class MajorService {
     return this.http.get<MajorElm[]>(this.apiUrl).pipe(
       map((majors) =>
         majors.map((major, index) => ({
-          majorId: major.majorId,
+          id: major.id,
           majorName: major.majorName,
           courseId: major.courseId,
           facultyId: major.facultyId,
@@ -92,7 +92,7 @@ export class MajorService {
 
   deleteMajorWithCourse(major: MajorElm): Observable<any> {
     return this.deleteCourse(major.courseId).pipe(
-      switchMap(() => this.deleteMajor(major.majorId))
+      switchMap(() => this.deleteMajor(major.id))
     );
   }
 

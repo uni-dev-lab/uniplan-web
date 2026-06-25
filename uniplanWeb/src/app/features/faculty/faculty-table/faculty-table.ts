@@ -8,18 +8,20 @@ import { FacultyService } from '../faculty-service';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { FacultyEdit } from '../faculty-edit/faculty-edit';
 import { FacultyDeleteForm } from '../faculty-delete-form/faculty-delete-form';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-faculty-table',
+  templateUrl: './faculty-table.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
+  styleUrl: './faculty-table.scss',
   imports: [
     MatTableModule,
     MatIconModule,
     MatButtonModule,
-    MatDialogModule
-],
-  templateUrl: './faculty-table.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
-  styleUrl: './faculty-table.scss',
+    MatDialogModule,
+    TranslatePipe
+    ],
 })
 export class FacultyTable {
   displayedColumns: string[] = [

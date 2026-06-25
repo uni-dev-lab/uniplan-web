@@ -6,22 +6,23 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { InputFilter } from '../../../core/shared/input-filter/input-filter';
 import { FacultyService } from '../../faculty/faculty-service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-major-filters',
+  templateUrl: './major-filters.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
+  styleUrl: './major-filters.scss',
   imports: [
     FiltersForm,
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
-    InputFilter
-],
-  templateUrl: './major-filters.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
-  styleUrl: './major-filters.scss',
+    InputFilter,
+    TranslatePipe
+  ],
 })
 export class MajorFilters {
-  //todo
   @Input() internalSearchText = '';
 
   @Input() faculties: { id: string; name: string }[] = [];

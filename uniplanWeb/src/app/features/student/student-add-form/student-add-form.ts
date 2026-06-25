@@ -7,9 +7,13 @@ import {
   MatLabel,
 } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-student-add-form',
+  templateUrl: './student-add-form.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
+  styleUrl: './student-add-form.scss',
   imports: [
     MatDialogModule,
     MatFormField,
@@ -17,13 +21,10 @@ import { FormsModule } from '@angular/forms';
     FormsModule,
     MatInputModule,
     AddForm,
+    TranslatePipe
   ],
-  templateUrl: './student-add-form.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
-  styleUrl: './student-add-form.scss',
 })
 export class StudentAddForm {
-  //todo
   studentName = '';
   facultyNumber = '';
   faculty = '';

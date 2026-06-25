@@ -9,15 +9,15 @@ import { AddButton } from '../../../core/shared/add-button/add-button';
 
 @Component({
   selector: 'app-faculty-options',
+  templateUrl: './faculty-options.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
+  styleUrl: './faculty-options.scss',
   imports: [
     MatTableModule,
     MatIconModule,
     MatButtonModule,
     AddButton
-],
-  templateUrl: './faculty-options.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
-  styleUrl: './faculty-options.scss',
+  ],
 })
 export class FacultyOptions {
   private dialog = inject(MatDialog);
