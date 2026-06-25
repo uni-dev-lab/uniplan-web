@@ -9,13 +9,14 @@ import { MatDialog } from '@angular/material/dialog';
 import { MajorDeleteForm } from '../major-delete-form/major-delete-form';
 import { MajorService } from '../major-service';
 import { FacultyService } from '../../faculty/faculty-service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-major-table',
-  imports: [MatTableModule, MatIconModule, MatButtonModule],
   templateUrl: './major-table.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './major-table.scss',
+  imports: [MatTableModule, MatIconModule, MatButtonModule, TranslatePipe],
 })
 export class MajorTable implements OnInit {
   displayedColumns: string[] = [
@@ -39,7 +40,7 @@ export class MajorTable implements OnInit {
     private dialog: MatDialog,
     private service: MajorService,
     private facultyService: FacultyService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.loadMajors();

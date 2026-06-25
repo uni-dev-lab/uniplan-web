@@ -1,34 +1,33 @@
-<app-add-form title="Добави Студент" (saveClicked)="save()">
+<app-add-form [title]="'student.add.title' | translate" (saveClicked)="save()">
     <mat-dialog-content>
 
         <mat-form-field appearance="fill">
-            <mat-label>Име:</mat-label>
-            //todo
+            <mat-label>{{ 'features.name-label' | translate }}</mat-label>
             <input matInput [(ngModel)]="studentName" />
         </mat-form-field>
 
         <mat-form-field appearance="fill">
-            <mat-label>Факултетен номер:</mat-label>
+            <mat-label>{{ 'student.faculty-number-label' | translate }}</mat-label>
             <input matInput [(ngModel)]="facultyNumber" />
         </mat-form-field>
 
         <mat-form-field appearance="fill">
-            <mat-label>Факултет:</mat-label>
+            <mat-label>{{ 'features.faculty-label' | translate }}</mat-label>
             <input matInput [(ngModel)]="faculty" />
         </mat-form-field>
 
         <mat-form-field appearance="fill">
-            <mat-label>Специалност:</mat-label>
+            <mat-label>{{ 'features.major-label' | translate }}</mat-label>
             <input matInput [(ngModel)]="major" />
         </mat-form-field>
 
         <mat-form-field appearance="fill">
-            <mat-label>Курс:</mat-label>
+            <mat-label>{{ 'student.course-label' | translate }}</mat-label>
             <input matInput [(ngModel)]="course" />
         </mat-form-field>
 
         <mat-form-field appearance="fill">
-            <mat-label>Тип:</mat-label>
+            <mat-label>{{ 'features.type-label' | translate }}</mat-label>
             <input matInput [(ngModel)]="type" />
         </mat-form-field>
 
