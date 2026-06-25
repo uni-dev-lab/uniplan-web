@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
 import { LayoutComponent } from './layout-component/layout-component';
-import { Settings } from './core/shared/settings/settings';
 
 export const routes: Routes = [
   {
@@ -28,8 +27,11 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/student/student-panel/student-panel').then(m => m.StudentPanel),
       },
-      { path: '**', loadComponent: () =>
-          import('./features/not-found/not-found-panel/not-found-panel').then(m => m.NotFoundPanel),  },
+      {
+        path: '**',
+        loadComponent: () =>
+          import('./features/not-found/not-found-panel/not-found-panel').then(m => m.NotFoundPanel),
+      },
     ],
   },
 ];

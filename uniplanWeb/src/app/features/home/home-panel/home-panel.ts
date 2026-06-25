@@ -7,5 +7,4 @@ import { TranslatePipe } from '@ngx-translate/core';
   styleUrl: './home-panel.scss',
   imports: [TranslatePipe],
 })
-
 export class HomePanel {}
