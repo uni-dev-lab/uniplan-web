@@ -6,13 +6,16 @@ import {
   MatDialogRef,
 } from '@angular/material/dialog';
 import { MajorService } from '../major-service';
+import { switchMap } from 'rxjs';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-major-delete-form',
-  imports: [DeleteForm, MatDialogModule],
   templateUrl: './major-delete-form.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './major-delete-form.scss',
+  imports: [DeleteForm, MatDialogModule,
+    TranslatePipe],
 })
 export class MajorDeleteForm {
   constructor(
