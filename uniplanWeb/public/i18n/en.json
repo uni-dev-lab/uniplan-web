@@ -47,8 +47,10 @@
         "edit": {
             "title": "Edit student"
         },
-        "delete":{
-            "title": "Delete student"
+        "delete": {
+            "confirmation": "Are you sure you want to delete student with name: ",
+            "confirmation-faculty-number": " and student ID: ",
+            "error": "An error occurred while deleting the student."
         },
         "warnings": {
             "first-name": "Please enter the student's first name.",
