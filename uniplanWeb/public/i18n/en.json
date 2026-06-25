@@ -37,8 +37,19 @@
         "faculty-number-label": "Student ID",
         "course-label": "Course",
         "qualification-level-label": "Qualification level",
+        "first-name-label": "First name",
+        "last-name-label": "Last name",
+        "major-label": "Major",
+        "study-mode-label": "Study mode",
         "add": {
-            "title": "Add student"
+            "title": "Add student",
+            "first-name-warning": "Please enter the student's first name.",
+            "last-name-warning": "Please enter the student's last name.",
+            "faculty-number-warning": "Please enter the faculty number.",
+            "major-warning": "Please select a major.",
+            "study-mode-warning": "Please select a study mode.",
+            "qualification-warning": "Please select a qualification level.",
+            "course-warning": "Please select a course."
         }
     },
     "settings": {

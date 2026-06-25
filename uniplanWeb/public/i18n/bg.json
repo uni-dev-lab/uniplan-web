@@ -37,8 +37,19 @@
     "faculty-number-label": "Факултетен номер",
     "course-label": "Курс",
     "qualification-level-label": "Квалификационна степен",
+    "first-name-label": "Първо име",
+    "last-name-label": "Фамилия",
+    "major-label": "Специалност",
+    "study-mode-label": "Форма на обучение",
     "add": {
-      "title": "Добави студент"
+      "title": "Добави студент",
+      "first-name-warning": "Моля въведете първо име на студента.",
+      "last-name-warning": "Моля въведете фамилия на студента.",
+      "faculty-number-warning": "Моля въведете факултетен номер.",
+      "major-warning": "Моля изберете специалност.",
+      "study-mode-warning": "Моля изберете форма на обучение.",
+      "qualification-warning": "Моля изберете квалификационна степен.",
+      "course-warning": "Моля изберете курс."
     }
   },
   "settings": {
