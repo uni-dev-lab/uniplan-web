@@ -18,6 +18,11 @@ export const routes: Routes = [
           import('./features/faculty/faculty-panel/faculty-panel').then(m => m.FacultyPanel),
       },
       {
+        path: 'department',
+        loadComponent: () =>
+          import('./features/department/department-panel/department-panel').then(m => m.DepartmentPanel),
+      },
+      {
         path: 'major',
         loadComponent: () =>
           import('./features/major/major-panel/major-panel').then(m => m.MajorPanel),
