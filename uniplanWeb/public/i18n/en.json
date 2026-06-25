@@ -34,7 +34,7 @@
         }
     },
     "student": {
-        "faculty-number-label": "Student ID",
+        "faculty-number-label": "Faculty number",
         "course-label": "Course",
         "qualification-level-label": "Qualification level",
         "first-name-label": "First name",
