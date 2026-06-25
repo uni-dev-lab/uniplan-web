@@ -8,10 +8,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { DepartmentDeleteForm } from '../department-delete-form/department-delete-form';
 import { DepartmentService } from '../department-service';
 import { FacultyService } from '../../faculty/faculty-service';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-department-table',
-  imports: [MatTableModule, MatIconModule, MatButtonModule],
+  imports: [MatTableModule, MatIconModule, MatButtonModule, TranslatePipe],
   templateUrl: './department-table.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './department-table.scss',

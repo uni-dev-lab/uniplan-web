@@ -6,6 +6,7 @@
     "type-label": "Тип",
     "study-mode-label": "Форма на обучение",
     "major-label": "Специалност",
+    "department-label": "Катедра",
     "location-label": "Местоположение",
     "number-label": "No.",
     "edit": "Редактирай",
@@ -38,6 +39,18 @@
     },
     "edit": {
       "title": "Редактирай специалност"
+    }
+  },
+  "department": {
+    "delete-button": "Изтрий",
+    "edit-button": "Редактирай",
+    "uni-label": "Университет",
+    "delete-confirmation": "Сигурни ли сте, че искате да изтриете катедра с име: ",
+    "add": {
+      "title": "Добави катедра"
+    },
+    "edit": {
+      "title": "Редактирай катедра"
     }
   },
   "student": {

@@ -1,7 +1,7 @@
 <app-delete-form (deleteClicked)="deleteDepartment()">
     <mat-dialog-content>
         <p>
-            Сигурни ли сте, че искате да изтриете катедра с име:
+          {{'department.delete-confirmation' | translate }}
             <strong>{{ data.departmentName }}</strong>?
         </p>
     </mat-dialog-content>

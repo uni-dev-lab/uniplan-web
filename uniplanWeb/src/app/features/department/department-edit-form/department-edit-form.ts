@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { DepartmentService } from '../department-service';
 import { FacultyService } from '../../faculty/faculty-service';
 import { FacultyElm } from '../../../core/interfaces/faculty-elm';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-department-edit-form',
@@ -25,6 +26,7 @@ import { FacultyElm } from '../../../core/interfaces/faculty-elm';
     MatInputModule,
     MatSelectModule,
     MatOptionModule,
+    TranslatePipe,
   ],
   templateUrl: './department-edit-form.html',
   changeDetection: ChangeDetectionStrategy.Eager,

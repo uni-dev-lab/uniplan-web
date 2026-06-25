@@ -6,6 +6,7 @@
         "type-label": "Type",
         "study-mode-label": "Study mode",
         "major-label": "Major",
+        "department-label": "Department",
         "location-label": "Location",
         "number-label": "No.",
         "edit": "Edit",
@@ -40,6 +41,18 @@
             "title": "Edit major"
         }
     },
+  "department": {
+    "delete-button": "Delete",
+    "edit-button": "Edit",
+    "uni-label": "University",
+    "delete-confirmation": "Are you sure you want to delete the department named: ",
+    "add": {
+      "title": "Add department"
+    },
+    "edit": {
+      "title": "Edit department"
+    }
+  },
     "student": {
         "faculty-number-label": "Student ID",
         "course-label": "Course",

@@ -6,10 +6,11 @@ import {
   MatDialogRef,
 } from '@angular/material/dialog';
 import { DepartmentService } from '../department-service';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-department-delete-form',
-  imports: [DeleteForm, MatDialogModule],
+  imports: [DeleteForm, MatDialogModule, TranslatePipe],
   templateUrl: './department-delete-form.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './department-delete-form.scss',
