@@ -6,7 +6,8 @@
         "type-label": "Type",
         "study-mode-label": "Study mode",
         "major-label": "Major",
-        "location-label": "Location"
+        "location-label": "Location",
+        "department-label": "Department"
     },
     "faculty": {
         "delete-button": "Delete",
@@ -33,6 +34,18 @@
             "title": "Edit major"
         }
     },
+  "department": {
+    "delete-button": "Delete",
+    "edit-button": "Edit",
+    "uni-label": "University",
+    "delete-confirmation": "Are you sure you want to delete the department named: ",
+    "add": {
+      "title": "Add department"
+    },
+    "edit": {
+      "title": "Edit department"
+    }
+  },
     "student": {
         "faculty-number-label": "Student ID",
         "course-label": "Course",
