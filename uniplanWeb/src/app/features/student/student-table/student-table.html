@@ -6,19 +6,19 @@
         </ng-container>
 
         <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef class="col-name"> Име
+            <th mat-header-cell *matHeaderCellDef class="col-name">{{ 'features.name-label' | translate }}
             </th>
         </ng-container>
 
         <ng-container matColumnDef="facultyNumber">
             <th mat-header-cell *matHeaderCellDef class="col-fac-number">
-                Факултетен номер
+                {{ 'student.faculty-number-label' | translate }}
             </th>
         </ng-container>
 
         <ng-container matColumnDef="majorName">
             <th mat-header-cell *matHeaderCellDef class="col-major">
-                Специалност
+                {{ 'features.major-label' | translate }}
             </th>
         </ng-container>
 
@@ -40,7 +40,7 @@
         </ng-container>
 
         <ng-container matColumnDef="actions">
-            <th mat-header-cell *matHeaderCellDef class="col-actions"> Действия
+            <th mat-header-cell *matHeaderCellDef class="col-actions"> {{ 'features.actions-label' | translate }}
             </th>
         </ng-container>
 

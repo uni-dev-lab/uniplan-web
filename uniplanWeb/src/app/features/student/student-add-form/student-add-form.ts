@@ -13,6 +13,9 @@ import { StudentWarnings } from '../student-warnings';
 
 @Component({
   selector: 'app-student-add-form',
+  templateUrl: './student-add-form.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
+  styleUrl: './student-add-form.scss',
   imports: [
     MatDialogModule,
     MatFormField,
@@ -21,10 +24,8 @@ import { StudentWarnings } from '../student-warnings';
     MatInputModule,
     MatSelectModule,
     AddForm,
+    TranslatePipe
   ],
-  templateUrl: './student-add-form.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
-  styleUrl: './student-add-form.scss',
 })
 export class StudentAddForm implements OnInit {
   private formBuilder = inject(FormBuilder);
