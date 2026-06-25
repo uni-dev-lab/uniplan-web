@@ -1,13 +1,14 @@
 import { Component, HostListener, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
 
 import { LoginAuthService } from '../../../services/login-auth-service';
 
 @Component({
   selector: 'app-navmenu-component',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive],
+  imports: [CommonModule, RouterLink, RouterLinkActive, TranslatePipe],
   templateUrl: './navmenu-component.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./navmenu-component.scss'],

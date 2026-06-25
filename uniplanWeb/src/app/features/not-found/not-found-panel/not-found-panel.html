@@ -1,4 +1,4 @@
 <div class="component-panel not-found">
-  <h1>Page not found</h1>
-  <a [routerLink]="'/home'">Back to home</a>
+  <h1>{{ 'not-found.title' | translate }}</h1>
+  <a [routerLink]="'/home'">{{ 'not-found.back-link' | translate }}</a>
 </div>

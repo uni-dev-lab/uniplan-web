@@ -54,5 +54,28 @@
     "delete-button": "Изтрий",
     "option-all": "Всички",
     "confirm-delete": "Потвърдете изтриването"
+  },
+  "home": {
+    "title": "Начало!"
+  },
+  "not-found": {
+    "title": "Страницата не е намерена",
+    "back-link": "Обратно към началото"
+  },
+  "navmenu": {
+    "toggle-aria": "Превключи навигационното меню",
+    "home": "Начало",
+    "create-schedule": "Създай разписание",
+    "faculty": "Факултет",
+    "department": "Катедра",
+    "major": "Специалност",
+    "rooms": "Стаи",
+    "students": "Студенти",
+    "teachers": "Преподаватели",
+    "subjects": "Предмети",
+    "settings": "Настройки",
+    "open-profile": "Отвори",
+    "logout": "Изход",
+    "login": "Вход"
   }
 }
