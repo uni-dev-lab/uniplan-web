@@ -28,6 +28,11 @@ export const routes: Routes = [
           import('./features/student/student-panel/student-panel').then(m => m.StudentPanel),
       },
       {
+        path: 'lector',
+        loadComponent: () =>
+          import('./features/lector/lector-panel/lector-panel').then(m => m.LectorPanel),
+      },
+      {
         path: '**',
         loadComponent: () =>
           import('./features/not-found/not-found-panel/not-found-panel').then(m => m.NotFoundPanel),
