@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { LectorService } from '../lector-service';
 import { FacultyService } from '../../faculty/faculty-service';
 import { FacultyElm } from '../../../core/interfaces/faculty-elm';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-lector-edit-form',
@@ -25,6 +26,7 @@ import { FacultyElm } from '../../../core/interfaces/faculty-elm';
     MatInputModule,
     MatSelectModule,
     MatOptionModule,
+    TranslatePipe,
   ],
   templateUrl: './lector-edit-form.html',
   changeDetection: ChangeDetectionStrategy.Eager,

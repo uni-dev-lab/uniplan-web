@@ -1,8 +1,8 @@
 <app-delete-form (deleteClicked)="deleteLector()">
     <mat-dialog-content>
         <p>
-            Сигурни ли сте, че искате да изтриете преподавател
-            <strong>{{ data.firstName }} {{ data.lastName }}</strong>?
+          {{'lector.delete-confirmation' | translate }}
+          <strong>{{ data.firstName }} {{ data.lastName }}</strong>?
         </p>
     </mat-dialog-content>
 </app-delete-form>

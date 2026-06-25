@@ -6,7 +6,8 @@
         "type-label": "Type",
         "study-mode-label": "Study mode",
         "major-label": "Major",
-        "location-label": "Location"
+        "location-label": "Location",
+        "lector-label": "Lector"
     },
     "faculty": {
         "delete-button": "Delete",
@@ -20,6 +21,20 @@
             "title": "Edit faculty"
         }
     },
+  "lector": {
+    "delete-button": "Delete",
+    "edit-button": "Edit",
+    "uni-label": "University",
+    "delete-confirmation": "Are you sure you want to delete the lector named: ",
+    "last-name-label": "Last name",
+    "email-label": "Email",
+    "add": {
+      "title": "Add lector"
+    },
+    "edit": {
+      "title": "Edit lector"
+    }
+  },
     "major": {
         "paid-option": "Paid",
         "full-time-option": "Full-time",

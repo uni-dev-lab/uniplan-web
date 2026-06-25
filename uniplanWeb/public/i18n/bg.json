@@ -6,7 +6,22 @@
     "type-label": "Тип",
     "study-mode-label": "Форма на обучение",
     "major-label": "Специалност",
-    "location-label": "Местоположение"
+    "location-label": "Местоположение",
+    "lector-label": "Лектор"
+  },
+  "lector": {
+    "delete-button": "Изтрий",
+    "edit-button": "Редактирай",
+    "uni-label": "Университет",
+    "delete-confirmation": "Сигурни ли сте, че искате да изтриете лектор с име: ",
+    "last-name-label": "Фамилия",
+    "email-label": "Имейл",
+    "add": {
+      "title": "Добави лектор"
+    },
+    "edit": {
+      "title": "Редактирай лектор"
+    }
   },
   "faculty": {
     "delete-button": "Изтрий",

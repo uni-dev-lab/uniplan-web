@@ -12,6 +12,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { LectorService } from '../lector-service';
 import { FacultyElm } from '../../../core/interfaces/faculty-elm';
 import { FacultyService } from '../../faculty/faculty-service';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-lector-add-form',
@@ -24,6 +25,8 @@ import { FacultyService } from '../../faculty/faculty-service';
     AddForm,
     MatFormFieldModule,
     MatSelectModule,
+    AddForm,
+    TranslatePipe,
   ],
   templateUrl: './lector-add-form.html',
   changeDetection: ChangeDetectionStrategy.Eager,

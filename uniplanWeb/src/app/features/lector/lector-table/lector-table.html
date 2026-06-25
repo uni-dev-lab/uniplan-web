@@ -6,23 +6,23 @@
     </ng-container>
 
     <ng-container matColumnDef="firstName">
-      <th mat-header-cell *matHeaderCellDef class="col-firstName"> Собствено Име </th>
+      <th mat-header-cell *matHeaderCellDef class="col-firstName">{{ 'features.name-label' | translate }}</th>
     </ng-container>
 
     <ng-container matColumnDef="lastName">
-      <th mat-header-cell *matHeaderCellDef class="col-lastName"> Фамилия </th>
+      <th mat-header-cell *matHeaderCellDef class="col-lastName"> {{ 'lector.last-name-label' | translate }} </th>
     </ng-container>
 
     <ng-container matColumnDef="email">
-      <th mat-header-cell *matHeaderCellDef class="col-email"> Имейл </th>
+      <th mat-header-cell *matHeaderCellDef class="col-email"> {{ 'lector.email-label' | translate }} </th>
     </ng-container>
 
     <ng-container matColumnDef="faculty">
-      <th mat-header-cell *matHeaderCellDef class="col-faculty"> Факултет </th>
+      <th mat-header-cell *matHeaderCellDef class="col-faculty"> {{ 'features.faculty-label' | translate }} </th>
     </ng-container>
 
     <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef class="col-actions"> Действия </th>
+      <th mat-header-cell *matHeaderCellDef class="col-actions"> {{ 'features.actions-label' | translate }} </th>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

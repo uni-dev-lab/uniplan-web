@@ -4,6 +4,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { InputFilter } from '../../../core/shared/input-filter/input-filter';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-lector-filters',
@@ -13,6 +14,7 @@ import { InputFilter } from '../../../core/shared/input-filter/input-filter';
     MatInputModule,
     MatIconModule,
     InputFilter,
+    TranslatePipe,
   ],
   templateUrl: './lector-filters.html',
   changeDetection: ChangeDetectionStrategy.Eager,

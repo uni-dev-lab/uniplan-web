@@ -8,10 +8,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { LectorDeleteForm } from '../lector-delete-form/lector-delete-form';
 import { LectorService } from '../lector-service';
 import { FacultyService } from '../../faculty/faculty-service';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-lector-table',
-  imports: [MatTableModule, MatIconModule, MatButtonModule],
+  imports: [MatTableModule, MatIconModule, MatButtonModule, TranslatePipe],
   templateUrl: './lector-table.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './lector-table.scss',

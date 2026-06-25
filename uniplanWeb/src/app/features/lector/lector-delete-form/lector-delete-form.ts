@@ -6,10 +6,11 @@ import {
   MatDialogRef,
 } from '@angular/material/dialog';
 import { LectorService } from '../lector-service';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-lector-delete-form',
-  imports: [DeleteForm, MatDialogModule],
+  imports: [DeleteForm, MatDialogModule, TranslatePipe],
   templateUrl: './lector-delete-form.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './lector-delete-form.scss',

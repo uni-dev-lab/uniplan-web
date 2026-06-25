@@ -1,23 +1,23 @@
-<app-add-form title="Добави Преподавател" (saveClicked)="save()">
+<app-add-form [title]="'lector.add.title' | translate" (saveClicked)="save()">
   <mat-dialog-content>
 
     <mat-form-field appearance="fill">
-      <mat-label>Собствено Име:</mat-label>
+      <mat-label>{{ 'features.name-label' | translate }}</mat-label>
       <input matInput [(ngModel)]="firstName" />
     </mat-form-field>
 
     <mat-form-field appearance="fill">
-      <mat-label>Фамилия:</mat-label>
+      <mat-label>{{ 'lector.last-name-label' | translate }}</mat-label>
       <input matInput [(ngModel)]="lastName" />
     </mat-form-field>
 
     <mat-form-field appearance="fill">
-      <mat-label>Имейл:</mat-label>
+      <mat-label>{{ 'lector.email-label' | translate }}</mat-label>
       <input matInput type="email" [(ngModel)]="email" />
     </mat-form-field>
 
     <mat-form-field appearance="fill">
-      <mat-label>Факултет:</mat-label>
+      <mat-label>{{ 'features.faculty-label' | translate }}</mat-label>
       <mat-select [(ngModel)]="facultyId">
         @for (fac of faculties; track fac) {
           <mat-option [value]="fac.id">

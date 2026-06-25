@@ -1,12 +1,12 @@
 <div class="filters-panel">
     <app-input-filter
-        [label]="'Преподавател'"
+        [label]="'features.lector-label' | translate"
         [(searchText)]="internalSearchText"
         (searchTextChange)="searchTextChange.emit($event)">
     </app-input-filter>
     <app-filters-form
-        [label]="'Факултет'"
-        [objectOptions]="faculties"
+      [label]="'features.faculty-label' | translate"
+      [objectOptions]="faculties"
         [selected]="selectedFaculty"
         (selectionChange)="facultyChange.emit($event)"
         class="filter">
