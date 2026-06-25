@@ -10,7 +10,7 @@ import { StudentService } from '../student-service';
 import { MajorElm } from '../../../core/interfaces/major-elm';
 import { CourseElm } from '../../../core/interfaces/course-elm';
 import { StudentElm } from '../../../core/interfaces/student-elm';
-import { StudentWarnings } from '../student-warnings';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-student-edit-form',
@@ -22,6 +22,7 @@ import { StudentWarnings } from '../student-warnings';
     MatInputModule,
     MatSelectModule,
     EditForm,
+    TranslatePipe,
   ],
   templateUrl: './student-edit-form.html',
   changeDetection: ChangeDetectionStrategy.Eager,
@@ -34,7 +35,6 @@ export class StudentEditForm implements OnInit {
   private studentService = inject(StudentService);
   private dialogRef = inject(MatDialogRef<EditForm>);
   readonly data = inject<StudentElm>(MAT_DIALOG_DATA);
-  readonly warnings = StudentWarnings;
 
   studentForm!: FormGroup;
   majors: MajorElm[] = [];
