@@ -27,7 +27,7 @@ import { StudentWarnings } from '../student-warnings';
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './student-edit-form.scss',
 })
-export class StudentEdit implements OnInit {
+export class StudentEditForm implements OnInit {
   private formBuilder = inject(FormBuilder);
   private majorService = inject(MajorService);
   private courseService = inject(CourseService);

@@ -14,7 +14,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { StudentService } from '../student-service';
 import { MatDialog } from '@angular/material/dialog';
-import { StudentEdit } from '../student-edit-form/student-edit-form';
+import { StudentEditForm } from '../student-edit-form/student-edit-form';
 
 @Component({
   selector: 'app-student-table',
@@ -94,7 +94,7 @@ export class StudentTable implements OnInit, OnChanges {
   }
 
   onEdit(element: StudentElm): void {
-    this.dialog.open(StudentEdit, {
+    this.dialog.open(StudentEditForm, {
       data: element
     });
   }
