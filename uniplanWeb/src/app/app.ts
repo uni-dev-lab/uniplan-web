@@ -4,10 +4,12 @@ import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, MatSlideToggleModule],
   templateUrl: './app.html',
   changeDetection: ChangeDetectionStrategy.Eager,
-  styleUrl: './app.scss'
+  styleUrl: './app.scss',
+  imports: [RouterOutlet,
+    MatSlideToggleModule,
+  ],
 })
 export class App {
   protected title = 'uniplanWeb';
