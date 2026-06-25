@@ -1,0 +1,69 @@
+{
+  "features": {
+    "name-label": "Име",
+    "faculty-label": "Факултет",
+    "actions-label": "Действия",
+    "type-label": "Тип",
+    "study-mode-label": "Форма на обучение",
+    "major-label": "Специалност",
+    "location-label": "Местоположение"
+  },
+  "faculty": {
+    "delete-button": "Изтрий",
+    "edit-button": "Редактирай",
+    "uni-label": "Университет",
+    "delete-confirmation": "Сигурни ли сте, че искате да изтриете факултет с име: ",
+    "add": {
+      "title": "Добави факултет"
+    },
+    "edit": {
+      "title": "Редактирай факултет"
+    }
+  },
+  "major": {
+    "paid-option": "Платено",
+    "full-time-option": "Редовно",
+    "delete-confirmation": "Сигурни ли сте, че искате да изтриете специалност с име: ",
+    "bachelor-option": "Бакалавър",
+    "master-option": "Магистър",
+    "add": {
+      "title": "Добави специалност"
+    },
+    "edit": {
+      "title": "Редактирай специалност"
+    }
+  },
+  "student": {
+    "faculty-number-label": "Факултетен номер",
+    "course-label": "Курс",
+    "qualification-level-label": "Квалификационна степен",
+    "first-name-label": "Първо име",
+    "last-name-label": "Фамилия",
+    "major-label": "Специалност",
+    "study-mode-label": "Форма на обучение",
+    "add": {
+      "title": "Добави студент",
+      "first-name-warning": "Моля въведете първо име на студента.",
+      "last-name-warning": "Моля въведете фамилия на студента.",
+      "faculty-number-warning": "Моля въведете факултетен номер.",
+      "major-warning": "Моля изберете специалност.",
+      "study-mode-warning": "Моля изберете форма на обучение.",
+      "qualification-warning": "Моля изберете квалификационна степен.",
+      "course-warning": "Моля изберете курс."
+    }
+  },
+  "settings": {
+    "title": "Заглавие",
+    "span": "Смени езика",
+    "bulgarian": "български",
+    "english": "английски"
+  },
+  "shared": {
+    "add-button": "Добави",
+    "exit-button": "Отмени",
+    "save-button": "Запази",
+    "delete-button": "Изтрий",
+    "option-all": "Всички",
+    "confirm-delete": "Потвърдете изтриването"
+  }
+}
