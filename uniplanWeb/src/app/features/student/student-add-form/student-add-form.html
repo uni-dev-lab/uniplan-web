@@ -5,7 +5,7 @@
       <mat-label>{{ 'student.first-name-label' | translate }}</mat-label>
       <input matInput formControlName="firstName" />
       @if (studentForm.get('firstName')?.invalid && studentForm.get('firstName')?.touched) {
-        <mat-error>{{ 'student.add.first-name-warning' | translate }}</mat-error>
+        <mat-error>{{ 'student.warnings.first-name-warning' | translate }}</mat-error>
       }
     </mat-form-field>
 
@@ -13,7 +13,7 @@
       <mat-label>{{ 'student.last-name-label' | translate }}</mat-label>
       <input matInput formControlName="lastName" />
       @if (studentForm.get('lastName')?.invalid && studentForm.get('lastName')?.touched) {
-        <mat-error>{{ 'student.add.last-name-warning' | translate }}</mat-error>
+        <mat-error>{{ 'student.warnings.last-name-warning' | translate }}</mat-error>
       }
     </mat-form-field>
 
@@ -21,7 +21,7 @@
       <mat-label>{{ 'student.faculty-number-label' | translate }}</mat-label>
       <input matInput formControlName="facultyNumber" />
       @if (studentForm.get('facultyNumber')?.invalid && studentForm.get('facultyNumber')?.touched) {
-        <mat-error>{{ 'student.add.faculty-number-warning' | translate }}</mat-error>
+        <mat-error>{{ 'student.warnings.faculty-number-warning' | translate }}</mat-error>
       }
     </mat-form-field>
 
@@ -33,7 +33,7 @@
         }
       </mat-select>
       @if (studentForm.get('majorId')?.invalid && studentForm.get('majorId')?.touched) {
-        <mat-error>{{ 'student.add.major-warning' | translate }}</mat-error>
+        <mat-error>{{ 'student.warnings.major-warning' | translate }}</mat-error>
       }
     </mat-form-field>
 
@@ -45,7 +45,7 @@
         }
       </mat-select>
       @if (studentForm.get('courseSubtype')?.invalid && studentForm.get('courseSubtype')?.touched) {
-        <mat-error>{{ 'student.add.study-mode-warning' | translate }}</mat-error>
+        <mat-error>{{ 'student.warnings.study-mode-warning' | translate }}</mat-error>
       }
     </mat-form-field>
 
@@ -57,7 +57,7 @@
         }
       </mat-select>
       @if (studentForm.get('courseType')?.invalid && studentForm.get('courseType')?.touched) {
-        <mat-error>{{ 'student.add.qualification-warning' | translate }}</mat-error>
+        <mat-error>{{ 'student.warnings.qualification-warning' | translate }}</mat-error>
       }
     </mat-form-field>
 
@@ -69,7 +69,7 @@
         }
       </mat-select>
       @if (studentForm.get('courseYear')?.invalid && studentForm.get('courseYear')?.touched) {
-        <mat-error>{{ 'student.add.course-warning' | translate }}</mat-error>
+        <mat-error>{{ 'student.warnings.course-warning' | translate }}</mat-error>
       }
     </mat-form-field>
 
