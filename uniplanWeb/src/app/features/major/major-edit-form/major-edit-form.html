@@ -1,17 +1,17 @@
-<app-edit-form title="Редактирай Специалност" (saveClicked)="save()">
+<app-edit-form [title]="'major.edit.title' | translate" (saveClicked)="save()">
 
   <mat-form-field appearance="fill">
-    <mat-label>Име:</mat-label>
+    <mat-label>{{ 'features.name-label' | translate }}</mat-label>
     <input matInput [(ngModel)]="majorName" />
   </mat-form-field>
 
   <mat-form-field appearance="fill">
-    <mat-label>Факултет:</mat-label>
+    <mat-label>{{ 'features.faculty-label' | translate }}</mat-label>
     <mat-select [(ngModel)]="facultyId">
       @for (fac of faculties; track fac) {
-        <mat-option [value]="fac.id">
-          {{ fac.facultyName }}
-        </mat-option>
+      <mat-option [value]="fac.id">
+        {{ fac.facultyName }}
+      </mat-option>
       }
     </mat-select>
   </mat-form-field>
