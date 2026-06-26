@@ -1,13 +1,13 @@
-<app-edit-form title="Редактирай факултет" (saveClicked)="save()">
+<app-edit-form [title]="'faculty.edit.title' | translate" (saveClicked)="save()">
     <mat-dialog-content [formGroup]="facultyForm">
 
         <mat-form-field appearance="fill">
-            <mat-label>Име:</mat-label>
+            <mat-label>{{ 'features.faculty-label' | translate }}</mat-label>
             <input matInput formControlName="facultyName" />
         </mat-form-field>
 
         <mat-form-field appearance="fill">
-            <mat-label>Локация:</mat-label>
+            <mat-label>{{ 'features.location-label' | translate }}</mat-label>
             <input matInput formControlName="location" />
         </mat-form-field>
 

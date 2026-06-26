@@ -7,9 +7,13 @@ import {
   MatLabel,
 } from '@angular/material/input';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-student-add-form',
+  templateUrl: './student-add-form.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
+  styleUrl: './student-add-form.scss',
   imports: [
     MatDialogModule,
     MatFormField,
@@ -17,10 +21,8 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
     ReactiveFormsModule,
     MatInputModule,
     AddForm,
+    TranslatePipe
   ],
-  templateUrl: './student-add-form.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
-  styleUrl: './student-add-form.scss',
 })
 export class StudentAddForm implements OnInit {
   private formBuilder = inject(FormBuilder)

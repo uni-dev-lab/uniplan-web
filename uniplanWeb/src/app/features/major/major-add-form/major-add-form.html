@@ -1,13 +1,13 @@
-<app-add-form title="Добави Специалност" (saveClicked)="save()">
+<app-add-form [title]="'major.add.title' | translate" (saveClicked)="save()">
   <mat-dialog-content [formGroup]="majorForm">
 
     <mat-form-field appearance="fill">
-      <mat-label>Име:</mat-label>
+      <mat-label>{{ 'features.name-label' | translate }}</mat-label> 
       <input matInput formControlName="majorName" />
     </mat-form-field>
 
     <mat-form-field appearance="fill">
-      <mat-label>Факултет:</mat-label>
+      <mat-label>{{ 'features.faculty-label' | translate }}</mat-label>
       <mat-select formControlName="faculty">
         @for (fac of faculties; track fac.id) {
           <mat-option [value]="fac.id">
@@ -18,18 +18,18 @@
     </mat-form-field>
 
     <mat-form-field appearance="fill">
-      <mat-label>Тип:</mat-label>
+      <mat-label>{{ 'features.type-label' | translate }}</mat-label>
       <mat-select formControlName="type">
-        <mat-option value="бакалавър">Бакалавър</mat-option>
-        <mat-option value="магистър">Магистър</mat-option>
+        <mat-option value="бакалавър">{{ 'major.bachelor-option' | translate }}</mat-option>
+        <mat-option value="магистър">{{ 'major.master-option' | translate }}</mat-option>
       </mat-select>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
-      <mat-label>Форма на обучение:</mat-label>
+      <mat-label>{{ 'features.study-mode-label' | translate }}</mat-label>
       <mat-select formControlName="subtype">
-        <mat-option value="платено">Платено</mat-option>
-        <mat-option value="редовно">Редовно</mat-option>
+        <mat-option value="платено">{{ 'major.paid-option' | translate }}</mat-option>
+        <mat-option value="редовно">{{ 'major.full-time-option' | translate }}</mat-option>
       </mat-select>
     </mat-form-field>
 

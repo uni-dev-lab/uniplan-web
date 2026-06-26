@@ -12,6 +12,7 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatLabel } from '@angular/material/form-field';
 import { FacultyService } from '../faculty-service';
 import { EditForm } from '../../../core/shared/edit-form/edit-form';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-faculty-edit-form',
@@ -27,6 +28,7 @@ import { EditForm } from '../../../core/shared/edit-form/edit-form';
     MatInputModule,
     MatSelectModule,
     MatOptionModule,
+    TranslatePipe,
   ],
 })
 export class FacultyEditForm implements OnInit {

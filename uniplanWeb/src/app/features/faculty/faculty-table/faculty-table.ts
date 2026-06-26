@@ -8,18 +8,20 @@ import { FacultyService } from '../faculty-service';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { FacultyEditForm } from '../faculty-edit-form/faculty-edit-form';
 import { FacultyDeleteForm } from '../faculty-delete-form/faculty-delete-form';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-faculty-table',
+  templateUrl: './faculty-table.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
+  styleUrl: './faculty-table.scss',
   imports: [
     MatTableModule,
     MatIconModule,
     MatButtonModule,
-    MatDialogModule
-],
-  templateUrl: './faculty-table.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
-  styleUrl: './faculty-table.scss',
+    MatDialogModule,
+    TranslatePipe
+    ],
 })
 export class FacultyTable {
   displayedColumns: string[] = [
@@ -33,7 +35,7 @@ export class FacultyTable {
   constructor(
     private facultyService: FacultyService,
     private dialog: MatDialog
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.loadFaculties();

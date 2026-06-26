@@ -1,0 +1,81 @@
+{
+    "features": {
+        "name-label": "Name",
+        "faculty-label": "Faculty",
+        "actions-label": "Actions",
+        "type-label": "Type",
+        "study-mode-label": "Study mode",
+        "major-label": "Major",
+        "location-label": "Location"
+    },
+    "faculty": {
+        "delete-button": "Delete",
+        "edit-button": "Edit",
+        "uni-label": "University",
+        "delete-confirmation": "Are you sure you want to delete the faculty named: ",
+        "add": {
+            "title": "Add faculty"
+        },
+        "edit": {
+            "title": "Edit faculty"
+        }
+    },
+    "major": {
+        "paid-option": "Paid",
+        "full-time-option": "Full-time",
+        "delete-confirmation": "Are you sure you want to delete the major named: ",
+        "bachelor-option": "Bachelor",
+        "master-option": "Master",
+        "add": {
+            "title": "Add major"
+        },
+        "edit": {
+            "title": "Edit major"
+        }
+    },
+    "student": {
+        "faculty-number-label": "Student ID",
+        "course-label": "Course",
+        "qualification-level-label": "Qualification level",
+        "add": {
+            "title": "Add student"
+        }
+    },
+    "settings": {
+        "title": "Title",
+        "span": "Change language",
+        "bulgarian": "Bulgarian",
+        "english": "English"
+    },
+    "shared": {
+        "add-button": "Add",
+        "exit-button": "Cancel",
+        "save-button": "Save",
+        "delete-button": "Delete",
+        "option-all": "All",
+        "confirm-delete": "Confirm deletion"
+    },
+    "home": {
+        "title": "Main!"
+    },
+    "not-found": {
+        "title": "Page not found",
+        "back-link": "Back to home"
+    },
+    "navmenu": {
+        "toggle-aria": "Toggle navigation menu",
+        "home": "Home",
+        "create-schedule": "Create schedule",
+        "faculty": "Faculty",
+        "department": "Department",
+        "major": "Major",
+        "rooms": "Rooms",
+        "students": "Students",
+        "teachers": "Teachers",
+        "subjects": "Subjects",
+        "settings": "Settings",
+        "open-profile": "Open",
+        "logout": "Logout",
+        "login": "Login"
+    }
+}
