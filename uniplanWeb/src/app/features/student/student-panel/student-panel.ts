@@ -16,6 +16,7 @@ export class StudentPanel implements OnInit {
   searchMajor = '';
   selectedStudentSubtype = '';
   studentSubtypes: string[] = [];
+  majorSuggestions: string[] = []
 
   ngOnInit(): void {
     

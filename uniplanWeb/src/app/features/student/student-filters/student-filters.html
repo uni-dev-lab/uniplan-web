@@ -1,24 +1,22 @@
 <div class="filters-panel">
-    <app-input-filter
-       [label]="'features.name-label' | translate"
-        [(searchText)]="internalSearchText"
+    <app-input-filter [label]="'features.name-label' | translate" [(searchText)]="internalSearchText"
         (searchTextChange)="searchTextChange.emit($event)">></app-input-filter>
 
-    <app-input-filter
-        [label]="'student.faculty-number-label' | translate"
-        [(searchText)]="internalSearchFacNum"
+    <app-input-filter [label]="'student.faculty-number-label' | translate" [(searchText)]="internalSearchFacNum"
         (searchTextChange)="searchFacNumChange.emit($event)">></app-input-filter>
 
-    <app-input-filter
-        [label]="'features.major-label' | translate"
-        [(searchText)]="internalSearchMajor"
-        (searchTextChange)="searchMajorChange.emit($event)">></app-input-filter>
+    <mat-form-field appearance="outline" class="major-field">
+        <mat-label>{{ 'features.major-label' | translate }}</mat-label>
+        <input matInput [formControl]="majorControl" [matAutocomplete]="majorAuto"
+            (input)="onMajorChange(majorControl.value ?? '')" />
+        <mat-autocomplete #majorAuto="matAutocomplete" (optionSelected)="searchMajorChange.emit($event.option.value)">
+            @for (major of filteredMajors$ | async; track major) {
+            <mat-option [value]="major">{{ major }}</mat-option>
+            }
+        </mat-autocomplete>
+    </mat-form-field>
 
-    <app-filters-form
-        [label]="'features.study-mode-label' | translate"
-        [options]="subtypes"
-        [selected]="selectedSubtype"
-        (selectionChange)="subtypeChange.emit($event)"
-        class="filter">
+    <app-filters-form [label]="'features.study-mode-label' | translate" [options]="subtypes"
+        [selected]="selectedSubtype" (selectionChange)="subtypeChange.emit($event)" class="filter">
     </app-filters-form>
 </div>

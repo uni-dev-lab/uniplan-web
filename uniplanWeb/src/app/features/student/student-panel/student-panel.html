@@ -6,6 +6,7 @@
       (searchTextChange)="searchText = $event"
       [internalSearchFacNum]="searchFacNum"
       (searchFacNumChange)="searchFacNum = $event"
+      [majorSuggestions]="majorSuggestions"
       [internalSearchMajor]="searchMajor"
       (searchMajorChange)="searchMajor = $event"
       [subtypes]="studentSubtypes"
@@ -19,6 +20,7 @@
     [searchMajor]="searchMajor"
     [subtype]="selectedStudentSubtype"
     [subtypes]="studentSubtypes"
+    (majorNamesLoaded)="majorSuggestions = $event"
     (subtypesLoaded)="studentSubtypes=$event">
   </app-student-table>
 </div>

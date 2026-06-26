@@ -36,6 +36,7 @@ export class StudentTable implements OnInit, OnChanges {
   @Input() subtypes: string[] = [];
 
   subtypesLoaded = output<string[]>();
+  majorNamesLoaded = output<string[]>();
 
   displayedColumns: string[] = [
     'position',
@@ -66,8 +67,10 @@ export class StudentTable implements OnInit, OnChanges {
     this.studentService.getStudents().subscribe({
       next: (students) => {
         this.originalData = students;
-        this.subtypes = StudentTable.getFilterOptions(students).subtypes;
+        const options = StudentTable.getFilterOptions(students);
+        this.subtypes = options.subtypes;
         this.subtypesLoaded.emit(this.subtypes);
+        this.majorNamesLoaded.emit(options.majorSuggestions);
         this.applyFilters();
       },
       error: () => {
@@ -94,6 +97,7 @@ export class StudentTable implements OnInit, OnChanges {
   static getFilterOptions(data: StudentElm[]) {
     return {
       subtypes: [...new Set(data.map((e) => e.courseSubtype))],
+      majorSuggestions: [...new Set(data.map((e) => e.majorName))],
     };
   }
 
