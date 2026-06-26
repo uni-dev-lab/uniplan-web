@@ -5,7 +5,8 @@ import {
   OnChanges,
   OnInit,
   ChangeDetectionStrategy,
-  inject
+  inject,
+  output
 } from '@angular/core';
 import { StudentElm } from '../../../core/interfaces/student-elm';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -34,6 +35,8 @@ export class StudentTable implements OnInit, OnChanges {
   @Input() subtype = '';
 
   @Input() subtypes: string[] = [];
+
+  subtypesLoaded = output<string[]>();
 
   displayedColumns: string[] = [
     'position',
@@ -65,6 +68,7 @@ export class StudentTable implements OnInit, OnChanges {
       next: (students) => {
         this.originalData = students;
         this.subtypes = StudentTable.getFilterOptions(students).subtypes;
+        this.subtypesLoaded.emit(this.subtypes);
         this.applyFilters();
       },
       error: () => {

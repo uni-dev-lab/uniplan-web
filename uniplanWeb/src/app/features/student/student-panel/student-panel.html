@@ -1,0 +1,24 @@
+<div class="component-panel student">
+  <div class="panel-controls-row">
+    <app-student-options class="panel-options"></app-student-options>
+    <app-student-filters
+      [internalSearchText]="searchText"
+      (searchTextChange)="searchText = $event"
+      [internalSearchFacNum]="searchFacNum"
+      (searchFacNumChange)="searchFacNum = $event"
+      [internalSearchMajor]="searchMajor"
+      (searchMajorChange)="searchMajor = $event"
+      [subtypes]="studentSubtypes"
+      [selectedSubtype]="selectedStudentSubtype"
+      (subtypeChange)="selectedStudentSubtype = $event">
+    </app-student-filters>
+  </div>
+  <app-student-table
+    [searchText]="searchText"
+    [searchFacNum]="searchFacNum"
+    [searchMajor]="searchMajor"
+    [subtype]="selectedStudentSubtype"
+    [subtypes]="studentSubtypes"
+    (subtypesLoaded)="studentSubtypes=$event">
+  </app-student-table>
+</div>

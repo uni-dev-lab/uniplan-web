@@ -73,5 +73,28 @@
         "delete-button": "Delete",
         "option-all": "All",
         "confirm-delete": "Confirm deletion"
+    },
+    "home": {
+        "title": "Main!"
+    },
+    "not-found": {
+        "title": "Page not found",
+        "back-link": "Back to home"
+    },
+    "navmenu": {
+        "toggle-aria": "Toggle navigation menu",
+        "home": "Home",
+        "create-schedule": "Create schedule",
+        "faculty": "Faculty",
+        "department": "Department",
+        "major": "Major",
+        "rooms": "Rooms",
+        "students": "Students",
+        "teachers": "Teachers",
+        "subjects": "Subjects",
+        "settings": "Settings",
+        "open-profile": "Open",
+        "logout": "Logout",
+        "login": "Login"
     }
 }
