@@ -1,12 +1,8 @@
-import { Component, Inject, ChangeDetectionStrategy } from '@angular/core';
-import { DeleteForm } from '../../../core/shared/delete-form/delete-form';
-import {
-  MAT_DIALOG_DATA,
-  MatDialogModule,
-  MatDialogRef,
-} from '@angular/material/dialog';
-import { DepartmentService } from '../department-service';
-import {TranslatePipe} from '@ngx-translate/core';
+import {ChangeDetectionStrategy, Component, Inject} from '@angular/core';
+import {DeleteForm} from '../../../core/shared/delete-form/delete-form';
+import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef,} from '@angular/material/dialog';
+import {DepartmentService} from '../department-service';
+import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-department-delete-form',
@@ -19,11 +15,13 @@ export class DepartmentDeleteForm {
   constructor(
     private departmentService: DepartmentService,
     private dialogRef: MatDialogRef<DepartmentDeleteForm>,
+    private translate: TranslateService,
     @Inject(MAT_DIALOG_DATA)
     public data: { id: string; departmentName: string }
-  ) {}
+  ) {
+  }
 
-  deleteDepartment(): void {
+  protected deleteDepartment(): void {
     this.departmentService
       .deleteDepartment(this.data.id)
       .subscribe({
@@ -31,7 +29,7 @@ export class DepartmentDeleteForm {
           this.dialogRef.close(true);
         },
         error: () => {
-          alert('Възникна грешка при изтриването на катедрата.');
+          alert(this.translate.instant('department.delete-error'));
         },
       });
   }

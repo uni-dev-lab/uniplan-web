@@ -29,8 +29,8 @@ export class DepartmentService {
   createDepartment(data: {
     departmentName: string;
     facultyId: string;
-  }): Observable<any> {
-    return this.http.post(`${this.apiUrl}`, data).pipe(
+  }): Observable<DepartmentElm> {
+    return this.http.post<DepartmentElm>(`${this.apiUrl}`, data).pipe(
       map((res) => {
         this.refreshNeeded.next();
         return res;
@@ -41,8 +41,8 @@ export class DepartmentService {
   editDepartment(
     id: string,
     data: { departmentName: string; facultyId: string }
-  ): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${id}`, data).pipe(
+  ): Observable<DepartmentElm> {
+    return this.http.put<DepartmentElm>(`${this.apiUrl}/${id}`, data).pipe(
       map((res) => {
         this.refreshNeeded.next();
         return res;
@@ -50,8 +50,8 @@ export class DepartmentService {
     );
   }
 
-  deleteDepartment(id: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${id}`).pipe(
+  deleteDepartment(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(
       map((res) => {
         this.refreshNeeded.next();
         return res;
