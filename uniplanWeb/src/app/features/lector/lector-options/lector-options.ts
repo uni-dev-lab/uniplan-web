@@ -21,7 +21,7 @@ import { AddButton } from '../../../core/shared/add-button/add-button';
 export class LectorOptions {
   constructor(private dialog: MatDialog) {}
 
-  openAddForm() {
+  protected openAddForm(): void {
     this.dialog.open(LectorAddForm, {
       width: '400px',
     });

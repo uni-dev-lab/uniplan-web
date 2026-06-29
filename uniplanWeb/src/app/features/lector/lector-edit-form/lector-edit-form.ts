@@ -9,11 +9,16 @@ import {
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
-import { FormsModule } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { LectorService } from '../lector-service';
 import { FacultyService } from '../../faculty/faculty-service';
 import { FacultyElm } from '../../../core/interfaces/faculty-elm';
-import {TranslatePipe} from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-lector-edit-form',
@@ -22,7 +27,7 @@ import {TranslatePipe} from '@ngx-translate/core';
     MatDialogModule,
     MatFormField,
     MatLabel,
-    FormsModule,
+    ReactiveFormsModule,
     MatInputModule,
     MatSelectModule,
     MatOptionModule,
@@ -33,17 +38,20 @@ import {TranslatePipe} from '@ngx-translate/core';
   styleUrl: './lector-edit-form.scss',
 })
 export class LectorEditForm implements OnInit {
-  firstName = '';
-  lastName = '';
-  email = '';
-  facultyId = '';
+  protected readonly form: FormGroup<{
+    firstName: FormControl<string>;
+    lastName: FormControl<string>;
+    email: FormControl<string>;
+    facultyId: FormControl<string>;
+  }>;
 
-  faculties: FacultyElm[] = [];
+  protected faculties: FacultyElm[] = [];
 
   constructor(
     private dialogRef: MatDialogRef<EditForm>,
     private lectorService: LectorService,
     private facultyService: FacultyService,
+    private translate: TranslateService,
     @Inject(MAT_DIALOG_DATA)
     public data: {
       id: string;
@@ -53,10 +61,24 @@ export class LectorEditForm implements OnInit {
       facultyId?: string;
     }
   ) {
-    this.firstName = data.firstName;
-    this.lastName = data.lastName;
-    this.email = data.email;
-    this.facultyId = data.facultyId || '';
+    this.form = new FormGroup({
+      firstName: new FormControl(data.firstName ?? '', {
+        nonNullable: true,
+        validators: [Validators.required],
+      }),
+      lastName: new FormControl(data.lastName ?? '', {
+        nonNullable: true,
+        validators: [Validators.required],
+      }),
+      email: new FormControl(data.email ?? '', {
+        nonNullable: true,
+        validators: [Validators.required, Validators.email],
+      }),
+      facultyId: new FormControl(data.facultyId ?? '', {
+        nonNullable: true,
+        validators: [Validators.required],
+      }),
+    });
   }
 
   ngOnInit(): void {
@@ -66,22 +88,24 @@ export class LectorEditForm implements OnInit {
     });
   }
 
-  save() {
-    if (!this.firstName.trim() || !this.lastName.trim() || !this.email.trim()) {
-      alert('Please fill all fields.');
+  protected save(): void {
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
       return;
     }
 
+    const { firstName, lastName, email, facultyId } = this.form.getRawValue();
+
     this.lectorService
       .editLector(this.data.id, {
-        firstName: this.firstName,
-        lastName: this.lastName,
-        email: this.email,
-        facultyId: this.facultyId,
+        firstName: firstName.trim(),
+        lastName: lastName.trim(),
+        email: email.trim(),
+        facultyId,
       })
       .subscribe({
         next: () => this.dialogRef.close(true),
-        error: () => alert('Failed to update lector.'),
+        error: () => alert(this.translate.instant('lector.update-error')),
       });
   }
 }

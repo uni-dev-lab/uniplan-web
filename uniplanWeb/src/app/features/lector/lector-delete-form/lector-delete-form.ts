@@ -6,7 +6,7 @@ import {
   MatDialogRef,
 } from '@angular/material/dialog';
 import { LectorService } from '../lector-service';
-import {TranslatePipe} from '@ngx-translate/core';
+import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-lector-delete-form',
@@ -19,11 +19,12 @@ export class LectorDeleteForm {
   constructor(
     private lectorService: LectorService,
     private dialogRef: MatDialogRef<LectorDeleteForm>,
+    private translate: TranslateService,
     @Inject(MAT_DIALOG_DATA)
     public data: { id: string; firstName: string; lastName: string }
   ) {}
 
-  deleteLector(): void {
+  protected deleteLector(): void {
     this.lectorService
       .deleteLector(this.data.id)
       .subscribe({
@@ -31,7 +32,7 @@ export class LectorDeleteForm {
           this.dialogRef.close(true);
         },
         error: () => {
-          alert('Възникна грешка при изтриването на преподавателя.');
+          alert(this.translate.instant('lector.delete-error'));
         },
       });
   }

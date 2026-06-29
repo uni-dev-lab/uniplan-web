@@ -2,7 +2,7 @@
   <table mat-table [dataSource]="filteredLectors"
          class="mat-elevation-z8 table-header">
     <ng-container matColumnDef="position">
-      <th mat-header-cell *matHeaderCellDef class="col-position"> No. </th>
+      <th mat-header-cell *matHeaderCellDef class="col-position"> {{ 'features.number-label' | translate }} </th>
     </ng-container>
 
     <ng-container matColumnDef="firstName">

@@ -7,7 +7,8 @@
         "study-mode-label": "Study mode",
         "major-label": "Major",
         "location-label": "Location",
-        "lector-label": "Lector"
+        "lector-label": "Lector",
+        "number-label": "No."
     },
     "faculty": {
         "delete-button": "Delete",
@@ -28,6 +29,9 @@
     "delete-confirmation": "Are you sure you want to delete the lector named: ",
     "last-name-label": "Last name",
     "email-label": "Email",
+    "create-error": "Failed to create lector.",
+    "update-error": "Failed to update lector.",
+    "delete-error": "Failed to delete lector.",
     "add": {
       "title": "Add lector"
     },
@@ -68,7 +72,9 @@
         "save-button": "Save",
         "delete-button": "Delete",
         "option-all": "All",
-        "confirm-delete": "Confirm deletion"
+        "confirm-delete": "Confirm deletion",
+        "required-field": "This field is required",
+        "invalid-email": "Enter a valid email address"
     },
     "home": {
         "title": "Main!"

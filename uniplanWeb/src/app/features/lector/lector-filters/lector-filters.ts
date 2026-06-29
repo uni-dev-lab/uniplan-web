@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, output } from '@angular/core';
 import { FiltersForm } from '../../../core/shared/filters-form/filters-form';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -21,12 +21,12 @@ import {TranslatePipe} from '@ngx-translate/core';
   styleUrl: './lector-filters.scss',
 })
 export class LectorFilters {
-  @Input() internalSearchText = '';
+  readonly internalSearchText = input('');
 
-  @Input() faculties: { id: string; name: string }[] = [];
+  readonly faculties = input<{ id: string; name: string }[]>([]);
 
-  @Input() selectedFaculty = '';
+  readonly selectedFaculty = input('');
 
-  @Output() facultyChange = new EventEmitter<string>();
-  @Output() searchTextChange = new EventEmitter<string>();
+  readonly facultyChange = output<string>();
+  readonly searchTextChange = output<string>();
 }

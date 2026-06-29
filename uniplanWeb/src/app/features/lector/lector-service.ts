@@ -33,8 +33,8 @@ export class LectorService {
     lastName: string;
     email: string;
     facultyId: string;
-  }): Observable<any> {
-    return this.http.post(`${this.apiUrl}`, data).pipe(
+  }): Observable<LectorElm> {
+    return this.http.post<LectorElm>(`${this.apiUrl}`, data).pipe(
       map((res) => {
         this.refreshNeeded.next();
         return res;
@@ -45,8 +45,8 @@ export class LectorService {
   editLector(
     id: string,
     data: { firstName: string; lastName: string; email: string; facultyId: string }
-  ): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${id}`, data).pipe(
+  ): Observable<LectorElm> {
+    return this.http.put<LectorElm>(`${this.apiUrl}/${id}`, data).pipe(
       map((res) => {
         this.refreshNeeded.next();
         return res;
@@ -54,8 +54,8 @@ export class LectorService {
     );
   }
 
-  deleteLector(id: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${id}`).pipe(
+  deleteLector(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(
       map((res) => {
         this.refreshNeeded.next();
         return res;

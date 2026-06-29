@@ -6,13 +6,18 @@ import {
   MatFormFieldModule,
   MatLabel,
 } from '@angular/material/form-field';
-import { FormsModule } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { LectorService } from '../lector-service';
 import { FacultyElm } from '../../../core/interfaces/faculty-elm';
 import { FacultyService } from '../../faculty/faculty-service';
-import {TranslatePipe} from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-lector-add-form',
@@ -20,12 +25,11 @@ import {TranslatePipe} from '@ngx-translate/core';
     MatDialogModule,
     MatFormField,
     MatLabel,
-    FormsModule,
+    ReactiveFormsModule,
     MatInputModule,
     AddForm,
     MatFormFieldModule,
     MatSelectModule,
-    AddForm,
     TranslatePipe,
   ],
   templateUrl: './lector-add-form.html',
@@ -33,17 +37,32 @@ import {TranslatePipe} from '@ngx-translate/core';
   styleUrl: './lector-add-form.scss',
 })
 export class LectorAddForm implements OnInit {
-  firstName = '';
-  lastName = '';
-  email = '';
-  facultyId = '';
+  protected readonly form = new FormGroup({
+    firstName: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
+    lastName: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
+    email: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required, Validators.email],
+    }),
+    facultyId: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
+  });
 
-  faculties: FacultyElm[] = [];
+  protected faculties: FacultyElm[] = [];
 
   constructor(
     private dialogRef: MatDialogRef<AddForm>,
     private lectorService: LectorService,
-    private facultyService: FacultyService
+    private facultyService: FacultyService,
+    private translate: TranslateService
   ) {}
 
   ngOnInit(): void {
@@ -55,24 +74,26 @@ export class LectorAddForm implements OnInit {
     });
   }
 
-  save() {
-    if (!this.firstName.trim() || !this.lastName.trim() || !this.email.trim() || !this.facultyId) {
-      alert('Please fill all fields.');
+  protected save(): void {
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
       return;
     }
 
+    const { firstName, lastName, email, facultyId } = this.form.getRawValue();
+
     this.lectorService
       .createLector({
-        firstName: this.firstName,
-        lastName: this.lastName,
-        email: this.email,
-        facultyId: this.facultyId,
+        firstName: firstName.trim(),
+        lastName: lastName.trim(),
+        email: email.trim(),
+        facultyId,
       })
       .subscribe({
         next: () => {
           this.dialogRef.close(true);
         },
-        error: () => alert('Failed to create lector.'),
+        error: () => alert(this.translate.instant('lector.create-error')),
       });
   }
 }

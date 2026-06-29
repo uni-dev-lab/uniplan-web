@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
@@ -23,8 +23,8 @@ export class LectorTable implements OnInit {
   dataSource: LectorElm[] = [];
   facultyMap = new Map<string, string>();
 
-  @Input() searchText = '';
-  @Input() faculty: string = '';
+  readonly searchText = input('');
+  readonly faculty = input('');
 
   constructor(
     private dialog: MatDialog,
@@ -42,36 +42,39 @@ export class LectorTable implements OnInit {
     });
   }
 
-  loadLectors(): void {
+  private loadLectors(): void {
     this.service.getLectors().subscribe((data) => {
       this.dataSource = data;
     });
   }
 
-  loadFaculties(): void {
+  private loadFaculties(): void {
     this.facultyService.getFaculties().subscribe((faculties) => {
       this.facultyMap = new Map(faculties.map((f) => [f.id, f.facultyName]));
     });
   }
 
-  getFacultyName(id: string): string {
+  protected getFacultyName(id: string): string {
     return this.facultyMap.get(id) || '—';
   }
 
-  get filteredLectors(): LectorElm[] {
+  protected get filteredLectors(): LectorElm[] {
+    const faculty = this.faculty();
+    const searchText = this.searchText().toLowerCase();
+
     return this.dataSource.filter((lector) => {
-      const matchesFaculty = !this.faculty || lector.facultyId === this.faculty;
+      const matchesFaculty = !faculty || lector.facultyId === faculty;
       const fullName = `${lector.firstName} ${lector.lastName}`.toLowerCase();
       const matchesSearch =
-        !this.searchText ||
-        fullName.includes(this.searchText.toLowerCase()) ||
-        lector.email.toLowerCase().includes(this.searchText.toLowerCase());
+        !searchText ||
+        fullName.includes(searchText) ||
+        lector.email.toLowerCase().includes(searchText);
 
       return matchesFaculty && matchesSearch;
     });
   }
 
-  onEdit(element: LectorElm): void {
+  protected onEdit(element: LectorElm): void {
     this.dialog.open(LectorEditForm, {
       data: {
         id: element.id,
@@ -83,7 +86,7 @@ export class LectorTable implements OnInit {
     });
   }
 
-  onDelete(element: LectorElm): void {
+  protected onDelete(element: LectorElm): void {
     this.dialog.open(LectorDeleteForm, {
       data: {
         id: element.id,
@@ -93,7 +96,10 @@ export class LectorTable implements OnInit {
     });
   }
 
-  static getFilterOptions(data: LectorElm[], facultyMap: Map<string, string>) {
+  static getFilterOptions(
+    data: LectorElm[],
+    facultyMap: Map<string, string>,
+  ): { faculties: { id: string; name: string }[] } {
     const faculties = [...new Set(data.map((e) => e.facultyId))].map((id) => ({
       id,
       name: facultyMap.get(id) || '—',
