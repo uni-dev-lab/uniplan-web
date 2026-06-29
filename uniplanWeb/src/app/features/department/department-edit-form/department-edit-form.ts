@@ -9,11 +9,16 @@ import {
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
-import { FormsModule } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { DepartmentService } from '../department-service';
 import { FacultyService } from '../../faculty/faculty-service';
 import { FacultyElm } from '../../../core/interfaces/faculty-elm';
-import {TranslatePipe} from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-department-edit-form',
@@ -22,7 +27,7 @@ import {TranslatePipe} from '@ngx-translate/core';
     MatDialogModule,
     MatFormField,
     MatLabel,
-    FormsModule,
+    ReactiveFormsModule,
     MatInputModule,
     MatSelectModule,
     MatOptionModule,
@@ -33,15 +38,18 @@ import {TranslatePipe} from '@ngx-translate/core';
   styleUrl: './department-edit-form.scss',
 })
 export class DepartmentEditForm implements OnInit {
-  departmentName = '';
-  facultyId = '';
+  protected readonly form: FormGroup<{
+    departmentName: FormControl<string>;
+    facultyId: FormControl<string>;
+  }>;
 
-  faculties: FacultyElm[] = [];
+  protected faculties: FacultyElm[] = [];
 
   constructor(
     private dialogRef: MatDialogRef<EditForm>,
     private departmentService: DepartmentService,
     private facultyService: FacultyService,
+    private translate: TranslateService,
     @Inject(MAT_DIALOG_DATA)
     public data: {
       id: string;
@@ -49,8 +57,16 @@ export class DepartmentEditForm implements OnInit {
       facultyId?: string;
     }
   ) {
-    this.departmentName = data.departmentName;
-    this.facultyId = data.facultyId || '';
+    this.form = new FormGroup({
+      departmentName: new FormControl(data.departmentName ?? '', {
+        nonNullable: true,
+        validators: [Validators.required],
+      }),
+      facultyId: new FormControl(data.facultyId ?? '', {
+        nonNullable: true,
+        validators: [Validators.required],
+      }),
+    });
   }
 
   ngOnInit(): void {
@@ -60,20 +76,22 @@ export class DepartmentEditForm implements OnInit {
     });
   }
 
-  save() {
-    if (!this.departmentName.trim()) {
-      alert('Please enter the department name.');
+  protected save(): void {
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
       return;
     }
 
+    const { departmentName, facultyId } = this.form.getRawValue();
+
     this.departmentService
       .editDepartment(this.data.id, {
-        departmentName: this.departmentName,
-        facultyId: this.facultyId,
+        departmentName: departmentName.trim(),
+        facultyId,
       })
       .subscribe({
         next: () => this.dialogRef.close(true),
-        error: () => alert('Failed to update department.'),
+        error: () => alert(this.translate.instant('department.update-error')),
       });
   }
 }

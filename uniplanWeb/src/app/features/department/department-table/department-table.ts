@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
@@ -23,8 +23,8 @@ export class DepartmentTable implements OnInit {
   dataSource: DepartmentElm[] = [];
   facultyMap = new Map<string, string>();
 
-  @Input() searchText = '';
-  @Input() faculty: string = '';
+  readonly searchText = input('');
+  readonly faculty = input('');
 
   constructor(
     private dialog: MatDialog,
@@ -42,34 +42,37 @@ export class DepartmentTable implements OnInit {
     });
   }
 
-  loadDepartments(): void {
+  private loadDepartments(): void {
     this.service.getDepartments().subscribe((data) => {
       this.dataSource = data;
     });
   }
 
-  loadFaculties(): void {
+  private loadFaculties(): void {
     this.facultyService.getFaculties().subscribe((faculties) => {
       this.facultyMap = new Map(faculties.map((f) => [f.id, f.facultyName]));
     });
   }
 
-  getFacultyName(id: string): string {
+  protected getFacultyName(id: string): string {
     return this.facultyMap.get(id) || '—';
   }
 
-  get filteredDepartments(): DepartmentElm[] {
+  protected get filteredDepartments(): DepartmentElm[] {
+    const faculty = this.faculty();
+    const searchText = this.searchText();
+
     return this.dataSource.filter((dept) => {
-      const matchesFaculty = !this.faculty || dept.facultyId === this.faculty;
+      const matchesFaculty = !faculty || dept.facultyId === faculty;
       const matchesSearch =
-        !this.searchText ||
-        dept.departmentName.toLowerCase().includes(this.searchText.toLowerCase());
+        !searchText ||
+        dept.departmentName.toLowerCase().includes(searchText.toLowerCase());
 
       return matchesFaculty && matchesSearch;
     });
   }
 
-  onEdit(element: DepartmentElm): void {
+  protected onEdit(element: DepartmentElm): void {
     this.dialog.open(DepartmentEditForm, {
       data: {
         id: element.id,
@@ -79,7 +82,7 @@ export class DepartmentTable implements OnInit {
     });
   }
 
-  onDelete(element: DepartmentElm): void {
+  protected onDelete(element: DepartmentElm): void {
     this.dialog.open(DepartmentDeleteForm, {
       data: {
         id: element.id,
@@ -88,7 +91,10 @@ export class DepartmentTable implements OnInit {
     });
   }
 
-  static getFilterOptions(data: DepartmentElm[], facultyMap: Map<string, string>) {
+  static getFilterOptions(
+    data: DepartmentElm[],
+    facultyMap: Map<string, string>,
+  ): { faculties: { id: string; name: string }[] } {
     const faculties = [...new Set(data.map((e) => e.facultyId))].map((id) => ({
       id,
       name: facultyMap.get(id) || '—',

@@ -6,13 +6,18 @@ import {
   MatFormFieldModule,
   MatLabel,
 } from '@angular/material/form-field';
-import { FormsModule } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { DepartmentService } from '../department-service';
 import { FacultyElm } from '../../../core/interfaces/faculty-elm';
 import { FacultyService } from '../../faculty/faculty-service';
-import {TranslatePipe} from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-department-add-form',
@@ -20,7 +25,7 @@ import {TranslatePipe} from '@ngx-translate/core';
     MatDialogModule,
     MatFormField,
     MatLabel,
-    FormsModule,
+    ReactiveFormsModule,
     MatInputModule,
     AddForm,
     MatFormFieldModule,
@@ -32,15 +37,24 @@ import {TranslatePipe} from '@ngx-translate/core';
   styleUrl: './department-add-form.scss',
 })
 export class DepartmentAddForm implements OnInit {
-  departmentName = '';
-  facultyId = '';
+  protected readonly form = new FormGroup({
+    departmentName: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
+    facultyId: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
+  });
 
-  faculties: FacultyElm[] = [];
+  protected faculties: FacultyElm[] = [];
 
   constructor(
     private dialogRef: MatDialogRef<AddForm>,
     private departmentService: DepartmentService,
-    private facultyService: FacultyService
+    private facultyService: FacultyService,
+    private translate: TranslateService
   ) {}
 
   ngOnInit(): void {
@@ -52,22 +66,24 @@ export class DepartmentAddForm implements OnInit {
     });
   }
 
-  save() {
-    if (!this.departmentName.trim() || !this.facultyId) {
-      alert('Please fill all fields.');
+  protected save(): void {
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
       return;
     }
 
+    const { departmentName, facultyId } = this.form.getRawValue();
+
     this.departmentService
       .createDepartment({
-        departmentName: this.departmentName,
-        facultyId: this.facultyId,
+        departmentName: departmentName.trim(),
+        facultyId,
       })
       .subscribe({
         next: () => {
           this.dialogRef.close(true);
         },
-        error: () => alert('Failed to create department.'),
+        error: () => alert(this.translate.instant('department.create-error')),
       });
   }
 }

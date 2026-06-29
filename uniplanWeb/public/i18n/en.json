@@ -7,7 +7,8 @@
         "study-mode-label": "Study mode",
         "major-label": "Major",
         "location-label": "Location",
-        "department-label": "Department"
+        "department-label": "Department",
+        "number-label": "No."
     },
     "faculty": {
         "delete-button": "Delete",
@@ -39,6 +40,9 @@
     "edit-button": "Edit",
     "uni-label": "University",
     "delete-confirmation": "Are you sure you want to delete the department named: ",
+    "create-error": "Failed to create department.",
+    "update-error": "Failed to update department.",
+    "delete-error": "Failed to delete department.",
     "add": {
       "title": "Add department"
     },
@@ -66,7 +70,8 @@
         "save-button": "Save",
         "delete-button": "Delete",
         "option-all": "All",
-        "confirm-delete": "Confirm deletion"
+        "confirm-delete": "Confirm deletion",
+        "required-field": "This field is required"
     },
     "home": {
         "title": "Main!"
