@@ -8,6 +8,9 @@
     "major-label": "Специалност",
     "location-label": "Местоположение"
   },
+  "room": {
+    "room-number": "Номер на стая"
+  },
   "faculty": {
     "delete-button": "Изтрий",
     "edit-button": "Редактирай",

@@ -8,6 +8,9 @@
         "major-label": "Major",
         "location-label": "Location"
     },
+    "room": {
+        "room-number": "Room number"
+    },
     "faculty": {
         "delete-button": "Delete",
         "edit-button": "Edit",
