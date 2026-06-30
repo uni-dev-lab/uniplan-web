@@ -1,5 +1,5 @@
 
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
@@ -30,7 +30,7 @@ export class FacultyTable {
     'location',
     'actions',
   ];
-  dataSource: FacultyElm[] = [];
+  dataSource = signal<FacultyElm[]>([]);
 
   constructor(
     private facultyService: FacultyService,
@@ -47,7 +47,7 @@ export class FacultyTable {
 
   loadFaculties(): void {
     this.facultyService.getFaculties().subscribe((data) => {
-      this.dataSource = data;
+      this.dataSource.set(data);
     });
   }
 
