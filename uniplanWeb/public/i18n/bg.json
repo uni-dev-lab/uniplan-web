@@ -6,11 +6,14 @@
     "type-label": "Тип",
     "study-mode-label": "Форма на обучение",
     "major-label": "Специалност",
-    "location-label": "Местоположение"
+    "location-label": "Местоположение",
+    "number-label": "No.",
+    "edit": "Редактирай",
+    "delete": "ИзтриЙ"
   },
   "room": {
     "room-number": "Номер на стая",
-    "no-rooms":"Няма записани стаи"
+    "no-rooms": "Няма записани стаи"
   },
   "faculty": {
     "delete-button": "Изтрий",
