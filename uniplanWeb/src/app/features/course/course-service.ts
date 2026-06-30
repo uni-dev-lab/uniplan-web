@@ -8,7 +8,7 @@ import { environment } from '../../../environments/environments';
   providedIn: 'root'
 })
 export class CourseService {
-  private apiUrl = environment.testUrl.coursesUrl;
+  private apiUrl = "http://localhost:8080/api/courses";
   private http = inject(HttpClient);
 
   getCoursesByMajorId(majorId: string): Observable<CourseElm[]> {
