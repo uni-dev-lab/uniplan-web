@@ -11,6 +11,7 @@ import { TranslateLoader, provideTranslateService } from '@ngx-translate/core';
 import { LectorPanel } from './lector-panel';
 import { LectorFilters } from '../lector-filters/lector-filters';
 import { LectorTable } from '../lector-table/lector-table';
+import { API_ENDPOINTS } from '../../../config/endpoints';
 
 class FakeTranslateLoader implements TranslateLoader {
   getTranslation() {
@@ -24,8 +25,8 @@ describe('LectorPanel', () => {
   let httpMock: HttpTestingController;
   let dialogSpy: jasmine.SpyObj<MatDialog>;
 
-  const FACULTIES_URL = 'http://localhost:8080/api/faculties';
-  const LECTORS_URL = 'http://localhost:8080/api/lectors';
+  const FACULTIES_URL = API_ENDPOINTS.faculties;
+  const LECTORS_URL = API_ENDPOINTS.lectors;
 
   beforeEach(async () => {
     dialogSpy = jasmine.createSpyObj<MatDialog>('MatDialog', ['open']);
@@ -107,7 +108,7 @@ describe('LectorPanel', () => {
     expect(component.lectorSearchText).toBe('ivan');
     const table = fixture.debugElement.query(By.directive(LectorTable))
       .componentInstance as LectorTable;
-    expect(table.searchText).toBe('ivan');
+    expect(table.searchText()).toBe('ivan');
   });
 
   it('should propagate the selected faculty from the filters down to the table', () => {
@@ -122,6 +123,6 @@ describe('LectorPanel', () => {
     expect(component.selectedLectorFaculty).toBe('f1');
     const table = fixture.debugElement.query(By.directive(LectorTable))
       .componentInstance as LectorTable;
-    expect(table.faculty).toBe('f1');
+    expect(table.faculty()).toBe('f1');
   });
 });

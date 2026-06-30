@@ -2,19 +2,18 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable, Subject } from 'rxjs';
 import { LectorElm } from '../../core/interfaces/lector-elm';
+import { API_ENDPOINTS } from '../../config/endpoints';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LectorService {
-  private apiUrl = 'http://localhost:8080/api/lectors';
-
   refreshNeeded = new Subject<void>();
 
   constructor(private http: HttpClient) {}
 
   getLectors(): Observable<LectorElm[]> {
-    return this.http.get<LectorElm[]>(this.apiUrl).pipe(
+    return this.http.get<LectorElm[]>(API_ENDPOINTS.lectors).pipe(
       map((lectors) =>
         lectors.map((lector, index) => ({
           id: lector.id,
@@ -34,7 +33,7 @@ export class LectorService {
     email: string;
     facultyId: string;
   }): Observable<LectorElm> {
-    return this.http.post<LectorElm>(`${this.apiUrl}`, data).pipe(
+    return this.http.post<LectorElm>(`${API_ENDPOINTS.lectors}`, data).pipe(
       map((res) => {
         this.refreshNeeded.next();
         return res;
@@ -46,7 +45,7 @@ export class LectorService {
     id: string,
     data: { firstName: string; lastName: string; email: string; facultyId: string }
   ): Observable<LectorElm> {
-    return this.http.put<LectorElm>(`${this.apiUrl}/${id}`, data).pipe(
+    return this.http.put<LectorElm>(`${API_ENDPOINTS.lectors}/${id}`, data).pipe(
       map((res) => {
         this.refreshNeeded.next();
         return res;
@@ -55,7 +54,7 @@ export class LectorService {
   }
 
   deleteLector(id: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(
+    return this.http.delete<void>(`${API_ENDPOINTS.lectors}/${id}`).pipe(
       map((res) => {
         this.refreshNeeded.next();
         return res;
