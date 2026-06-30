@@ -1,35 +1,35 @@
 <app-add-form [title]="'student.add.title' | translate" (saveClicked)="save()">
-    <mat-dialog-content>
+  <mat-dialog-content [formGroup]="studentForm">
 
-        <mat-form-field appearance="fill">
-            <mat-label>{{ 'features.name-label' | translate }}</mat-label>
-            <input matInput [(ngModel)]="studentName" />
-        </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>{{ 'features.name-label' | translate }}</mat-label>
+      <input matInput formControlName="studentName" />
+    </mat-form-field>
 
-        <mat-form-field appearance="fill">
-            <mat-label>{{ 'student.faculty-number-label' | translate }}</mat-label>
-            <input matInput [(ngModel)]="facultyNumber" />
-        </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>{{ 'student.faculty-number-label' | translate }}</mat-label>
+      <input matInput formControlName="facultyNumber" />
+    </mat-form-field>
 
-        <mat-form-field appearance="fill">
-            <mat-label>{{ 'features.faculty-label' | translate }}</mat-label>
-            <input matInput [(ngModel)]="faculty" />
-        </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>{{ 'features.faculty-label' | translate }}</mat-label>
+      <input matInput formControlName="faculty" />
+    </mat-form-field>
 
-        <mat-form-field appearance="fill">
-            <mat-label>{{ 'features.major-label' | translate }}</mat-label>
-            <input matInput [(ngModel)]="major" />
-        </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>{{ 'features.major-label' | translate }}</mat-label>
+      <input matInput formControlName="major" />
+    </mat-form-field>
 
-        <mat-form-field appearance="fill">
-            <mat-label>{{ 'student.course-label' | translate }}</mat-label>
-            <input matInput [(ngModel)]="course" />
-        </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>{{ 'student.course-label' | translate }}</mat-label>
+      <input matInput formControlName="course" />
+    </mat-form-field>
 
-        <mat-form-field appearance="fill">
-            <mat-label>{{ 'features.type-label' | translate }}</mat-label>
-            <input matInput [(ngModel)]="type" />
-        </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>{{ 'features.type-label' | translate }}</mat-label>
+      <input matInput formControlName="type" />
+    </mat-form-field>
 
-    </mat-dialog-content>
+  </mat-dialog-content>
 </app-add-form>

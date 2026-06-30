@@ -1,5 +1,5 @@
-import { Component, Inject, ChangeDetectionStrategy } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, Inject, ChangeDetectionStrategy, inject, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import {
   MatDialogModule,
   MatDialogRef,
@@ -15,59 +15,78 @@ import { EditForm } from '../../../core/shared/edit-form/edit-form';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-faculty-edit',
-  templateUrl: './faculty-edit.html',
-  styleUrl: './faculty-edit.scss',
+  selector: 'app-faculty-edit-form',
+  templateUrl: './faculty-edit-form.html',
+  styleUrl: './faculty-edit-form.scss',
   changeDetection: ChangeDetectionStrategy.Eager,
   imports: [
     EditForm,
     MatDialogModule,
     MatFormField,
     MatLabel,
-    FormsModule,
+    ReactiveFormsModule,
     MatInputModule,
     MatSelectModule,
     MatOptionModule,
     TranslatePipe,
   ],
 })
-export class FacultyEdit {
-  facultyName = '';
-  location = '';
-  universityId = '';
+export class FacultyEditForm implements OnInit {
+  private formBuilder = inject(FormBuilder)
+
+  facultyForm!: FormGroup;
+
+  public data = inject<{
+    id: string;
+    facultyName: string;
+    location: string;
+    universityId: string;
+  }>(MAT_DIALOG_DATA);
 
   constructor(
     private dialogRef: MatDialogRef<EditForm>,
     private facultyService: FacultyService,
-    @Inject(MAT_DIALOG_DATA)
-    public data: {
-      id: string;
-      facultyName: string;
-      location: string;
-      universityId: string;
+  ) {}
+
+  ngOnInit(): void {
+    this.initForm()
+    
+    if (this.data) {
+      this.facultyForm.patchValue({
+        facultyName: this.data.facultyName,
+        location: this.data.location,
+        universityId: this.data.universityId,
+      });
     }
-  ) {
-    this.facultyName = data.facultyName;
-    this.location = data.location;
-    this.universityId = data.universityId;
+  }
+
+  private initForm() {
+    this.facultyForm = this.formBuilder.nonNullable
+    .group({
+      facultyName: ['', [Validators.required]],
+      location: ['', [Validators.required]],
+      universityId: ['']
+    });
   }
 
   save() {
-    if (!this.facultyName.trim()) {
+    const { facultyName, location, universityId } = this.facultyForm.value;
+
+    if (!facultyName.trim()) {
       alert('Please enter faculty name.');
       return;
     }
 
-    if (!this.location.trim()) {
+    if (!location.trim()) {
       alert('Please enter location.');
       return;
     }
 
     this.facultyService
       .editFaculty(this.data.id, {
-        facultyName: this.facultyName,
-        location: this.location,
-        universityId: this.universityId,
+        facultyName: facultyName,
+        location: location,
+        universityId: universityId,
       })
       .subscribe({
         next: () => {

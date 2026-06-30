@@ -1,15 +1,15 @@
 <app-add-form [title]="'major.add.title' | translate" (saveClicked)="save()">
-  <mat-dialog-content>
+  <mat-dialog-content [formGroup]="majorForm">
 
     <mat-form-field appearance="fill">
       <mat-label>{{ 'features.name-label' | translate }}</mat-label> 
-      <input matInput [(ngModel)]="majorName" />
+      <input matInput formControlName="majorName" />
     </mat-form-field>
 
     <mat-form-field appearance="fill">
       <mat-label>{{ 'features.faculty-label' | translate }}</mat-label>
-      <mat-select [(ngModel)]="faculty">
-        @for (fac of faculties; track fac) {
+      <mat-select formControlName="faculty">
+        @for (fac of faculties; track fac.id) {
           <mat-option [value]="fac.id">
             {{ fac.facultyName }}
           </mat-option>
@@ -19,7 +19,7 @@
 
     <mat-form-field appearance="fill">
       <mat-label>{{ 'features.type-label' | translate }}</mat-label>
-      <mat-select [(ngModel)]="type">
+      <mat-select formControlName="type">
         <mat-option value="бакалавър">{{ 'major.bachelor-option' | translate }}</mat-option>
         <mat-option value="магистър">{{ 'major.master-option' | translate }}</mat-option>
       </mat-select>
@@ -27,7 +27,7 @@
 
     <mat-form-field appearance="fill">
       <mat-label>{{ 'features.study-mode-label' | translate }}</mat-label>
-      <mat-select [(ngModel)]="subtype">
+      <mat-select formControlName="subtype">
         <mat-option value="платено">{{ 'major.paid-option' | translate }}</mat-option>
         <mat-option value="редовно">{{ 'major.full-time-option' | translate }}</mat-option>
       </mat-select>

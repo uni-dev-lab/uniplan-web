@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
 import { AddForm } from '../../../core/shared/add-form/add-form';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import {
@@ -6,7 +6,7 @@ import {
   MatFormFieldModule,
   MatLabel,
 } from '@angular/material/form-field';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MajorService } from '../major-service';
@@ -23,7 +23,7 @@ import { TranslatePipe } from '@ngx-translate/core';
     MatDialogModule,
     MatFormField,
     MatLabel,
-    FormsModule,
+    ReactiveFormsModule,
     MatInputModule,
     AddForm,
     MatFormFieldModule,
@@ -33,10 +33,9 @@ import { TranslatePipe } from '@ngx-translate/core';
 })
 
 export class MajorAddForm implements OnInit {
-  majorName = '';
-  faculty = '';
-  type = '';
-  subtype = '';
+  private formBuilder = inject(FormBuilder)
+
+  majorForm!: FormGroup;
 
   faculties: FacultyElm[] = [];
 
@@ -47,6 +46,8 @@ export class MajorAddForm implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.initForm()
+
     this.facultyService.getFaculties().subscribe({
       next: (data) => {
         this.faculties = data;
@@ -55,12 +56,25 @@ export class MajorAddForm implements OnInit {
     });
   }
 
-  save() {
+  private initForm(): void {
+    this.majorForm = this.formBuilder.nonNullable
+    .group({
+      majorName: ['', [Validators.required]],
+      faculty: ['', [Validators.required]],
+      type: ['', [Validators.required]],
+      subtype: ['', [Validators.required]]
+    });
+  }
+
+  save(): void {
+    const { 
+      majorName, faculty, type, subtype } = this.majorForm.value;
+
     if (
-      !this.majorName.trim() ||
-      !this.faculty ||
-      !this.type ||
-      !this.subtype
+      !majorName.trim() ||
+      !faculty ||
+      !type ||
+      !subtype
     ) {
       alert('Please fill all fields.');
       return;
@@ -68,10 +82,10 @@ export class MajorAddForm implements OnInit {
 
     this.majorService
       .createMajorWithCourse({
-        facultyId: this.faculty,
-        majorName: this.majorName,
-        type: this.type,
-        subtype: this.subtype,
+        facultyId: faculty,
+        majorName: majorName,
+        type: type,
+        subtype: subtype,
       })
       .subscribe({
         next: () => {

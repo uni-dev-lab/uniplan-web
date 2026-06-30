@@ -1,19 +1,19 @@
 <app-add-form [title]="'faculty.add.title' | translate" (saveClicked)="save()">
-  <mat-dialog-content>
+  <mat-dialog-content [formGroup]="facultyForm">
 
     <mat-form-field appearance="fill">
       <mat-label>{{ 'features.name-label' | translate }}</mat-label>
-      <input matInput [(ngModel)]="facultyName" />
+      <input matInput formControlName="facultyName" />
     </mat-form-field>
 
     <mat-form-field appearance="fill">
       <mat-label>{{ 'features.location-label' | translate }}</mat-label>
-      <input matInput [(ngModel)]="location" />
+      <input matInput formControlName="location" />
     </mat-form-field>
 
     <mat-form-field appearance="fill">
       <mat-label>{{ 'faculty.uni-label' | translate }}</mat-label>
-      <mat-select [(ngModel)]="universityId">
+      <mat-select formControlName="universityId">
         @for (uni of universities; track uni) {
         <mat-option [value]="uni.id">
           {{uni.uniName}}

@@ -1,5 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -20,7 +20,7 @@ import { TranslatePipe } from '@ngx-translate/core';
     MatDialogModule,
     MatFormField,
     MatLabel,
-    FormsModule,
+    ReactiveFormsModule,
     MatInputModule,
     MatSelectModule,
     MatOptionModule,
@@ -32,9 +32,10 @@ import { TranslatePipe } from '@ngx-translate/core';
   styleUrl: './faculty-add-form.scss',
 })
 export class FacultyAddForm implements OnInit {
-  facultyName = '';
-  location = '';
-  universityId = '';
+  private formBuilder = inject(FormBuilder);
+
+  facultyForm!: FormGroup;
+
   universities: UniversityElm[] = [];
 
   constructor(
@@ -44,6 +45,8 @@ export class FacultyAddForm implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.initForm()
+
     this.universityService.getAllUniversities().subscribe({
       next: (data) => {
         this.universities = data;
@@ -54,21 +57,32 @@ export class FacultyAddForm implements OnInit {
     });
   }
 
-  save() {
-    if (!this.facultyName.trim()) {
+  private initForm() {
+    this.facultyForm = this.formBuilder.nonNullable
+    .group({
+      facultyName: ['', [Validators.required]],
+      location: ['', [Validators.required]],
+      universityId: ['', [Validators.required]]
+    });
+  }
+
+  save(): void {
+    const {facultyName, location, universityId} = this.facultyForm.value;
+
+    if (!facultyName.trim()) {
       alert('Please enter faculty name.');
       return;
     }
 
-    if (!this.location.trim()) {
+    if (!location.trim()) {
       alert('Please enter location.');
       return;
     }
 
     const newFaculty = {
-      universityId: this.universityId,
-      facultyName: this.facultyName,
-      location: this.location,
+      universityId: universityId,
+      facultyName: facultyName,
+      location: location,
     };
 
     this.facultyService.createFaculty(newFaculty).subscribe({

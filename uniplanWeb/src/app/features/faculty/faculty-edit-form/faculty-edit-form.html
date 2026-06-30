@@ -1,14 +1,14 @@
 <app-edit-form [title]="'faculty.edit.title' | translate" (saveClicked)="save()">
-    <mat-dialog-content>
+    <mat-dialog-content [formGroup]="facultyForm">
 
         <mat-form-field appearance="fill">
             <mat-label>{{ 'features.faculty-label' | translate }}</mat-label>
-            <input matInput [(ngModel)]="facultyName" />
+            <input matInput formControlName="facultyName" />
         </mat-form-field>
 
         <mat-form-field appearance="fill">
             <mat-label>{{ 'features.location-label' | translate }}</mat-label>
-            <input matInput [(ngModel)]="location" />
+            <input matInput formControlName="location" />
         </mat-form-field>
 
     </mat-dialog-content>
