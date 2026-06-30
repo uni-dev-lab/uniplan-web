@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RoomTable } from '../../room-table/room-table';
+import { RoomTable } from '../room-table/room-table';
 
 @Component({
   selector: 'app-room-panel',

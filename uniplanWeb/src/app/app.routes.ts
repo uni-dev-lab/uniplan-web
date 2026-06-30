@@ -30,7 +30,7 @@ export const routes: Routes = [
             {
         path: 'room',
         loadComponent: () =>
-          import('./features/room/room-panel/room-panel/room-panel').then(m => m.RoomPanel),
+          import('./features/room/room-panel/room-panel').then(m => m.RoomPanel),
       },
       {
         path: '**',
