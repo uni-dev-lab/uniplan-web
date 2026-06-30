@@ -9,7 +9,8 @@
         "location-label": "Location"
     },
     "room": {
-        "room-number": "Room number"
+        "room-number": "Room number",
+        "no-rooms": "No rooms"
     },
     "faculty": {
         "delete-button": "Delete",

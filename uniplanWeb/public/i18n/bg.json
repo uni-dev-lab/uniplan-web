@@ -9,7 +9,8 @@
     "location-label": "Местоположение"
   },
   "room": {
-    "room-number": "Номер на стая"
+    "room-number": "Номер на стая",
+    "no-rooms":"Няма записани стаи"
   },
   "faculty": {
     "delete-button": "Изтрий",

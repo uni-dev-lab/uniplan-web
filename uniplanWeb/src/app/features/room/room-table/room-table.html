@@ -21,6 +21,13 @@
 
   <div class="scrollable-body">
     <table mat-table [dataSource]="(data$ | async) ?? []" class="mat-elevation-z8 table-body">
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" [attr.colspan]="displayedColumns.length">
+          {{ 'room.no-rooms' | translate }}
+        </td>
+      </tr>
+
+
       <ng-container matColumnDef="position">
         <td mat-cell *matCellDef="let element" class="col-position">
           {{element.position}} </td>
@@ -31,18 +38,18 @@
           {{getFacultyName(element.facultyId)}} </td>
       </ng-container>
 
-   
-    <ng-container matColumnDef="roomNumber">
-      <td mat-cell *matCellDef="let element" class="col-room-number">
-         {{ element.roomNumber }} </td>
-    </ng-container>
+
+      <ng-container matColumnDef="roomNumber">
+        <td mat-cell *matCellDef="let element" class="col-room-number">
+          {{ element.roomNumber }} </td>
+      </ng-container>
 
       <ng-container matColumnDef="actions">
         <td mat-cell *matCellDef="let element" class="col-actions">
           <button mat-icon-button color="primary">
             <mat-icon>edit</mat-icon>
           </button>
-          <button mat-icon-button color="warn" >
+          <button mat-icon-button color="warn">
             <mat-icon>delete</mat-icon>
           </button>
         </td>
