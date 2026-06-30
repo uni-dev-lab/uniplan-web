@@ -8,7 +8,6 @@ import { API_ENDPOINTS } from '../../config/endpoints';
   providedIn: 'root'
 })
 export class CourseService {
-  private apiUrl = API_ENDPOINTS.courses
   private http = inject(HttpClient);
 
   getCoursesByMajorId(majorId: string): Observable<CourseElm[]> {
