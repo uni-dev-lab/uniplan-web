@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialog } from '@angular/material/dialog';
 import { Subject, of } from 'rxjs';
-
+import { translateTestingProviders } from '@testing/translate-testing';
 import { FacultyPanel } from './faculty-panel';
 import { FacultyService } from '../faculty-service';
 import { FacultyElm } from '../../../core/interfaces/faculty-elm';
@@ -34,6 +34,7 @@ describe('FacultyPanel', () => {
     await TestBed.configureTestingModule({
       imports: [FacultyPanel],
       providers: [
+        ...translateTestingProviders,
         { provide: FacultyService, useValue: facultyServiceSpy },
         { provide: MatDialog, useValue: dialogSpy },
       ],

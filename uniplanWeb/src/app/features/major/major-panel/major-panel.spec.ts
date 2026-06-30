@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { MatDialog } from '@angular/material/dialog';
 import { Subject, of } from 'rxjs';
+import { translateTestingProviders } from '@testing/translate-testing';
 
 import { MajorPanel } from './major-panel';
 import { MajorService } from '../major-service';
@@ -56,6 +57,7 @@ describe('MajorPanel', () => {
     await TestBed.configureTestingModule({
       imports: [MajorPanel],
       providers: [
+        ...translateTestingProviders,
         { provide: MajorService, useValue: majorServiceSpy },
         { provide: FacultyService, useValue: facultyServiceSpy },
         { provide: MatDialog, useValue: dialogSpy },
