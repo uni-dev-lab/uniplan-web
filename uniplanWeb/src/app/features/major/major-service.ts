@@ -2,7 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable, Subject, switchMap } from 'rxjs';
 import { MajorElm } from '../../core/interfaces/major-elm';
-import { API_ENDPOINTS } from '../../config/endpoints';
+import {environment} from '../../../environments/environment';
+import {API_ENDPOINTS} from '../../config/endpoints';
 
 @Injectable({
   providedIn: 'root',

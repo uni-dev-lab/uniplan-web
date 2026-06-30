@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { translateTestingProviders } from '@testing/translate-testing';
 
 import { LoginAuthService } from '../services/login-auth-service';
 
@@ -6,7 +7,15 @@ describe('LoginAuthService', () => {
   let service: LoginAuthService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      providers: [
+        ...translateTestingProviders,
+      ],
+    });
     service = TestBed.inject(LoginAuthService);
+  });
+
+  it('should be created', () => {
+    expect(service).toBeTruthy();
   });
 });

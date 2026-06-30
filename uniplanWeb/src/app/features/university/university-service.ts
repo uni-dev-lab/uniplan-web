@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { API_ENDPOINTS } from '../../config/endpoints';
+import {API_ENDPOINTS} from '../../config/endpoints';
 
 export interface UniversityElm {
   id: string;
