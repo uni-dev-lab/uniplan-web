@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
+import { map, Observable, shareReplay } from 'rxjs';
 import { RoomViewModel } from '../../core/interfaces/room-view-model';
 import { RoomElm } from '../../core/interfaces/room-elm';
 
@@ -24,7 +24,8 @@ export class RoomService {
                     roomNumber: room.roomNumber,
                     position: index + 1,
                 }))
-            )
+            ),
+            shareReplay(1)
         );
     }
 }
