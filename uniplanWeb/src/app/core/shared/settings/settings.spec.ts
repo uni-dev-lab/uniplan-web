@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { translateTestingProviders } from '@testing/translate-testing';
 
 import { Settings } from './settings';
 
@@ -8,9 +9,11 @@ describe('Settings', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Settings]
-    })
-    .compileComponents();
+      imports: [Settings],
+      providers: [
+        ...translateTestingProviders,
+      ],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(Settings);
     component = fixture.componentInstance;
