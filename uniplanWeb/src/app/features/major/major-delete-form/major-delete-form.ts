@@ -6,20 +6,23 @@ import {
   MatDialogRef,
 } from '@angular/material/dialog';
 import { MajorService } from '../major-service';
+import { switchMap } from 'rxjs';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-major-delete-form',
-  imports: [DeleteForm, MatDialogModule],
   templateUrl: './major-delete-form.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './major-delete-form.scss',
+  imports: [DeleteForm, MatDialogModule,
+    TranslatePipe],
 })
 export class MajorDeleteForm {
   constructor(
     private majorService: MajorService,
     private dialogRef: MatDialogRef<MajorDeleteForm>,
     @Inject(MAT_DIALOG_DATA)
-    public data: { id: string; courseId: string; name: string }
+    public data: { id: string; name: string }
   ) {}
 
   deleteMajor(): void {
@@ -30,7 +33,7 @@ export class MajorDeleteForm {
           this.dialogRef.close(true);
         },
         error: () => {
-          alert('Възникна грешка при изтриването на специалността или курса.');
+          alert('Възникна грешка при изтриването на специалността.');
         },
       });
   }

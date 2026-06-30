@@ -10,13 +10,16 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
-
 import { MajorService } from '../major-service';
 import { FacultyService } from '../../faculty/faculty-service';
 import { FacultyElm } from '../../../core/interfaces/faculty-elm';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-major-edit-form',
+  templateUrl: './major-edit-form.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
+  styleUrl: './major-edit-form.scss',
   imports: [
     EditForm,
     MatDialogModule,
@@ -25,14 +28,10 @@ import { FacultyElm } from '../../../core/interfaces/faculty-elm';
     FormsModule,
     MatInputModule,
     MatSelectModule,
-    MatOptionModule
-],
-  templateUrl: './major-edit-form.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
-  styleUrl: './major-edit-form.scss',
+    MatOptionModule,
+    TranslatePipe],
 })
 export class MajorEditForm implements OnInit {
-  //todo
   majorName = '';
   facultyId = '';
 
