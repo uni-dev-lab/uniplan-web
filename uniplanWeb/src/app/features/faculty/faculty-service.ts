@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable, Subject } from 'rxjs';
 import { FacultyElm } from '../../core/interfaces/faculty-elm';
-import {API_ENDPOINTS} from '../../config/endpoints';
+import { API_ENDPOINTS } from '../../config/endpoints';
 
 @Injectable({
   providedIn: 'root',
