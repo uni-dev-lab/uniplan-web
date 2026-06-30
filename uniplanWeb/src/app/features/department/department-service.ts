@@ -2,19 +2,18 @@ import { HttpClient } from '@angular/common/http';
 import {inject, Injectable} from '@angular/core';
 import { map, Observable, Subject } from 'rxjs';
 import { DepartmentElm } from '../../core/interfaces/department-elm';
+import { API_ENDPOINTS } from '../../config/endpoints';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DepartmentService {
-  private apiUrl = 'http://localhost:8080/api/departments';
-
   refreshNeeded = new Subject<void>();
 
   private http = inject(HttpClient);
 
   getDepartments(): Observable<DepartmentElm[]> {
-    return this.http.get<DepartmentElm[]>(this.apiUrl).pipe(
+    return this.http.get<DepartmentElm[]>(API_ENDPOINTS.departments).pipe(
       map((departments) =>
         departments.map((dept, index) => ({
           id: dept.id,
@@ -30,7 +29,7 @@ export class DepartmentService {
     departmentName: string;
     facultyId: string;
   }): Observable<DepartmentElm> {
-    return this.http.post<DepartmentElm>(`${this.apiUrl}`, data).pipe(
+    return this.http.post<DepartmentElm>(`${API_ENDPOINTS.departments}`, data).pipe(
       map((res) => {
         this.refreshNeeded.next();
         return res;
@@ -42,7 +41,7 @@ export class DepartmentService {
     id: string,
     data: { departmentName: string; facultyId: string }
   ): Observable<DepartmentElm> {
-    return this.http.put<DepartmentElm>(`${this.apiUrl}/${id}`, data).pipe(
+    return this.http.put<DepartmentElm>(`${API_ENDPOINTS.departments}/${id}`, data).pipe(
       map((res) => {
         this.refreshNeeded.next();
         return res;
@@ -51,7 +50,7 @@ export class DepartmentService {
   }
 
   deleteDepartment(id: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(
+    return this.http.delete<void>(`${API_ENDPOINTS.departments}/${id}`).pipe(
       map((res) => {
         this.refreshNeeded.next();
         return res;
