@@ -8,6 +8,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
 import { FacultyService } from '../../faculty/faculty-service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { FacultyNamePipe } from '../../../core/shared/pipes/faculty-name-pipe';
 
 @Component({
   selector: 'app-room-table',
@@ -21,6 +22,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     MatDialogModule,
     TranslatePipe,
     CommonModule,
+    FacultyNamePipe
   ],
 })
 
