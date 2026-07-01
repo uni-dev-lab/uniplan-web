@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, input } from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy, input, signal, computed} from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
@@ -20,7 +20,7 @@ import {TranslatePipe} from '@ngx-translate/core';
 export class LectorTable implements OnInit {
   displayedColumns: string[] = ['position', 'firstName', 'lastName', 'email', 'faculty', 'actions'];
 
-  dataSource: LectorElm[] = [];
+  dataSource = signal<LectorElm[]>([]);
   facultyMap = new Map<string, string>();
 
   readonly searchText = input('');
@@ -44,7 +44,7 @@ export class LectorTable implements OnInit {
 
   private loadLectors(): void {
     this.service.getLectors().subscribe((data) => {
-      this.dataSource = data;
+      this.dataSource.set(data);
     });
   }
 
@@ -58,21 +58,20 @@ export class LectorTable implements OnInit {
     return this.facultyMap.get(id) || '—';
   }
 
-  protected get filteredLectors(): LectorElm[] {
+  protected filteredLectors = computed(() => {
     const faculty = this.faculty();
     const searchText = this.searchText().toLowerCase();
 
-    return this.dataSource.filter((lector) => {
+    return this.dataSource().filter((lector) => {
       const matchesFaculty = !faculty || lector.facultyId === faculty;
       const fullName = `${lector.firstName} ${lector.lastName}`.toLowerCase();
       const matchesSearch =
         !searchText ||
         fullName.includes(searchText) ||
         lector.email.toLowerCase().includes(searchText);
-
       return matchesFaculty && matchesSearch;
     });
-  }
+  })
 
   protected onEdit(element: LectorElm): void {
     this.dialog.open(LectorEditForm, {
