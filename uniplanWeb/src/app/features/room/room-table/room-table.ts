@@ -52,8 +52,4 @@ export class RoomTable {
         this.facultyMap = new Map(faculties.map((f) => [f.id, f.facultyName]));
       });
   }
-
-  getFacultyName(id: string): string {
-    return this.facultyMap.get(id) || '—';
-  }
 }
