@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { map, Observable, shareReplay } from 'rxjs';
 import { RoomViewModel } from '../../core/interfaces/room-view-model';
 import { RoomElm } from '../../core/interfaces/room-elm';
-
+import { Subject } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -11,8 +11,10 @@ import { RoomElm } from '../../core/interfaces/room-elm';
 
 export class RoomService {
     private apiUrl = 'http://localhost:8080/api/rooms';
+    
+    refreshNeeded = new Subject<void>();
 
-    http = inject(HttpClient);
+    private http = inject(HttpClient);
 
     getRooms(): Observable<RoomViewModel[]> {
         return this.http.get<RoomElm[] | null>(this.apiUrl).pipe(
@@ -26,6 +28,18 @@ export class RoomService {
                 }))
             ),
             shareReplay(1)
+        );
+    }
+
+    createRoom(room: {
+        roomNumber: string;
+        facultyId: string;
+    }): Observable<RoomElm> {
+        return this.http.post<RoomElm>(`${this.apiUrl}`, room).pipe(
+            map((res) => {
+                this.refreshNeeded.next();
+                return res;
+            })
         );
     }
 }

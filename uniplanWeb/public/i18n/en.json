@@ -13,7 +13,10 @@
     },
     "room": {
         "room-number": "Room number",
-        "no-rooms": "No rooms"
+        "no-rooms": "No rooms",
+        "add": {
+            "title": "Add room"
+        }
     },
     "faculty": {
         "delete-button": "Delete",
