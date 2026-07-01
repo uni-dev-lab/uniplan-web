@@ -9,6 +9,13 @@
         "location-label": "Location",
         "lector-label": "Lector",
         "number-label": "No."
+        "number-label": "No.",
+        "edit": "Edit",
+        "delete": "Delete"
+    },
+    "room": {
+        "room-number": "Room number",
+        "no-rooms": "No rooms"
     },
     "faculty": {
         "delete-button": "Delete",

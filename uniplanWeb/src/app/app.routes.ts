@@ -27,6 +27,11 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/student/student-panel/student-panel').then(m => m.StudentPanel),
       },
+            {
+        path: 'room',
+        loadComponent: () =>
+          import('./features/room/room-panel/room-panel').then(m => m.RoomPanel),
+      },
       {
         path: 'lector',
         loadComponent: () =>

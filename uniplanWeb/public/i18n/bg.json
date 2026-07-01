@@ -26,6 +26,13 @@
     "edit": {
       "title": "Редактирай лектор"
     }
+    "number-label": "No.",
+    "edit": "Редактирай",
+    "delete": "Изтрий"
+  },
+  "room": {
+    "room-number": "Номер на стая",
+    "no-rooms": "Няма записани стаи"
   },
   "faculty": {
     "delete-button": "Изтрий",
