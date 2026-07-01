@@ -1,10 +1,6 @@
 import { Component, Inject, ChangeDetectionStrategy } from '@angular/core';
 import { DeleteForm } from '../../../core/shared/delete-form/delete-form';
-import {
-  MAT_DIALOG_DATA,
-  MatDialogModule,
-  MatDialogRef,
-} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import { LectorService } from '../lector-service';
 import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 
