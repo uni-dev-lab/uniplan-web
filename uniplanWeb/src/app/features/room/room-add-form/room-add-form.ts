@@ -68,15 +68,17 @@ export class RoomAddForm implements OnInit {
       facultyId: this.addForm.value.facultyId ?? '',
     };
 
-    this.roomService.createRoom(newRoom).subscribe({
-      next: (response) => {
-        console.log('Room created:', response);
-        this.dialogRef.close(response);
-      },
-      error: (err) => {
-        console.error('Failed to add room', err);
-        alert('Failed to add room.');
-      },
-    });
+    this.roomService.createRoom(newRoom)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (response) => {
+          console.log('Room created:', response);
+          this.dialogRef.close(response);
+        },
+        error: (err) => {
+          console.error('Failed to add room', err);
+          alert('Failed to add room.');
+        },
+      });
   }
 }
