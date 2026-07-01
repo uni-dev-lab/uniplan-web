@@ -1,14 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
-import { of } from 'rxjs';
-import { TranslateLoader, provideTranslateService } from '@ngx-translate/core';
-import { NotFoundPanel } from './not-found-panel';
+import { translateTestingProviders } from '@testing/translate-testing';
 
-class FakeTranslateLoader implements TranslateLoader {
-  getTranslation() {
-    return of({});
-  }
-}
+import { NotFoundPanel } from './not-found-panel';
 
 describe('NotFoundPanel', () => {
   let component: NotFoundPanel;
@@ -19,9 +13,7 @@ describe('NotFoundPanel', () => {
       imports: [NotFoundPanel],
       providers: [
         provideRouter([]),
-        provideTranslateService({
-          loader: { provide: TranslateLoader, useClass: FakeTranslateLoader },
-        }),
+        ...translateTestingProviders,
       ],
     }).compileComponents();
 
