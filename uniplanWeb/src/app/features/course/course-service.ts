@@ -11,6 +11,8 @@ export class CourseService {
   private http = inject(HttpClient);
 
   getCoursesByMajorId(majorId: string): Observable<CourseElm[]> {
-    return this.http.get<CourseElm[]>(`${API_ENDPOINTS.faculties}/major/${majorId}`);
+    return this.http.get<CourseElm[]>(`${API_ENDPOINTS.courses}/major/${majorId}`);
   }
 }
+//placeholder course service to make student form dropdowns work,
+//if there is a merge conflict please provide a getCoursesByMajorId-like method wherever it's needed
