@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, input } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, input, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
@@ -20,8 +20,8 @@ import {TranslatePipe} from '@ngx-translate/core';
 export class DepartmentTable implements OnInit {
   displayedColumns: string[] = ['position', 'name', 'faculty', 'actions'];
 
-  dataSource: DepartmentElm[] = [];
-  facultyMap = new Map<string, string>();
+  dataSource = signal<DepartmentElm[]>([]);
+  facultyMap = signal(new Map<string, string>());
 
   readonly searchText = input('');
   readonly faculty = input('');
@@ -44,25 +44,25 @@ export class DepartmentTable implements OnInit {
 
   private loadDepartments(): void {
     this.service.getDepartments().subscribe((data) => {
-      this.dataSource = data;
+      this.dataSource.set(data);
     });
   }
 
   private loadFaculties(): void {
     this.facultyService.getFaculties().subscribe((faculties) => {
-      this.facultyMap = new Map(faculties.map((f) => [f.id, f.facultyName]));
+      this.facultyMap.set(new Map(faculties.map((f) => [f.id, f.facultyName])));
     });
   }
 
   protected getFacultyName(id: string): string {
-    return this.facultyMap.get(id) || '—';
+    return this.facultyMap().get(id) || '—';
   }
 
   protected get filteredDepartments(): DepartmentElm[] {
     const faculty = this.faculty();
     const searchText = this.searchText();
 
-    return this.dataSource.filter((dept) => {
+    return this.dataSource().filter((dept) => {
       const matchesFaculty = !faculty || dept.facultyId === faculty;
       const matchesSearch =
         !searchText ||
