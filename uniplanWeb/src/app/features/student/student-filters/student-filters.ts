@@ -11,16 +11,16 @@ import { TranslatePipe } from '@ngx-translate/core';
   imports: [InputFilter, FiltersForm, TranslatePipe],
 })
 export class StudentFilters {
-  @Input() internalSearchText = '';
-  @Output() searchTextChange = new EventEmitter<string>();
+  @Input() public internalSearchText: string = '';
+  @Output() public readonly searchTextChange: EventEmitter<string> = new EventEmitter<string>();
 
-  @Input() internalSearchFacNum = '';
-  @Output() searchFacNumChange = new EventEmitter<string>();
+  @Input() public internalSearchFacNum: string = '';
+  @Output() public readonly searchFacNumChange: EventEmitter<string> = new EventEmitter<string>();
 
-  @Input() internalSearchMajor = '';
-  @Output() searchMajorChange = new EventEmitter<string>();
+  @Input() public internalSearchMajor: string = '';
+  @Output() public readonly searchMajorChange: EventEmitter<string> = new EventEmitter<string>();
 
-  @Input() subtypes: string[] = [];
-  @Input() selectedSubtype = '';
-  @Output() subtypeChange = new EventEmitter<string>();
+  @Input() public subtypes: string[] = [];
+  @Input() public selectedSubtype: string = '';
+  @Output() public readonly subtypeChange: EventEmitter<string> = new EventEmitter<string>();
 }

@@ -12,7 +12,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   imports: [MatDialogModule, FormsModule, MatInputModule, TranslatePipe],
 })
 export class DeleteForm {
-  @Input() title: string = '';
+  @Input() public title: string = '';
 
-  @Output() deleteClicked = new EventEmitter<void>();
+  @Output() public readonly deleteClicked:EventEmitter<void> = new EventEmitter<void>();
 }

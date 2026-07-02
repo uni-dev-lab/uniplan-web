@@ -4,7 +4,8 @@ import {
   SimpleChanges,
   OnChanges,
   OnInit,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
+  inject
 } from '@angular/core';
 import { StudentElm } from '../../../core/interfaces/student-elm';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -12,6 +13,8 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import {MatDialog, MatDialogModule} from '@angular/material/dialog';
+import {StudentEditForm} from '../student-edit-form/student-edit-form';
 
 export const ELEMENT_STUDENT_DATA: StudentElm[] = [
   {
@@ -114,14 +117,16 @@ export const ELEMENT_STUDENT_DATA: StudentElm[] = [
   imports: [MatTableModule, MatIconModule, MatButtonModule, TranslatePipe],
 })
 export class StudentTable implements OnInit, OnChanges {
-  @Input() searchText = '';
-  @Input() searchFacNum = '';
-  @Input() searchMajor = '';
-  @Input() subtype = '';
+  private readonly dialog: MatDialog = inject(MatDialog);
 
-  @Input() subtypes: string[] = [];
+  @Input() public searchText: string = '';
+  @Input() public searchFacNum: string = '';
+  @Input() public searchMajor: string = '';
+  @Input() public subtype: string = '';
 
-  displayedColumns: string[] = [
+  @Input() public subtypes: string[] = [];
+
+  protected displayedColumns: string[] = [
     'position',
     'name',
     'facultyNumber',
@@ -132,44 +137,59 @@ export class StudentTable implements OnInit, OnChanges {
     'actions',
   ];
 
-  originalData: StudentElm[] = ELEMENT_STUDENT_DATA;
-  dataSourceFilter: StudentElm[] = ELEMENT_STUDENT_DATA;
+  protected originalData: StudentElm[] = ELEMENT_STUDENT_DATA;
+  protected dataSourceFilter: StudentElm[] = ELEMENT_STUDENT_DATA;
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.subtypes = StudentTable.getFilterOptions(this.originalData).subtypes;
     this.applyFilters();
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  public ngOnChanges(changes: SimpleChanges): void {
     this.applyFilters();
   }
 
-  applyFilters(): void {
-    const name = this.searchText.toLowerCase();
-    const major = this.searchMajor.toLowerCase();
-    const facNum = this.searchFacNum;
+  private applyFilters(): void {
+    const name: string = this.searchText.toLowerCase();
+    const major: string = this.searchMajor.toLowerCase();
+    const facNum: string = this.searchFacNum;
 
     this.dataSourceFilter = this.originalData.filter((student) => {
-      const matchName = !name || student.name.toLowerCase().includes(name);
-      const matchMajor = !major || student.major.toLowerCase().includes(major);
-      const matchFacNum = !facNum || student.facultyNumber.includes(facNum);
-      const matchSubtype = !this.subtype || student.subtype === this.subtype;
+      const matchName: boolean = !name || student.name.toLowerCase().includes(name);
+      const matchMajor: boolean = !major || student.major.toLowerCase().includes(major);
+      const matchFacNum: boolean = !facNum || student.facultyNumber.includes(facNum);
+      const matchSubtype: boolean = !this.subtype || student.subtype === this.subtype;
 
       return matchName && matchMajor && matchFacNum && matchSubtype;
     });
   }
 
-  static getFilterOptions(data: StudentElm[]) {
+  public static getFilterOptions(data: StudentElm[]) {
     return {
-      subtypes: [...new Set(data.map((e) => e.subtype))],
+      subtypes: [...new Set(data.map((e: StudentElm) => e.subtype))],
     };
   }
 
-  onEdit(element: StudentElm): void {
-    console.log('Editing:', element);
+  protected onEdit(element: StudentElm): void {
+    const dialogRef = this.dialog.open(StudentEditForm, {
+      width: '500px',
+      data: { ...element },
+    });
+
+    dialogRef.afterClosed().subscribe((updatedStudent: StudentElm | undefined): void => {
+      if (!updatedStudent) {
+        return;
+      }
+
+      this.originalData = this.originalData.map((student: StudentElm): StudentElm =>
+        student.position === element.position ? updatedStudent : student
+      );
+
+      this.applyFilters();
+    });
   }
 
-  onDelete(element: StudentElm): void {
+  protected onDelete(element: StudentElm): void {
     console.log('Deleting:', element);
   }
 }

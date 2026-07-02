@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 
+import { ViewService } from '../main-panel/view.service';
 import { LoginAuthService } from '../../../services/login-auth-service';
 
 @Component({
@@ -14,22 +15,22 @@ import { LoginAuthService } from '../../../services/login-auth-service';
   styleUrls: ['./navmenu-component.scss'],
 })
 export class NavmenuComponent implements OnInit {
-  isSidebarCollapsed = false;
-  isMobileView = window.innerWidth <= 768;
+  protected isSidebarCollapsed: boolean = false;
+  protected isMobileView: boolean = window.innerWidth <= 768;
 
   constructor(public authService: LoginAuthService) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.checkViewport();
   }
 
   @HostListener('window:resize', ['$event'])
-  onResize(event: Event): void {
+  protected onResize(event: Event): void {
     this.checkViewport();
   }
 
   private checkViewport(): void {
-    const isNowMobile = window.innerWidth <= 768;
+    const isNowMobile: boolean = window.innerWidth <= 768;
     if (this.isMobileView !== isNowMobile) {
       this.isMobileView = isNowMobile;
     }
@@ -38,7 +39,7 @@ export class NavmenuComponent implements OnInit {
     }
   }
 
-  toggleSidebar(): void {
+  protected toggleSidebar(): void {
     this.isSidebarCollapsed = !this.isSidebarCollapsed;
   }
 }

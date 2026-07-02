@@ -32,10 +32,10 @@ import { TranslatePipe } from '@ngx-translate/core';
   styleUrl: './faculty-add-form.scss',
 })
 export class FacultyAddForm implements OnInit {
-  facultyName = '';
-  location = '';
-  universityId = '';
-  universities: UniversityElm[] = [];
+  protected facultyName: string = '';
+  protected location: string = '';
+  protected universityId: string = '';
+  protected universities: UniversityElm[] = [];
 
   constructor(
     private dialogRef: MatDialogRef<AddForm>,
@@ -43,18 +43,18 @@ export class FacultyAddForm implements OnInit {
     private universityService: UniversityService
   ) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.universityService.getAllUniversities().subscribe({
-      next: (data) => {
+      next: (data: UniversityElm[]): void => {
         this.universities = data;
       },
-      error: (err) => {
+      error: (err: any): void => {
         console.error('Failed to load universities', err);
       },
     });
   }
 
-  save() {
+  protected save(): void {
     if (!this.facultyName.trim()) {
       alert('Please enter faculty name.');
       return;
@@ -72,11 +72,11 @@ export class FacultyAddForm implements OnInit {
     };
 
     this.facultyService.createFaculty(newFaculty).subscribe({
-      next: (response) => {
+      next: (response: any): void => {
         console.log('Faculty created:', response);
         this.dialogRef.close(response);
       },
-      error: (err) => {
+      error: (err: any): void => {
         console.error('Failed to add faculty', err);
         alert('Failed to add faculty.');
       },

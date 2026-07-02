@@ -26,7 +26,7 @@ export class FacultyService {
     );
   }
 
-  createFaculty(faculty: {
+  public createFaculty(faculty: {
     universityId: string;
     facultyName: string;
     location: string;
@@ -39,7 +39,7 @@ export class FacultyService {
     );
   }
 
-  editFaculty(
+  public editFaculty(
     id: string,
     updatedFaculty: {
       universityId: string;

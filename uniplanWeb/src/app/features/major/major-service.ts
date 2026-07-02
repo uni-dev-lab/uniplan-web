@@ -29,7 +29,7 @@ export class MajorService {
     );
   }
 
-  createMajor(createMajor: {
+  public createMajor(createMajor: {
     facultyId: string;
     majorName: string;
   }): Observable<any> {
@@ -41,7 +41,7 @@ export class MajorService {
     );
   }
 
-  createCourse(course: {
+ public createCourse(course: {
     majorId: string;
     courseYear: number;
     courseType: string;
@@ -54,7 +54,7 @@ export class MajorService {
       })
     );
   }
-  createMajorWithCourse(majorData: {
+  public createMajorWithCourse(majorData: {
     facultyId: string;
     majorName: string;
     type: string;
@@ -64,7 +64,7 @@ export class MajorService {
       facultyId: majorData.facultyId,
       majorName: majorData.majorName,
     }).pipe(
-      switchMap((createdMajor: any) => {
+      switchMap((createdMajor: any): Observable<any> => {
         return this.createCourse({
           majorId: createdMajor.id,
           courseType: majorData.type,
@@ -94,7 +94,7 @@ export class MajorService {
     );
   }
 
-  editMajor(
+  public editMajor(
     id: string,
     updateMajor: { facultyId: string; majorName: string }
   ): Observable<any> {

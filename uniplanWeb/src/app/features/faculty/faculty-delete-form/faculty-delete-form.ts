@@ -23,12 +23,12 @@ export class FacultyDeleteForm {
     public data: { id: string; facultyName: string }
   ) { }
 
-  deleteFaculty(): void {
+  protected deleteFaculty(): void {
     this.facultyService.deleteFaculty(this.data.id).subscribe({
-      next: () => {
+      next: (): void => {
         this.dialogRef.close(true);
       },
-      error: () => {
+      error: (): void => {
         alert('Възникна грешка при изтриването на факултета.');
       },
     });

@@ -12,7 +12,7 @@ import { MatFormField, MatInputModule } from '@angular/material/input';
   styleUrl: './input-filter.scss',
 })
 export class InputFilter {
-  @Input() label: string = '';
-  @Input() searchText = '';
-  @Output() searchTextChange = new EventEmitter<string>();
+  @Input() public label: string = '';
+  @Input() public searchText: string = '';
+  @Output() public readonly searchTextChange: EventEmitter<string> = new EventEmitter<string>();
 }

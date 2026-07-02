@@ -32,9 +32,9 @@ import { TranslatePipe } from '@ngx-translate/core';
   ],
 })
 export class FacultyEdit {
-  facultyName = '';
-  location = '';
-  universityId = '';
+  protected facultyName: string = '';
+  protected location: string = '';
+  protected universityId: string = '';
 
   constructor(
     private dialogRef: MatDialogRef<EditForm>,
@@ -51,8 +51,7 @@ export class FacultyEdit {
     this.location = data.location;
     this.universityId = data.universityId;
   }
-
-  save() {
+  protected save(): void {
     if (!this.facultyName.trim()) {
       alert('Please enter faculty name.');
       return;
@@ -70,10 +69,10 @@ export class FacultyEdit {
         universityId: this.universityId,
       })
       .subscribe({
-        next: () => {
+        next: (): void => {
           this.dialogRef.close(true);
         },
-        error: () => {
+        error: (): void => {
           alert('Failed to update faculty.');
         },
       });

@@ -13,7 +13,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   imports: [MatDialogModule, FormsModule, MatInputModule, TranslatePipe],
 })
 export class AddForm {
-  @Input() title: string = '';
+  @Input() public title: string = '';
 
-  @Output() saveClicked = new EventEmitter<void>();
+  @Output() public readonly saveClicked :EventEmitter<void> = new EventEmitter<void>();
 }

@@ -10,6 +10,7 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
+
 import { MajorService } from '../major-service';
 import { FacultyService } from '../../faculty/faculty-service';
 import { FacultyElm } from '../../../core/interfaces/faculty-elm';
@@ -32,10 +33,10 @@ import { TranslatePipe } from '@ngx-translate/core';
     TranslatePipe],
 })
 export class MajorEditForm implements OnInit {
-  majorName = '';
-  facultyId = '';
+  protected majorName: string = '';
+  protected facultyId: string = '';
 
-  faculties: FacultyElm[] = [];
+  protected faculties: FacultyElm[] = [];
 
   constructor(
     private dialogRef: MatDialogRef<EditForm>,
@@ -52,14 +53,14 @@ export class MajorEditForm implements OnInit {
     this.facultyId = data.facultyId || '';
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.facultyService.getFaculties().subscribe({
-      next: (data) => (this.faculties = data),
-      error: (err) => console.error('Failed to load faculties', err),
+      next: (data: FacultyElm[]): FacultyElm[] => (this.faculties = data),
+      error: (err: any): void => console.error('Failed to load faculties', err),
     });
   }
 
-  save() {
+  protected save(): void {
     if (!this.majorName.trim()) {
       alert('Please enter the major name.');
       return;
@@ -71,8 +72,8 @@ export class MajorEditForm implements OnInit {
         majorName: this.majorName,
       })
       .subscribe({
-        next: () => this.dialogRef.close(true),
-        error: () => alert('Failed to update major.'),
+        next: (): void => this.dialogRef.close(true),
+        error: (): void => alert('Failed to update major.'),
       });
   }
 }

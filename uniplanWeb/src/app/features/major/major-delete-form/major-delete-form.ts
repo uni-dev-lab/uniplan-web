@@ -25,11 +25,11 @@ export class MajorDeleteForm {
     public data: { id: string; name: string }
   ) {}
 
-  deleteMajor(): void {
+  protected deleteMajor(): void {
     this.majorService
       .deleteMajor(this.data.id)
       .subscribe({
-        next: () => {
+        next: (): void => {
           this.dialogRef.close(true);
         },
         error: () => {
