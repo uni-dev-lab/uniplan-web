@@ -4,8 +4,6 @@ on:
   push:
     branches-ignore:
       - main
-  pull_request:
-    branches: [main]
 
 defaults:
   run:
@@ -31,7 +29,6 @@ jobs:
 
       - name: Lint
         run: npm run lint
-        continue-on-error: false
 
       - name: Run unit tests
         run: npm run test -- --no-watch --no-progress --browsers=ChromeHeadless --code-coverage
