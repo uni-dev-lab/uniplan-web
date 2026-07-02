@@ -13,6 +13,7 @@ import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { FacultyElm } from '../../../core/interfaces/faculty-elm';
 import { RoomService } from '../room-service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-room-add-form',
@@ -39,6 +40,7 @@ export class RoomAddForm implements OnInit {
   private roomService = inject(RoomService)
   faculties: FacultyElm[] = [];
   private destroyRef = inject(DestroyRef);
+  private translate = inject(TranslateService);
 
   addForm = new FormGroup({
     roomNumber: new FormControl('', Validators.required),
@@ -77,7 +79,7 @@ export class RoomAddForm implements OnInit {
         },
         error: (err) => {
           console.error('Failed to add room', err);
-          alert('Failed to add room.');
+          alert(this.translate.instant('room.add.failed'));
         },
       });
   }

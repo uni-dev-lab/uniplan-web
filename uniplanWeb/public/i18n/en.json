@@ -15,7 +15,8 @@
         "room-number": "Room number",
         "no-rooms": "No rooms",
         "add": {
-            "title": "Add room"
+            "title": "Add room",
+            "failed": "Failed to add room."
         }
     },
     "faculty": {
