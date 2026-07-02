@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { AddButton } from '../../../core/shared/add-button/add-button';
 import { MatDialog } from '@angular/material/dialog';
 import { StudentAddForm } from '../student-add-form/student-add-form';
@@ -11,7 +11,7 @@ import { StudentAddForm } from '../student-add-form/student-add-form';
   styleUrl: './student-options.scss',
 })
 export class StudentOptions {
-  constructor(private dialog: MatDialog) {}
+  private dialog = inject(MatDialog);
 
   openAddForm() {
     this.dialog.open(StudentAddForm, {

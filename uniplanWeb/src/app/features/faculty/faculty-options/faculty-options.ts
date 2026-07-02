@@ -1,5 +1,4 @@
-
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
@@ -20,7 +19,7 @@ import { AddButton } from '../../../core/shared/add-button/add-button';
   ],
 })
 export class FacultyOptions {
-  constructor(private dialog: MatDialog) { }
+  private dialog = inject(MatDialog);
 
   openAddForm() {
     this.dialog.open(FacultyAddForm, {

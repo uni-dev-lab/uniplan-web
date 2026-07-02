@@ -1,5 +1,4 @@
-
-import { Component, Input, OnInit, ChangeDetectionStrategy, signal } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectionStrategy, signal, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
@@ -19,6 +18,10 @@ import { TranslatePipe } from '@ngx-translate/core';
   imports: [MatTableModule, MatIconModule, MatButtonModule, TranslatePipe],
 })
 export class MajorTable implements OnInit {
+  private dialog = inject(MatDialog);
+  private service = inject(MajorService);
+  private facultyService = inject(FacultyService);
+
   displayedColumns: string[] = [
     'position',
     'name',
@@ -35,12 +38,6 @@ export class MajorTable implements OnInit {
   @Input() faculty: string = '';
   @Input() type: string = '';
   @Input() subtype: string = '';
-
-  constructor(
-    private dialog: MatDialog,
-    private service: MajorService,
-    private facultyService: FacultyService
-  ) { }
 
   ngOnInit(): void {
     this.loadMajors();

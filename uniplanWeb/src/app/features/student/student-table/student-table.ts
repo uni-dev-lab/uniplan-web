@@ -1,7 +1,6 @@
 import {
   Component,
   Input,
-  SimpleChanges,
   OnChanges,
   OnInit,
   ChangeDetectionStrategy
@@ -140,7 +139,7 @@ export class StudentTable implements OnInit, OnChanges {
     this.applyFilters();
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(): void {
     this.applyFilters();
   }
 

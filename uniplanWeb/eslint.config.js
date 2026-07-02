@@ -31,8 +31,6 @@ module.exports = defineConfig([
           style: "kebab-case",
         },
       ],
-
-      // --- angular-eslint: ts-recommended (made explicit for visibility) ---
       "@angular-eslint/contextual-lifecycle": "error",
       "@angular-eslint/no-empty-lifecycle-method": "error",
       "@angular-eslint/no-input-rename": "error",
@@ -45,12 +43,11 @@ module.exports = defineConfig([
       "@angular-eslint/use-pipe-transform-interface": "error",
       "@angular-eslint/use-lifecycle-interface": "warn",
 
-
       "@typescript-eslint/no-unused-vars": "error",
       "@angular-eslint/prefer-inject": "error",
       "@typescript-eslint/no-inferrable-types": "off",
       "@typescript-eslint/no-explicit-any": "warn",
-      "@angular-eslint/prefer-on-push-component-change-detection": "warn",
+      "@angular-eslint/prefer-on-push-component-change-detection": "off",
     },
   },
   {
@@ -60,13 +57,11 @@ module.exports = defineConfig([
       angular.configs.templateAccessibility,
     ],
     rules: {
-      // --- angular-eslint: template-recommended (made explicit for visibility) ---
       "@angular-eslint/template/banana-in-box": "error",
       "@angular-eslint/template/eqeqeq": "error",
       "@angular-eslint/template/no-negated-async": "error",
       "@angular-eslint/template/prefer-control-flow": "error",
 
-      // --- angular-eslint: template-accessibility (made explicit for visibility) ---
       "@angular-eslint/template/alt-text": "error",
       "@angular-eslint/template/click-events-have-key-events": "error",
       "@angular-eslint/template/elements-content": "error",
