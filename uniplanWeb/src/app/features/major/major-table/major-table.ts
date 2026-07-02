@@ -28,8 +28,8 @@ export class MajorTable implements OnInit {
     'actions',
   ];
 
-  dataSource: MajorElm[] = [];
-  facultyMap = new Map<string, string>();
+  dataSource = signal<MajorElm[]>([]);
+  facultyMap = signal(new Map<string, string>());
 
   @Input() searchText = '';
   @Input() faculty: string = '';
@@ -52,22 +52,22 @@ export class MajorTable implements OnInit {
 
   loadMajors(): void {
     this.service.getMajors().subscribe((data) => {
-      this.dataSource = data;
+      this.dataSource.set(data);
     });
   }
 
   loadFaculties(): void {
     this.facultyService.getFaculties().subscribe((faculties) => {
-      this.facultyMap = new Map(faculties.map((f) => [f.id, f.facultyName]));
+     this.facultyMap.set(new Map(faculties.map((f) => [f.id, f.facultyName])));
     });
   }
 
   getFacultyName(id: string): string {
-    return this.facultyMap.get(id) || '—';
+    return this.facultyMap().get(id) || '—';
   }
 
   get filteredMajors(): MajorElm[] {
-    return this.dataSource.filter((major) => {
+    return this.dataSource().filter((major) => {
       const matchesFaculty = !this.faculty || major.facultyId === this.faculty;
       const matchesType = !this.type || major.courseType === this.type;
       const matchesSubtype =

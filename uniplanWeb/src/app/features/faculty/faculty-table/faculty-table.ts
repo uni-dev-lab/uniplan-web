@@ -30,7 +30,7 @@ export class FacultyTable {
     'location',
     'actions',
   ];
-  dataSource: FacultyElm[] = [];
+  dataSource = signal<FacultyElm[]>([]);
 
     private facultyService = inject(FacultyService);
     private dialog = inject(MatDialog);
@@ -45,7 +45,7 @@ export class FacultyTable {
 
   loadFaculties(): void {
     this.facultyService.getFaculties().subscribe((data) => {
-      this.dataSource = data;
+      this.dataSource.set(data);
     });
   }
 
