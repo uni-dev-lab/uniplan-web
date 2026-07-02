@@ -8,7 +8,7 @@ import { DepartmentDeleteForm } from '../department-delete-form/department-delet
 import { DepartmentService } from '../department-service';
 import { FacultyService } from '../../faculty/faculty-service';
 import {TranslatePipe} from '@ngx-translate/core';
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-department-table',
