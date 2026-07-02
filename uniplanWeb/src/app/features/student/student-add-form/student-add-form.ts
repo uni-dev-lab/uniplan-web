@@ -7,6 +7,7 @@ import {
   MatLabel,
 } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
+import { TranslatePipe } from '@ngx-translate/core';
 import { MajorElm } from '../../../core/interfaces/major-elm';
 import { MajorService } from '../../major/major-service';
 import {MatSelectModule} from '@angular/material/select';
@@ -15,6 +16,9 @@ import { MajorOptionElm } from '../../../core/interfaces/major-option-elm';
 
 @Component({
   selector: 'app-student-add-form',
+  templateUrl: './student-add-form.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
+  styleUrl: './student-add-form.scss',
   imports: [
     MatDialogModule,
     MatFormField,
@@ -24,10 +28,8 @@ import { MajorOptionElm } from '../../../core/interfaces/major-option-elm';
     AddForm,
     MatSelectModule,
     MatOptionModule,
+    TranslatePipe
   ],
-  templateUrl: './student-add-form.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
-  styleUrl: './student-add-form.scss',
 })
 export class StudentAddForm implements OnInit {
   protected studentName: string = '';

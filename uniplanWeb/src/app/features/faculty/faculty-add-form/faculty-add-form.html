@@ -1,23 +1,23 @@
-<app-add-form title="Добави Факултет" (saveClicked)="save()">
+<app-add-form [title]="'faculty.add.title' | translate" (saveClicked)="save()">
   <mat-dialog-content>
 
     <mat-form-field appearance="fill">
-      <mat-label>Име:</mat-label>
+      <mat-label>{{ 'features.name-label' | translate }}</mat-label>
       <input matInput [(ngModel)]="facultyName" />
     </mat-form-field>
 
     <mat-form-field appearance="fill">
-      <mat-label>Локация:</mat-label>
+      <mat-label>{{ 'features.location-label' | translate }}</mat-label>
       <input matInput [(ngModel)]="location" />
     </mat-form-field>
 
     <mat-form-field appearance="fill">
-      <mat-label>Университет:</mat-label>
+      <mat-label>{{ 'faculty.uni-label' | translate }}</mat-label>
       <mat-select [(ngModel)]="universityId">
         @for (uni of universities; track uni) {
-          <mat-option [value]="uni.id">
-            {{uni.uniName}})
-          </mat-option>
+        <mat-option [value]="uni.id">
+          {{uni.uniName}}
+        </mat-option>
         }
       </mat-select>
     </mat-form-field>

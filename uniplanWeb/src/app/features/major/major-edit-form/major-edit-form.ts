@@ -14,9 +14,13 @@ import { FormsModule } from '@angular/forms';
 import { MajorService } from '../major-service';
 import { FacultyService } from '../../faculty/faculty-service';
 import { FacultyElm } from '../../../core/interfaces/faculty-elm';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-major-edit-form',
+  templateUrl: './major-edit-form.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
+  styleUrl: './major-edit-form.scss',
   imports: [
     EditForm,
     MatDialogModule,
@@ -25,11 +29,8 @@ import { FacultyElm } from '../../../core/interfaces/faculty-elm';
     FormsModule,
     MatInputModule,
     MatSelectModule,
-    MatOptionModule
-],
-  templateUrl: './major-edit-form.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
-  styleUrl: './major-edit-form.scss',
+    MatOptionModule,
+    TranslatePipe],
 })
 export class MajorEditForm implements OnInit {
   protected majorName: string = '';
@@ -67,8 +68,8 @@ export class MajorEditForm implements OnInit {
 
     this.majorService
       .editMajor(this.data.id, {
-        majorName: this.majorName,
         facultyId: this.facultyId,
+        majorName: this.majorName,
       })
       .subscribe({
         next: (): void => this.dialogRef.close(true),

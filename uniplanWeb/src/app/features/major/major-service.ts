@@ -2,25 +2,22 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable, Subject, switchMap } from 'rxjs';
 import { MajorElm } from '../../core/interfaces/major-elm';
-import { MajorOptionElm } from '../../core/interfaces/major-option-elm';
+import {environment} from '../../../environments/environment';
+import {API_ENDPOINTS} from '../../config/endpoints';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MajorService {
-  private apiUrl: string = 'http://localhost:8080/api/majors';
-  private apiUrlMajor: string = 'http://localhost:8080/api/majors';
-  private apiUrlCourse: string = 'http://localhost:8080/api/courses';
-
-  public readonly refreshNeeded: Subject<void> = new Subject<void>();
+  refreshNeeded = new Subject<void>();
 
   constructor(private http: HttpClient) {}
 
-  public getMajors(): Observable<MajorElm[]> {
-    return this.http.get<MajorElm[]>(this.apiUrl).pipe(
-      map((majors: MajorElm[]): any =>
-        majors.map((major: MajorElm, index: number) => ({
-          majorId: major.majorId,
+  getMajors(): Observable<MajorElm[]> {
+    return this.http.get<MajorElm[]>(API_ENDPOINTS.majors).pipe(
+      map((majors) =>
+        majors.map((major, index) => ({
+          id: major.id,
           majorName: major.majorName,
           courseId: major.courseId,
           facultyId: major.facultyId,
@@ -36,8 +33,8 @@ export class MajorService {
     facultyId: string;
     majorName: string;
   }): Observable<any> {
-    return this.http.post(`${this.apiUrlMajor}`, createMajor).pipe(
-      map((res: Object): Object => {
+    return this.http.post(`${API_ENDPOINTS.majors}`, createMajor).pipe(
+      map((res) => {
         this.refreshNeeded.next();
         return res;
       })
@@ -50,8 +47,8 @@ export class MajorService {
     courseType: string;
     courseSubtype: string;
   }): Observable<any> {
-    return this.http.post(`${this.apiUrlCourse}`, course).pipe(
-      map((res: Object): Object => {
+    return this.http.post(`${API_ENDPOINTS.courses}`, course).pipe(
+      map((res) => {
         this.refreshNeeded.next();
         return res;
       })
@@ -78,22 +75,22 @@ export class MajorService {
     );
   }
 
-  public deleteMajor(id: string): Observable<any> {
-    return this.http.delete(`${this.apiUrlMajor}/${id}`).pipe(
-      map((res: Object): Object => {
+  deleteMajor(id: string): Observable<any> {
+    return this.http.delete(`${API_ENDPOINTS.majors}/${id}`).pipe(
+      map((res) => {
         this.refreshNeeded.next();
         return res;
       })
     );
   }
 
-  public deleteCourse(courseId: string): Observable<any> {
-    return this.http.delete(`${this.apiUrlCourse}/${courseId}`);
+  deleteCourse(courseId: string): Observable<any> {
+    return this.http.delete(`${API_ENDPOINTS.courses}/${courseId}`);
   }
 
   deleteMajorWithCourse(major: MajorElm): Observable<any> {
     return this.deleteCourse(major.courseId).pipe(
-      switchMap((): Observable<any> => this.deleteMajor(major.majorId))
+      switchMap(() => this.deleteMajor(major.id))
     );
   }
 
@@ -101,15 +98,11 @@ export class MajorService {
     id: string,
     updateMajor: { facultyId: string; majorName: string }
   ): Observable<any> {
-    return this.http.put(`${this.apiUrlMajor}/${id}`, updateMajor).pipe(
-      map((res: Object): Object => {
+    return this.http.put(`${API_ENDPOINTS.majors}/${id}`, updateMajor).pipe(
+      map((res) => {
         this.refreshNeeded.next();
         return res;
       })
     );
-  }
-
-  public getMajorOptions(): Observable<MajorOptionElm[]> {
-    return this.http.get<MajorOptionElm[]>(this.apiUrlMajor);
   }
 }

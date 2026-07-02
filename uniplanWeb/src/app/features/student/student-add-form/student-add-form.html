@@ -1,54 +1,34 @@
-<app-add-form title="Добави Студент" (saveClicked)="save()">
+<app-add-form [title]="'student.add.title' | translate" (saveClicked)="save()">
     <mat-dialog-content>
 
         <mat-form-field appearance="fill">
-            <mat-label>Име:</mat-label>
-
+            <mat-label>{{ 'features.name-label' | translate }}</mat-label>
             <input matInput [(ngModel)]="studentName" />
         </mat-form-field>
 
         <mat-form-field appearance="fill">
-            <mat-label>Факултетен номер:</mat-label>
+            <mat-label>{{ 'student.faculty-number-label' | translate }}</mat-label>
             <input matInput [(ngModel)]="facultyNumber" />
         </mat-form-field>
 
         <mat-form-field appearance="fill">
-            <mat-label>Факултет:</mat-label>
+            <mat-label>{{ 'features.faculty-label' | translate }}</mat-label>
             <input matInput [(ngModel)]="faculty" />
         </mat-form-field>
 
-      <mat-form-field appearance="fill">
-        <mat-label>Специалност:</mat-label>
-
-        <mat-select [value]="major" (selectionChange)="onMajorChange($event.value)">
-          @for (majorItem of majors; track majorItem.id) {
-            <mat-option [value]="majorItem.majorName">
-              {{ majorItem.majorName }}
-            </mat-option>
-          }
-        </mat-select>
-      </mat-form-field>
-
         <mat-form-field appearance="fill">
-            <mat-label>Курс:</mat-label>
-          <mat-select [value]="course" (selectionChange)="onCourseChange($event.value)">
-            @for (courseItem of courses; track courseItem) {
-              <mat-option [value]="courseItem">
-                {{ courseItem }}
-              </mat-option>
-            }
-          </mat-select>
+            <mat-label>{{ 'features.major-label' | translate }}</mat-label>
+            <input matInput [(ngModel)]="major" />
         </mat-form-field>
 
         <mat-form-field appearance="fill">
-            <mat-label>Тип:</mat-label>
-          <mat-select [value]="type" (selectionChange)="onTypeChange($event.value)">
-            @for (typeItem of types; track typeItem) {
-              <mat-option [value]="typeItem">
-                {{ typeItem }}
-              </mat-option>
-            }
-          </mat-select>
+            <mat-label>{{ 'student.course-label' | translate }}</mat-label>
+            <input matInput [(ngModel)]="course" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>{{ 'features.type-label' | translate }}</mat-label>
+            <input matInput [(ngModel)]="type" />
         </mat-form-field>
 
     </mat-dialog-content>

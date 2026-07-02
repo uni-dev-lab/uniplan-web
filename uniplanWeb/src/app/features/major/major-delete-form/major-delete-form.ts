@@ -6,33 +6,34 @@ import {
   MatDialogRef,
 } from '@angular/material/dialog';
 import { MajorService } from '../major-service';
-import {Observable, switchMap} from 'rxjs';
+import { switchMap } from 'rxjs';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-major-delete-form',
-  imports: [DeleteForm, MatDialogModule],
   templateUrl: './major-delete-form.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './major-delete-form.scss',
+  imports: [DeleteForm, MatDialogModule,
+    TranslatePipe],
 })
 export class MajorDeleteForm {
   constructor(
     private majorService: MajorService,
     private dialogRef: MatDialogRef<MajorDeleteForm>,
     @Inject(MAT_DIALOG_DATA)
-    public data: { id: string; courseId: string; name: string }
+    public data: { id: string; name: string }
   ) {}
 
   protected deleteMajor(): void {
     this.majorService
-      .deleteCourse(this.data.courseId)
-      .pipe(switchMap((): Observable<any> => this.majorService.deleteMajor(this.data.id)))
+      .deleteMajor(this.data.id)
       .subscribe({
         next: (): void => {
           this.dialogRef.close(true);
         },
-        error: (): void => {
-          alert('Възникна грешка при изтриването на специалността или курса.');
+        error: () => {
+          alert('Възникна грешка при изтриването на специалността.');
         },
       });
   }

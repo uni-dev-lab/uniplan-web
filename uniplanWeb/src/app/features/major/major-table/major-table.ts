@@ -1,5 +1,5 @@
 
-import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectionStrategy, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
@@ -9,13 +9,14 @@ import { MatDialog } from '@angular/material/dialog';
 import { MajorDeleteForm } from '../major-delete-form/major-delete-form';
 import { MajorService } from '../major-service';
 import { FacultyService } from '../../faculty/faculty-service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-major-table',
-  imports: [MatTableModule, MatIconModule, MatButtonModule],
   templateUrl: './major-table.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './major-table.scss',
+  imports: [MatTableModule, MatIconModule, MatButtonModule, TranslatePipe],
 })
 export class MajorTable implements OnInit {
   displayedColumns: string[] = [
@@ -27,8 +28,8 @@ export class MajorTable implements OnInit {
     'actions',
   ];
 
-  dataSource: MajorElm[] = [];
-  facultyMap = new Map<string, string>();
+  dataSource = signal<MajorElm[]>([]);
+  facultyMap = signal(new Map<string, string>());
 
   @Input() searchText = '';
   @Input() faculty: string = '';
@@ -39,7 +40,7 @@ export class MajorTable implements OnInit {
     private dialog: MatDialog,
     private service: MajorService,
     private facultyService: FacultyService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.loadMajors();
@@ -53,22 +54,22 @@ export class MajorTable implements OnInit {
 
   loadMajors(): void {
     this.service.getMajors().subscribe((data) => {
-      this.dataSource = data;
+      this.dataSource.set(data);
     });
   }
 
   loadFaculties(): void {
     this.facultyService.getFaculties().subscribe((faculties) => {
-      this.facultyMap = new Map(faculties.map((f) => [f.id, f.facultyName]));
+     this.facultyMap.set(new Map(faculties.map((f) => [f.id, f.facultyName])));
     });
   }
 
   getFacultyName(id: string): string {
-    return this.facultyMap.get(id) || '—';
+    return this.facultyMap().get(id) || '—';
   }
 
   get filteredMajors(): MajorElm[] {
-    return this.dataSource.filter((major) => {
+    return this.dataSource().filter((major) => {
       const matchesFaculty = !this.faculty || major.facultyId === this.faculty;
       const matchesType = !this.type || major.courseType === this.type;
       const matchesSubtype =
@@ -84,7 +85,7 @@ export class MajorTable implements OnInit {
   onEdit(element: MajorElm): void {
     this.dialog.open(MajorEditForm, {
       data: {
-        id: element.majorId,
+        id: element.id,
         majorName: element.majorName,
         facultyId: element.facultyId,
       },
@@ -94,7 +95,7 @@ export class MajorTable implements OnInit {
   onDelete(element: MajorElm): void {
     this.dialog.open(MajorDeleteForm, {
       data: {
-        id: element.majorId,
+        id: element.id,
         courseId: element.courseId,
         majorName: element.majorName,
         facultyId: element.facultyId,

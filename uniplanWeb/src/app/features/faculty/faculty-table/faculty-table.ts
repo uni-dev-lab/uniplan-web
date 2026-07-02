@@ -1,5 +1,5 @@
 
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
@@ -8,18 +8,20 @@ import { FacultyService } from '../faculty-service';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { FacultyEdit } from '../faculty-edit/faculty-edit';
 import { FacultyDeleteForm } from '../faculty-delete-form/faculty-delete-form';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-faculty-table',
+  templateUrl: './faculty-table.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
+  styleUrl: './faculty-table.scss',
   imports: [
     MatTableModule,
     MatIconModule,
     MatButtonModule,
-    MatDialogModule
-],
-  templateUrl: './faculty-table.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
-  styleUrl: './faculty-table.scss',
+    MatDialogModule,
+    TranslatePipe
+    ],
 })
 export class FacultyTable {
   displayedColumns: string[] = [
@@ -28,12 +30,12 @@ export class FacultyTable {
     'location',
     'actions',
   ];
-  dataSource: FacultyElm[] = [];
+  dataSource = signal<FacultyElm[]>([]);
 
   constructor(
     private facultyService: FacultyService,
     private dialog: MatDialog
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.loadFaculties();
@@ -45,7 +47,7 @@ export class FacultyTable {
 
   loadFaculties(): void {
     this.facultyService.getFaculties().subscribe((data) => {
-      this.dataSource = data;
+      this.dataSource.set(data);
     });
   }
 
