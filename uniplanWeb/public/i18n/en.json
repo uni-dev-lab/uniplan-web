@@ -6,7 +6,14 @@
         "type-label": "Type",
         "study-mode-label": "Study mode",
         "major-label": "Major",
-        "location-label": "Location"
+        "location-label": "Location",
+        "number-label": "No.",
+        "edit": "Edit",
+        "delete": "Delete"
+    },
+    "room": {
+        "room-number": "Room number",
+        "no-rooms": "No rooms"
     },
     "faculty": {
         "delete-button": "Delete",
