@@ -35,10 +35,14 @@ jobs:
         run: npm ci
 
       - name: Lint
-        run: npm run lint | tee lint-output.log
+        run: |
+          set -o pipefail
+          npm run lint | tee lint-output.log
 
       - name: Run unit tests
-        run: npm run test -- --no-watch --no-progress --browsers=ChromeHeadless --code-coverage | tee test-output.log
+        run: |
+          set -o pipefail
+          npm run test -- --no-watch --no-progress --browsers=ChromeHeadless --code-coverage | tee test-output.log
 
       - name: Build
         run: npm run build
