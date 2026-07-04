@@ -2,12 +2,13 @@ import { inject, Injectable } from '@angular/core';
 import { map, Observable, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { StudentElm } from '../../core/interfaces/student-elm';
+import { API_ENDPOINTS } from '../../config/endpoints';
 
 @Injectable({
     providedIn: 'root'
 })
 export class StudentService {
-    private apiUrl = 'http://localhost:8080/api/students'
+    private apiUrl = API_ENDPOINTS.students;
 
     refreshNeeded = new Subject<void>();
 
