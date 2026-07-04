@@ -1,9 +1,12 @@
 name: Angular CI
 
 on:
-  push:
-    branches-ignore:
-      - main
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 defaults:
   run:
