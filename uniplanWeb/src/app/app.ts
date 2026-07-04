@@ -13,8 +13,4 @@ import { RouterOutlet } from '@angular/router';
 })
 export class App {
   protected title = 'uniplanWeb';
-
-  constructor() {
-    const unusedCiTestVar = 'trigger eslint error';
-  }
 }
