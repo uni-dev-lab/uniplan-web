@@ -35,33 +35,33 @@ jobs:
         run: npm ci
 
       - name: Lint
-        run: npm run lint
+        run: npm run lint | tee lint-output.log
 
       - name: Run unit tests
         run: npm run test -- --no-watch --no-progress --browsers=ChromeHeadless --code-coverage | tee test-output.log
 
       - name: Build
-        run: npm run build | tee build-output.log
+        run: npm run build
 
       - name: Job summary
         if: always()
         run: |
           {
+            echo "## Lint"
+            echo '```'
+            if [ -f lint-output.log ]; then
+              cat lint-output.log
+            else
+              echo "Lint did not run (an earlier step failed)."
+            fi
+            echo '```'
+            echo
             echo "## Coverage"
             echo '```'
             if [ -f test-output.log ]; then
               grep -A 5 "Coverage summary" test-output.log || echo "No coverage data captured."
             else
               echo "Tests did not run (an earlier step failed)."
-            fi
-            echo '```'
-            echo
-            echo "## Initial bundle size"
-            echo '```'
-            if [ -f build-output.log ]; then
-              grep -A 5 "Initial chunk files" build-output.log || echo "No build output captured."
-            else
-              echo "Build did not run (an earlier step failed)."
             fi
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
