@@ -15,4 +15,4 @@ export class CourseService {
   }
 }
 //placeholder course service to make student form dropdowns work,
-//if there is a merge conflict please provide a getCoursesByMajorId-like method wherever it's needed
+//when replacing this please provide a getCoursesByMajorId-like method
