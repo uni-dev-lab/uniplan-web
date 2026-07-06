@@ -3,9 +3,6 @@ name: Angular CI
 on:
   pull_request:
     branches: [main]
-    paths-ignore:
-      - '**.md'
-      - '.claude/**'
 
 concurrency:
   group: ci-${{ github.event.pull_request.number || github.ref }}
@@ -69,4 +66,3 @@ jobs:
             fi
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
-
