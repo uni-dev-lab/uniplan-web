@@ -14,6 +14,7 @@ import { FacultyElm } from '../../../core/interfaces/faculty-elm';
 import { RoomService } from '../room-service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TranslateService } from '@ngx-translate/core';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-room-add-form',
@@ -41,6 +42,7 @@ export class RoomAddForm implements OnInit {
   faculties: FacultyElm[] = [];
   private destroyRef = inject(DestroyRef);
   private translate = inject(TranslateService);
+  private isSubmitting = false;
 
   addForm = new FormGroup({
     roomNumber: new FormControl('', Validators.required),
@@ -61,9 +63,12 @@ export class RoomAddForm implements OnInit {
   }
 
   save() {
-    if (this.addForm.invalid) {
+    if (this.addForm.invalid || this.isSubmitting) {
       return;
     }
+
+    this.isSubmitting = true;
+    this.addForm.disable();
 
     const newRoom = {
       roomNumber: this.addForm.value.roomNumber ?? '',
@@ -71,10 +76,13 @@ export class RoomAddForm implements OnInit {
     };
 
     this.roomService.createRoom(newRoom)
-      .pipe(takeUntilDestroyed(this.destroyRef))
+      .pipe(takeUntilDestroyed(this.destroyRef),
+        finalize(() => {
+          this.isSubmitting = false;
+          this.addForm.enable();
+        }))
       .subscribe({
         next: (response) => {
-          console.log('Room created:', response);
           this.dialogRef.close(response);
         },
         error: (err) => {
