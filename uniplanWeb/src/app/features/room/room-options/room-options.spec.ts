@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { RoomOptions } from './room-options';
+import { translateTestingProviders } from '@testing/translate-testing';
 
 describe('RoomOptions', () => {
   let component: RoomOptions;
@@ -8,7 +8,10 @@ describe('RoomOptions', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RoomOptions]
+      imports: [RoomOptions],
+      providers: [
+        ...translateTestingProviders
+      ]
     })
     .compileComponents();
 

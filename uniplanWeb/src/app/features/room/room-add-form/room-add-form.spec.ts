@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { RoomAddForm } from './room-add-form';
+import { translateTestingProviders } from '@testing/translate-testing';
+import { MatDialogRef } from '@angular/material/dialog';
 
 describe('RoomAddForm', () => {
   let component: RoomAddForm;
@@ -8,9 +9,13 @@ describe('RoomAddForm', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RoomAddForm]
+      imports: [RoomAddForm],
+      providers: [
+        ...translateTestingProviders,
+        { provide: MatDialogRef, useValue: {} },
+      ]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(RoomAddForm);
     component = fixture.componentInstance;
