@@ -15,6 +15,7 @@ import { RoomService } from '../room-service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TranslateService } from '@ngx-translate/core';
 import { finalize } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-room-add-form',
@@ -43,6 +44,7 @@ export class RoomAddForm implements OnInit {
   private destroyRef = inject(DestroyRef);
   private translate = inject(TranslateService);
   private isSubmitting = false;
+  private _snackBar = inject(MatSnackBar);
 
   addForm = new FormGroup({
     roomNumber: new FormControl('', Validators.required),
@@ -60,6 +62,10 @@ export class RoomAddForm implements OnInit {
           console.error('Failed to load faculties', err);
         },
       });
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action);
   }
 
   save() {
@@ -87,7 +93,10 @@ export class RoomAddForm implements OnInit {
         },
         error: (err) => {
           console.error('Failed to add room', err);
-          alert(this.translate.instant('room.add.failed'));
+          this.openSnackBar(
+            this.translate.instant('room.add.failed'),
+            this.translate.instant('shared.close-btn')
+          );
         },
       });
   }

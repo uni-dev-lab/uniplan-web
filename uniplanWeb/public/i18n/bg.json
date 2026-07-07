@@ -64,7 +64,8 @@
     "save-button": "Запази",
     "delete-button": "Изтрий",
     "option-all": "Всички",
-    "confirm-delete": "Потвърдете изтриването"
+    "confirm-delete": "Потвърдете изтриването",
+    "close-btn": "Затвори"
   },
   "home": {
     "title": "Начало!"

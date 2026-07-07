@@ -64,7 +64,8 @@
         "save-button": "Save",
         "delete-button": "Delete",
         "option-all": "All",
-        "confirm-delete": "Confirm deletion"
+        "confirm-delete": "Confirm deletion",
+        "close-btn": "Close"
     },
     "home": {
         "title": "Main!"
