@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { translateTestingProviders } from '@testing/translate-testing';
 import { RoomPanel } from './room-panel';
 import { translateTestingProviders } from '@testing/translate-testing';
 
@@ -9,11 +10,9 @@ describe('RoomPanel', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [RoomPanel],
-      providers: [
-        ...translateTestingProviders,
-      ]
+      providers: [...translateTestingProviders]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(RoomPanel);
     component = fixture.componentInstance;
