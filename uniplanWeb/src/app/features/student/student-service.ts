@@ -31,7 +31,7 @@ export class StudentService {
             )
         );
     }
-    createStudent(student: { firstName: string; lastName: string; facultyNumber: string; courseId: string }): Observable<any> {
+    createStudent(student: Omit<StudentElm, 'position' | 'id'>): Observable<void> {
         return this.http.post(`${this.apiUrl}`, student).pipe(
             map((res) => {
                 this.refreshNeeded.next();
@@ -41,8 +41,8 @@ export class StudentService {
     }
 
     editStudent(id: string,
-         updatedStudent: Omit<StudentElm, 'position' | 'id'>): Observable<any> {
-        return this.http.put(`${this.apiUrl}/${id}`, updatedStudent).pipe(
+         updatedStudent: Omit<StudentElm, 'position' | 'id'>): Observable<void> {
+        return this.http.put<void>(`${this.apiUrl}/${id}`, updatedStudent).pipe(
             map((res) => {
                 this.refreshNeeded.next();
                 return res;
@@ -50,8 +50,8 @@ export class StudentService {
         );
     }
 
-    deleteStudent(id: string): Observable<any> {
-        return this.http.delete(`${this.apiUrl}/${id}`).pipe(
+    deleteStudent(id: string): Observable<void> {
+        return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(
             map((res) => {
                 this.refreshNeeded.next();
                 return res;

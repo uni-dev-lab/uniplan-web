@@ -6,7 +6,8 @@ import {
   OnInit,
   ChangeDetectionStrategy,
   inject,
-  output
+  output,
+  DestroyRef
 } from '@angular/core';
 import { StudentElm } from '../../../core/interfaces/student-elm';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -16,6 +17,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { StudentService } from '../student-service';
 import { MatDialog } from '@angular/material/dialog';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-student-table',
@@ -27,7 +29,7 @@ import { MatDialog } from '@angular/material/dialog';
 export class StudentTable implements OnInit, OnChanges {
   private dialog = inject(MatDialog)
   private studentService = inject(StudentService)
-  //todo
+  private destroyRef = inject(DestroyRef);
   @Input() searchText = '';
   @Input() searchFacNum = '';
   @Input() searchMajor = '';
@@ -53,7 +55,9 @@ export class StudentTable implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.loadStudents();
-    this.studentService.refreshNeeded.subscribe(() => {
+    this.studentService.refreshNeeded
+    .pipe(takeUntilDestroyed(this.destroyRef))
+    .subscribe(() => {
       this.loadStudents();
     });
   }
@@ -63,7 +67,9 @@ export class StudentTable implements OnInit, OnChanges {
   }
 
   loadStudents(): void {
-    this.studentService.getStudents().subscribe({
+    this.studentService.getStudents()
+    .pipe(takeUntilDestroyed(this.destroyRef))
+    .subscribe({
       next: (students) => {
         this.originalData = students;
         this.subtypes = StudentTable.getFilterOptions(students).subtypes;
