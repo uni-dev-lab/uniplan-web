@@ -49,7 +49,8 @@
         "major-label": "Major",
         "study-mode-label": "Study mode",
         "add": {
-            "title": "Add student"
+            "title": "Add student",
+            "failed": "Failed to create student."
         },
         "edit": {
             "title": "Edit student"

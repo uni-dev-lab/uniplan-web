@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, inject, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject, OnInit, DestroyRef } from '@angular/core';
 import { AddForm } from '../../../core/shared/add-form/add-form';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormField, MatInputModule, MatLabel } from '@angular/material/input';
@@ -9,7 +9,9 @@ import { CourseService } from '../../course/course-service';
 import { StudentService } from '../student-service';
 import { MajorElm } from '../../../core/interfaces/major-elm';
 import { CourseElm } from '../../../core/interfaces/course-elm';
-import { TranslatePipe } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-student-add-form',
@@ -28,11 +30,15 @@ import { TranslatePipe } from '@ngx-translate/core';
   ],
 })
 export class StudentAddForm implements OnInit {
-  private formBuilder = inject(FormBuilder);
   private majorService = inject(MajorService);
   private courseService = inject(CourseService);
   private studentService = inject(StudentService);
+
+  private translate = inject(TranslateService);
+  private destroyRef = inject(DestroyRef);
+  private formBuilder = inject(FormBuilder);
   private dialogRef = inject(MatDialogRef<AddForm>);
+  private isSubmitting = false;
 
   studentForm!: FormGroup;
   majors: MajorElm[] = [];
@@ -122,7 +128,10 @@ export class StudentAddForm implements OnInit {
   }
 
   save(): void {
-    if (this.studentForm.invalid) return;
+    if (this.studentForm.invalid || this.isSubmitting) return;
+
+    this.isSubmitting = true;
+    this.studentForm.disable();
 
     const courseId = this.resolveCourseId();
     if (!courseId) {
@@ -132,13 +141,20 @@ export class StudentAddForm implements OnInit {
 
     const { firstName, lastName, facultyNumber } = this.studentForm.value;
 
-    this.studentService.createStudent({ firstName, lastName, facultyNumber, courseId }).subscribe({
+    this.studentService
+    .createStudent({ firstName, lastName, facultyNumber, courseId })
+    .pipe(takeUntilDestroyed(this.destroyRef),
+        finalize(() => {
+          this.isSubmitting = false;
+          this.studentForm.enable();
+        }))
+    .subscribe({
       next: (response) => {
         this.dialogRef.close(response);
       },
       error: (err) => {
         console.error('Failed to create student', err);
-        alert('Failed to create student.');
+        alert(this.translate.instant('student.add.failed'));
       }
     });
   }

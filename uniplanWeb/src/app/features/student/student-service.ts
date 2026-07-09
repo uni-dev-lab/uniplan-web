@@ -31,7 +31,7 @@ export class StudentService {
             )
         );
     }
-    createStudent(student: Omit<StudentElm, 'position' | 'id'>): Observable<void> {
+    createStudent(student: { firstName: string; lastName: string; facultyNumber: string; courseId: string }): Observable<void> {
         return this.http.post<void>(`${this.apiUrl}`, student).pipe(
             map((res) => {
                 this.refreshNeeded.next();
