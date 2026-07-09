@@ -1,3 +1,5 @@
+import { CourseSubtype } from "../../features/course/course-subtype";
+
 export interface StudentElm {
   id: string;
   position: number;
@@ -6,6 +8,6 @@ export interface StudentElm {
   majorId: string;
   majorName: string;
   courseType: string;
-  courseSubtype: 'редовно' | 'задочно';
+  courseSubtype: CourseSubtype;
   courseYear: number;
 }
