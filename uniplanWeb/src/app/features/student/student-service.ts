@@ -32,7 +32,7 @@ export class StudentService {
         );
     }
     createStudent(student: Omit<StudentElm, 'position' | 'id'>): Observable<void> {
-        return this.http.post(`${this.apiUrl}`, student).pipe(
+        return this.http.post<void>(`${this.apiUrl}`, student).pipe(
             map((res) => {
                 this.refreshNeeded.next();
                 return res;
