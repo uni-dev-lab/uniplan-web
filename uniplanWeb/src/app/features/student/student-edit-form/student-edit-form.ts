@@ -10,7 +10,7 @@ import { StudentService } from '../student-service';
 import { MajorElm } from '../../../core/interfaces/major-elm';
 import { CourseElm } from '../../../core/interfaces/course-elm';
 import { StudentElm } from '../../../core/interfaces/student-elm';
-import { TranslatePipe } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { finalize } from 'rxjs';
 
@@ -39,6 +39,7 @@ export class StudentEditForm implements OnInit {
   private dialogRef = inject(MatDialogRef<EditForm>);
   private destroyRef = inject(DestroyRef);
   private isSubmitting = false;
+  private translate = inject(TranslateService);
   readonly data = inject<StudentElm>(MAT_DIALOG_DATA);
 
   studentForm!: FormGroup;
@@ -188,12 +189,13 @@ export class StudentEditForm implements OnInit {
         })
       )
       .subscribe({
-          next: (response) => {
-            this.dialogRef.close(response);
-          },
-          error: () => {
-            alert('Failed to update student.');
-          }
-        });
+        next: (response) => {
+          this.dialogRef.close(response);
+        },
+        error: (err) => {
+          console.log('Failed to update student.', err);
+          alert(this.translate.instant('student.edit.error'));
+        }
+      });
   }
 }
