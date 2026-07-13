@@ -1,18 +1,22 @@
+@if (isMobileView) {
+  <button type="button" class="hamburger" [attr.aria-label]="'navmenu.toggle-aria' | translate" (click)="toggleSidebar()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+}
+
+@if (isMobileView && !isSidebarCollapsed) {
+  <div class="sidebar-backdrop" (click)="toggleSidebar()"></div>
+}
+
 <div class="sidebar"
   [ngClass]="{ 'collapsed': isSidebarCollapsed && isMobileView }">
-  @if (isMobileView) {
-    <button type="button" class="hamburger" [attr.aria-label]="'navmenu.toggle-aria' | translate" (click)="toggleSidebar()">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-  }
-
   <div class="logo">
     <h2>Logo</h2>
   </div>
 
-  <div class="sidebar-content">
+  <div class="sidebar-content" (click)="onSidebarContentClick($event)">
     <ul class="list">
       <li class="list">
         <a [routerLink]="'/home'" routerLinkActive="active" class="nav-link">
@@ -57,7 +61,7 @@
 
     <ul class="list">
       <li class="list">
-        <a href="#" class="nav-link">
+        <a [routerLink]="'/settings'" routerLinkActive="active" class="nav-link">
           <i class="bx bx-cog icon"></i><span class="link">{{ 'navmenu.settings' | translate }}</span>
         </a>
       </li>
