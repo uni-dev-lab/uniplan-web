@@ -14,17 +14,17 @@ import { LoginAuthService } from '../../../services/login-auth-service';
   styleUrls: ['./navmenu-component.scss'],
 })
 export class NavmenuComponent implements OnInit {
-  isMobileView = window.innerWidth <= 768;
-  isSidebarCollapsed = this.isMobileView;
+  protected isMobileView = window.innerWidth <= 768;
+  protected isSidebarCollapsed = this.isMobileView;
 
-  constructor(public authService: LoginAuthService) {}
+  constructor(protected authService: LoginAuthService) {}
 
   ngOnInit(): void {
     this.checkViewport();
   }
 
   @HostListener('window:resize', ['$event'])
-  onResize(event: Event): void {
+  protected onResize(event: Event): void {
     this.checkViewport();
   }
 
@@ -38,11 +38,11 @@ export class NavmenuComponent implements OnInit {
     }
   }
 
-  toggleSidebar(): void {
+  protected toggleSidebar(): void {
     this.isSidebarCollapsed = !this.isSidebarCollapsed;
   }
 
-  onSidebarContentClick(event: MouseEvent): void {
+  protected onSidebarContentClick(event: MouseEvent): void {
     const clickedLink = (event.target as HTMLElement).closest('a');
     if (this.isMobileView && !this.isSidebarCollapsed && clickedLink) {
       this.isSidebarCollapsed = true;

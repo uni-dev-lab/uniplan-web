@@ -69,7 +69,7 @@ describe('SettingsPanel', () => {
 
   it('should default the active language to bg when nothing is stored', () => {
     fixture.detectChanges();
-    expect(component.activeLanguage).toBe('bg');
+    expect(component['activeLanguage']).toBe('bg');
   });
 
   it('should show a loading state before the profile resolves', () => {
@@ -77,7 +77,7 @@ describe('SettingsPanel', () => {
     fixture.detectChanges();
 
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(component.loading).toBeTrue();
+    expect(component['loading']).toBeTrue();
     expect(compiled.querySelector('.profile-card p')).toBeTruthy();
     expect(compiled.querySelector('.profile-info')).toBeFalsy();
   });
@@ -100,8 +100,8 @@ describe('SettingsPanel', () => {
     );
     fixture.detectChanges();
 
-    expect(component.loadError).toBeTrue();
-    expect(component.loading).toBeFalse();
+    expect(component['loadError']).toBeTrue();
+    expect(component['loading']).toBeFalse();
   });
 
   it('should persist the chosen language and mark it active', () => {
@@ -109,14 +109,14 @@ describe('SettingsPanel', () => {
     const translate = TestBed.inject(TranslateService);
     spyOn(translate, 'use').and.callThrough();
 
-    component.useLanguage('en');
+    component['useLanguage']('en');
 
     expect(translate.use).toHaveBeenCalledWith('en');
     expect(localStorage.getItem('lang')).toBe('en');
   });
 
   it('should render the lector profile when currentRole is lector', () => {
-    component.currentRole = 'lector';
+    component['currentRole'] = 'lector';
     fixture.detectChanges();
 
     expect(settingsServiceSpy.getCurrentLector).toHaveBeenCalled();
@@ -133,10 +133,10 @@ describe('SettingsPanel', () => {
     settingsServiceSpy.getCurrentLector.and.returnValue(
       throwError(() => new Error('network error'))
     );
-    component.currentRole = 'lector';
+    component['currentRole'] = 'lector';
     fixture.detectChanges();
 
-    expect(component.loadError).toBeTrue();
-    expect(component.loading).toBeFalse();
+    expect(component['loadError']).toBeTrue();
+    expect(component['loading']).toBeFalse();
   });
 });

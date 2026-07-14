@@ -3,7 +3,7 @@
 
 .settings-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: minmax(0, 1fr) max-content;
   gap: 1.5rem;
   margin-top: 1.5rem;
 
@@ -17,6 +17,8 @@
   border-radius: 8px;
   padding: 1.5rem;
   background: #fff;
+  min-width: 0;
+  min-height: 14rem;
 
   h2 {
     margin-bottom: 1rem;
@@ -25,14 +27,23 @@
 
 .profile-info {
   display: grid;
-  grid-template-columns: max-content 1fr;
+  grid-template-columns: minmax(0, max-content) minmax(0, 1fr);
   gap: 0.5rem 1rem;
 
   dt {
     font-weight: 600;
+    overflow-wrap: break-word;
   }
 
   dd {
     margin: 0;
+    overflow-wrap: break-word;
+  }
+}
+
+.language-card {
+  mat-button-toggle-group {
+    flex-wrap: wrap;
+    max-width: 100%;
   }
 }
