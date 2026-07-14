@@ -48,6 +48,15 @@ module.exports = defineConfig([
       "@typescript-eslint/no-inferrable-types": "off",
       "@typescript-eslint/no-explicit-any": "warn",
       "@angular-eslint/prefer-on-push-component-change-detection": "off",
+
+      "@typescript-eslint/explicit-function-return-type": [
+        "error",
+        {
+          allowExpressions: true,
+          allowTypedFunctionExpressions: true,
+          allowHigherOrderFunctions: true,
+        },
+      ],
     },
   },
   {
@@ -74,5 +83,5 @@ module.exports = defineConfig([
       "@angular-eslint/template/table-scope": "error",
       "@angular-eslint/template/valid-aria": "error",
     },
-  }
+  },
 ]);

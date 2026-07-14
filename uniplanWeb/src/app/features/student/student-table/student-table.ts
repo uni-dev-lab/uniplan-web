@@ -6,6 +6,7 @@ import {
   ChangeDetectionStrategy
 } from '@angular/core';
 import { StudentElm } from '../../../core/interfaces/student-elm';
+import { StudentFilterOptions } from '../../../core/interfaces/student-filter-options';
 import { TranslatePipe } from '@ngx-translate/core';
 
 import { MatTableModule } from '@angular/material/table';
@@ -158,7 +159,7 @@ export class StudentTable implements OnInit, OnChanges {
     });
   }
 
-  static getFilterOptions(data: StudentElm[]) {
+  static getFilterOptions(data: StudentElm[]): StudentFilterOptions {
     return {
       subtypes: [...new Set(data.map((e) => e.subtype))],
     };

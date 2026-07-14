@@ -54,7 +54,7 @@ export class MajorEditForm implements OnInit {
     });
   }
 
-  save() {
+  save(): void  {
     if (!this.majorName.trim()) {
       alert('Please enter the major name.');
       return;

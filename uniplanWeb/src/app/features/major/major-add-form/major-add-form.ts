@@ -49,7 +49,7 @@ export class MajorAddForm implements OnInit {
     });
   }
 
-  save() {
+  save(): void  {
     if (
       !this.majorName.trim() ||
       !this.faculty ||

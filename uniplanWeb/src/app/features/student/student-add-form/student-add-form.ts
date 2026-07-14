@@ -30,7 +30,7 @@ export class StudentAddForm {
   course = '';
   type = '';
 
-  save() {
+  save(): void {
     if (!this.studentName.trim()) {
       alert('Please enter student name.');
       return;

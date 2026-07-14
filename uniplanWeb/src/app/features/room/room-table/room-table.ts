@@ -41,7 +41,7 @@ export class RoomTable implements OnInit {
 
   data$ = this.roomService.getRooms();
 
-  ngOnInit() {
+  ngOnInit(): void{
     this.loadFaculties();
   }
 

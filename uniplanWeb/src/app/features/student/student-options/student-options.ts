@@ -13,7 +13,7 @@ import { StudentAddForm } from '../student-add-form/student-add-form';
 export class StudentOptions {
   private dialog = inject(MatDialog);
 
-  openAddForm() {
+  openAddForm(): void {
     this.dialog.open(StudentAddForm, {
       width: '400px',
     });

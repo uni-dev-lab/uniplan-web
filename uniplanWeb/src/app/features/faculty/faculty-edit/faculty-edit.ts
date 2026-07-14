@@ -47,7 +47,7 @@ export class FacultyEdit {
     this.universityId = this.data.universityId;
   }
 
-  save() {
+  save(): void {
     if (!this.facultyName.trim()) {
       alert('Please enter faculty name.');
       return;
