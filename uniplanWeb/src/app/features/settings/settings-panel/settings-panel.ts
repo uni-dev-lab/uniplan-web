@@ -19,15 +19,15 @@ export class SettingsPanel implements OnInit {
   private settingsService = inject(SettingsService);
   private destroyRef = inject(DestroyRef);
 
-  protected activeLanguage = localStorage.getItem(LANGUAGE_STORAGE_KEY) ?? DEFAULT_LANGUAGE;
+  activeLanguage = localStorage.getItem(LANGUAGE_STORAGE_KEY) ?? DEFAULT_LANGUAGE;
 
-  protected currentRole: 'student' | 'lector' = 'student';
+  currentRole: 'student' | 'lector' = 'student';
 
-  protected studentProfile: StudentProfileElm | null = null;
-  protected lectorProfile: LectorProfileElm | null = null;
+  studentProfile: StudentProfileElm | null = null;
+  lectorProfile: LectorProfileElm | null = null;
 
-  protected loading = true;
-  protected loadError = false;
+  loading = true;
+  loadError = false;
 
   ngOnInit(): void {
     this.translate.onLangChange
@@ -47,7 +47,7 @@ export class SettingsPanel implements OnInit {
     }
   }
 
-  protected useLanguage(language: string): void {
+  useLanguage(language: string): void {
     this.translate.use(language);
     localStorage.setItem(LANGUAGE_STORAGE_KEY, language);
   }
