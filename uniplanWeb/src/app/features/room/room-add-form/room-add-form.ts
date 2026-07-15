@@ -43,8 +43,8 @@ export class RoomAddForm implements OnInit {
   private _snackBar = inject(MatSnackBar);
 
   addForm = new FormGroup({
-    roomNumber: new FormControl('', Validators.required),
-    facultyId: new FormControl('', Validators.required),
+    roomNumber: new FormControl<string | null>('', Validators.required),
+    facultyId: new FormControl<string | null>('', Validators.required),
   });
 
   ngOnInit(): void {
