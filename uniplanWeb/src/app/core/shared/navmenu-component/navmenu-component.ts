@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 
-import { LoginAuthService } from '../../../services/login-auth-service';
+import { LoginAuthService } from '../../../services/login/login-auth-service';
 
 @Component({
   selector: 'app-navmenu-component',

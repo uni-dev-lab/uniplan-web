@@ -13,7 +13,8 @@
   },
   "room": {
     "room-number": "Номер на стая",
-    "no-rooms": "Няма записани стаи"
+    "no-rooms": "Няма записани стаи",
+    "category-label":"Тип на стая/Капацитет"
   },
   "faculty": {
     "delete-button": "Изтрий",

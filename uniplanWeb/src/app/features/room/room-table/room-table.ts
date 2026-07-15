@@ -8,7 +8,9 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
 import { FacultyService } from '../../faculty/faculty-service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { FacultyNamePipe } from '../../../core/shared/pipes/faculty-name-pipe';
+import { FacultyNamePipe } from '../../../core/shared/pipes/faculty/faculty-name-pipe';
+import { CategoryService } from '../../../services/category/category-service';
+import { CategoryDisplayPipe } from '../../../core/shared/pipes/category/category-display-pipe';
 
 @Component({
   selector: 'app-room-table',
@@ -22,20 +24,24 @@ import { FacultyNamePipe } from '../../../core/shared/pipes/faculty-name-pipe';
     MatDialogModule,
     TranslatePipe,
     CommonModule,
-    FacultyNamePipe
+    FacultyNamePipe,
+    CategoryDisplayPipe
   ],
 })
 
 export class RoomTable {
   roomService = inject(RoomService);
   facultyService = inject(FacultyService);
+  categoryService = inject(CategoryService)
   facultyMap = new Map<string, string>();
+  categoryMap = new Map<string, string>();
   private destroyRef = inject(DestroyRef);
 
   displayedColumns: string[] = [
     'position',
     'facultyId',
     'roomNumber',
+    'categoryId',
     'actions',
   ];
 
@@ -43,6 +49,7 @@ export class RoomTable {
 
   ngOnInit() {
     this.loadFaculties();
+    this.loadCategories();
   }
 
   loadFaculties(): void {
@@ -50,6 +57,16 @@ export class RoomTable {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((faculties) => {
         this.facultyMap = new Map(faculties.map((f) => [f.id, f.facultyName]));
+      });
+  }
+
+  loadCategories(): void {
+    this.categoryService.getCategories()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((categories) => {
+        this.categoryMap = new Map(
+          categories.map((c) => [c.id, `${c.roomType} (${c.capacity})`])
+        );
       });
   }
 }

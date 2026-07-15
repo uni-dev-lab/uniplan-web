@@ -13,7 +13,8 @@
     },
     "room": {
         "room-number": "Room number",
-        "no-rooms": "No rooms"
+        "no-rooms": "No rooms",
+        "category-label": "Room Type/Capacity"
     },
     "faculty": {
         "delete-button": "Delete",
