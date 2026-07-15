@@ -1,21 +1,18 @@
-
 import { Component, OnInit, ChangeDetectionStrategy, inject, DestroyRef } from '@angular/core';
-import { FormsModule, Validators } from '@angular/forms';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Validators, FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { finalize } from 'rxjs';
 import { AddForm } from '../../../core/shared/add-form/add-form';
-import { TranslatePipe } from '@ngx-translate/core';
 import { FacultyService } from '../../faculty/faculty-service';
-import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { FacultyElm } from '../../../core/interfaces/faculty-elm';
 import { RoomService } from '../room-service';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { TranslateService } from '@ngx-translate/core';
-import { finalize } from 'rxjs';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-room-add-form',
@@ -26,7 +23,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
     MatDialogModule,
     MatFormField,
     MatLabel,
-    FormsModule,
     MatInputModule,
     MatSelectModule,
     MatOptionModule,
