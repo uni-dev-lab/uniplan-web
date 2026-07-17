@@ -1,4 +1,4 @@
-import { Component, inject, ChangeDetectionStrategy, DestroyRef } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy, DestroyRef, OnInit } from '@angular/core';
 import { RoomService } from '../room-service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -26,7 +26,7 @@ import { FacultyNamePipe } from '../../../core/shared/pipes/faculty-name-pipe';
   ],
 })
 
-export class RoomTable {
+export class RoomTable implements OnInit {
   roomService = inject(RoomService);
   facultyService = inject(FacultyService);
   facultyMap = new Map<string, string>();
@@ -41,7 +41,7 @@ export class RoomTable {
 
   data$ = this.roomService.getRooms();
 
-  ngOnInit() {
+  ngOnInit(): void{
     this.loadFaculties();
   }
 

@@ -1,17 +1,16 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { map, Observable, Subject, switchMap } from 'rxjs';
 import { MajorElm } from '../../core/interfaces/major-elm';
-import {environment} from '../../../environments/environment';
 import {API_ENDPOINTS} from '../../config/endpoints';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MajorService {
-  refreshNeeded = new Subject<void>();
+  private http = inject(HttpClient);
 
-  constructor(private http: HttpClient) {}
+  refreshNeeded = new Subject<void>();
 
   getMajors(): Observable<MajorElm[]> {
     return this.http.get<MajorElm[]>(API_ENDPOINTS.majors).pipe(
