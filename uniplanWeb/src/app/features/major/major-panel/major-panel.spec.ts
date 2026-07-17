@@ -9,8 +9,8 @@ import { MajorService } from '../major-service';
 import { MajorTable } from '../major-table/major-table';
 import { MajorFilters } from '../major-filters/major-filters';
 import { FacultyService } from '../../faculty/faculty-service';
-import { MajorElm } from '../../../core/interfaces/major-elm';
-import { FacultyElm } from '../../../core/interfaces/faculty-elm';
+import { Major } from '../../../core/interfaces/major';
+import { Faculty } from '../../../core/interfaces/faculty';
 
 describe('MajorPanel', () => {
   let component: MajorPanel;
@@ -19,7 +19,7 @@ describe('MajorPanel', () => {
   let facultyServiceSpy: jasmine.SpyObj<FacultyService>;
   let dialogSpy: jasmine.SpyObj<MatDialog>;
 
-  const faculty: FacultyElm = {
+  const faculty: Faculty = {
     id: 'f1',
     facultyName: 'Faculty of Engineering',
     location: 'Sofia',
@@ -27,7 +27,7 @@ describe('MajorPanel', () => {
     position: 1,
   };
 
-  const major: MajorElm = {
+  const major: Major = {
     id: 'm1',
     courseId: 'c1',
     facultyId: 'f1',

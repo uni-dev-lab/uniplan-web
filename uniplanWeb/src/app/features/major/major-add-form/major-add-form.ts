@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MajorService } from '../major-service';
-import { FacultyElm } from '../../../core/interfaces/faculty-elm';
+import { Faculty } from '../../../core/interfaces/faculty';
 import { FacultyService } from '../../faculty/faculty-service';
 import { TranslatePipe } from '@ngx-translate/core';
 
@@ -38,7 +38,7 @@ export class MajorAddForm implements OnInit {
   type = '';
   subtype = '';
 
-  faculties: FacultyElm[] = [];
+  faculties: Faculty[] = [];
 
   ngOnInit(): void {
     this.facultyService.getFaculties().subscribe({

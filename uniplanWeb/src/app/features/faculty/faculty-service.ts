@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { map, Observable, Subject } from 'rxjs';
-import { FacultyElm } from '../../core/interfaces/faculty-elm';
+import { Faculty } from '../../core/interfaces/faculty';
 import {API_ENDPOINTS} from '../../config/endpoints';
 
 @Injectable({
@@ -12,8 +12,8 @@ export class FacultyService {
 
    refreshNeeded = new Subject<void>();
 
-  getFaculties(): Observable<FacultyElm[]> {
-    return this.http.get<FacultyElm[]>(API_ENDPOINTS.faculties).pipe(
+  getFaculties(): Observable<Faculty[]> {
+    return this.http.get<Faculty[]>(API_ENDPOINTS.faculties).pipe(
       map((faculties) =>
         faculties.map((faculty, index) => ({
           id: faculty.id,

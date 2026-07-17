@@ -2,7 +2,7 @@ import { Component, ChangeDetectionStrategy, signal, inject, OnInit } from '@ang
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
-import { FacultyElm } from '../../../core/interfaces/faculty-elm';
+import { Faculty } from '../../../core/interfaces/faculty';
 import { FacultyService } from '../faculty-service';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { FacultyEdit } from '../faculty-edit/faculty-edit';
@@ -32,7 +32,7 @@ export class FacultyTable implements OnInit {
     'location',
     'actions',
   ];
-  dataSource = signal<FacultyElm[]>([]);
+  dataSource = signal<Faculty[]>([]);
 
   ngOnInit(): void {
     this.loadFaculties();
@@ -48,7 +48,7 @@ export class FacultyTable implements OnInit {
     });
   }
 
-  onEdit(element: FacultyElm): void {
+  onEdit(element: Faculty): void {
     this.dialog.open(FacultyEdit, {
       data: {
         id: element.id,
@@ -59,7 +59,7 @@ export class FacultyTable implements OnInit {
     });
   }
 
-  onDelete(element: FacultyElm): void {
+  onDelete(element: Faculty): void {
     this.dialog.open(FacultyDeleteForm, {
       data: {
         id: element.id,

@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable, shareReplay } from 'rxjs';
 import { RoomViewModel } from '../../core/interfaces/room-view-model';
-import { RoomElm } from '../../core/interfaces/room-elm';
+import { Room } from '../../core/interfaces/room';
 
 
 @Injectable({
@@ -15,7 +15,7 @@ export class RoomService {
     http = inject(HttpClient);
 
     getRooms(): Observable<RoomViewModel[]> {
-        return this.http.get<RoomElm[] | null>(this.apiUrl).pipe(
+        return this.http.get<Room[] | null>(this.apiUrl).pipe(
             map(rooms => rooms ?? []),
             map(rooms =>
                 rooms.map((room, index) => ({

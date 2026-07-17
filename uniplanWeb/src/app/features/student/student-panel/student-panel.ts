@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { StudentElm } from '../../../core/interfaces/student-elm';
+import { Student} from '../../../core/interfaces/student';
 import { StudentOptions } from '../student-options/student-options';
 import { StudentFilters } from '../student-filters/student-filters';
 import { StudentTable, ELEMENT_STUDENT_DATA } from '../student-table/student-table';
@@ -19,7 +19,7 @@ export class StudentPanel implements OnInit {
   studentSubtypes: string[] = [];
 
   ngOnInit(): void {
-    const students: StudentElm[] = ELEMENT_STUDENT_DATA;
+    const students: Student[] = ELEMENT_STUDENT_DATA;
     this.studentSubtypes = StudentTable.getFilterOptions(students).subtypes;
   }
 }

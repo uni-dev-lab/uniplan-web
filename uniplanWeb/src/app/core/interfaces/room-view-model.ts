@@ -1,5 +1,5 @@
-import { RoomElm } from "./room-elm";
+import { Room } from "./room";
 
-export interface RoomViewModel extends RoomElm {
+export interface RoomViewModel extends Room {
     position: number;
 }

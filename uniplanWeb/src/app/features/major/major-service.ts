@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { map, Observable, Subject, switchMap } from 'rxjs';
-import { MajorElm } from '../../core/interfaces/major-elm';
+import { Major } from '../../core/interfaces/major';
 import {API_ENDPOINTS} from '../../config/endpoints';
 
 @Injectable({
@@ -12,8 +12,8 @@ export class MajorService {
 
   refreshNeeded = new Subject<void>();
 
-  getMajors(): Observable<MajorElm[]> {
-    return this.http.get<MajorElm[]>(API_ENDPOINTS.majors).pipe(
+  getMajors(): Observable<Major[]> {
+    return this.http.get<Major[]>(API_ENDPOINTS.majors).pipe(
       map((majors) =>
         majors.map((major, index) => ({
           id: major.id,
@@ -87,7 +87,7 @@ export class MajorService {
     return this.http.delete(`${API_ENDPOINTS.courses}/${courseId}`);
   }
 
-  deleteMajorWithCourse(major: MajorElm): Observable<any> {
+  deleteMajorWithCourse(major: Major): Observable<any> {
     return this.deleteCourse(major.courseId).pipe(
       switchMap(() => this.deleteMajor(major.id))
     );

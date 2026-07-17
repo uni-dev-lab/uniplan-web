@@ -1,4 +1,4 @@
-export interface StudentElm {
+export interface Student {
   position: number;
   name: string;
   facultyNumber: string;
