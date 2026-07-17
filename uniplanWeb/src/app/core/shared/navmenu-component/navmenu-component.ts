@@ -15,7 +15,7 @@ import { LoginAuthService } from '../../../services/login-auth-service';
 })
 export class NavmenuComponent implements OnInit {
   protected isMobileView = window.innerWidth <= 768;
-  protected isSidebarCollapsed = this.isMobileView;
+  protected isSidebarCollapsed = false;
 
   constructor(protected authService: LoginAuthService) {}
 
@@ -35,17 +35,12 @@ export class NavmenuComponent implements OnInit {
     }
     if (!this.isMobileView) {
       this.isSidebarCollapsed = false;
+
+
     }
   }
 
   protected toggleSidebar(): void {
     this.isSidebarCollapsed = !this.isSidebarCollapsed;
-  }
-
-  protected onSidebarContentClick(event: MouseEvent): void {
-    const clickedLink = (event.target as HTMLElement).closest('a');
-    if (this.isMobileView && !this.isSidebarCollapsed && clickedLink) {
-      this.isSidebarCollapsed = true;
-    }
   }
 }

@@ -6,10 +6,6 @@
   grid-template-columns: minmax(0, 1fr) minmax(0, max-content);
   gap: 1.5rem;
   margin-top: 1.5rem;
-
-  @media screen and (max-width: 768px) {
-    grid-template-columns: 1fr;
-  }
 }
 
 .settings-card {
@@ -19,10 +15,6 @@
   background: #fff;
   min-width: 0;
   min-height: 14rem;
-
-  @media screen and (max-width: 768px) {
-    min-height: 0;
-  }
 
   h2 {
     margin-bottom: 1rem;
