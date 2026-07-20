@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { translateTestingProviders } from '@testing/translate-testing';
 import { RoomPanel } from './room-panel';
-import { translateTestingProviders } from '@testing/translate-testing';
 
 describe('RoomPanel', () => {
   let component: RoomPanel;
