@@ -1,4 +1,4 @@
-import { Component, inject, ChangeDetectionStrategy, DestroyRef, signal, OnInit } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy, DestroyRef, OnInit } from '@angular/core';
 import { RoomService } from '../room-service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -28,10 +28,9 @@ import { startWith, switchMap } from 'rxjs';
 })
 
 export class RoomTable implements OnInit {
-  private roomService = inject(RoomService);
-
-  private facultyService = inject(FacultyService);
-
+  roomService = inject(RoomService);
+  facultyService = inject(FacultyService);
+  facultyMap = new Map<string, string>();
   private destroyRef = inject(DestroyRef);
 
   facultyMap = signal<Map<string, string>>(new Map());
@@ -43,7 +42,9 @@ export class RoomTable implements OnInit {
     'actions',
   ];
 
-  ngOnInit() {
+  data$ = this.roomService.getRooms();
+
+  ngOnInit(): void{
     this.loadFaculties();
   }
 
