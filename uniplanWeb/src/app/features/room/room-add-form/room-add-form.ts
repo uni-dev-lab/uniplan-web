@@ -48,10 +48,6 @@ export class RoomAddForm implements OnInit {
   });
 
   ngOnInit(): void {
-     this.openSnackBar(
-            this.translate.instant('faculty.load.failed'),
-            this.translate.instant('shared.close-btn')
-          );
     this.facultyService.getFaculties()
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
@@ -68,11 +64,11 @@ export class RoomAddForm implements OnInit {
       });
   }
 
-  openSnackBar(message: string, action: string) {
+  openSnackBar(message: string, action: string): void {
     this._snackBar.open(message, action);
   }
 
-  save() {
+  save(): void {
     if (this.addForm.invalid || this.isSubmitting) {
       return;
     }

@@ -20,7 +20,7 @@ import { RoomAddForm } from '../room-add-form/room-add-form';
 })
 export class RoomOptions {
   private dialog = inject(MatDialog)
-  openAddForm() {
+  openAddForm() : void {
     this.dialog.open(RoomAddForm, {
       width: '400px',
     });
