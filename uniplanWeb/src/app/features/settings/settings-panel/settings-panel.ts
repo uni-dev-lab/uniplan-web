@@ -3,8 +3,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Observable } from 'rxjs';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { StudentProfileElm } from '../../../core/interfaces/student-profile-elm';
-import { LectorProfileElm } from '../../../core/interfaces/lector-profile-elm';
+import { StudentProfile } from '../../../core/interfaces/student-profile';
+import { LectorProfile } from '../../../core/interfaces/lector-profile';
 import { SettingsService } from '../settings-service';
 import { DEFAULT_LANGUAGE, LANGUAGE_STORAGE_KEY } from '../../../config/language';
 
@@ -23,8 +23,8 @@ export class SettingsPanel implements OnInit {
 
   currentRole: 'student' | 'lector' = 'student';
 
-  studentProfile: StudentProfileElm | null = null;
-  lectorProfile: LectorProfileElm | null = null;
+  studentProfile: StudentProfile | null = null;
+  lectorProfile: LectorProfile | null = null;
 
   loading = true;
   loadError = false;

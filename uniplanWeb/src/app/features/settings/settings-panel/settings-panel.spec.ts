@@ -4,8 +4,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { translateTestingProviders } from '@testing/translate-testing';
 import { SettingsPanel } from './settings-panel';
 import { SettingsService } from '../settings-service';
-import { StudentProfileElm } from '../../../core/interfaces/student-profile-elm';
-import { LectorProfileElm } from '../../../core/interfaces/lector-profile-elm';
+import { StudentProfile } from '../../../core/interfaces/student-profile';
+import { LectorProfile } from '../../../core/interfaces/lector-profile';
 
 describe('SettingsPanel', () => {
   let component: SettingsPanel;
@@ -13,8 +13,8 @@ describe('SettingsPanel', () => {
   let settingsServiceSpy: jasmine.SpyObj<SettingsService>;
 
   const buildProfile = (
-    overrides: Partial<StudentProfileElm> = {}
-  ): StudentProfileElm => ({
+    overrides: Partial<StudentProfile> = {}
+  ): StudentProfile => ({
     id: '1',
     name: 'Ivan Ivanov',
     facultyNumber: '123456',
@@ -27,8 +27,8 @@ describe('SettingsPanel', () => {
   });
 
   const buildLectorProfile = (
-    overrides: Partial<LectorProfileElm> = {}
-  ): LectorProfileElm => ({
+    overrides: Partial<LectorProfile> = {}
+  ): LectorProfile => ({
     id: 'l1',
     facultyId: 'f1',
     email: 'georgi.goshov@uni.bg',

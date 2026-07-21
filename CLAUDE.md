@@ -44,7 +44,7 @@ Each feature service (e.g. [faculty-service.ts](uniplanWeb/src/app/features/facu
 
 ### Folder layout
 
-- `src/app/core/interfaces/` — domain types named `<entity>-elm.ts` exporting `<Entity>Elm` (e.g. `MajorElm`). One exception: `UniversityElm` is co-located inside [university-service.ts](uniplanWeb/src/app/features/university/university-service.ts).
+- `src/app/core/interfaces/` — domain types named `<entity>.ts` exporting `<Entity>` (e.g. `student-profile.ts` → `StudentProfile`, `lector-profile.ts` → `LectorProfile`). One exception: `UniversityElm` is co-located inside [university-service.ts](uniplanWeb/src/app/features/university/university-service.ts).
 - `src/app/core/shared/` — reusable UI shells: `add-button`, `add-form`, `edit-form`, `delete-form`, `filters-form`, `input-filter`, `main-panel` (with its `table` child), `navmenu-component`. Feature-specific forms wrap these via `imports` and an `@Output() saveClicked` event.
 - `src/app/features/{faculty,major,student,university}/` — each feature owns its `*-service.ts` plus `*-options`, `*-table`, `*-add-form`, `*-edit-form`, `*-delete-form`, `*-filters` components. Note the `*-service.ts` naming (with hyphen) is non-default Angular style — keep it consistent if you add a new service in this layer.
 - `src/app/services/` — cross-cutting services. Currently just [login-auth-service.ts](uniplanWeb/src/app/services/login-auth-service.ts), which is a `localStorage`-backed stub (no real auth).

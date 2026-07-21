@@ -1,4 +1,4 @@
-export interface LectorProfileElm {
+export interface LectorProfile {
   id: string;
   facultyId: string;
   email: string;

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { StudentProfileElm } from '../../core/interfaces/student-profile-elm';
-import { LectorProfileElm } from '../../core/interfaces/lector-profile-elm';
+import { StudentProfile } from '../../core/interfaces/student-profile';
+import { LectorProfile } from '../../core/interfaces/lector-profile';
 
-const MOCK_STUDENT_PROFILE: StudentProfileElm = {
+const MOCK_STUDENT_PROFILE: StudentProfile = {
   id: '00000000-0000-0000-0000-000000000000',
   name: 'Иван Иванов',
   facultyNumber: '123456',
@@ -14,7 +14,7 @@ const MOCK_STUDENT_PROFILE: StudentProfileElm = {
   courseYear: 3,
 };
 
-const MOCK_LECTOR_PROFILE: LectorProfileElm = {
+const MOCK_LECTOR_PROFILE: LectorProfile = {
   id: '00000000-0000-0000-0000-000000000002',
   facultyId: '00000000-0000-0000-0000-000000000003',
   email: 'georgi.goshov@uni.bg',
@@ -26,11 +26,11 @@ const MOCK_LECTOR_PROFILE: LectorProfileElm = {
   providedIn: 'root',
 })
 export class SettingsService {
-  getCurrentStudent(): Observable<StudentProfileElm> {
+  getCurrentStudent(): Observable<StudentProfile> {
     return of(MOCK_STUDENT_PROFILE);
   }
 
-  getCurrentLector(): Observable<LectorProfileElm> {
+  getCurrentLector(): Observable<LectorProfile> {
     return of(MOCK_LECTOR_PROFILE);
   }
 }
