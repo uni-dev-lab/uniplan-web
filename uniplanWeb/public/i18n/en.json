@@ -13,7 +13,11 @@
     },
     "room": {
         "room-number": "Room number",
-        "no-rooms": "No rooms"
+        "no-rooms": "No rooms",
+        "add": {
+            "title": "Add room",
+            "failed": "Failed to add room."
+        }
     },
     "faculty": {
         "delete-button": "Delete",
@@ -25,6 +29,9 @@
         },
         "edit": {
             "title": "Edit faculty"
+        },
+        "load":{
+            "failed":"Failed to load faculties"
         }
     },
     "major": {
@@ -60,7 +67,8 @@
         "save-button": "Save",
         "delete-button": "Delete",
         "option-all": "All",
-        "confirm-delete": "Confirm deletion"
+        "confirm-delete": "Confirm deletion",
+        "close-btn": "Close"
     },
     "home": {
         "title": "Main!"
