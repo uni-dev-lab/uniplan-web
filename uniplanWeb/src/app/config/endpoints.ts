@@ -7,4 +7,5 @@ export const API_ENDPOINTS = {
   majors: `${environment.baseUrl}/majors`,
   students: `${environment.baseUrl}/students`,
   lectors: `${environment.baseUrl}/lectors`,
+  rooms: `${environment.baseUrl}/rooms`,
 };
