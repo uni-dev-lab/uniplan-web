@@ -1,4 +1,4 @@
-import { Component, inject, ChangeDetectionStrategy, DestroyRef, OnInit, signal } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy, DestroyRef, OnInit } from '@angular/core';
 import { RoomService } from '../room-service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -9,7 +9,6 @@ import { CommonModule } from '@angular/common';
 import { FacultyService } from '../../faculty/faculty-service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FacultyNamePipe } from '../../../core/shared/pipes/faculty/faculty-name-pipe';
-import { startWith, switchMap } from 'rxjs';
 import { CategoryDisplayPipe } from '../../../core/shared/pipes/category/category-display-pipe';
 import { CategoryService } from '../../../services/category/category-service';
 
