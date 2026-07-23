@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MajorAddForm } from '../major-add-form/major-add-form';
 
@@ -20,9 +20,9 @@ import { AddButton } from '../../../core/shared/add-button/add-button';
   styleUrl: './major-options.scss',
 })
 export class MajorOptions {
-  constructor(private dialog: MatDialog) {}
+  private dialog = inject(MatDialog);
 
-  openAddForm() {
+  openAddForm(): void {
     this.dialog.open(MajorAddForm, {
       width: '400px',
     });

@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {API_ENDPOINTS} from '../../config/endpoints';
 
@@ -16,7 +16,7 @@ export interface UniversityElm {
   providedIn: 'root',
 })
 export class UniversityService {
-  constructor(private http: HttpClient) {}
+  private http = inject(HttpClient);
 
   getAllUniversities(): Observable<UniversityElm[]> {
     return this.http.get<UniversityElm[]>(API_ENDPOINTS.universities);

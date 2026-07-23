@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, HostListener, OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -14,17 +14,17 @@ import { LoginAuthService } from '../../../services/login/login-auth-service';
   styleUrls: ['./navmenu-component.scss'],
 })
 export class NavmenuComponent implements OnInit {
+  public authService = inject(LoginAuthService);
+
   isSidebarCollapsed = false;
   isMobileView = window.innerWidth <= 768;
-
-  constructor(public authService: LoginAuthService) {}
 
   ngOnInit(): void {
     this.checkViewport();
   }
 
-  @HostListener('window:resize', ['$event'])
-  onResize(event: Event): void {
+  @HostListener('window:resize')
+  onResize(): void {
     this.checkViewport();
   }
 
