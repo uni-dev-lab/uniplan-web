@@ -14,7 +14,7 @@ export class RoomService {
 
     private http = inject(HttpClient);
 
-    getRooms(): Observable<RoomViewModel[]> {
+    getRooms(): Observable<RoomElm[]> {
         return this.http.get<RoomElm[] | null>(API_ENDPOINTS.rooms).pipe(
             map(rooms => rooms ?? []),
             map(rooms =>

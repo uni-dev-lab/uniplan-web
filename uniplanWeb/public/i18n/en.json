@@ -14,7 +14,7 @@
     "room": {
         "room-number": "Room number",
         "no-rooms": "No rooms",
-        "category-label": "Room Type/Capacity"
+        "category-label": "Room Type/Capacity",
         "add": {
             "title": "Add room",
             "failed": "Failed to add room."

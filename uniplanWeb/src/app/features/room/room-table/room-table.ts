@@ -8,8 +8,10 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { CommonModule } from '@angular/common';
 import { FacultyService } from '../../faculty/faculty-service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { FacultyNamePipe } from '../../../core/shared/pipes/faculty-name-pipe';
+import { FacultyNamePipe } from '../../../core/shared/pipes/faculty/faculty-name-pipe';
 import { startWith, switchMap } from 'rxjs';
+import { CategoryDisplayPipe } from '../../../core/shared/pipes/category/category-display-pipe';
+import { CategoryService } from '../../../services/category/category-service';
 
 @Component({
   selector: 'app-room-table',
@@ -49,16 +51,13 @@ export class RoomTable implements OnInit {
     this.loadCategories();
   }
 
-  data$ = this.roomService.refreshNeeded.pipe(
-    startWith(void 0),
-    switchMap(() => this.roomService.getRooms())
-  );
+  data$ = this.roomService.getRooms();
 
   loadFaculties(): void {
     this.facultyService.getFaculties()
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((faculties) => {
-        this.facultyMap.set(new Map(faculties.map((f) => [f.id, f.facultyName])));
+        this.facultyMap = new Map(faculties.map((f) => [f.id, f.facultyName]));
       });
   }
 
