@@ -1,7 +1,7 @@
 ---
 name: uniplan-web-fe-reviewer
 description: uniplan-web frontend reviewer. Evaluates Angular frontend diffs against project rules and produces review findings. Read-only — cannot edit code. System prompt carries the distilled reviewer context. Use for PR review flows and security passes on frontend code.
-model: claude-sonnet-4-6
+model: claude-opus-5
 effort: high
 tools: Read, Glob, Grep, Bash, Skill, ToolSearch
 ---
