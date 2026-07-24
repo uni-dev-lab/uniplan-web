@@ -1,11 +1,7 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { AddForm } from '../../../core/shared/add-form/add-form';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import {
-  MatFormField,
-  MatInputModule,
-  MatLabel,
-} from '@angular/material/input';
+import { MatFormField, MatInputModule, MatLabel } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { TranslatePipe } from '@ngx-translate/core';
 
@@ -25,6 +21,8 @@ import { TranslatePipe } from '@ngx-translate/core';
   ],
 })
 export class StudentAddForm {
+  private dialogRef = inject<MatDialogRef<AddForm>>(MatDialogRef);
+
   studentName = '';
   facultyNumber = '';
   faculty = '';
@@ -32,9 +30,7 @@ export class StudentAddForm {
   course = '';
   type = '';
 
-  constructor(private dialogRef: MatDialogRef<AddForm>) { }
-
-  save() {
+  save(): void {
     if (!this.studentName.trim()) {
       alert('Please enter student name.');
       return;

@@ -14,7 +14,11 @@
     },
     "room": {
         "room-number": "Room number",
-        "no-rooms": "No rooms"
+        "no-rooms": "No rooms",
+        "add": {
+            "title": "Add room",
+            "failed": "Failed to add room."
+        }
     },
     "faculty": {
         "delete-button": "Delete",
@@ -26,6 +30,9 @@
         },
         "edit": {
             "title": "Edit faculty"
+        },
+        "load":{
+            "failed":"Failed to load faculties"
         }
     },
   "lector": {
@@ -81,6 +88,7 @@
         "confirm-delete": "Confirm deletion",
         "required-field": "This field is required",
         "invalid-email": "Enter a valid email address"
+        "close-btn": "Close"
     },
     "home": {
         "title": "Main!"

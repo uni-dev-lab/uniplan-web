@@ -1,16 +1,16 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { map, Observable, Subject } from 'rxjs';
+import { inject, Injectable } from '@angular/core';
+import { map, Observable, Subject, tap } from 'rxjs';
 import { FacultyElm } from '../../core/interfaces/faculty-elm';
-import {API_ENDPOINTS} from '../../config/endpoints';
+import { API_ENDPOINTS } from '../../config/endpoints';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FacultyService {
-  refreshNeeded = new Subject<void>();
+   private http = inject(HttpClient);
 
-  constructor(private http: HttpClient) {}
+   refreshNeeded = new Subject<void>();
 
   getFaculties(): Observable<FacultyElm[]> {
     return this.http.get<FacultyElm[]>(API_ENDPOINTS.faculties).pipe(
@@ -30,9 +30,9 @@ export class FacultyService {
     universityId: string;
     facultyName: string;
     location: string;
-  }): Observable<any> {
-    return this.http.post(`${API_ENDPOINTS.faculties}`, faculty).pipe(
-      map((res) => {
+  }): Observable<void> {
+    return this.http.post<void>(`${API_ENDPOINTS.faculties}`, faculty).pipe(
+      tap((res) => {
         this.refreshNeeded.next();
         return res;
       })
@@ -46,18 +46,18 @@ export class FacultyService {
       facultyName: string;
       location: string;
     }
-  ): Observable<any> {
-    return this.http.put(`${API_ENDPOINTS.faculties}/${id}`, updatedFaculty).pipe(
-      map((res) => {
+  ): Observable<void> {
+    return this.http.put<void>(`${API_ENDPOINTS.faculties}/${id}`, updatedFaculty).pipe(
+      tap((res) => {
         this.refreshNeeded.next();
         return res;
       })
     );
   }
 
-  deleteFaculty(id: string): Observable<any> {
-    return this.http.delete(`${API_ENDPOINTS.faculties}/${id}`).pipe(
-      map((res) => {
+  deleteFaculty(id: string): Observable<void> {
+    return this.http.delete<void>(`${API_ENDPOINTS.faculties}/${id}`).pipe(
+      tap((res) => {
         this.refreshNeeded.next();
         return res;
       })

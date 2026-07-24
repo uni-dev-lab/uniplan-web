@@ -16,6 +16,10 @@ import { MajorService } from '../major-service';
   styleUrl: './major-panel.scss'
 })
 export class MajorPanel implements OnInit {
+  private majorService = inject(MajorService);
+  private facultyService = inject(FacultyService);
+  private destroyRef: DestroyRef = inject(DestroyRef);
+
   searchText: string = '';
   selectedFaculty: string = '';
   selectedType: string = '';
@@ -27,12 +31,6 @@ export class MajorPanel implements OnInit {
 
   private majors: MajorElm[] = [];
   private facultyMap: Map<string, string> = new Map<string, string>();
-  private destroyRef: DestroyRef = inject(DestroyRef);
-
-  constructor(
-    private majorService: MajorService,
-    private facultyService: FacultyService
-  ) {}
 
   ngOnInit(): void {
     const facultyMap$ = merge(of(undefined), this.facultyService.refreshNeeded).pipe(

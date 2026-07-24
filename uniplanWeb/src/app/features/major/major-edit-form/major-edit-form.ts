@@ -1,11 +1,7 @@
-import { Component, Inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
 import { EditForm } from '../../../core/shared/edit-form/edit-form';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
-import {
-  MAT_DIALOG_DATA,
-  MatDialogModule,
-  MatDialogRef,
-} from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
@@ -32,24 +28,23 @@ import { TranslatePipe } from '@ngx-translate/core';
     TranslatePipe],
 })
 export class MajorEditForm implements OnInit {
+  private dialogRef = inject<MatDialogRef<EditForm>>(MatDialogRef);
+  private majorService = inject(MajorService);
+  private facultyService = inject(FacultyService);
+  public data = inject<{
+    id: string;
+    majorName: string;
+    facultyId?: string;
+  }>(MAT_DIALOG_DATA);
+
   majorName = '';
   facultyId = '';
 
   faculties: FacultyElm[] = [];
 
-  constructor(
-    private dialogRef: MatDialogRef<EditForm>,
-    private majorService: MajorService,
-    private facultyService: FacultyService,
-    @Inject(MAT_DIALOG_DATA)
-    public data: {
-      id: string;
-      majorName: string;
-      facultyId?: string;
-    }
-  ) {
-    this.majorName = data.majorName;
-    this.facultyId = data.facultyId || '';
+  constructor() {
+    this.majorName = this.data.majorName;
+    this.facultyId = this.data.facultyId || '';
   }
 
   ngOnInit(): void {
@@ -59,7 +54,7 @@ export class MajorEditForm implements OnInit {
     });
   }
 
-  save() {
+  save(): void  {
     if (!this.majorName.trim()) {
       alert('Please enter the major name.');
       return;
