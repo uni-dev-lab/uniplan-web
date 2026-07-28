@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable,map  } from 'rxjs';
-import { CategoryElm } from '../../core/interfaces/category-elm';
+import { Category } from '../../core/interfaces/category';
 import { API_ENDPOINTS } from '../../config/endpoints';
 
 @Injectable({
@@ -11,8 +11,8 @@ import { API_ENDPOINTS } from '../../config/endpoints';
 export class CategoryService {
   http = inject(HttpClient);
 
-  getCategories(): Observable<CategoryElm[]> {
-    return this.http.get<CategoryElm[]>(API_ENDPOINTS.categories).pipe(
+  getCategories(): Observable<Category[]> {
+    return this.http.get<Category[]>(API_ENDPOINTS.categories).pipe(
       map((categories) =>
         categories.map((category, index) => ({
           id: category.id,

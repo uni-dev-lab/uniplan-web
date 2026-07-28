@@ -11,7 +11,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FacultyNamePipe } from '../../../core/shared/pipes/faculty/faculty-name-pipe';
 import { CategoryDisplayPipe } from '../../../core/shared/pipes/category/category-display-pipe';
 import { CategoryService } from '../../../services/category/category-service';
-
+import { startWith, switchMap } from 'rxjs';
 @Component({
   selector: 'app-room-table',
   templateUrl: './room-table.html',
@@ -50,7 +50,10 @@ export class RoomTable implements OnInit {
     this.loadCategories();
   }
 
-  data$ = this.roomService.getRooms();
+  data$ = this.roomService.refreshNeeded.pipe(
+    startWith(void 0),
+    switchMap(() => this.roomService.getRooms())
+  );
 
   loadFaculties(): void {
     this.facultyService.getFaculties()
