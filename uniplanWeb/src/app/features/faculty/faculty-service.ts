@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { map, Observable, Subject } from 'rxjs';
+import { map, Observable, Subject, tap } from 'rxjs';
 import { Faculty } from '../../core/interfaces/faculty';
 import {API_ENDPOINTS} from '../../config/endpoints';
 

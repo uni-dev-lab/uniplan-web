@@ -32,8 +32,8 @@ export class MajorService {
   createMajor(createMajor: {
     facultyId: string;
     majorName: string;
-  }): Observable<MajorElm> {
-    return this.http.post<MajorElm>(`${API_ENDPOINTS.majors}`, createMajor).pipe(
+  }): Observable<Major> {
+    return this.http.post<Major>(`${API_ENDPOINTS.majors}`, createMajor).pipe(
       map((res) => {
         this.refreshNeeded.next();
         return res;
@@ -98,8 +98,8 @@ export class MajorService {
   editMajor(
     id: string,
     updateMajor: { facultyId: string; majorName: string }
-  ): Observable<MajorElm> {
-    return this.http.put<MajorElm>(`${API_ENDPOINTS.majors}/${id}`, updateMajor).pipe(
+  ): Observable<Major> {
+    return this.http.put<Major>(`${API_ENDPOINTS.majors}/${id}`, updateMajor).pipe(
       tap((res) => {
         this.refreshNeeded.next();
         return res;
