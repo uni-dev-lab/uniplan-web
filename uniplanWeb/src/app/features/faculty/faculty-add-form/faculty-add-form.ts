@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
@@ -32,16 +32,14 @@ import { TranslatePipe } from '@ngx-translate/core';
   styleUrl: './faculty-add-form.scss',
 })
 export class FacultyAddForm implements OnInit {
+  private dialogRef = inject<MatDialogRef<AddForm>>(MatDialogRef);
+  private facultyService = inject(FacultyService);
+  private universityService = inject(UniversityService);
+
   facultyName = '';
   location = '';
   universityId = '';
   universities: UniversityElm[] = [];
-
-  constructor(
-    private dialogRef: MatDialogRef<AddForm>,
-    private facultyService: FacultyService,
-    private universityService: UniversityService
-  ) { }
 
   ngOnInit(): void {
     this.universityService.getAllUniversities().subscribe({
@@ -54,7 +52,7 @@ export class FacultyAddForm implements OnInit {
     });
   }
 
-  save() {
+  save(): void {
     if (!this.facultyName.trim()) {
       alert('Please enter faculty name.');
       return;

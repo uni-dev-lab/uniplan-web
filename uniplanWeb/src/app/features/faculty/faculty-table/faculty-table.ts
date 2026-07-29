@@ -1,5 +1,4 @@
-
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, signal, inject, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
@@ -23,19 +22,17 @@ import { TranslatePipe } from '@ngx-translate/core';
     TranslatePipe
     ],
 })
-export class FacultyTable {
+export class FacultyTable implements OnInit {
+  private facultyService = inject(FacultyService);
+  private dialog = inject(MatDialog);
+
   displayedColumns: string[] = [
     'position',
     'facultyName',
     'location',
     'actions',
   ];
-  dataSource: FacultyElm[] = [];
-
-  constructor(
-    private facultyService: FacultyService,
-    private dialog: MatDialog
-  ) { }
+  dataSource = signal<FacultyElm[]>([]);
 
   ngOnInit(): void {
     this.loadFaculties();
@@ -47,7 +44,7 @@ export class FacultyTable {
 
   loadFaculties(): void {
     this.facultyService.getFaculties().subscribe((data) => {
-      this.dataSource = data;
+      this.dataSource.set(data);
     });
   }
 

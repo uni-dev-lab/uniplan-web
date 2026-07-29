@@ -6,7 +6,18 @@
     "type-label": "Тип",
     "study-mode-label": "Форма на обучение",
     "major-label": "Специалност",
-    "location-label": "Местоположение"
+    "location-label": "Местоположение",
+    "number-label": "No.",
+    "edit": "Редактирай",
+    "delete": "Изтрий"
+  },
+  "room": {
+    "room-number": "Номер на стая",
+    "no-rooms": "Няма записани стаи",
+    "add": {
+      "title": "Добави стая",
+      "failed": "Неуспешно добавяне на стаята."
+    }
   },
   "faculty": {
     "delete-button": "Изтрий",
@@ -18,6 +29,9 @@
     },
     "edit": {
       "title": "Редактирай факултет"
+    },
+    "load":{
+      "failed":"Неуспешно зареждане на факултети"
     }
   },
   "major": {
@@ -53,7 +67,8 @@
     "save-button": "Запази",
     "delete-button": "Изтрий",
     "option-all": "Всички",
-    "confirm-delete": "Потвърдете изтриването"
+    "confirm-delete": "Потвърдете изтриването",
+    "close-btn": "Затвори"
   },
   "home": {
     "title": "Начало!"
