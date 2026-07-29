@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import {FormsModule} from '@angular/forms';
 import {LoginAuthService} from '../../../services/login-auth-service';
-import {ViewService} from '../../../core/shared/main-panel/view.service';
 
 @Component({
   selector: 'app-login-form',
@@ -15,7 +15,7 @@ export class LoginForm {
   protected errorMessage: string = '';
 
   private readonly authService: LoginAuthService = inject(LoginAuthService);
-  private readonly viewService: ViewService = inject(ViewService);
+  private readonly router = inject(Router);
 
   protected login(event: Event): void {
     this.errorMessage = '';
@@ -37,7 +37,7 @@ export class LoginForm {
       return;
     }
 
-    this.viewService.setView('home');
+    this.router.navigate(['/']);
   }
 
   protected onUsernameChange(event: Event): void {

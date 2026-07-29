@@ -1,9 +1,8 @@
-import { Component, HostListener, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, HostListener, OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 
-import { ViewService } from '../../main-panel/view.service';
 import { LoginAuthService } from '../../../services/login-auth-service';
 
 @Component({
@@ -18,7 +17,8 @@ export class NavmenuComponent implements OnInit {
   isSidebarCollapsed = false;
   isMobileView = window.innerWidth <= 768;
 
-  constructor(public authService: LoginAuthService) {}
+  protected readonly authService = inject(LoginAuthService);
+  private readonly router = inject(Router);
 
   ngOnInit(): void {
     this.checkViewport();
@@ -44,31 +44,31 @@ export class NavmenuComponent implements OnInit {
   }
 
   onHomeClick(): void {
-    this.viewService.setView('home');
+    this.router.navigate(['/']);
   }
 
   onFacultyClick(): void {
-    this.viewService.setView('faculty');
+    this.router.navigate(['/faculties]']);
   }
 
   onMajorClick(): void {
-    this.viewService.setView('major');
+    this.router.navigate(['/majors']);
   }
 
   onStudentClick(): void {
-    this.viewService.setView('student');
+    this.router.navigate(['/students']);
   }
 
   protected onLoginClick(): void {
-    this.viewService.setView('login');
+    this.router.navigate(['/login']);
   }
 
   protected onLogoutClick(): void {
     this.authService.logout();
-    this.viewService.setView('home');
+    this.router.navigate(['/']);
   }
 
   protected onProfileOpenClick(): void {
-    this.viewService.setView('home');
+    this.router.navigate(['/']);
   }
 }

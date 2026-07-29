@@ -1,7 +1,6 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import {Component, ChangeDetectionStrategy, inject, OnInit} from '@angular/core';
 
 import { FacultyOptions } from '../../../features/faculty/faculty-options/faculty-options';
-import { ViewService } from './view.service';
 import { MajorOptions } from '../../../features/major/major-options/major-options';
 import { FacultyTable } from '../../../features/faculty/faculty-table/faculty-table';
 import { MajorTable } from '../../../features/major/major-table/major-table';
@@ -13,9 +12,11 @@ import {
 } from '../../../features/student/student-table/student-table';
 import { StudentFilters } from '../../../features/student/student-filters/student-filters';
 import { MajorElm } from '../../interfaces/major-elm';
-import { MajorService } from '../../../features/major/major-service';
-import { FacultyService } from '../../../features/faculty/faculty-service';
 import { LoginForm } from '../../../features/login/login-form/login-form';
+import {LoginAuthService} from '../../../services/login-auth-service';
+import {Router} from '@angular/router';
+import {FacultyService} from '../../../features/faculty/faculty-service';
+import {MajorService} from '../../../features/major/major-service';
 
 @Component({
   selector: 'app-main-panel',
@@ -35,7 +36,7 @@ import { LoginForm } from '../../../features/login/login-form/login-form';
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './main-panel.scss',
 })
-export class MainPanel {
+export class MainPanel implements OnInit {
   currentView = 'home';
 
   majors: MajorElm[] = [];
@@ -57,15 +58,8 @@ export class MainPanel {
 
   private facultyMap = new Map<string, string>();
 
-  constructor(
-    private viewService: ViewService,
-    private majorService: MajorService,
-    private facultyService: FacultyService
-  ) {
-    this.viewService.currentView$.subscribe((view) => {
-      this.currentView = view;
-    });
-  }
+  private readonly majorService = inject(MajorService);
+  private readonly facultyService = inject(FacultyService);
 
   ngOnInit(): void {
     this.loadMajorFilters();
@@ -73,10 +67,6 @@ export class MainPanel {
 
     this.majorService.refreshNeeded.subscribe(() => {
       this.loadMajorFilters();
-    });
-
-    this.viewService.currentView$.subscribe((view) => {
-      this.currentView = view;
     });
   }
 
