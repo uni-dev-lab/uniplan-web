@@ -3,19 +3,20 @@ import { HttpClient } from '@angular/common/http';
 import { map, Observable, shareReplay } from 'rxjs';
 import { RoomViewModel } from '../../core/interfaces/room-view-model';
 import { Room } from '../../core/interfaces/room';
-
+import { Subject } from 'rxjs';
+import { API_ENDPOINTS } from '../../config/endpoints';
 
 @Injectable({
     providedIn: 'root'
 })
 
 export class RoomService {
-    private apiUrl = 'http://localhost:8080/api/rooms';
+    refreshNeeded = new Subject<void>();
 
-    http = inject(HttpClient);
+    private http = inject(HttpClient);
 
     getRooms(): Observable<RoomViewModel[]> {
-        return this.http.get<Room[] | null>(this.apiUrl).pipe(
+        return this.http.get<Room[] | null>(API_ENDPOINTS.rooms).pipe(
             map(rooms => rooms ?? []),
             map(rooms =>
                 rooms.map((room, index) => ({
@@ -26,6 +27,18 @@ export class RoomService {
                 }))
             ),
             shareReplay(1)
+        );
+    }
+
+    createRoom(room: {
+        roomNumber: string;
+        facultyId: string;
+    }): Observable<Room> {
+        return this.http.post<Room>(`${(API_ENDPOINTS.rooms)}`, room).pipe(
+            map((res) => {
+                this.refreshNeeded.next();
+                return res;
+            })
         );
     }
 }

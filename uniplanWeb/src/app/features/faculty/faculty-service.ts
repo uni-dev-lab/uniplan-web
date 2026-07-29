@@ -30,9 +30,9 @@ export class FacultyService {
     universityId: string;
     facultyName: string;
     location: string;
-  }): Observable<any> {
-    return this.http.post(`${API_ENDPOINTS.faculties}`, faculty).pipe(
-      map((res) => {
+  }): Observable<void> {
+    return this.http.post<void>(`${API_ENDPOINTS.faculties}`, faculty).pipe(
+      tap((res) => {
         this.refreshNeeded.next();
         return res;
       })
@@ -46,18 +46,18 @@ export class FacultyService {
       facultyName: string;
       location: string;
     }
-  ): Observable<any> {
-    return this.http.put(`${API_ENDPOINTS.faculties}/${id}`, updatedFaculty).pipe(
-      map((res) => {
+  ): Observable<void> {
+    return this.http.put<void>(`${API_ENDPOINTS.faculties}/${id}`, updatedFaculty).pipe(
+      tap((res) => {
         this.refreshNeeded.next();
         return res;
       })
     );
   }
 
-  deleteFaculty(id: string): Observable<any> {
-    return this.http.delete(`${API_ENDPOINTS.faculties}/${id}`).pipe(
-      map((res) => {
+  deleteFaculty(id: string): Observable<void> {
+    return this.http.delete<void>(`${API_ENDPOINTS.faculties}/${id}`).pipe(
+      tap((res) => {
         this.refreshNeeded.next();
         return res;
       })
