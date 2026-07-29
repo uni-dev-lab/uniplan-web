@@ -18,6 +18,7 @@ export class LoginForm {
   private readonly router = inject(Router);
 
   protected login(event: Event): void {
+    event.preventDefault();
     this.errorMessage = '';
 
     if (!this.username.trim()) {

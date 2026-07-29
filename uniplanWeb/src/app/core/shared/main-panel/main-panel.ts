@@ -13,8 +13,6 @@ import {
 import { StudentFilters } from '../../../features/student/student-filters/student-filters';
 import { MajorElm } from '../../interfaces/major-elm';
 import { LoginForm } from '../../../features/login/login-form/login-form';
-import {LoginAuthService} from '../../../services/login-auth-service';
-import {Router} from '@angular/router';
 import {FacultyService} from '../../../features/faculty/faculty-service';
 import {MajorService} from '../../../features/major/major-service';
 
