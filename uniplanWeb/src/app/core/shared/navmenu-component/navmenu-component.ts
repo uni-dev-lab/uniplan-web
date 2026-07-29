@@ -24,8 +24,8 @@ export class NavmenuComponent implements OnInit {
     this.checkViewport();
   }
 
-  @HostListener('window:resize', ['$event'])
-  onResize(event: Event): void {
+  @HostListener('window:resize')
+  onResize(): void {
     this.checkViewport();
   }
 
