@@ -1,8 +1,17 @@
+$table-min-width: 960px;
+
 .table-wrapper {
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
   background-color: #fff;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table-header,
+.table-body {
+  min-width: $table-min-width;
 }
 
 .table-header {
@@ -13,7 +22,7 @@
 .scrollable-body {
   max-height: 510px;
   overflow-y: auto;
-  overflow-x: hidden;
+  overflow-x: visible;
 }
 
 @media (min-width: 900px) {
