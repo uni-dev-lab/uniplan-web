@@ -50,6 +50,7 @@ export class FacultyTable implements OnInit {
 
   onEdit(element: FacultyElm): void {
     this.dialog.open(FacultyEdit, {
+      maxWidth: '90vw',
       data: {
         id: element.id,
         facultyName: element.facultyName,
@@ -61,6 +62,7 @@ export class FacultyTable implements OnInit {
 
   onDelete(element: FacultyElm): void {
     this.dialog.open(FacultyDeleteForm, {
+      maxWidth: '90vw',
       data: {
         id: element.id,
         facultyName: element.facultyName,
