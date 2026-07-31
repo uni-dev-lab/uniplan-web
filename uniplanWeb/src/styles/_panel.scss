@@ -13,4 +13,14 @@
   .panel-options {
     padding-bottom: 20px;
   }
+
+  @media screen and (max-width: 600px) {
+    .component-panel {
+      margin-top: 1rem;
+    }
+
+    .panel-controls-row {
+      grid-template-columns: 1fr;
+    }
+  }
 }
