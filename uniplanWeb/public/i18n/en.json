@@ -71,6 +71,7 @@
     },
     "navmenu": {
         "toggle-aria": "Toggle navigation menu",
+        "close-menu-aria": "Затвори навигационното меню",
         "home": "Home",
         "create-schedule": "Create schedule",
         "faculty": "Faculty",
