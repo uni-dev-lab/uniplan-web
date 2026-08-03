@@ -1,0 +1,60 @@
+<div class="component-panel settings">
+  <h1>{{ 'settings.title' | translate }}</h1>
+
+  <div class="settings-grid">
+    <section class="settings-card profile-card">
+      <h2>{{ 'settings.profile-title' | translate }}</h2>
+
+      <div aria-live="polite">
+        @if (loading) {
+          <p>{{ 'settings.loading' | translate }}</p>
+        } @else if (loadError) {
+          <p>{{ 'settings.load-error' | translate }}</p>
+        } @else if (currentRole === 'student' && studentProfile) {
+          <dl class="profile-info">
+            <dt>{{ 'features.name-label' | translate }}</dt>
+            <dd>{{ studentProfile.name }}</dd>
+
+            <dt>{{ 'student.faculty-number-label' | translate }}</dt>
+            <dd>{{ studentProfile.facultyNumber }}</dd>
+
+            <dt>{{ 'features.major-label' | translate }}</dt>
+            <dd>{{ studentProfile.majorName }}</dd>
+
+            <dt>{{ 'student.qualification-level-label' | translate }}</dt>
+            <dd>{{ studentProfile.courseType }}</dd>
+
+            <dt>{{ 'features.study-mode-label' | translate }}</dt>
+            <dd>{{ studentProfile.courseSubtype }}</dd>
+
+            <dt>{{ 'student.course-label' | translate }}</dt>
+            <dd>{{ studentProfile.courseYear }}</dd>
+          </dl>
+        } @else if (currentRole === 'lector' && lectorProfile) {
+          <dl class="profile-info">
+            <dt>{{ 'features.name-label' | translate }}</dt>
+            <dd>{{ lectorProfile.firstName }} {{ lectorProfile.lastName }}</dd>
+
+            <dt>{{ 'settings.email-label' | translate }}</dt>
+            <dd>{{ lectorProfile.email }}</dd>
+
+            <dt>{{ 'features.faculty-label' | translate }}</dt>
+            <dd>{{ lectorProfile.facultyId }}</dd>
+          </dl>
+        }
+      </div>
+    </section>
+
+    <section class="settings-card language-card">
+      <h2>{{ 'settings.language-title' | translate }}</h2>
+      <mat-button-toggle-group
+        [value]="activeLanguage"
+        (change)="useLanguage($event.value)"
+        [attr.aria-label]="'settings.language-title' | translate"
+      >
+        <mat-button-toggle value="bg">{{ 'settings.bulgarian' | translate }}</mat-button-toggle>
+        <mat-button-toggle value="en">{{ 'settings.english' | translate }}</mat-button-toggle>
+      </mat-button-toggle-group>
+    </section>
+  </div>
+</div>

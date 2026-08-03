@@ -35,10 +35,12 @@ export class NavmenuComponent implements OnInit {
     }
     if (!this.isMobileView) {
       this.isSidebarCollapsed = false;
+
+
     }
   }
 
-  toggleSidebar(): void {
+  protected toggleSidebar(): void {
     this.isSidebarCollapsed = !this.isSidebarCollapsed;
   }
 }

@@ -56,10 +56,14 @@
         }
     },
     "settings": {
-        "title": "Title",
-        "span": "Change language",
+        "title": "Settings",
+        "profile-title": "My profile",
+        "language-title": "Language",
+        "loading": "Loading…",
+        "load-error": "Failed to load your profile",
         "bulgarian": "Bulgarian",
-        "english": "English"
+        "english": "English",
+        "email-label": "Email"
     },
     "shared": {
         "add-button": "Add",
