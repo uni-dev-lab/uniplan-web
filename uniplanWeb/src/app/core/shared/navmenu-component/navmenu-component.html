@@ -62,30 +62,39 @@
         </a>
       </li>
 
-      @if (authService.isLoggedIn()) {
-        <li class="list dropdown profile">
-          <a href="#" class="nav-link">
-            <div class="profile-link">
-              <img src class="profile-img" alt="" />
-              <span class="profile-name">Иван Иванов</span>
-            </div>
-          </a>
-          <ul class="dropdown-menu">
-            <li><a href="#"><span class="link">{{ 'navmenu.open-profile' | translate }}</span></a></li>
-            <li class="logout">
-              <a href="#"><i class="bx bx-log-out icon"></i><span class="link">{{ 'navmenu.logout' | translate }}</span></a>
-            </li>
+        @if (authService.isLoggedIn()) {
+          <li class="list dropdown profile">
+            <a href="#" class="nav-link">
+              <div class="profile-link">
+                <img src="..." alt="" />
+                <span class="profile-name">{{ authService.getUsername() }}</span>
+              </div>
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+                <a href="#" (click)="onProfileOpenClick()">
+                  <span class="link">Отвори</span>
+                </a>
+              </li>
+
+              <li class="logout">
+                <a href="#" (click)="onLogoutClick()">
+                  <i class="bx bx-log-out icon"></i>
+                  <span class="link">Изход</span>
+                </a>
+              </li>
           </ul>
         </li>
       }
 
       @if (!authService.isLoggedIn()) {
         <li class="list">
-          <a href="#" class="nav-link">
-            <i class="bx bx-log-in icon"></i><span class="link">{{ 'navmenu.login' | translate }}</span>
+          <a href="#" class="nav-link" (click)="onLoginClick()">
+            <i class="bx bx-log-in icon"></i>
+            <span class="link">Вход</span>
           </a>
-        </li>
-      }
-    </ul>
-  </div>
+      </li>
+    }
+  </ul>
+</div>
 </div>

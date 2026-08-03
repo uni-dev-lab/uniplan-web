@@ -1,0 +1,98 @@
+.mainPanel {
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  display: flex;
+  justify-content: center;
+}
+
+.component-panel.login {
+  width: 100%;
+  min-height: calc(100vh - 80px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  box-sizing: border-box;
+}
+
+.components-wrapper {
+  position: relative;
+  margin-left: 8%;
+  margin-right: 13%;
+  max-width: 2000px;
+  width: 100%;
+
+  @media screen and (max-width: 1024px) {
+    margin-left: 5%;
+    padding-left: 1%;
+    margin-right: 5%;
+  }
+
+  @media screen and (max-width: 768px) {
+    margin-left: 2%;
+    padding-left: 1%;
+    margin-right: 2%;
+  }
+
+  @media screen and (max-width: 480px) {
+    margin-left: 1%;
+    padding-left: 1%;
+    margin-right: 1%;
+  }
+}
+
+.component-panel .major .component-panel .student {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr;
+  gap: 16px;
+  height: 100%;
+  padding: 5px;
+  margin-top: 1%;
+}
+
+.component-panel {
+  margin-top: 4%;
+}
+
+.controls-row {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 16px;
+  align-items: center;
+}
+
+.options {
+  padding-bottom: 20px;
+}
+
+.mainPanel.login-view {
+  align-items: center;
+  justify-content: center;
+}
+
+.mainPanel.login-view .components-wrapper {
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 0;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.component-panel.login {
+  width: 100%;
+  min-height: 100%;
+  margin-top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  box-sizing: border-box;
+}
+
+

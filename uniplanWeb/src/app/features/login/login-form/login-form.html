@@ -1,0 +1,31 @@
+<div class="login-form">
+  <h2>Вход</h2>
+
+  <form (submit)="login($event)">
+    <div>
+      <label for="username">Потребителско име</label>
+      <input
+        id="username"
+        name="username"
+        type="text"
+        [value]="username"
+        (input)="onUsernameChange($event)" />
+    </div>
+
+    <div>
+      <label for="password">Парола</label>
+      <input
+        id="password"
+        name="password"
+        type="password"
+        [value]="password"
+        (input)="onPasswordChange($event)" />
+    </div>
+
+    @if (errorMessage) {
+      <p class="error-message">{{ errorMessage }}</p>
+    }
+
+    <button type="submit">Вход</button>
+  </form>
+</div><p></p>
