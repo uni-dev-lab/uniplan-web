@@ -1,0 +1,16 @@
+<div class="component-panel lector">
+  <div class="panel-controls-row">
+    <app-lector-options class="panel-options"></app-lector-options>
+    <app-lector-filters
+      [faculties]="lectorFaculties"
+      [internalSearchText]="lectorSearchText"
+      [selectedFaculty]="selectedLectorFaculty"
+      (searchTextChange)="lectorSearchText = $event"
+      (facultyChange)="selectedLectorFaculty = $event">
+    </app-lector-filters>
+  </div>
+  <app-lector-table
+    [searchText]="lectorSearchText"
+    [faculty]="selectedLectorFaculty">
+  </app-lector-table>
+</div>

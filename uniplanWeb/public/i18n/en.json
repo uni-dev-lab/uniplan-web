@@ -7,6 +7,7 @@
         "study-mode-label": "Study mode",
         "major-label": "Major",
         "location-label": "Location",
+        "lector-label": "Lector",
         "number-label": "No.",
         "edit": "Edit",
         "delete": "Delete"
@@ -34,6 +35,23 @@
             "failed":"Failed to load faculties"
         }
     },
+  "lector": {
+    "delete-button": "Delete",
+    "edit-button": "Edit",
+    "uni-label": "University",
+    "delete-confirmation": "Are you sure you want to delete the lector named: ",
+    "last-name-label": "Last name",
+    "email-label": "Email",
+    "create-error": "Failed to create lector.",
+    "update-error": "Failed to update lector.",
+    "delete-error": "Failed to delete lector.",
+    "add": {
+      "title": "Add lector"
+    },
+    "edit": {
+      "title": "Edit lector"
+    }
+  },
     "major": {
         "paid-option": "Paid",
         "full-time-option": "Full-time",
@@ -68,6 +86,8 @@
         "delete-button": "Delete",
         "option-all": "All",
         "confirm-delete": "Confirm deletion",
+        "required-field": "This field is required",
+        "invalid-email": "Enter a valid email address",
         "close-btn": "Close"
     },
     "home": {

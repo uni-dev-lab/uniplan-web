@@ -1,0 +1,14 @@
+<div class="filters-panel">
+    <app-input-filter
+        [label]="'features.lector-label' | translate"
+        [searchText]="internalSearchText()"
+        (searchTextChange)="searchTextChange.emit($event)">
+    </app-input-filter>
+    <app-filters-form
+      [label]="'features.faculty-label' | translate"
+      [objectOptions]="faculties()"
+        [selected]="selectedFaculty()"
+        (selectionChange)="facultyChange.emit($event)"
+        class="filter">
+    </app-filters-form>
+</div>

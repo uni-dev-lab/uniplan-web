@@ -1,0 +1,45 @@
+<app-add-form [title]="'lector.add.title' | translate" (saveClicked)="save()">
+  <mat-dialog-content [formGroup]="form">
+
+    <mat-form-field appearance="fill">
+      <mat-label>{{ 'features.name-label' | translate }}</mat-label>
+      <input matInput formControlName="firstName" />
+      @if (form.controls.firstName.hasError('required')) {
+        <mat-error>{{ 'shared.required-field' | translate }}</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>{{ 'lector.last-name-label' | translate }}</mat-label>
+      <input matInput formControlName="lastName" />
+      @if (form.controls.lastName.hasError('required')) {
+        <mat-error>{{ 'shared.required-field' | translate }}</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>{{ 'lector.email-label' | translate }}</mat-label>
+      <input matInput type="email" formControlName="email" />
+      @if (form.controls.email.hasError('required')) {
+        <mat-error>{{ 'shared.required-field' | translate }}</mat-error>
+      } @else if (form.controls.email.hasError('email')) {
+        <mat-error>{{ 'shared.invalid-email' | translate }}</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>{{ 'features.faculty-label' | translate }}</mat-label>
+      <mat-select formControlName="facultyId">
+        @for (fac of faculties; track fac) {
+          <mat-option [value]="fac.id">
+            {{ fac.facultyName }}
+          </mat-option>
+        }
+      </mat-select>
+      @if (form.controls.facultyId.hasError('required')) {
+        <mat-error>{{ 'shared.required-field' | translate }}</mat-error>
+      }
+    </mat-form-field>
+
+  </mat-dialog-content>
+</app-add-form>

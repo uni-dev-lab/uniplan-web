@@ -7,6 +7,25 @@
     "study-mode-label": "Форма на обучение",
     "major-label": "Специалност",
     "location-label": "Местоположение",
+    "lector-label": "Лектор",
+    "number-label": "№"
+  },
+  "lector": {
+    "delete-button": "Изтрий",
+    "edit-button": "Редактирай",
+    "uni-label": "Университет",
+    "delete-confirmation": "Сигурни ли сте, че искате да изтриете лектор с име: ",
+    "last-name-label": "Фамилия",
+    "email-label": "Имейл",
+    "create-error": "Възникна грешка при създаването на лектора.",
+    "update-error": "Възникна грешка при редактирането на лектора.",
+    "delete-error": "Възникна грешка при изтриването на лектора.",
+    "add": {
+      "title": "Добави лектор"
+    },
+    "edit": {
+      "title": "Редактирай лектор"
+    },
     "number-label": "No.",
     "edit": "Редактирай",
     "delete": "Изтрий"
@@ -68,6 +87,8 @@
     "delete-button": "Изтрий",
     "option-all": "Всички",
     "confirm-delete": "Потвърдете изтриването",
+    "required-field": "Това поле е задължително",
+    "invalid-email": "Въведете валиден имейл адрес",
     "close-btn": "Затвори"
   },
   "home": {
