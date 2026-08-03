@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DepartmentAddForm } from '../department-add-form/department-add-form';
 import { MatTableModule } from '@angular/material/table';
@@ -19,7 +19,7 @@ import { AddButton } from '../../../core/shared/add-button/add-button';
   styleUrl: './department-options.scss',
 })
 export class DepartmentOptions {
-  constructor(private dialog: MatDialog) {}
+  private dialog = inject(MatDialog);
 
   protected openAddForm(): void {
     this.dialog.open(DepartmentAddForm, {

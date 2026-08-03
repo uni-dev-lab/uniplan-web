@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Inject} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
 import {DeleteForm} from '../../../core/shared/delete-form/delete-form';
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef,} from '@angular/material/dialog';
 import {DepartmentService} from '../department-service';
@@ -12,14 +12,10 @@ import {TranslatePipe, TranslateService} from '@ngx-translate/core';
   styleUrl: './department-delete-form.scss',
 })
 export class DepartmentDeleteForm {
-  constructor(
-    private departmentService: DepartmentService,
-    private dialogRef: MatDialogRef<DepartmentDeleteForm>,
-    private translate: TranslateService,
-    @Inject(MAT_DIALOG_DATA)
-    public data: { id: string; departmentName: string }
-  ) {
-  }
+  private departmentService = inject(DepartmentService);
+  private dialogRef = inject(MatDialogRef<DepartmentDeleteForm>);
+  private translate = inject(TranslateService);
+  data = inject<{ id: string; departmentName: string }>(MAT_DIALOG_DATA);
 
   protected deleteDepartment(): void {
     this.departmentService

@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
 import { EditForm } from '../../../core/shared/edit-form/edit-form';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import {
@@ -38,36 +38,28 @@ import { TranslatePipe, TranslateService } from '@ngx-translate/core';
   styleUrl: './department-edit-form.scss',
 })
 export class DepartmentEditForm implements OnInit {
-  protected readonly form: FormGroup<{
-    departmentName: FormControl<string>;
-    facultyId: FormControl<string>;
-  }>;
+  private dialogRef = inject(MatDialogRef<EditForm>);
+  private departmentService = inject(DepartmentService);
+  private facultyService = inject(FacultyService);
+  private translate = inject(TranslateService);
+  data = inject<{
+    id: string;
+    departmentName: string;
+    facultyId?: string;
+  }>(MAT_DIALOG_DATA);
+
+  protected readonly form = new FormGroup({
+    departmentName: new FormControl(this.data.departmentName ?? '', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
+    facultyId: new FormControl(this.data.facultyId ?? '', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
+  });
 
   protected faculties: FacultyElm[] = [];
-
-  constructor(
-    private dialogRef: MatDialogRef<EditForm>,
-    private departmentService: DepartmentService,
-    private facultyService: FacultyService,
-    private translate: TranslateService,
-    @Inject(MAT_DIALOG_DATA)
-    public data: {
-      id: string;
-      departmentName: string;
-      facultyId?: string;
-    }
-  ) {
-    this.form = new FormGroup({
-      departmentName: new FormControl(data.departmentName ?? '', {
-        nonNullable: true,
-        validators: [Validators.required],
-      }),
-      facultyId: new FormControl(data.facultyId ?? '', {
-        nonNullable: true,
-        validators: [Validators.required],
-      }),
-    });
-  }
 
   ngOnInit(): void {
     this.facultyService.getFaculties().subscribe({

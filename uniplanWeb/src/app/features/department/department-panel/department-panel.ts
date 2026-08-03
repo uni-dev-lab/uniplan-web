@@ -23,12 +23,9 @@ export class DepartmentPanel implements OnInit {
 
   private departments: DepartmentElm[] = [];
   private facultyMap: Map<string, string> = new Map<string, string>();
-  private destroyRef: DestroyRef = inject(DestroyRef);
-
-  constructor(
-    private departmentService: DepartmentService,
-    private facultyService: FacultyService,
-  ) {}
+  private destroyRef = inject(DestroyRef);
+  private departmentService = inject(DepartmentService);
+  private facultyService = inject(FacultyService);
 
   ngOnInit(): void {
     const facultyMap$ = merge(of(undefined), this.facultyService.refreshNeeded).pipe(

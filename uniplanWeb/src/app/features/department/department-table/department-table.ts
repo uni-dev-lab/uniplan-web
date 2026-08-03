@@ -8,7 +8,7 @@ import { DepartmentDeleteForm } from '../department-delete-form/department-delet
 import { DepartmentService } from '../department-service';
 import { FacultyService } from '../../faculty/faculty-service';
 import {TranslatePipe} from '@ngx-translate/core';
-import {ChangeDetectionStrategy, Component, input, OnInit, signal} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, input, OnInit, signal} from '@angular/core';
 
 @Component({
   selector: 'app-department-table',
@@ -26,11 +26,9 @@ export class DepartmentTable implements OnInit {
   readonly searchText = input('');
   readonly faculty = input('');
 
-  constructor(
-    private dialog: MatDialog,
-    private service: DepartmentService,
-    private facultyService: FacultyService
-  ) {}
+  private dialog = inject(MatDialog);
+  private service = inject(DepartmentService);
+  private facultyService = inject(FacultyService);
 
   ngOnInit(): void {
     this.loadDepartments();
