@@ -1,9 +1,9 @@
-
-import { Component, Input, OnInit, ChangeDetectionStrategy, signal } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectionStrategy, signal, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { MajorElm } from '../../../core/interfaces/major-elm';
+import { MajorFilterOptions } from '../../../core/interfaces/major-filter-options';
 import { MajorEditForm } from '../major-edit-form/major-edit-form';
 import { MatDialog } from '@angular/material/dialog';
 import { MajorDeleteForm } from '../major-delete-form/major-delete-form';
@@ -19,6 +19,10 @@ import { TranslatePipe } from '@ngx-translate/core';
   imports: [MatTableModule, MatIconModule, MatButtonModule, TranslatePipe],
 })
 export class MajorTable implements OnInit {
+  private dialog = inject(MatDialog);
+  private service = inject(MajorService);
+  private facultyService = inject(FacultyService);
+
   displayedColumns: string[] = [
     'position',
     'name',
@@ -35,12 +39,6 @@ export class MajorTable implements OnInit {
   @Input() faculty: string = '';
   @Input() type: string = '';
   @Input() subtype: string = '';
-
-  constructor(
-    private dialog: MatDialog,
-    private service: MajorService,
-    private facultyService: FacultyService
-  ) { }
 
   ngOnInit(): void {
     this.loadMajors();
@@ -103,7 +101,10 @@ export class MajorTable implements OnInit {
     });
   }
 
-  static getFilterOptions(data: MajorElm[], facultyMap: Map<string, string>) {
+  static getFilterOptions(
+    data: MajorElm[],
+    facultyMap: Map<string, string>
+  ): MajorFilterOptions {
     const faculties = [...new Set(data.map((e) => e.facultyId))].map((id) => ({
       id,
       name: facultyMap.get(id) || '—',

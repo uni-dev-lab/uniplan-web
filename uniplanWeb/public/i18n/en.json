@@ -8,7 +8,17 @@
         "major-label": "Major",
         "location-label": "Location",
         "department-label": "Department",
-        "number-label": "No."
+        "number-label": "No.",
+        "edit": "Edit",
+        "delete": "Delete"
+    },
+    "room": {
+        "room-number": "Room number",
+        "no-rooms": "No rooms",
+        "add": {
+            "title": "Add room",
+            "failed": "Failed to add room."
+        }
     },
     "faculty": {
         "delete-button": "Delete",
@@ -20,6 +30,9 @@
         },
         "edit": {
             "title": "Edit faculty"
+        },
+        "load":{
+            "failed":"Failed to load faculties"
         }
     },
     "major": {
@@ -71,7 +84,8 @@
         "delete-button": "Delete",
         "option-all": "All",
         "confirm-delete": "Confirm deletion",
-        "required-field": "This field is required"
+        "required-field": "This field is required",
+        "close-btn": "Close"
     },
     "home": {
         "title": "Main!"

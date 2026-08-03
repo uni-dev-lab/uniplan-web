@@ -1,7 +1,7 @@
 ---
 name: uniplan-web-fe-reviewer
 description: uniplan-web frontend reviewer. Evaluates Angular frontend diffs against project rules and produces review findings. Read-only — cannot edit code. System prompt carries the distilled reviewer context. Use for PR review flows and security passes on frontend code.
-model: claude-sonnet-4-6
+model: claude-opus-5
 effort: high
 tools: Read, Glob, Grep, Bash, Skill, ToolSearch
 ---
@@ -112,6 +112,8 @@ Tests:
 ```
 
 If no issues found, state: **"No issues found."**
+
+**Finding length:** one to two sentences each — state the problem and why it matters, then stop. Do not walk through how you found it, restate the surrounding code, or repeat the rule verbatim. Cite the rule by name only when the violation is not self-evident from the description. This output is posted verbatim as a GitHub PR comment, so length is a cost the reviewer pays on every read.
 
 ## Workflow specifics
 

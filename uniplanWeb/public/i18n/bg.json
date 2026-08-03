@@ -18,6 +18,10 @@
     "department-label": "Катедра",
     "number-label": "№"
 
+    "add": {
+      "title": "Добави стая",
+      "failed": "Неуспешно добавяне на стаята."
+    }
   },
   "faculty": {
     "delete-button": "Изтрий",
@@ -29,6 +33,9 @@
     },
     "edit": {
       "title": "Редактирай факултет"
+    },
+    "load":{
+      "failed":"Неуспешно зареждане на факултети"
     }
   },
   "major": {
@@ -80,7 +87,7 @@
     "delete-button": "Изтрий",
     "option-all": "Всички",
     "confirm-delete": "Потвърдете изтриването",
-    "required-field": "Това поле е задължително"
+    "close-btn": "Затвори"
   },
   "home": {
     "title": "Начало!"
