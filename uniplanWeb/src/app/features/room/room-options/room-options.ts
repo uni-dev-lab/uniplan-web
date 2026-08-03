@@ -3,14 +3,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
-import { FacultyAddForm } from '../faculty-add-form/faculty-add-form';
 import { AddButton } from '../../../core/shared/add-button/add-button';
+import { RoomAddForm } from '../room-add-form/room-add-form';
 
 @Component({
-  selector: 'app-faculty-options',
-  templateUrl: './faculty-options.html',
+  selector: 'app-room-options',
+  templateUrl: './room-options.html',
+  styleUrl: './room-options.scss',
   changeDetection: ChangeDetectionStrategy.Eager,
-  styleUrl: './faculty-options.scss',
   imports: [
     MatTableModule,
     MatIconModule,
@@ -18,11 +18,10 @@ import { AddButton } from '../../../core/shared/add-button/add-button';
     AddButton
   ],
 })
-export class FacultyOptions {
-  private dialog = inject(MatDialog);
-
-  openAddForm(): void {
-    this.dialog.open(FacultyAddForm, {
+export class RoomOptions {
+  private dialog = inject(MatDialog)
+  openAddForm() : void {
+    this.dialog.open(RoomAddForm, {
       width: '400px',
     });
   }
