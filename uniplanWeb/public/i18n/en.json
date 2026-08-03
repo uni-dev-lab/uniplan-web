@@ -15,7 +15,10 @@
     "room": {
         "room-number": "Room number",
         "no-rooms": "No rooms",
-        "add": {
+        "department-label": "Department",
+        "number-label": "No.",
+
+      "add": {
             "title": "Add room",
             "failed": "Failed to add room."
         }
