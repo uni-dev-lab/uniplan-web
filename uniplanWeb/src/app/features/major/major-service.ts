@@ -3,7 +3,6 @@ import { inject, Injectable } from '@angular/core';
 import { map, Observable, Subject, switchMap, tap } from 'rxjs';
 import { MajorElm } from '../../core/interfaces/major-elm';
 import { API_ENDPOINTS } from '../../config/endpoints';
-import {API_ENDPOINTS} from '../../config/endpoints';
 import { CourseElm } from '../../core/interfaces/course-elm';
 
 @Injectable({
