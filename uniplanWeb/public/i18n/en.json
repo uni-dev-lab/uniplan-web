@@ -87,7 +87,7 @@
         "option-all": "All",
         "confirm-delete": "Confirm deletion",
         "required-field": "This field is required",
-        "invalid-email": "Enter a valid email address"
+        "invalid-email": "Enter a valid email address",
         "close-btn": "Close"
     },
     "home": {
