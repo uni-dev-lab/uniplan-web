@@ -3,7 +3,6 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LectorDeleteForm } from './lector-delete-form';
 
 describe('LectorDeleteForm', () => {
-  let component: LectorDeleteForm;
   let fixture: ComponentFixture<LectorDeleteForm>;
 
   beforeEach(async () => {
@@ -12,7 +11,6 @@ describe('LectorDeleteForm', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(LectorDeleteForm);
-    component = fixture.componentInstance;
     fixture.detectChanges();
   });
 });

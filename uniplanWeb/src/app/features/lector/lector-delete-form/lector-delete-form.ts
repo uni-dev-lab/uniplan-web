@@ -1,4 +1,4 @@
-import { Component, Inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { DeleteForm } from '../../../core/shared/delete-form/delete-form';
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import { LectorService } from '../lector-service';
@@ -12,13 +12,10 @@ import {TranslatePipe, TranslateService} from '@ngx-translate/core';
   styleUrl: './lector-delete-form.scss',
 })
 export class LectorDeleteForm {
-  constructor(
-    private lectorService: LectorService,
-    private dialogRef: MatDialogRef<LectorDeleteForm>,
-    private translate: TranslateService,
-    @Inject(MAT_DIALOG_DATA)
-    public data: { id: string; firstName: string; lastName: string }
-  ) {}
+  private lectorService = inject(LectorService);
+  private dialogRef = inject(MatDialogRef<LectorDeleteForm>);
+  private translate = inject(TranslateService);
+  data = inject<{ id: string; firstName: string; lastName: string }>(MAT_DIALOG_DATA);
 
   protected deleteLector(): void {
     this.lectorService

@@ -18,12 +18,9 @@ export class LectorPanel implements OnInit {
   selectedLectorFaculty = '';
   lectorFaculties: { id: string; name: string }[] = [];
 
+  private lectorService = inject(LectorService);
+  private facultyService = inject(FacultyService);
   private destroyRef = inject(DestroyRef);
-
-  constructor(
-    private lectorService: LectorService,
-    private facultyService: FacultyService,
-  ) {}
 
   ngOnInit(): void {
     this.loadLectorFilters();

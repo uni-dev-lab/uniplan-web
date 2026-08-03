@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
 import { AddForm } from '../../../core/shared/add-form/add-form';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import {
@@ -58,12 +58,10 @@ export class LectorAddForm implements OnInit {
 
   protected faculties: FacultyElm[] = [];
 
-  constructor(
-    private dialogRef: MatDialogRef<AddForm>,
-    private lectorService: LectorService,
-    private facultyService: FacultyService,
-    private translate: TranslateService
-  ) {}
+  private dialogRef = inject(MatDialogRef<AddForm>);
+  private lectorService = inject(LectorService);
+  private facultyService = inject(FacultyService);
+  private translate = inject(TranslateService);
 
   ngOnInit(): void {
     this.facultyService.getFaculties().subscribe({

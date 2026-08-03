@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { map, Observable, Subject } from 'rxjs';
 import { LectorElm } from '../../core/interfaces/lector-elm';
 import { API_ENDPOINTS } from '../../config/endpoints';
@@ -8,9 +8,9 @@ import { API_ENDPOINTS } from '../../config/endpoints';
   providedIn: 'root',
 })
 export class LectorService {
-  refreshNeeded = new Subject<void>();
+  private http = inject(HttpClient);
 
-  constructor(private http: HttpClient) {}
+  refreshNeeded = new Subject<void>();
 
   getLectors(): Observable<LectorElm[]> {
     return this.http.get<LectorElm[]>(API_ENDPOINTS.lectors).pipe(

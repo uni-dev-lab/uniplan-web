@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
 import { EditForm } from '../../../core/shared/edit-form/edit-form';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
@@ -29,48 +29,38 @@ import { TranslatePipe, TranslateService } from '@ngx-translate/core';
   styleUrl: './lector-edit-form.scss',
 })
 export class LectorEditForm implements OnInit {
-  protected readonly form: FormGroup<{
-    firstName: FormControl<string>;
-    lastName: FormControl<string>;
-    email: FormControl<string>;
-    facultyId: FormControl<string>;
-  }>;
+  private dialogRef = inject(MatDialogRef<EditForm>);
+  private lectorService = inject(LectorService);
+  private facultyService = inject(FacultyService);
+  private translate = inject(TranslateService);
+  data = inject<{
+    id: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    facultyId?: string;
+  }>(MAT_DIALOG_DATA);
 
   protected faculties: FacultyElm[] = [];
 
-  constructor(
-    private dialogRef: MatDialogRef<EditForm>,
-    private lectorService: LectorService,
-    private facultyService: FacultyService,
-    private translate: TranslateService,
-    @Inject(MAT_DIALOG_DATA)
-    public data: {
-      id: string;
-      firstName: string;
-      lastName: string;
-      email: string;
-      facultyId?: string;
-    }
-  ) {
-    this.form = new FormGroup({
-      firstName: new FormControl(data.firstName ?? '', {
-        nonNullable: true,
-        validators: [Validators.required],
-      }),
-      lastName: new FormControl(data.lastName ?? '', {
-        nonNullable: true,
-        validators: [Validators.required],
-      }),
-      email: new FormControl(data.email ?? '', {
-        nonNullable: true,
-        validators: [Validators.required, Validators.email],
-      }),
-      facultyId: new FormControl(data.facultyId ?? '', {
-        nonNullable: true,
-        validators: [Validators.required],
-      }),
-    });
-  }
+  protected readonly form = new FormGroup({
+    firstName: new FormControl(this.data.firstName ?? '', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
+    lastName: new FormControl(this.data.lastName ?? '', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
+    email: new FormControl(this.data.email ?? '', {
+      nonNullable: true,
+      validators: [Validators.required, Validators.email],
+    }),
+    facultyId: new FormControl(this.data.facultyId ?? '', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
+  });
 
   ngOnInit(): void {
     this.facultyService.getFaculties().subscribe({

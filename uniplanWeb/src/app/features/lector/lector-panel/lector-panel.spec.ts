@@ -5,8 +5,12 @@ import {
   HttpTestingController,
 } from '@angular/common/http/testing';
 import { MatDialog } from '@angular/material/dialog';
-import { of } from 'rxjs';
-import { TranslateLoader, provideTranslateService } from '@ngx-translate/core';
+import { Observable, of } from 'rxjs';
+import {
+  TranslateLoader,
+  TranslationObject,
+  provideTranslateService,
+} from '@ngx-translate/core';
 
 import { LectorPanel } from './lector-panel';
 import { LectorFilters } from '../lector-filters/lector-filters';
@@ -14,7 +18,7 @@ import { LectorTable } from '../lector-table/lector-table';
 import { API_ENDPOINTS } from '../../../config/endpoints';
 
 class FakeTranslateLoader implements TranslateLoader {
-  getTranslation() {
+  getTranslation(): Observable<TranslationObject> {
     return of({});
   }
 }

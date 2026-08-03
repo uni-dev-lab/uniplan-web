@@ -1,4 +1,4 @@
-import {Component, OnInit, ChangeDetectionStrategy, input, signal, computed} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy, input, signal, computed, inject} from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
@@ -26,11 +26,9 @@ export class LectorTable implements OnInit {
   readonly searchText = input('');
   readonly faculty = input('');
 
-  constructor(
-    private dialog: MatDialog,
-    private service: LectorService,
-    private facultyService: FacultyService
-  ) {}
+  private dialog = inject(MatDialog);
+  private service = inject(LectorService);
+  private facultyService = inject(FacultyService);
 
   ngOnInit(): void {
     this.loadLectors();
