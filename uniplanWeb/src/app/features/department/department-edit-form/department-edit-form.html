@@ -1,0 +1,29 @@
+<app-edit-form  [title]="'department.edit.title' | translate"  (saveClicked)="save()">
+
+  <div [formGroup]="form">
+
+    <mat-form-field appearance="fill">
+      <mat-label>{{ 'features.name-label' | translate }}</mat-label>
+      <input matInput formControlName="departmentName" />
+      @if (form.controls.departmentName.hasError('required')) {
+        <mat-error>{{ 'shared.required-field' | translate }}</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>{{ 'features.faculty-label' | translate }}</mat-label>
+      <mat-select formControlName="facultyId">
+        @for (fac of faculties; track fac) {
+          <mat-option [value]="fac.id">
+            {{ fac.facultyName }}
+          </mat-option>
+        }
+      </mat-select>
+      @if (form.controls.facultyId.hasError('required')) {
+        <mat-error>{{ 'shared.required-field' | translate }}</mat-error>
+      }
+    </mat-form-field>
+
+  </div>
+
+</app-edit-form>

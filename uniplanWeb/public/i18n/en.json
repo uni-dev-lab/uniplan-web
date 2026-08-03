@@ -7,6 +7,7 @@
         "study-mode-label": "Study mode",
         "major-label": "Major",
         "location-label": "Location",
+        "department-label": "Department",
         "number-label": "No.",
         "edit": "Edit",
         "delete": "Delete"
@@ -14,7 +15,10 @@
     "room": {
         "room-number": "Room number",
         "no-rooms": "No rooms",
-        "add": {
+        "department-label": "Department",
+        "number-label": "No.",
+
+      "add": {
             "title": "Add room",
             "failed": "Failed to add room."
         }
@@ -47,6 +51,21 @@
             "title": "Edit major"
         }
     },
+  "department": {
+    "delete-button": "Delete",
+    "edit-button": "Edit",
+    "uni-label": "University",
+    "delete-confirmation": "Are you sure you want to delete the department named: ",
+    "create-error": "Failed to create department.",
+    "update-error": "Failed to update department.",
+    "delete-error": "Failed to delete department.",
+    "add": {
+      "title": "Add department"
+    },
+    "edit": {
+      "title": "Edit department"
+    }
+  },
     "student": {
         "faculty-number-label": "Student ID",
         "course-label": "Course",
@@ -68,6 +87,7 @@
         "delete-button": "Delete",
         "option-all": "All",
         "confirm-delete": "Confirm deletion",
+        "required-field": "This field is required",
         "close-btn": "Close"
     },
     "home": {
