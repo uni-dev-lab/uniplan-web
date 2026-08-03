@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { map, Observable, Subject } from 'rxjs';
 import { LectorElm } from '../../core/interfaces/lector-elm';
+
 import { API_ENDPOINTS } from '../../config/endpoints';
 
 @Injectable({
