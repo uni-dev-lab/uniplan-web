@@ -1,4 +1,4 @@
-import { Component, inject, ChangeDetectionStrategy, DestroyRef } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy, DestroyRef, OnInit, signal } from '@angular/core';
 import { RoomService } from '../room-service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 import { FacultyService } from '../../faculty/faculty-service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FacultyNamePipe } from '../../../core/shared/pipes/faculty-name-pipe';
+import { startWith, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-room-table',
@@ -26,10 +27,10 @@ import { FacultyNamePipe } from '../../../core/shared/pipes/faculty-name-pipe';
   ],
 })
 
-export class RoomTable {
+export class RoomTable implements OnInit {
   roomService = inject(RoomService);
   facultyService = inject(FacultyService);
-  facultyMap = new Map<string, string>();
+  facultyMap = signal<Map<string, string>>(new Map());
   private destroyRef = inject(DestroyRef);
 
   displayedColumns: string[] = [
@@ -39,17 +40,20 @@ export class RoomTable {
     'actions',
   ];
 
-  data$ = this.roomService.getRooms();
-
-  ngOnInit() {
+  ngOnInit(): void {
     this.loadFaculties();
   }
+
+  data$ = this.roomService.refreshNeeded.pipe(
+    startWith(void 0),
+    switchMap(() => this.roomService.getRooms())
+  );
 
   loadFaculties(): void {
     this.facultyService.getFaculties()
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((faculties) => {
-        this.facultyMap = new Map(faculties.map((f) => [f.id, f.facultyName]));
+        this.facultyMap.set(new Map(faculties.map((f) => [f.id, f.facultyName])));
       });
   }
 }

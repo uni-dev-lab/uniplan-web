@@ -52,7 +52,7 @@ export class FacultyAddForm implements OnInit {
     });
   }
 
-  save() {
+  save(): void {
     if (!this.facultyName.trim()) {
       alert('Please enter faculty name.');
       return;

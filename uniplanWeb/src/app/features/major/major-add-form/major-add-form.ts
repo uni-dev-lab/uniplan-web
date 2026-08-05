@@ -1,11 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
 import { AddForm } from '../../../core/shared/add-form/add-form';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import {
-  MatFormField,
-  MatFormFieldModule,
-  MatLabel,
-} from '@angular/material/form-field';
+import { MatFormField, MatFormFieldModule, MatLabel,} from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -13,7 +9,7 @@ import { MajorService } from '../major-service';
 import { FacultyElm } from '../../../core/interfaces/faculty-elm';
 import { FacultyService } from '../../faculty/faculty-service';
 import { TranslatePipe } from '@ngx-translate/core';
- 
+
 @Component({
   selector: 'app-major-add-form',
   templateUrl: './major-add-form.html',
@@ -53,7 +49,7 @@ export class MajorAddForm implements OnInit {
     });
   }
 
-  save() {
+  save(): void  {
     if (
       !this.majorName.trim() ||
       !this.faculty ||

@@ -16,9 +16,7 @@ export interface UniversityElm {
   providedIn: 'root',
 })
 export class UniversityService {
-private apiUrl = 'http://localhost:8080/api/universities';
-
- private http = inject(HttpClient);
+  private http = inject(HttpClient);
 
   getAllUniversities(): Observable<UniversityElm[]> {
     return this.http.get<UniversityElm[]>(API_ENDPOINTS.universities);

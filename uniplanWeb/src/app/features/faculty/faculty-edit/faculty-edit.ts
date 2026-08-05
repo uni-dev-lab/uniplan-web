@@ -1,10 +1,6 @@
 import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import {
-  MatDialogModule,
-  MatDialogRef,
-  MAT_DIALOG_DATA,
-} from '@angular/material/dialog';
+import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA,} from '@angular/material/dialog';
 import { MatFormField } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -46,7 +42,7 @@ export class FacultyEdit {
   location = this.data.location;
   universityId = this.data.universityId;
 
-  save() {
+  save(): void {
     if (!this.facultyName.trim()) {
       alert('Please enter faculty name.');
       return;

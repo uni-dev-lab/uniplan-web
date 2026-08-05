@@ -1,19 +1,21 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RoomOptions } from './room-options';
 import { translateTestingProviders } from '@testing/translate-testing';
-import { RoomPanel } from './room-panel';
 
-describe('RoomPanel', () => {
-  let component: RoomPanel;
-  let fixture: ComponentFixture<RoomPanel>;
+describe('RoomOptions', () => {
+  let component: RoomOptions;
+  let fixture: ComponentFixture<RoomOptions>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RoomPanel],
-      providers: [...translateTestingProviders]
+      imports: [RoomOptions],
+      providers: [
+        ...translateTestingProviders
+      ]
     })
-      .compileComponents();
+    .compileComponents();
 
-    fixture = TestBed.createComponent(RoomPanel);
+    fixture = TestBed.createComponent(RoomOptions);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

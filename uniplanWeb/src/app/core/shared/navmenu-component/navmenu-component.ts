@@ -14,18 +14,16 @@ import { LoginAuthService } from '../../../services/login-auth-service';
   styleUrls: ['./navmenu-component.scss'],
 })
 export class NavmenuComponent implements OnInit {
+  public authService = inject(LoginAuthService);
+
   isSidebarCollapsed = false;
   isMobileView = window.innerWidth <= 768;
-
-    public authService = inject(LoginAuthService);
-    public viewService = inject(ViewService);
-
   ngOnInit(): void {
     this.checkViewport();
   }
 
-  @HostListener('window:resize', ['$event'])
-  onResize(event: Event): void {
+  @HostListener('window:resize')
+  onResize(): void {
     this.checkViewport();
   }
 

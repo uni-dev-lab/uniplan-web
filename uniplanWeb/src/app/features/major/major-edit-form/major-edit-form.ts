@@ -1,11 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
 import { EditForm } from '../../../core/shared/edit-form/edit-form';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
-import {
-  MAT_DIALOG_DATA,
-  MatDialogModule,
-  MatDialogRef,
-} from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
@@ -54,7 +50,7 @@ export class MajorEditForm implements OnInit {
     });
   }
 
-  save() {
+  save(): void  {
     if (!this.majorName.trim()) {
       alert('Please enter the major name.');
       return;
