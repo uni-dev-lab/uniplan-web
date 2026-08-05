@@ -1,25 +1,23 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { map, Observable, Subject, switchMap } from 'rxjs';
+import { inject, Injectable } from '@angular/core';
+import { map, Observable, Subject, switchMap, tap } from 'rxjs';
 import { MajorElm } from '../../core/interfaces/major-elm';
+import {API_ENDPOINTS} from '../../config/endpoints';
+import { CourseElm } from '../../core/interfaces/course-elm';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MajorService {
-  private apiUrl: string = 'http://localhost:8080/api/majors';
-  private apiUrlMajor: string = 'http://localhost:8080/api/majors';
-  private apiUrlCourse: string = 'http://localhost:8080/api/courses';
+  private http = inject(HttpClient);
 
   public readonly refreshNeeded: Subject<void> = new Subject<void>();
 
-  constructor(private http: HttpClient) {}
-
-  public getMajors(): Observable<MajorElm[]> {
-    return this.http.get<MajorElm[]>(this.apiUrl).pipe(
-      map((majors: MajorElm[]): any =>
-        majors.map((major: MajorElm, index: number) => ({
-          majorId: major.majorId,
+  getMajors(): Observable<MajorElm[]> {
+    return this.http.get<MajorElm[]>(API_ENDPOINTS.majors).pipe(
+      map((majors) =>
+        majors.map((major, index) => ({
+          id: major.id,
           majorName: major.majorName,
           courseId: major.courseId,
           facultyId: major.facultyId,
@@ -34,9 +32,9 @@ export class MajorService {
   public createMajor(createMajor: {
     facultyId: string;
     majorName: string;
-  }): Observable<any> {
-    return this.http.post(`${this.apiUrlMajor}`, createMajor).pipe(
-      map((res: Object): Object => {
+  }): Observable<MajorElm> {
+    return this.http.post<MajorElm>(`${API_ENDPOINTS.majors}`, createMajor).pipe(
+      map((res) => {
         this.refreshNeeded.next();
         return res;
       })
@@ -48,9 +46,9 @@ export class MajorService {
     courseYear: number;
     courseType: string;
     courseSubtype: string;
-  }): Observable<any> {
-    return this.http.post(`${this.apiUrlCourse}`, course).pipe(
-      map((res: Object): Object => {
+  }): Observable<CourseElm> {
+    return this.http.post<CourseElm>(`${API_ENDPOINTS.courses}`, course).pipe(
+      map((res) => {
         this.refreshNeeded.next();
         return res;
       })
@@ -61,12 +59,12 @@ export class MajorService {
     majorName: string;
     type: string;
     subtype: string;
-  }): Observable<any> {
+  }): Observable<CourseElm> {
     return this.createMajor({
       facultyId: majorData.facultyId,
       majorName: majorData.majorName,
     }).pipe(
-      switchMap((createdMajor: any): Observable<any> => {
+      switchMap((createdMajor) => {
         return this.createCourse({
           majorId: createdMajor.id,
           courseType: majorData.type,
@@ -77,31 +75,31 @@ export class MajorService {
     );
   }
 
-  public deleteMajor(id: string): Observable<any> {
-    return this.http.delete(`${this.apiUrlMajor}/${id}`).pipe(
-      map((res: Object): Object => {
+  deleteMajor(id: string): Observable<void> {
+    return this.http.delete<void>(`${API_ENDPOINTS.majors}/${id}`).pipe(
+      tap((res) => {
         this.refreshNeeded.next();
         return res;
       })
     );
   }
 
-  public deleteCourse(courseId: string): Observable<any> {
-    return this.http.delete(`${this.apiUrlCourse}/${courseId}`);
+  deleteCourse(courseId: string): Observable<void> {
+    return this.http.delete<void>(`${API_ENDPOINTS.courses}/${courseId}`);
   }
 
-  deleteMajorWithCourse(major: MajorElm): Observable<any> {
+  deleteMajorWithCourse(major: MajorElm): Observable<void> {
     return this.deleteCourse(major.courseId).pipe(
-      switchMap((): Observable<any> => this.deleteMajor(major.majorId))
+      switchMap(() => this.deleteMajor(major.id))
     );
   }
 
   public editMajor(
     id: string,
     updateMajor: { facultyId: string; majorName: string }
-  ): Observable<any> {
-    return this.http.put(`${this.apiUrlMajor}/${id}`, updateMajor).pipe(
-      map((res: Object): Object => {
+  ): Observable<MajorElm> {
+    return this.http.put<MajorElm>(`${API_ENDPOINTS.majors}/${id}`, updateMajor).pipe(
+      tap((res) => {
         this.refreshNeeded.next();
         return res;
       })

@@ -1,21 +1,20 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
 import { AddForm } from '../../../core/shared/add-form/add-form';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import {
-  MatFormField,
-  MatFormFieldModule,
-  MatLabel,
-} from '@angular/material/form-field';
+import { MatFormField, MatFormFieldModule, MatLabel,} from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MajorService } from '../major-service';
 import { FacultyElm } from '../../../core/interfaces/faculty-elm';
 import { FacultyService } from '../../faculty/faculty-service';
-
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-major-add-form',
+  templateUrl: './major-add-form.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
+  styleUrl: './major-add-form.scss',
   imports: [
     MatDialogModule,
     MatFormField,
@@ -24,25 +23,22 @@ import { FacultyService } from '../../faculty/faculty-service';
     MatInputModule,
     AddForm,
     MatFormFieldModule,
-    MatSelectModule
-],
-  templateUrl: './major-add-form.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
-  styleUrl: './major-add-form.scss',
+    MatSelectModule,
+    TranslatePipe,
+  ],
 })
+
 export class MajorAddForm implements OnInit {
-  protected majorName: string = '';
-  protected faculty: string = '';
-  protected type: string = '';
-  protected subtype: string = '';
+  private dialogRef = inject<MatDialogRef<AddForm>>(MatDialogRef);
+  private majorService = inject(MajorService);
+  private facultyService = inject(FacultyService);
+
+  majorName = '';
+  faculty = '';
+  type = '';
+  subtype = '';
 
   protected faculties: FacultyElm[] = [];
-
-  constructor(
-    private dialogRef: MatDialogRef<AddForm>,
-    private majorService: MajorService,
-    private facultyService: FacultyService
-  ) {}
 
   public ngOnInit(): void {
     this.facultyService.getFaculties().subscribe({

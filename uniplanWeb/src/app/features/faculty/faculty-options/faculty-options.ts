@@ -1,5 +1,4 @@
-
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
@@ -9,18 +8,18 @@ import { AddButton } from '../../../core/shared/add-button/add-button';
 
 @Component({
   selector: 'app-faculty-options',
+  templateUrl: './faculty-options.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
+  styleUrl: './faculty-options.scss',
   imports: [
     MatTableModule,
     MatIconModule,
     MatButtonModule,
     AddButton
-],
-  templateUrl: './faculty-options.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
-  styleUrl: './faculty-options.scss',
+  ],
 })
 export class FacultyOptions {
-  constructor(private dialog: MatDialog) {}
+  private dialog = inject(MatDialog);
 
   protected openAddForm(): void {
     this.dialog.open(FacultyAddForm, {

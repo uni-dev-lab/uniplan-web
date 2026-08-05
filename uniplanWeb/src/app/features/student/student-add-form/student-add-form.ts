@@ -1,15 +1,15 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { AddForm } from '../../../core/shared/add-form/add-form';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import {
-  MatFormField,
-  MatInputModule,
-  MatLabel,
-} from '@angular/material/input';
+import { MatFormField, MatInputModule, MatLabel } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-student-add-form',
+  templateUrl: './student-add-form.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
+  styleUrl: './student-add-form.scss',
   imports: [
     MatDialogModule,
     MatFormField,
@@ -17,12 +17,12 @@ import { FormsModule } from '@angular/forms';
     FormsModule,
     MatInputModule,
     AddForm,
+    TranslatePipe
   ],
-  templateUrl: './student-add-form.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
-  styleUrl: './student-add-form.scss',
 })
 export class StudentAddForm {
+  private dialogRef = inject<MatDialogRef<AddForm>>(MatDialogRef);
+
   protected studentName: string = '';
   protected facultyNumber: string = '';
   protected faculty: string = '';
@@ -30,9 +30,7 @@ export class StudentAddForm {
   protected course: string = '';
   protected type: string = '';
 
-  constructor(private dialogRef: MatDialogRef<AddForm>) {}
-
-  protected save(): void {
+  save(): void {
     if (!this.studentName.trim()) {
       alert('Please enter student name.');
       return;

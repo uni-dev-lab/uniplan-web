@@ -1,22 +1,21 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { map, Observable, Subject } from 'rxjs';
+import { inject, Injectable } from '@angular/core';
+import { map, Observable, Subject, tap } from 'rxjs';
 import { FacultyElm } from '../../core/interfaces/faculty-elm';
+import { API_ENDPOINTS } from '../../config/endpoints';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FacultyService {
-  private apiUrl = 'http://localhost:8080/api/faculties';
+   private http = inject(HttpClient);
 
   public readonly refreshNeeded = new Subject<void>();
 
-  constructor(private http: HttpClient) {}
-
-  public getFaculties(): Observable<FacultyElm[]> {
-    return this.http.get<FacultyElm[]>(this.apiUrl).pipe(
-      map((faculties: FacultyElm[]) =>
-        faculties.map((faculty: FacultyElm, index: number) => ({
+  getFaculties(): Observable<FacultyElm[]> {
+    return this.http.get<FacultyElm[]>(API_ENDPOINTS.faculties).pipe(
+      map((faculties) =>
+        faculties.map((faculty, index) => ({
           id: faculty.id,
           facultyName: faculty.facultyName,
           location: faculty.location,
@@ -32,8 +31,8 @@ export class FacultyService {
     facultyName: string;
     location: string;
   }): Observable<any> {
-    return this.http.post(`${this.apiUrl}`, faculty).pipe(
-      map((res: Object): Object => {
+    return this.http.post<void>(`${API_ENDPOINTS.faculties}`, faculty).pipe(
+      tap((res) => {
         this.refreshNeeded.next();
         return res;
       })
@@ -47,18 +46,18 @@ export class FacultyService {
       facultyName: string;
       location: string;
     }
-  ): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${id}`, updatedFaculty).pipe(
-      map((res) => {
+  ): Observable<void> {
+    return this.http.put<void>(`${API_ENDPOINTS.faculties}/${id}`, updatedFaculty).pipe(
+      tap((res) => {
         this.refreshNeeded.next();
         return res;
       })
     );
   }
 
-  public deleteFaculty(id: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/${id}`).pipe(
-      map((res) => {
+  public deleteFaculty(id: string): Observable<void> {
+    return this.http.delete<void>(`${API_ENDPOINTS.faculties}/${id}`).pipe(
+      tap((res) => {
         this.refreshNeeded.next();
         return res;
       })

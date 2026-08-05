@@ -1,0 +1,96 @@
+{
+  "features": {
+    "name-label": "Име",
+    "faculty-label": "Факултет",
+    "actions-label": "Действия",
+    "type-label": "Тип",
+    "study-mode-label": "Форма на обучение",
+    "major-label": "Специалност",
+    "location-label": "Местоположение",
+    "number-label": "No.",
+    "edit": "Редактирай",
+    "delete": "Изтрий"
+  },
+  "room": {
+    "room-number": "Номер на стая",
+    "no-rooms": "Няма записани стаи",
+    "add": {
+      "title": "Добави стая",
+      "failed": "Неуспешно добавяне на стаята."
+    }
+  },
+  "faculty": {
+    "delete-button": "Изтрий",
+    "edit-button": "Редактирай",
+    "uni-label": "Университет",
+    "delete-confirmation": "Сигурни ли сте, че искате да изтриете факултет с име: ",
+    "add": {
+      "title": "Добави факултет"
+    },
+    "edit": {
+      "title": "Редактирай факултет"
+    },
+    "load":{
+      "failed":"Неуспешно зареждане на факултети"
+    }
+  },
+  "major": {
+    "paid-option": "Платено",
+    "full-time-option": "Редовно",
+    "delete-confirmation": "Сигурни ли сте, че искате да изтриете специалност с име: ",
+    "bachelor-option": "Бакалавър",
+    "master-option": "Магистър",
+    "add": {
+      "title": "Добави специалност"
+    },
+    "edit": {
+      "title": "Редактирай специалност"
+    }
+  },
+  "student": {
+    "faculty-number-label": "Факултетен номер",
+    "course-label": "Курс",
+    "qualification-level-label": "Квалификационна степен",
+    "add": {
+      "title": "Добави студент"
+    }
+  },
+  "settings": {
+    "title": "Заглавие",
+    "span": "Смени езика",
+    "bulgarian": "български",
+    "english": "английски"
+  },
+  "shared": {
+    "add-button": "Добави",
+    "exit-button": "Отмени",
+    "save-button": "Запази",
+    "delete-button": "Изтрий",
+    "option-all": "Всички",
+    "confirm-delete": "Потвърдете изтриването",
+    "close-btn": "Затвори"
+  },
+  "home": {
+    "title": "Начало!"
+  },
+  "not-found": {
+    "title": "Страницата не е намерена",
+    "back-link": "Обратно към началото"
+  },
+  "navmenu": {
+    "toggle-aria": "Превключи навигационното меню",
+    "home": "Начало",
+    "create-schedule": "Създай разписание",
+    "faculty": "Факултет",
+    "department": "Катедра",
+    "major": "Специалност",
+    "rooms": "Стаи",
+    "students": "Студенти",
+    "teachers": "Преподаватели",
+    "subjects": "Предмети",
+    "settings": "Настройки",
+    "open-profile": "Отвори",
+    "logout": "Изход",
+    "login": "Вход"
+  }
+}

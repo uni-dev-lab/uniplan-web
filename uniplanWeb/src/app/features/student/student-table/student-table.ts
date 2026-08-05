@@ -1,12 +1,13 @@
 import {
   Component,
   Input,
-  SimpleChanges,
   OnChanges,
   OnInit,
   ChangeDetectionStrategy
 } from '@angular/core';
 import { StudentElm } from '../../../core/interfaces/student-elm';
+import { StudentFilterOptions } from '../../../core/interfaces/student-filter-options';
+import { TranslatePipe } from '@ngx-translate/core';
 
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
@@ -107,10 +108,10 @@ export const ELEMENT_STUDENT_DATA: StudentElm[] = [
 
 @Component({
   selector: 'app-student-table',
-  imports: [MatTableModule, MatIconModule, MatButtonModule],
   templateUrl: './student-table.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './student-table.scss',
+  imports: [MatTableModule, MatIconModule, MatButtonModule, TranslatePipe],
 })
 export class StudentTable implements OnInit, OnChanges {
   @Input() public searchText: string = '';
@@ -139,7 +140,7 @@ export class StudentTable implements OnInit, OnChanges {
     this.applyFilters();
   }
 
-  public ngOnChanges(changes: SimpleChanges): void {
+  public ngOnChanges(): void {
     this.applyFilters();
   }
 
@@ -158,7 +159,7 @@ export class StudentTable implements OnInit, OnChanges {
     });
   }
 
-  public static getFilterOptions(data: StudentElm[]) {
+  public static getFilterOptions(data: StudentElm[]): StudentFilterOptions {
     return {
       subtypes: [...new Set(data.map((e: StudentElm) => e.subtype))],
     };

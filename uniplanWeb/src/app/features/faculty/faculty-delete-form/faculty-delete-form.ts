@@ -1,26 +1,20 @@
-import { Component, Inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { DeleteForm } from '../../../core/shared/delete-form/delete-form';
-import {
-  MAT_DIALOG_DATA,
-  MatDialogModule,
-  MatDialogRef,
-} from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef, } from '@angular/material/dialog';
 import { FacultyService } from '../faculty-service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-faculty-delete-form',
-  imports: [DeleteForm, MatDialogModule],
   templateUrl: './faculty-delete-form.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './faculty-delete-form.scss',
+  imports: [DeleteForm, MatDialogModule, TranslatePipe],
 })
 export class FacultyDeleteForm {
-  constructor(
-    private facultyService: FacultyService,
-    private dialogRef: MatDialogRef<FacultyDeleteForm>,
-    @Inject(MAT_DIALOG_DATA)
-    public data: { id: string; facultyName: string }
-  ) {}
+  private facultyService = inject(FacultyService);
+  private dialogRef = inject<MatDialogRef<FacultyDeleteForm>>(MatDialogRef);
+  public data = inject<{ id: string; facultyName: string }>(MAT_DIALOG_DATA);
 
   protected deleteFaculty(): void {
     this.facultyService.deleteFaculty(this.data.id).subscribe({

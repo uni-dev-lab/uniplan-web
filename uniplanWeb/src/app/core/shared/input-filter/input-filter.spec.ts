@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { translateTestingProviders } from '@testing/translate-testing';
 
 import { InputFilter } from './input-filter';
 
@@ -9,10 +10,17 @@ describe('InputFilter', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [InputFilter],
+      providers: [
+        ...translateTestingProviders,
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(InputFilter);
     component = fixture.componentInstance;
     fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
   });
 });

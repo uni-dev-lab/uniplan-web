@@ -1,10 +1,6 @@
-import { Component, Inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import {
-  MatDialogModule,
-  MatDialogRef,
-  MAT_DIALOG_DATA,
-} from '@angular/material/dialog';
+import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA,} from '@angular/material/dialog';
 import { MatFormField } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -12,6 +8,7 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatLabel } from '@angular/material/form-field';
 import { FacultyService } from '../faculty-service';
 import { EditForm } from '../../../core/shared/edit-form/edit-form';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-faculty-edit',
@@ -27,28 +24,23 @@ import { EditForm } from '../../../core/shared/edit-form/edit-form';
     MatInputModule,
     MatSelectModule,
     MatOptionModule,
+    TranslatePipe,
   ],
 })
 export class FacultyEdit {
-  protected facultyName: string = '';
-  protected location: string = '';
-  protected universityId: string = '';
+  private dialogRef = inject<MatDialogRef<EditForm>>(MatDialogRef);
+  private facultyService = inject(FacultyService);
+  public data = inject<{
+    id: string;
+    facultyName: string;
+    location: string;
+    universityId: string;
+  }>(MAT_DIALOG_DATA);
 
-  constructor(
-    private dialogRef: MatDialogRef<EditForm>,
-    private facultyService: FacultyService,
-    @Inject(MAT_DIALOG_DATA)
-    public data: {
-      id: string;
-      facultyName: string;
-      location: string;
-      universityId: string;
-    }
-  ) {
-    this.facultyName = data.facultyName;
-    this.location = data.location;
-    this.universityId = data.universityId;
-  }
+  facultyName = '';
+  location = '';
+  universityId = '';
+
   protected save(): void {
     if (!this.facultyName.trim()) {
       alert('Please enter faculty name.');
