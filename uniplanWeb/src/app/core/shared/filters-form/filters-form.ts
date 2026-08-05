@@ -14,20 +14,20 @@ import { TranslatePipe } from '@ngx-translate/core';
   imports: [MatFormFieldModule, MatSelectModule, MatOptionModule, TranslatePipe],
 })
 export class FiltersForm {
-  @Input() label = '';
+  @Input() public label: string = '';
 
-  @Input() options: string[] = [];
+  @Input() public options: string[] = [];
 
-  @Input() objectOptions: { id: string; name: string }[] = [];
+  @Input() public objectOptions: { id: string; name: string }[] = [];
 
-  @Input() selected = '';
-  @Output() selectionChange = new EventEmitter<string>();
+  @Input() public selected = '';
+  @Output() public readonly selectionChange = new EventEmitter<string>();
 
-  onChange(value: string): void {
+  public onChange(value: string): void {
     this.selectionChange.emit(value);
   }
 
-  isObjectMode(): boolean {
+  public isObjectMode(): boolean {
     return this.objectOptions && this.objectOptions.length > 0;
   }
 }

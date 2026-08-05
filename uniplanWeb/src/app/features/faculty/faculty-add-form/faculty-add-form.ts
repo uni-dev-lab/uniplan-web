@@ -43,10 +43,10 @@ export class FacultyAddForm implements OnInit {
 
   ngOnInit(): void {
     this.universityService.getAllUniversities().subscribe({
-      next: (data) => {
+      next: (data: UniversityElm[]): void => {
         this.universities = data;
       },
-      error: (err) => {
+      error: (err: any): void => {
         console.error('Failed to load universities', err);
       },
     });
@@ -70,11 +70,11 @@ export class FacultyAddForm implements OnInit {
     };
 
     this.facultyService.createFaculty(newFaculty).subscribe({
-      next: (response) => {
+      next: (response: any): void => {
         console.log('Faculty created:', response);
         this.dialogRef.close(response);
       },
-      error: (err) => {
+      error: (err: any): void => {
         console.error('Failed to add faculty', err);
         alert('Failed to add faculty.');
       },

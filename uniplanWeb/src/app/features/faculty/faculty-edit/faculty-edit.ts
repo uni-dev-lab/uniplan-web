@@ -41,13 +41,7 @@ export class FacultyEdit {
   location = '';
   universityId = '';
 
-  constructor() {
-    this.facultyName = this.data.facultyName;
-    this.location = this.data.location;
-    this.universityId = this.data.universityId;
-  }
-
-  save(): void {
+  protected save(): void {
     if (!this.facultyName.trim()) {
       alert('Please enter faculty name.');
       return;
@@ -65,10 +59,10 @@ export class FacultyEdit {
         universityId: this.universityId,
       })
       .subscribe({
-        next: () => {
+        next: (): void => {
           this.dialogRef.close(true);
         },
-        error: () => {
+        error: (): void => {
           alert('Failed to update faculty.');
         },
       });

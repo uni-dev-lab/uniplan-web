@@ -16,12 +16,12 @@ export class FacultyDeleteForm {
   private dialogRef = inject<MatDialogRef<FacultyDeleteForm>>(MatDialogRef);
   public data = inject<{ id: string; facultyName: string }>(MAT_DIALOG_DATA);
 
-  deleteFaculty(): void {
+  protected deleteFaculty(): void {
     this.facultyService.deleteFaculty(this.data.id).subscribe({
-      next: () => {
+      next: (): void => {
         this.dialogRef.close(true);
       },
-      error: () => {
+      error: (): void => {
         alert('Възникна грешка при изтриването на факултета.');
       },
     });

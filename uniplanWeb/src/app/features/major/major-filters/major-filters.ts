@@ -21,19 +21,19 @@ import { TranslatePipe } from '@ngx-translate/core';
   ],
 })
 export class MajorFilters {
-  @Input() internalSearchText = '';
+  @Input() public internalSearchText = '';
 
-  @Input() faculties: { id: string; name: string }[] = [];
+  @Input() public faculties: { id: string; name: string }[] = [];
 
-  @Input() types: string[] = [];
-  @Input() subtypes: string[] = [];
+  @Input() public types: string[] = [];
+  @Input() public subtypes: string[] = [];
 
-  @Input() selectedFaculty = '';
-  @Input() selectedType = '';
-  @Input() selectedSubtype = '';
+  @Input() public selectedFaculty: string = '';
+  @Input() public selectedType: string = '';
+  @Input() public selectedSubtype: string = '';
 
-  @Output() facultyChange = new EventEmitter<string>();
-  @Output() typeChange = new EventEmitter<string>();
-  @Output() subtypeChange = new EventEmitter<string>();
-  @Output() searchTextChange = new EventEmitter<string>();
+  @Output() public readonly facultyChange: EventEmitter<string> = new EventEmitter<string>();
+  @Output() public readonly typeChange: EventEmitter<string> = new EventEmitter<string>();
+  @Output() public readonly subtypeChange: EventEmitter<string> = new EventEmitter<string>();
+  @Output() public readonly searchTextChange: EventEmitter<string> = new EventEmitter<string>();
 }

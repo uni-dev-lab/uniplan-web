@@ -13,7 +13,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 export class AddButton {
   @Output() addClicked = new EventEmitter<void>();
 
-  onClick(): void {
+  public onClick(): void {
     this.addClicked.emit();
   }
 }

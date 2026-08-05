@@ -11,7 +11,7 @@ import { CourseElm } from '../../core/interfaces/course-elm';
 export class MajorService {
   private http = inject(HttpClient);
 
-  refreshNeeded = new Subject<void>();
+  public readonly refreshNeeded: Subject<void> = new Subject<void>();
 
   getMajors(): Observable<MajorElm[]> {
     return this.http.get<MajorElm[]>(API_ENDPOINTS.majors).pipe(
@@ -29,7 +29,7 @@ export class MajorService {
     );
   }
 
-  createMajor(createMajor: {
+  public createMajor(createMajor: {
     facultyId: string;
     majorName: string;
   }): Observable<MajorElm> {
@@ -41,7 +41,7 @@ export class MajorService {
     );
   }
 
-  createCourse(course: {
+ public createCourse(course: {
     majorId: string;
     courseYear: number;
     courseType: string;
@@ -54,8 +54,7 @@ export class MajorService {
       })
     );
   }
-
-  createMajorWithCourse(majorData: {
+  public createMajorWithCourse(majorData: {
     facultyId: string;
     majorName: string;
     type: string;
@@ -95,7 +94,7 @@ export class MajorService {
     );
   }
 
-  editMajor(
+  public editMajor(
     id: string,
     updateMajor: { facultyId: string; majorName: string }
   ): Observable<MajorElm> {

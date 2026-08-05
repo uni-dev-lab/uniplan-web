@@ -12,7 +12,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 
 })
 export class EditForm {
-  @Input() title: string = '';
+  @Input() public title: string = '';
 
-  @Output() saveClicked = new EventEmitter<void>();
+  @Output() public readonly saveClicked:EventEmitter<void> = new EventEmitter<void>();
 }

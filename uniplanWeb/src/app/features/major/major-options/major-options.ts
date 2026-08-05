@@ -22,7 +22,7 @@ import { AddButton } from '../../../core/shared/add-button/add-button';
 export class MajorOptions {
   private dialog = inject(MatDialog);
 
-  openAddForm(): void {
+  protected openAddForm(): void {
     this.dialog.open(MajorAddForm, {
       width: '400px',
     });

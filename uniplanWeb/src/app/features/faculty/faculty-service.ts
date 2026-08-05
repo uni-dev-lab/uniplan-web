@@ -10,7 +10,7 @@ import { API_ENDPOINTS } from '../../config/endpoints';
 export class FacultyService {
    private http = inject(HttpClient);
 
-   refreshNeeded = new Subject<void>();
+  public readonly refreshNeeded = new Subject<void>();
 
   getFaculties(): Observable<FacultyElm[]> {
     return this.http.get<FacultyElm[]>(API_ENDPOINTS.faculties).pipe(
@@ -26,11 +26,11 @@ export class FacultyService {
     );
   }
 
-  createFaculty(faculty: {
+  public createFaculty(faculty: {
     universityId: string;
     facultyName: string;
     location: string;
-  }): Observable<void> {
+  }): Observable<any> {
     return this.http.post<void>(`${API_ENDPOINTS.faculties}`, faculty).pipe(
       tap((res) => {
         this.refreshNeeded.next();
@@ -39,7 +39,7 @@ export class FacultyService {
     );
   }
 
-  editFaculty(
+  public editFaculty(
     id: string,
     updatedFaculty: {
       universityId: string;
@@ -55,7 +55,7 @@ export class FacultyService {
     );
   }
 
-  deleteFaculty(id: string): Observable<void> {
+  public deleteFaculty(id: string): Observable<void> {
     return this.http.delete<void>(`${API_ENDPOINTS.faculties}/${id}`).pipe(
       tap((res) => {
         this.refreshNeeded.next();
