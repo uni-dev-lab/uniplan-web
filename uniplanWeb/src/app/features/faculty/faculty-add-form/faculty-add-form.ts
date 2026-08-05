@@ -32,14 +32,14 @@ import { TranslatePipe } from '@ngx-translate/core';
   styleUrl: './faculty-add-form.scss',
 })
 export class FacultyAddForm implements OnInit {
-  private dialogRef = inject<MatDialogRef<AddForm>>(MatDialogRef);
-  private facultyService = inject(FacultyService);
-  private universityService = inject(UniversityService);
-
   facultyName = '';
   location = '';
   universityId = '';
   universities: UniversityElm[] = [];
+
+    private dialogRef = inject(MatDialogRef<AddForm>);
+    private facultyService = inject(FacultyService);
+    private universityService = inject(UniversityService);
 
   ngOnInit(): void {
     this.universityService.getAllUniversities().subscribe({

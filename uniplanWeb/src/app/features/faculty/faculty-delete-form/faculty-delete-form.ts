@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
+import {Component, ChangeDetectionStrategy, inject} from '@angular/core';
 import { DeleteForm } from '../../../core/shared/delete-form/delete-form';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef, } from '@angular/material/dialog';
 import { FacultyService } from '../faculty-service';
