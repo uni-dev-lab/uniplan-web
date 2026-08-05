@@ -23,7 +23,7 @@ export class FiltersForm {
   @Input() public selected = '';
   @Output() public readonly selectionChange = new EventEmitter<string>();
 
-  public onChange(value: string) {
+  public onChange(value: string): void {
     this.selectionChange.emit(value);
   }
 
