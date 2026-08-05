@@ -30,7 +30,7 @@ export class StudentAddForm {
 
   private dialogRef = inject(MatDialogRef<AddForm>);
 
-  save() {
+  save(): void {
     if (!this.studentName.trim()) {
       alert('Please enter student name.');
       return;
