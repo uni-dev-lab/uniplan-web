@@ -4,7 +4,7 @@ import { Subject, of } from 'rxjs';
 import { translateTestingProviders } from '@testing/translate-testing';
 import { FacultyPanel } from './faculty-panel';
 import { FacultyService } from '../faculty-service';
-import { FacultyElm } from '../../../core/interfaces/faculty-elm';
+import { Faculty } from '../../../core/interfaces/faculty';
 
 describe('FacultyPanel', () => {
   let component: FacultyPanel;
@@ -12,7 +12,7 @@ describe('FacultyPanel', () => {
   let facultyServiceSpy: jasmine.SpyObj<FacultyService>;
   let dialogSpy: jasmine.SpyObj<MatDialog>;
 
-  const buildFaculty = (overrides: Partial<FacultyElm> = {}): FacultyElm => ({
+  const buildFaculty = (overrides: Partial<Faculty> = {}): Faculty => ({
     id: '1',
     facultyName: 'Faculty of Engineering',
     location: 'Sofia',

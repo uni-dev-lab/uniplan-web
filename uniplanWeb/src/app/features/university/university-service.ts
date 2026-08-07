@@ -3,7 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {API_ENDPOINTS} from '../../config/endpoints';
 
-export interface UniversityElm {
+export interface University {
   id: string;
   uniName: string;
   location: string;
@@ -18,7 +18,7 @@ export interface UniversityElm {
 export class UniversityService {
   private http = inject(HttpClient);
 
-  getAllUniversities(): Observable<UniversityElm[]> {
-    return this.http.get<UniversityElm[]>(API_ENDPOINTS.universities);
+  getAllUniversities(): Observable<University[]> {
+    return this.http.get<University[]>(API_ENDPOINTS.universities);
   }
 }

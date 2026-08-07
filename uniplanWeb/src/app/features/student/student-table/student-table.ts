@@ -5,7 +5,7 @@ import {
   OnInit,
   ChangeDetectionStrategy
 } from '@angular/core';
-import { StudentElm } from '../../../core/interfaces/student-elm';
+import { Student } from '../../../core/interfaces/student';
 import { StudentFilterOptions } from '../../../core/interfaces/student-filter-options';
 import { TranslatePipe } from '@ngx-translate/core';
 
@@ -13,7 +13,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 
-export const ELEMENT_STUDENT_DATA: StudentElm[] = [
+export const ELEMENT_STUDENT_DATA: Student[] = [
   {
     position: 1,
     name: 'Иван Иванов',
@@ -132,8 +132,8 @@ export class StudentTable implements OnInit, OnChanges {
     'actions',
   ];
 
-  originalData: StudentElm[] = ELEMENT_STUDENT_DATA;
-  dataSourceFilter: StudentElm[] = ELEMENT_STUDENT_DATA;
+  originalData: Student[] = ELEMENT_STUDENT_DATA;
+  dataSourceFilter: Student[] = ELEMENT_STUDENT_DATA;
 
   ngOnInit(): void {
     this.subtypes = StudentTable.getFilterOptions(this.originalData).subtypes;
@@ -159,17 +159,17 @@ export class StudentTable implements OnInit, OnChanges {
     });
   }
 
-  static getFilterOptions(data: StudentElm[]): StudentFilterOptions {
+  static getFilterOptions(data: Student[]): StudentFilterOptions {
     return {
       subtypes: [...new Set(data.map((e) => e.subtype))],
     };
   }
 
-  onEdit(element: StudentElm): void {
+  onEdit(element: Student): void {
     console.log('Editing:', element);
   }
 
-  onDelete(element: StudentElm): void {
+  onDelete(element: Student): void {
     console.log('Deleting:', element);
   }
 }

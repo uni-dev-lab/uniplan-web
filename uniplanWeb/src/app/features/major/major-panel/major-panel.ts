@@ -2,7 +2,7 @@ import { Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { catchError, combineLatest, map, merge, of, switchMap } from 'rxjs';
 
-import { MajorElm } from '../../../core/interfaces/major-elm';
+import { Major } from '../../../core/interfaces/major';
 import { FacultyService } from '../../faculty/faculty-service';
 import { MajorOptions } from '../major-options/major-options';
 import { MajorFilters } from '../major-filters/major-filters';
@@ -29,7 +29,7 @@ export class MajorPanel implements OnInit {
   types: string[] = [];
   subtypes: string[] = [];
 
-  private majors: MajorElm[] = [];
+  private majors: Major[] = [];
   private facultyMap: Map<string, string> = new Map<string, string>();
 
   ngOnInit(): void {

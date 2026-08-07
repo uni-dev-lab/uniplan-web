@@ -2,7 +2,7 @@ import { Component, Input, OnInit, ChangeDetectionStrategy, signal, inject } fro
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
-import { MajorElm } from '../../../core/interfaces/major-elm';
+import { Major } from '../../../core/interfaces/major';
 import { MajorFilterOptions } from '../../../core/interfaces/major-filter-options';
 import { MajorEditForm } from '../major-edit-form/major-edit-form';
 import { MatDialog } from '@angular/material/dialog';
@@ -32,7 +32,7 @@ export class MajorTable implements OnInit {
     'actions',
   ];
 
-  dataSource = signal<MajorElm[]>([]);
+  dataSource = signal<Major[]>([]);
   facultyMap = signal(new Map<string, string>());
 
   @Input() searchText = '';
@@ -66,7 +66,7 @@ export class MajorTable implements OnInit {
     return this.facultyMap().get(id) || '—';
   }
 
-  get filteredMajors(): MajorElm[] {
+  get filteredMajors(): Major[] {
     return this.dataSource().filter((major) => {
       const matchesFaculty = !this.faculty || major.facultyId === this.faculty;
       const matchesType = !this.type || major.courseType === this.type;
@@ -80,7 +80,7 @@ export class MajorTable implements OnInit {
     });
   }
 
-  onEdit(element: MajorElm): void {
+  onEdit(element: Major): void {
     this.dialog.open(MajorEditForm, {
       data: {
         id: element.id,
@@ -90,7 +90,7 @@ export class MajorTable implements OnInit {
     });
   }
 
-  onDelete(element: MajorElm): void {
+  onDelete(element: Major): void {
     this.dialog.open(MajorDeleteForm, {
       data: {
         id: element.id,
@@ -102,7 +102,7 @@ export class MajorTable implements OnInit {
   }
 
   static getFilterOptions(
-    data: MajorElm[],
+    data: Major[],
     facultyMap: Map<string, string>
   ): MajorFilterOptions {
     const faculties = [...new Set(data.map((e) => e.facultyId))].map((id) => ({

@@ -11,7 +11,7 @@ import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { finalize } from 'rxjs';
 import { AddForm } from '../../../core/shared/add-form/add-form';
 import { FacultyService } from '../../faculty/faculty-service';
-import { FacultyElm } from '../../../core/interfaces/faculty-elm';
+import { Faculty } from '../../../core/interfaces/faculty';
 import { RoomService } from '../room-service';
 
 @Component({
@@ -36,7 +36,7 @@ export class RoomAddForm implements OnInit {
   private dialogRef = inject(MatDialogRef<AddForm>);
   private facultyService = inject(FacultyService);
   private roomService = inject(RoomService)
-  faculties: FacultyElm[] = [];
+  faculties: Faculty[] = [];
   private destroyRef = inject(DestroyRef);
   private translate = inject(TranslateService);
   private isSubmitting = false;

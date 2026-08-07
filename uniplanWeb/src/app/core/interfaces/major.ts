@@ -1,4 +1,4 @@
-export interface MajorElm {
+export interface Major {
   id: string;
   courseId: string;
   facultyId: string;

@@ -1,4 +1,4 @@
-export interface FacultyElm {
+export interface Faculty {
   id: string;
   facultyName: string;
   position: number;

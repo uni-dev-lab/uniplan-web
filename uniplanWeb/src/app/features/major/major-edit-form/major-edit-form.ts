@@ -8,7 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { MajorService } from '../major-service';
 import { FacultyService } from '../../faculty/faculty-service';
-import { FacultyElm } from '../../../core/interfaces/faculty-elm';
+import { Faculty } from '../../../core/interfaces/faculty';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
@@ -40,7 +40,7 @@ export class MajorEditForm implements OnInit {
   majorName = '';
   facultyId = '';
 
-  faculties: FacultyElm[] = [];
+  faculties: Faculty[] = [];
 
   constructor() {
     this.majorName = this.data.majorName;

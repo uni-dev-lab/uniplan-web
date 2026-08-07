@@ -8,7 +8,7 @@ import { MatOptionModule } from '@angular/material/core';
 import { AddForm } from '../../../core/shared/add-form/add-form';
 import { FacultyService } from '../faculty-service';
 import {
-  UniversityElm,
+  University,
   UniversityService,
 } from '../../university/university-service';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -39,7 +39,7 @@ export class FacultyAddForm implements OnInit {
   facultyName = '';
   location = '';
   universityId = '';
-  universities: UniversityElm[] = [];
+  universities: University[] = [];
 
   ngOnInit(): void {
     this.universityService.getAllUniversities().subscribe({
