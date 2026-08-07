@@ -24,6 +24,7 @@ export class FacultyOptions {
   openAddForm(): void {
     this.dialog.open(FacultyAddForm, {
       width: '400px',
+      maxWidth: '90vw',
     });
   }
 }

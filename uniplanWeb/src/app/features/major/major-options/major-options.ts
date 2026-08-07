@@ -25,6 +25,7 @@ export class MajorOptions {
   openAddForm(): void {
     this.dialog.open(MajorAddForm, {
       width: '400px',
+      maxWidth: '90vw',
     });
   }
 }

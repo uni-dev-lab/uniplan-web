@@ -1,12 +1,23 @@
+$table-min-width: 950px;
+
 .table-wrapper {
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
   margin-top: 1%;
   background-color: #fff;
+  -webkit-overflow-scrolling: touch;
+  max-width: 100vw;
+  box-sizing: border-box;
 }
 
-.table-header {
+.table-wrapper .table-header,
+.table-wrapper .table-body {
+  min-width: $table-min-width;
+}
+
+.table-wrapper .table-header {
   width: 100%;
   table-layout: fixed;
 }
@@ -14,7 +25,7 @@
 .scrollable-body {
   max-height: 510px;
   overflow-y: auto;
-  overflow-x: hidden;
+  overflow-x: visible;
 }
 
 @media (min-width: 900px) {
@@ -29,7 +40,8 @@
   }
 }
 
-.table-body {
+
+.table-wrapper .table-body {
   width: 100%;
   table-layout: fixed;
   border-collapse: collapse;
