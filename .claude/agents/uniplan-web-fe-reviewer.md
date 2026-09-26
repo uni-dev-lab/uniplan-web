@@ -30,7 +30,7 @@ Suggestions (ideas, not blockers) go in the **"Suggestions"** bucket — capped 
 
 Correctness + safety:
 - Bugs, logic errors, null/undefined handling.
-- RxJS subscription leaks: bare `.subscribe()` in a component without unsubscribe and without `async` pipe consumption is **Important** in new code. **Critical** if it's on a long-lived global Subject (`refreshNeeded`, `currentView$`) inside a component that can be destroyed and recreated.
+- RxJS subscription leaks: bare `.subscribe()` in a component without unsubscribe and without `async` pipe consumption is **Important** in new code. **Critical** if it's on a long-lived service Subject (`refreshNeeded`) inside a component that can be destroyed and recreated.
 - Mutation methods on a feature service that don't call `this.refreshNeeded.next()` after success — **Critical** (silently breaks every list/filter that depends on the service).
 - `alert(...)` for validation feedback in new code — **Important**.
 - `console.log` / `console.error` left in committed code — **Minor** (downgrades to **Important** if the log includes a token, response payload, or user PII).
@@ -47,16 +47,20 @@ Security:
 - `[innerHTML]` with user-supplied or backend-supplied content — **Critical**.
 - `bypassSecurityTrust*` on user input — **Critical**.
 - Tokens / PII logged via `console.*` — **Critical**.
-- Hardcoded API URL in a component (instead of going through a feature service) — **Important**.
+- Hardcoded API URL anywhere (component or service) instead of `API_ENDPOINTS` from `config/endpoints.ts`, or HTTP calls made directly from a component instead of a feature service — **Important**.
 - New token-handling logic that assumes a real auth provider exists (the codebase has only a `localStorage` stub) — **Critical** unless the same PR introduces the provider.
 
 Architecture + rules:
 - Reintroducing `NgModule` — **Critical** (project is 100% standalone).
+- Adding `standalone: true` to a new component — **Minor** (redundant in Angular 22; removed repo-wide in #19).
+- Constructor-parameter injection instead of `inject()` — **Minor**.
 - Component class named with a `Component` / `Service` suffix — **Important** (project convention is no suffix).
 - Feature service file named `<feature>.service.ts` instead of `<feature>-service.ts` — **Important**.
 - Mutating service state without firing `refreshNeeded.next()` — covered above; restated here as an architecture violation.
-- Routing a new feature view through `app.routes.ts` while the rest of the codebase uses `ViewService` view switching — **Important**, unless the PR is the start of a documented router migration.
-- Mixing `*ngIf` / `*ngFor` with `@if` / `@for` in the same template — **Minor**.
+- A new feature page that is not a lazy-loaded (`loadComponent`) child route in `app.routes.ts`, or view switching via a service / `@if` blocks instead of the router — **Important**. A new route placed after the `**` wildcard — **Critical** (it is unreachable).
+- A new nav link using `href="#"` / `(click)` instead of `[routerLink]` + `routerLinkActive` — **Important**.
+- Hardcoded user-facing text instead of an ngx-translate key, or a key added to only one of `public/i18n/bg.json` / `en.json` — **Important**.
+- Reintroducing `*ngIf` / `*ngFor` (removed repo-wide in #20; use `@if` / `@for`) — **Minor**.
 - New code in `core/shared/` that contains feature-specific logic — **Important** (move it under `features/<feature>/`).
 - Importing across feature boundaries via a barrel / re-export shim — **Important** (import from the source path; cross-feature types live in `core/interfaces/<entity>-elm.ts`).
 - Per-component-style file exceeding 8 kB (production budget) — **Important**.
@@ -68,7 +72,7 @@ TypeScript strict:
 - Loosening `tsconfig.json` strict flags — **Critical**.
 
 Performance:
-- Missing `trackBy` / `track` on a `*ngFor` / `@for` over a non-trivial list — **Minor** (becomes **Important** if the list is the table's primary data source and renders >50 rows).
+- Missing `track` on an `@for` over a non-trivial list — **Minor** (becomes **Important** if the list is the table's primary data source and renders >50 rows).
 - Re-fetching the same data in multiple components when the parent already has it — **Important**.
 - Bundle additions that materially change the budget (>50 kB) — **Important**, with a justification request.
 
@@ -83,6 +87,7 @@ Tests:
 - **Important** if the spec is a TestBed-only stub with no `it()` body.
 - **Important** if assertions are presence-only (`expect(el).toBeTruthy()`) where a value-based assertion (`toContainText`) was reasonable.
 - **Minor** if mocks are constructed inline instead of via `jasmine.createSpyObj`.
+- **Important** if a spec for a component that uses the `translate` pipe omits `...translateTestingProviders` (the test will fail at runtime).
 
 ## Triage principles
 
