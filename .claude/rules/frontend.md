@@ -30,7 +30,7 @@ uniplanWeb/                        # All Angular code lives here, not at repo ro
 │       ├── app.config.ts         # providers (router, http)
 │       ├── app.routes.ts         # currently a single "" → LayoutComponent route
 │       ├── core/
-│       │   ├── interfaces/       # <Entity>Elm types in <entity>-elm.ts
+│       │   ├── interfaces/       # <Entity> types in <entity>.ts
 │       │   └── shared/           # cross-feature UI shells (add-form, edit-form,
 │       │                         # delete-form, filters-form, input-filter,
 │       │                         # add-button, main-panel, navmenu-component)
@@ -54,7 +54,7 @@ All `npm` / `ng` commands run from `uniplanWeb/`, not the repo root.
 - Class names are **PascalCase without the `Component` / `Service` suffix**:
   `FacultyAddForm` (not `FacultyAddFormComponent`), `MajorService` (not `MajorServiceService`).
 - Feature service files are named `<feature>-service.ts` (single hyphen), not `<feature>.service.ts` — this is intentional and predates Angular's default. **Do not "fix" it.**
-- Domain interface files end in `-elm.ts` and export `<Entity>Elm` (e.g. `major-elm.ts` → `MajorElm`). One existing exception is `UniversityElm` co-located in `university-service.ts`.
+- Domain interface files are named `<entity>.ts` and export `<Entity>` (e.g. `student-profile.ts` → `StudentProfile`, `lector-profile.ts` → `LectorProfile`). One existing exception is `UniversityElm` co-located in `university-service.ts`.
 - Test files live alongside source as `*.spec.ts`.
 
 ## Component Conventions
@@ -70,7 +70,7 @@ All `npm` / `ng` commands run from `uniplanWeb/`, not the repo root.
 - **`core/shared/`** — cross-feature primitives (form skeletons, the layout panel, the navmenu, generic table). No feature-specific logic here.
 - **`features/<feature>/`** — every feature owns its options bar, table, dialog forms, filters bar, and service in a flat directory.
 - **No barrel `index.ts` files.** Import directly from the source path.
-- **No re-export shims** between features — if feature A needs a type from feature B's interface file, import from `core/interfaces/<entity>-elm.ts` directly.
+- **No re-export shims** between features — if feature A needs a type from feature B's interface file, import from `core/interfaces/<entity>.ts` directly.
 
 ## View Switching (project-specific)
 
