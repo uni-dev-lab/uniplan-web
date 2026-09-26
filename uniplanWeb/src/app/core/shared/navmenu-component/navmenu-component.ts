@@ -18,7 +18,6 @@ export class NavmenuComponent implements OnInit {
 
   isSidebarCollapsed = false;
   isMobileView = window.innerWidth <= 768;
-
   ngOnInit(): void {
     this.checkViewport();
   }

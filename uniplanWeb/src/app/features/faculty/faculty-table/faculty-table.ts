@@ -22,10 +22,7 @@ import { TranslatePipe } from '@ngx-translate/core';
     TranslatePipe
     ],
 })
-export class FacultyTable implements OnInit {
-  private facultyService = inject(FacultyService);
-  private dialog = inject(MatDialog);
-
+export class FacultyTable implements OnInit{
   displayedColumns: string[] = [
     'position',
     'facultyName',
@@ -33,6 +30,9 @@ export class FacultyTable implements OnInit {
     'actions',
   ];
   dataSource = signal<FacultyElm[]>([]);
+
+    private facultyService = inject(FacultyService);
+    private dialog = inject(MatDialog);
 
   ngOnInit(): void {
     this.loadFaculties();
