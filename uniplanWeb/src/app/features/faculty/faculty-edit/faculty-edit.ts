@@ -28,7 +28,8 @@ import { TranslatePipe } from '@ngx-translate/core';
   ],
 })
 export class FacultyEdit {
-  private dialogRef = inject<MatDialogRef<EditForm>>(MatDialogRef);
+
+  private dialogRef = inject(MatDialogRef<EditForm>);
   private facultyService = inject(FacultyService);
   public data = inject<{
     id: string;
@@ -37,15 +38,9 @@ export class FacultyEdit {
     universityId: string;
   }>(MAT_DIALOG_DATA);
 
-  facultyName = '';
-  location = '';
-  universityId = '';
-
-  constructor() {
-    this.facultyName = this.data.facultyName;
-    this.location = this.data.location;
-    this.universityId = this.data.universityId;
-  }
+  facultyName = this.data.facultyName;
+  location = this.data.location;
+  universityId = this.data.universityId;
 
   save(): void {
     if (!this.facultyName.trim()) {
