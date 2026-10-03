@@ -1,8 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable, shareReplay } from 'rxjs';
-import { RoomViewModel } from '../../core/interfaces/room-view-model';
-import { RoomElm } from '../../core/interfaces/room-elm';
+import { Room } from '../../core/interfaces/room';
 import { Subject } from 'rxjs';
 import { API_ENDPOINTS } from '../../config/endpoints';
 
@@ -15,14 +14,15 @@ export class RoomService {
 
     private http = inject(HttpClient);
 
-    getRooms(): Observable<RoomViewModel[]> {
-        return this.http.get<RoomElm[] | null>(API_ENDPOINTS.rooms).pipe(
+    getRooms(): Observable<Room[]> {
+        return this.http.get<Room[] | null>(API_ENDPOINTS.rooms).pipe(
             map(rooms => rooms ?? []),
             map(rooms =>
                 rooms.map((room, index) => ({
                     id: room.id,
                     facultyId: room.facultyId,
                     roomNumber: room.roomNumber,
+                    categoryId: room.categoryId,
                     position: index + 1,
                 }))
             ),
@@ -33,8 +33,8 @@ export class RoomService {
     createRoom(room: {
         roomNumber: string;
         facultyId: string;
-    }): Observable<RoomElm> {
-        return this.http.post<RoomElm>(`${(API_ENDPOINTS.rooms)}`, room).pipe(
+    }): Observable<Room> {
+        return this.http.post<Room>(`${(API_ENDPOINTS.rooms)}`, room).pipe(
             map((res) => {
                 this.refreshNeeded.next();
                 return res;
