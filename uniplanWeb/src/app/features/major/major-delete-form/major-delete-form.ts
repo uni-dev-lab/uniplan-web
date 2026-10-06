@@ -13,9 +13,10 @@ import { TranslatePipe } from '@ngx-translate/core';
     TranslatePipe],
 })
 export class MajorDeleteForm {
+
   private majorService = inject(MajorService);
-  private dialogRef = inject<MatDialogRef<MajorDeleteForm>>(MatDialogRef);
-  public data = inject<{ id: string; name: string }>(MAT_DIALOG_DATA);
+  private dialogRef = inject(MatDialogRef<MajorDeleteForm>);
+  public data = inject<{ id: string; courseId: string; name: string }>(MAT_DIALOG_DATA);
 
   deleteMajor(): void {
     this.majorService

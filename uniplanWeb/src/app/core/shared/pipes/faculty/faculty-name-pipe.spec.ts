@@ -1,4 +1,4 @@
-import { FacultyNamePipe } from './faculty-name-pipe';
+import { FacultyNamePipe } from "./faculty-name-pipe";
 
 describe('FacultyNamePipe', () => {
   it('create an instance', () => {

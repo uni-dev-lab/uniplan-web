@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Working directory
 
-The Angular project lives in [uniplanWeb/](uniplanWeb), not the repo root. All `npm` / `ng` commands must be run from `uniplanWeb/`. The repo root only holds `.github/CODEOWNERS` and `.gitignore`.
+The Angular project lives in [uniplanWeb/](uniplanWeb), not the repo root. All `npm` / `ng` commands must be run from `uniplanWeb/`. The repo root only holds `.github/` (CODEOWNERS + workflows), `.claude/`, this file and `.gitignore`.
 
 ## Common commands
 
@@ -15,63 +15,79 @@ Run from `uniplanWeb/`:
 | Dev server (http://localhost:4200) | `npm start` (= `ng serve`) |
 | Production build → `dist/` | `npm run build` |
 | Watch build (development config) | `npm run watch` |
+| Lint (ESLint via `angular-eslint`) | `npm run lint` (= `ng lint`) |
 | Unit tests (Karma + Jasmine, headless Chrome) | `npm test` |
 | Run a single spec | `npm test -- --include='**/major-service.spec.ts'` |
-| Single run (CI-style, no watch) | `npm test -- --watch=false --browsers=ChromeHeadless` |
+| Single run (CI-style, no watch) | `npm test -- --no-watch --browsers=ChromeHeadless` |
 | Generate a component | `npx ng generate component features/<feature>/<name>` |
 
-There is no lint script and no e2e runner configured — the README mentions `ng e2e` but no framework is wired up. Production budgets: initial bundle 500 kB warn / 1 MB error; per-component styles 4 kB / 8 kB.
+There is no e2e runner configured — the README mentions `ng e2e` but no framework is wired up. Production budgets: initial bundle 500 kB warn / 1 MB error; per-component styles 4 kB / 8 kB. ESLint config lives in [eslint.config.js](uniplanWeb/eslint.config.js); `@typescript-eslint/no-explicit-any` is temporarily `"warn"` (see issue #99) — don't add new `any`.
 
 ## Backend dependency
 
-Every feature service hardcodes `http://localhost:8080/...` (faculties, majors, courses, universities). There is no environment file — to point at a different API you must edit the service files directly. The Student feature has no backend yet; `ELEMENT_STUDENT_DATA` in [student-table.ts](uniplanWeb/src/app/features/student/student-table/student-table.ts) is a hardcoded list.
+The backend is the Spring Boot `uniplan` repo (served under `/api`). The base URL comes from [environment.ts](uniplanWeb/src/environments/environment.ts) (`baseUrl: 'http://localhost:8080/api'`), and every resource URL is built in [config/endpoints.ts](uniplanWeb/src/app/config/endpoints.ts) (`API_ENDPOINTS.faculties`, `.majors`, `.courses`, `.universities`, `.rooms`). Services must use `API_ENDPOINTS` — never hardcode a URL. When wiring a new backend resource, add its entry to `endpoints.ts` first.
 
+- There is no dev-server proxy and the backend has no CORS configuration, so browser calls from `localhost:4200` to `localhost:8080` can be blocked by CORS.
+- The backend has a full `/students` API, but the Student feature is **not connected yet** — `ELEMENT_STUDENT_DATA` in [student-table.ts](uniplanWeb/src/app/features/student/student-table/student-table.ts) is a hardcoded list, and edit/delete only `console.log`.
+- `GET /majors` returns only `{ id, facultyId, majorName }`; `MajorElm.courseId` / `courseType` / `courseSubtype` are not populated by it.
 ## Architecture
 
-### View switching is not the Angular router
+### Routing
 
-[app.routes.ts](uniplanWeb/src/app/app.routes.ts) registers a single route (`""` → `LayoutComponent`); the router is effectively unused for in-app navigation. Instead:
+Navigation uses the Angular Router. [app.routes.ts](uniplanWeb/src/app/app.routes.ts) has one parent route `""` → [`LayoutComponent`](uniplanWeb/src/app/layout-component/layout-component.ts) (navmenu + `<router-outlet>`), with lazy-loaded children via `loadComponent`: `home`, `faculty`, `major`, `student`, `room`, and a `**` → `NotFoundPanel` fallback. `""` redirects to `home`.
 
-- [`ViewService`](uniplanWeb/src/app/core/shared/main-panel/view.service.ts) holds a `BehaviorSubject<string>` of the current view (`'home' | 'faculty' | 'major' | 'student'`).
-- [`NavmenuComponent`](uniplanWeb/src/app/core/shared/navmenu-component/navmenu-component.ts) calls `viewService.setView(...)` from click handlers.
-- [`MainPanel`](uniplanWeb/src/app/core/shared/main-panel/main-panel.ts) subscribes to `currentView$` and its template uses `*ngIf="currentView === 'X'"` to swap feature panels.
+To add a new feature page:
 
-To add a new feature view: register a string in `ViewService`, add a click handler in `NavmenuComponent`, and add an `*ngIf` block in [main-panel.html](uniplanWeb/src/app/core/shared/main-panel/main-panel.html). Do not add it to `app.routes.ts` unless you intend to migrate everything to the router.
+1. Create a `<feature>-panel` component under `src/app/features/<feature>/`.
+2. Add a child route in `app.routes.ts` (copy the `room` entry) — keep it before the `**` wildcard.
+3. Add a link in [navmenu-component.html](uniplanWeb/src/app/core/shared/navmenu-component/navmenu-component.html) with `[routerLink]="'/<feature>'" routerLinkActive="active"`. Some menu items (Department, Teachers, Subjects, Settings, Login) are still placeholder `href="#"` links.
 
 ### Feature service refresh pattern
 
-Each feature service (e.g. [faculty-service.ts](uniplanWeb/src/app/features/faculty/faculty-service.ts), [major-service.ts](uniplanWeb/src/app/features/major/major-service.ts)) exposes `refreshNeeded = new Subject<void>()`. Mutating methods (`create*`, `edit*`, `delete*`) call `this.refreshNeeded.next()` inside a `map` after the HTTP response. Tables and panels subscribe to it in `ngOnInit` and refetch when it emits. `MainPanel` also re-derives filter dropdowns this way. When adding a new mutation, preserve this contract or filters/tables will go stale.
+Each feature service (e.g. [faculty-service.ts](uniplanWeb/src/app/features/faculty/faculty-service.ts), [major-service.ts](uniplanWeb/src/app/features/major/major-service.ts), [room-service.ts](uniplanWeb/src/app/features/room/room-service.ts)) exposes `refreshNeeded = new Subject<void>()`. Mutating methods (`create*`, `edit*`, `delete*`) call `this.refreshNeeded.next()` in a `map`/`tap` after the HTTP response. Tables and panels subscribe to it (e.g. `merge(of(undefined), service.refreshNeeded).pipe(switchMap(...))` in `MajorPanel`) and refetch when it emits; panels also re-derive filter dropdowns this way. When adding a new mutation, preserve this contract or filters/tables will go stale. Use `takeUntilDestroyed()` or the `async` pipe for new subscriptions.
 
 ### Folder layout
 
-- `src/app/core/interfaces/` — domain types named `<entity>.ts` exporting `<Entity>` (e.g. `student-profile.ts` → `StudentProfile`, `lector-profile.ts` → `LectorProfile`). One exception: `UniversityElm` is co-located inside [university-service.ts](uniplanWeb/src/app/features/university/university-service.ts).
-- `src/app/core/shared/` — reusable UI shells: `add-button`, `add-form`, `edit-form`, `delete-form`, `filters-form`, `input-filter`, `main-panel` (with its `table` child), `navmenu-component`. Feature-specific forms wrap these via `imports` and an `@Output() saveClicked` event.
-- `src/app/features/{faculty,major,student,university}/` — each feature owns its `*-service.ts` plus `*-options`, `*-table`, `*-add-form`, `*-edit-form`, `*-delete-form`, `*-filters` components. Note the `*-service.ts` naming (with hyphen) is non-default Angular style — keep it consistent if you add a new service in this layer.
+- `src/app/config/endpoints.ts` — `API_ENDPOINTS` map (see Backend dependency).
+- `src/environments/environment.ts` — `baseUrl` for the API.
+- `src/app/layout-component/` — app shell (navmenu + router outlet).
+- `src/app/core/interfaces/` — domain types named `<entity>-elm.ts` exporting `<Entity>Elm` (e.g. `MajorElm`), plus view-model / filter-option types (`room-view-model.ts`, `major-filter-options.ts`). One exception: `UniversityElm` is co-located inside [university-service.ts](uniplanWeb/src/app/features/university/university-service.ts). (Issue #87 proposes dropping the `Elm` suffix — until it lands, keep the current naming.)
+- `src/app/core/shared/` — reusable UI pieces: `add-button`, `add-form`, `edit-form`, `delete-form`, `filters-form`, `input-filter`, `navmenu-component`, `settings` (language switcher, not routed yet), and `pipes/` ([`FacultyNamePipe`](uniplanWeb/src/app/core/shared/pipes/faculty-name-pipe.ts) maps a faculty id to its name). Feature-specific forms wrap the form shells via `imports` and a `saveClicked` output.
+- `src/app/features/<feature>/` — `faculty`, `major`, `student`, `room`, plus `university` (service only), `home` and `not-found` (panels only). Each full feature owns its `*-service.ts` plus `*-panel`, `*-options`, `*-table`, `*-add-form`, `*-edit-form` / `*-edit`, `*-delete-form`, `*-filters` components (Room currently has only panel/options/table/add-form). Note the `*-service.ts` naming (with hyphen) is non-default Angular style — keep it consistent if you add a new service.
 - `src/app/services/` — cross-cutting services. Currently just [login-auth-service.ts](uniplanWeb/src/app/services/login-auth-service.ts), which is a `localStorage`-backed stub (no real auth).
+- `src/testing/translate-testing.ts` — `translateTestingProviders` for specs (imported as `@testing/translate-testing`, alias defined in `tsconfig.spec.json`).
+- `public/i18n/{bg,en}.json` — translation files.
 
 ### In-memory filtering
 
-Tables receive filter values as `@Input()` and filter their local `dataSource` either via a getter (`MajorTable.filteredMajors`) or `applyFilters()` in `ngOnChanges` (`StudentTable`). The list of filter options is computed by a `static getFilterOptions(data, ...)` method on the table class and consumed by `MainPanel` to feed the filter dropdowns. Keep both the static method and the in-memory filter logic in sync when adding a column.
+Tables receive filter values as `@Input()` and filter their local data either via a getter (`MajorTable.filteredMajors`) or `applyFilters()` in `ngOnChanges` (`StudentTable`). The list of filter options is computed by a `static getFilterOptions(data, ...)` method on the table class and consumed by the feature panel (`MajorPanel`, `StudentPanel`) to feed the filter dropdowns. Keep both the static method and the in-memory filter logic in sync when adding a column.
+
+### i18n
+
+UI text is translated with `@ngx-translate/core` (configured in [app.config.ts](uniplanWeb/src/app/app.config.ts); default and fallback language `bg`, files loaded from `/i18n/<lang>.json`). Templates use the `translate` pipe (`{{ 'navmenu.home' | translate }}`), code uses `TranslateService.instant(...)`. **Every new user-facing string needs a key in both `bg.json` and `en.json`.** Specs that render translated templates must add `...translateTestingProviders` to `providers`.
 
 ### Dialogs
 
-Add/edit/delete flows use `MatDialog`. The shared skeleton lives in `core/shared/{add,edit,delete}-form/` and exposes a `@Output() saveClicked` that the feature-specific dialog wires to its own `save()`. Data flows in via `MAT_DIALOG_DATA`; `MatDialogRef.close(value)` returns the result. Width is typically `'400px'`.
+Add/edit/delete flows use `MatDialog`. The shared skeleton lives in `core/shared/{add,edit,delete}-form/` and exposes a `saveClicked` output that the feature-specific dialog wires to its own `save()`. Data flows in via `MAT_DIALOG_DATA`; `MatDialogRef.close(value)` returns the result. Width is typically `'400px'`.
 
 ## Conventions
 
-- **All components are `standalone: true`** with explicit `imports: [...]`. There are no `NgModule`s — do not introduce one.
-- Selector prefix is `app-`. Class names are PascalCase **without** the `Component` suffix (e.g. `FacultyAddForm`, not `FacultyAddFormComponent`). File and folder names are kebab-case and match the selector minus the `app-` prefix.
-- Tests live next to source as `*.spec.ts`. Most existing specs are scaffolds — [app.spec.ts](uniplanWeb/src/app/app.spec.ts) currently asserts an `<h1>` that the template does not render, so `npm test` is not green out of the box. Be aware before claiming "tests pass".
+- Angular 22 / Angular Material 22. Components are standalone by default — **don't add `standalone: true`** (it was removed in #19; six older files in `core/shared/` still carry it). Always declare explicit `imports: [...]`. There are no `NgModule`s — do not introduce one.
+- Use `inject()` for dependencies, not constructor injection.
+- Many components set `changeDetection: ChangeDetectionStrategy.Eager`; follow the surrounding feature when adding components. Signals (`signal()`) are already used in some tables (e.g. `MajorTable`).
+- Selector prefix is `app-`. Class names are PascalCase **without** the `Component` suffix (e.g. `FacultyAddForm`, not `FacultyAddFormComponent`). File and folder names are kebab-case and match the selector minus the `app-` prefix. (Legacy exceptions: `NavmenuComponent`, `LayoutComponent`.)
+- Tests live next to source as `*.spec.ts`. Most existing specs are scaffolds that only assert the component was created. Run the tests before claiming "tests pass" — don't assume.
 - Default style is SCSS (configured in [angular.json](uniplanWeb/angular.json)). The Material theme is `azure-blue` (prebuilt).
 - TypeScript runs in strict mode plus `noImplicitOverride`, `noPropertyAccessFromIndexSignature`, `noImplicitReturns`, `noFallthroughCasesInSwitch`. Angular templates run with `strictTemplates` + `strictInputAccessModifiers`. Don't loosen these.
-- Code is currently a mix of `*ngIf` / `*ngFor` (legacy) and could be migrated to the new `@if` / `@for` control-flow syntax — but until the codebase has been swept end-to-end, follow the surrounding file's style rather than mixing both in one template.
-- The codebase contains user-facing strings in Bulgarian (e.g. student data, `'редовно'` / `'задочно'` literals in [student-elm.ts](uniplanWeb/src/app/core/interfaces/student-elm.ts)). Don't translate these without confirmation — they are domain values, not UI copy.
+- Templates use the built-in control flow (`@if` / `@for`). `*ngIf` / `*ngFor` were removed (#20) — don't reintroduce them.
+- Prefer reactive forms (see `room-add-form`) for new forms; several older forms are still template-driven (`[(ngModel)]`, issue #17). Don't use `alert(...)` for validation — use `MatError` or a snackbar.
+- The codebase contains Bulgarian domain values (e.g. `'редовно'` / `'задочно'` literals in [student-elm.ts](uniplanWeb/src/app/core/interfaces/student-elm.ts)). Don't translate these without confirmation — they are domain values, not UI copy. UI copy goes through i18n keys (see i18n above).
 
 ## Coding Conventions
 
 Detailed rules live in [.claude/rules/](.claude/rules/) and are loaded by reviewer agents and CI:
 
-- [.claude/rules/frontend.md](.claude/rules/frontend.md) — Angular 20 / Material 20 architecture, RxJS state, accessibility, security, SCSS, anti-patterns, Karma testing.
+- [.claude/rules/frontend.md](.claude/rules/frontend.md) — Angular 22 / Material 22 architecture, routing, i18n, RxJS state, accessibility, security, SCSS, anti-patterns, Karma testing.
 - [.claude/rules/implementation-common.md](.claude/rules/implementation-common.md) — orchestrator-only: term semantics, triage principles, flaky-test rule, test output hygiene, stall detection. Read once per session if you're orchestrating fix-agent work.
 
 There is no `e2e-test.md` because no e2e runner is configured. If Playwright (or another framework) is added, the rule should cover at least: selector priority (Role > Label > Placeholder > Text > Test ID > ARIA > CSS-as-last-resort), no `waitForLoadState('networkidle')` (it hangs in CI when the app polls), Page Object Model in `e2e/pages/`, and value-based assertions over presence-only.
@@ -132,4 +148,7 @@ Optionally add `@uni-dev-lab/reviewers` as a required reviewer on the `reviewers
 
 ## CI / Ownership
 
-`.github/CODEOWNERS` assigns everything to `@uni-dev-lab/reviewers`. The only GitHub Actions workflow today is the gated PR-review workflow above.
+`.github/CODEOWNERS` assigns everything to `@uni-dev-lab/reviewers`. There are two GitHub Actions workflows:
+
+- [ci.yml](.github/workflows/ci.yml) — "Angular CI", runs on every PR against `main` (working directory `uniplanWeb/`, Node version from `uniplanWeb/.nvmrc`): `npm ci` → `npm run lint` → `npm run test -- --no-watch --no-progress --browsers=ChromeHeadless --code-coverage` → `npm run build`. Lint, tests and build must all pass.
+- [claude-code-review.yml](.github/workflows/claude-code-review.yml) — the gated PR-review workflow described above.

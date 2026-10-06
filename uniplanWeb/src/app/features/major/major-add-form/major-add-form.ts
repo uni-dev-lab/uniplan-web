@@ -29,16 +29,16 @@ import { TranslatePipe } from '@ngx-translate/core';
 })
 
 export class MajorAddForm implements OnInit {
-  private dialogRef = inject<MatDialogRef<AddForm>>(MatDialogRef);
-  private majorService = inject(MajorService);
-  private facultyService = inject(FacultyService);
-
   majorName = '';
   faculty = '';
   type = '';
   subtype = '';
 
   faculties: FacultyElm[] = [];
+
+    private dialogRef = inject(MatDialogRef<AddForm>);
+    private majorService = inject(MajorService);
+    private facultyService = inject(FacultyService);
 
   ngOnInit(): void {
     this.facultyService.getFaculties().subscribe({
