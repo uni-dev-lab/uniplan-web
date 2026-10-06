@@ -33,6 +33,11 @@ export const routes: Routes = [
           import('./features/room/room-panel/room-panel').then(m => m.RoomPanel),
       },
       {
+        path: 'settings',
+        loadComponent: () =>
+          import('./features/settings/settings-panel/settings-panel').then(m => m.SettingsPanel),
+      },
+      {
         path: '**',
         loadComponent: () =>
           import('./features/not-found/not-found-panel/not-found-panel').then(m => m.NotFoundPanel),
