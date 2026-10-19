@@ -1,15 +1,16 @@
-import { Component, Input, OnInit, ChangeDetectionStrategy, signal, inject } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatTableModule } from '@angular/material/table';
-import { MajorElm } from '../../../core/interfaces/major-elm';
-import { MajorFilterOptions } from '../../../core/interfaces/major-filter-options';
-import { MajorEditForm } from '../major-edit-form/major-edit-form';
-import { MatDialog } from '@angular/material/dialog';
-import { MajorDeleteForm } from '../major-delete-form/major-delete-form';
-import { MajorService } from '../major-service';
-import { FacultyService } from '../../faculty/faculty-service';
-import { TranslatePipe } from '@ngx-translate/core';
+import {ChangeDetectionStrategy, Component, inject, input, InputSignal, OnInit, signal} from '@angular/core';
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
+import {MatTableModule} from '@angular/material/table';
+import {MajorElm} from '../../../core/interfaces/major-elm';
+import {MajorFilterOptions} from '../../../core/interfaces/major-filter-options';
+import {MajorEditForm} from '../major-edit-form/major-edit-form';
+import {MatDialog} from '@angular/material/dialog';
+import {MajorDeleteForm} from '../major-delete-form/major-delete-form';
+import {MajorService} from '../major-service';
+import {FacultyService} from '../../faculty/faculty-service';
+import {TranslatePipe} from '@ngx-translate/core';
+import {MajorFilterState} from '../../../core/interfaces/major-filter-state';
 
 @Component({
   selector: 'app-major-table',
@@ -31,10 +32,8 @@ export class MajorTable implements OnInit {
   dataSource = signal<MajorElm[]>([]);
   facultyMap = signal(new Map<string, string>());
 
-  @Input() searchText = '';
-  @Input() faculty: string = '';
-  @Input() type: string = '';
-  @Input() subtype: string = '';
+  public searchText: InputSignal<string> = input<string>('');
+  public majorFiltersState: InputSignal<MajorFilterState> = input.required<MajorFilterState>()
 
     private dialog = inject(MatDialog);
     private service = inject(MajorService);
@@ -68,13 +67,13 @@ export class MajorTable implements OnInit {
 
   get filteredMajors(): MajorElm[] {
     return this.dataSource().filter((major) => {
-      const matchesFaculty = !this.faculty || major.facultyId === this.faculty;
-      const matchesType = !this.type || major.courseType === this.type;
+      const matchesFaculty = !this.majorFiltersState().selectedFaculty || major.facultyId === this.majorFiltersState().selectedFaculty;
+      const matchesType = !this.majorFiltersState().selectedType || major.courseType === this.majorFiltersState().selectedType;
       const matchesSubtype =
-        !this.subtype || major.courseSubtype === this.subtype;
+        !this.majorFiltersState().selectedSubtype || major.courseSubtype === this.majorFiltersState().selectedSubtype;
       const matchesSearch =
         !this.searchText ||
-        major.majorName.toLowerCase().includes(this.searchText.toLowerCase());
+        major.majorName.toLowerCase().includes(this.searchText().toLowerCase());
 
       return matchesFaculty && matchesType && matchesSubtype && matchesSearch;
     });

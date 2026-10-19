@@ -1,20 +1,19 @@
-import {Component, ChangeDetectionStrategy, inject, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, inject, OnInit} from '@angular/core';
 
-import { FacultyOptions } from '../../../features/faculty/faculty-options/faculty-options';
-import { MajorOptions } from '../../../features/major/major-options/major-options';
-import { FacultyTable } from '../../../features/faculty/faculty-table/faculty-table';
-import { MajorTable } from '../../../features/major/major-table/major-table';
-import { MajorFilters } from '../../../features/major/major-filters/major-filters';
-import { StudentOptions } from '../../../features/student/student-options/student-options';
-import {
-  StudentTable,
-  ELEMENT_STUDENT_DATA,
-} from '../../../features/student/student-table/student-table';
-import { StudentFilters } from '../../../features/student/student-filters/student-filters';
-import { MajorElm } from '../../interfaces/major-elm';
-import { LoginForm } from '../../../features/login/login-form/login-form';
+import {FacultyOptions} from '../../../features/faculty/faculty-options/faculty-options';
+import {MajorOptions} from '../../../features/major/major-options/major-options';
+import {FacultyTable} from '../../../features/faculty/faculty-table/faculty-table';
+import {MajorTable} from '../../../features/major/major-table/major-table';
+import {MajorFilters} from '../../../features/major/major-filters/major-filters';
+import {StudentOptions} from '../../../features/student/student-options/student-options';
+import {ELEMENT_STUDENT_DATA, StudentTable,} from '../../../features/student/student-table/student-table';
+import {StudentFilters} from '../../../features/student/student-filters/student-filters';
+import {MajorElm} from '../../interfaces/major-elm';
+import {LoginForm} from '../../../features/login/login-form/login-form';
 import {FacultyService} from '../../../features/faculty/faculty-service';
 import {MajorService} from '../../../features/major/major-service';
+import {MajorFilterState} from '../../interfaces/major-filter-state';
+import {MajorFilterOptions} from '../../interfaces/major-filter-options';
 
 @Component({
   selector: 'app-main-panel',
@@ -40,19 +39,28 @@ export class MainPanel implements OnInit {
   majors: MajorElm[] = [];
   students = ELEMENT_STUDENT_DATA;
 
+
   searchText = '';
   searchFacNum = '';
   searchMajor = '';
   selectedStudentSubtype = '';
   studentSubtypes: string[] = [];
 
-  selectedFaculty = '';
-  selectedType = '';
-  selectedSubtype = '';
+  // selectedFaculty = '';
+  // selectedType = '';
+  // selectedSubtype = '';
 
-  faculties: { id: string; name: string }[] = [];
-  types: string[] = [];
-  subtypes: string[] = [];
+  protected majorFiltersState: MajorFilterState = {
+    selectedFaculty: '',
+    selectedType: '',
+    selectedSubtype: '',
+  };
+
+  protected majorFilterOptions: MajorFilterOptions = {
+    faculties: [],
+    types: [],
+    subtypes: [],
+  }
 
   private facultyMap = new Map<string, string>();
 
@@ -80,9 +88,15 @@ export class MainPanel implements OnInit {
           this.facultyMap
         );
 
-        this.faculties = filterOptionsMajor.faculties;
-        this.types = filterOptionsMajor.types;
-        this.subtypes = filterOptionsMajor.subtypes;
+        // this.faculties = filterOptionsMajor.faculties;
+        // this.types = filterOptionsMajor.types;
+        // this.subtypes = filterOptionsMajor.subtypes;
+        this.majorFilterOptions = {
+          ...this.majorFilterOptions,
+          faculties: filterOptionsMajor.faculties,
+          types: filterOptionsMajor.types,
+          subtypes: filterOptionsMajor.subtypes
+        }
       });
     });
   }

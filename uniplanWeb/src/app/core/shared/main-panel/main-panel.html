@@ -23,23 +23,17 @@
         <div class="controls-row">
           <app-major-options class="options"></app-major-options>
           <app-major-filters
-            [faculties]="faculties"
-            [types]="types"
-            [subtypes]="subtypes"
-            [selectedFaculty]="selectedFaculty"
-            [selectedType]="selectedType"
-            [selectedSubtype]="selectedSubtype"
+            [majorFilterOptions]="majorFilterOptions"
+            [majorFilterState]="majorFiltersState"
             [internalSearchText]="searchText"
-            (facultyChange)="selectedFaculty = $event"
-            (typeChange)="selectedType = $event"
-            (subtypeChange)="selectedSubtype = $event"
+            (facultyChange)="majorFiltersState.selectedFaculty = $event"
+            (typeChange)="majorFiltersState.selectedType = $event"
+            (subtypeChange)="majorFiltersState.selectedSubtype = $event"
             (searchTextChange)="searchText = $event">
           </app-major-filters>
         </div>
         <app-major-table
-          [faculty]="selectedFaculty"
-          [type]="selectedType"
-          [subtype]="selectedSubtype"
+          [majorFiltersState]="majorFiltersState"
           [searchText]="searchText">
         </app-major-table>
       </div>

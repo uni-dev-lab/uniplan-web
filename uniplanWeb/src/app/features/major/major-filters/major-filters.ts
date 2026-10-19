@@ -1,10 +1,12 @@
-import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
-import { FiltersForm } from '../../../core/shared/filters-form/filters-form';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatIconModule } from '@angular/material/icon';
-import { InputFilter } from '../../../core/shared/input-filter/input-filter';
-import { TranslatePipe } from '@ngx-translate/core';
+import {ChangeDetectionStrategy, Component, input, InputSignal, output, OutputEmitterRef} from '@angular/core';
+import {FiltersForm} from '../../../core/shared/filters-form/filters-form';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatIconModule} from '@angular/material/icon';
+import {InputFilter} from '../../../core/shared/input-filter/input-filter';
+import {TranslatePipe} from '@ngx-translate/core';
+import {MajorFilterState} from '../../../core/interfaces/major-filter-state';
+import {MajorFilterOptions} from '../../../core/interfaces/major-filter-options';
 
 @Component({
   selector: 'app-major-filters',
@@ -21,19 +23,12 @@ import { TranslatePipe } from '@ngx-translate/core';
   ],
 })
 export class MajorFilters {
-  @Input() internalSearchText = '';
+  public majorFilterState: InputSignal<MajorFilterState> = input.required<MajorFilterState>()
+  public majorFilterOptions: InputSignal<MajorFilterOptions> = input.required<MajorFilterOptions>()
+  public internalSearchText: InputSignal<string> = input<string>('');
 
-  @Input() faculties: { id: string; name: string }[] = [];
-
-  @Input() types: string[] = [];
-  @Input() subtypes: string[] = [];
-
-  @Input() selectedFaculty = '';
-  @Input() selectedType = '';
-  @Input() selectedSubtype = '';
-
-  @Output() facultyChange = new EventEmitter<string>();
-  @Output() typeChange = new EventEmitter<string>();
-  @Output() subtypeChange = new EventEmitter<string>();
-  @Output() searchTextChange = new EventEmitter<string>();
+  protected facultyChange: OutputEmitterRef<string> = output<string>();
+  protected typeChange: OutputEmitterRef<string> = output<string>();
+  protected subtypeChange: OutputEmitterRef<string> = output<string>();
+  protected searchTextChange: OutputEmitterRef<string> = output<string>();
 }
