@@ -8,11 +8,12 @@
 .table-header {
     width: 100%;
     table-layout: fixed;
+     padding-right: 14px;
 }
 
 .scrollable-body {
     max-height: 510px;
-    overflow-y: auto;
+    overflow-y: scroll;
     overflow-x: hidden;
 }
 
@@ -55,20 +56,25 @@ td {
 }
 
 .col-position {
-    width: 100px;
+    width: 10%;
     border-right: 1px solid #e0e0e0;
 }
 
 .col-name {
-    width: 200px;
+    width: 25%;
     border-right: 1px solid #e0e0e0;
 }
 
 .col-room-number {
-    width: 260px;
+    width: 20%;
+    border-right: 1px solid #e0e0e0;
+}
+
+.col-category {
+    width: 30%;
     border-right: 1px solid #e0e0e0;
 }
 
 .col-actions {
-    width: 150px;
+    width: 15%;
 }

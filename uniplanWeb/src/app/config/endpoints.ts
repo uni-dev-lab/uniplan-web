@@ -5,5 +5,6 @@ export const API_ENDPOINTS = {
   courses: `${environment.baseUrl}/courses`,
   faculties: `${environment.baseUrl}/faculties`,
   majors: `${environment.baseUrl}/majors`,
+  categories: `${environment.baseUrl}/categories`,
   rooms: `${environment.baseUrl}/rooms`,
 };

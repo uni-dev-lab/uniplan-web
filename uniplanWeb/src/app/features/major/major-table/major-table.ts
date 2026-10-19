@@ -19,10 +19,6 @@ import { TranslatePipe } from '@ngx-translate/core';
   imports: [MatTableModule, MatIconModule, MatButtonModule, TranslatePipe],
 })
 export class MajorTable implements OnInit {
-  private dialog = inject(MatDialog);
-  private service = inject(MajorService);
-  private facultyService = inject(FacultyService);
-
   displayedColumns: string[] = [
     'position',
     'name',
@@ -39,6 +35,10 @@ export class MajorTable implements OnInit {
   @Input() faculty: string = '';
   @Input() type: string = '';
   @Input() subtype: string = '';
+
+    private dialog = inject(MatDialog);
+    private service = inject(MajorService);
+    private facultyService = inject(FacultyService);
 
   ngOnInit(): void {
     this.loadMajors();
