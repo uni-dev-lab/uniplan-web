@@ -2,16 +2,16 @@
   <div class="panel-controls-row">
     <app-major-options class="panel-options"></app-major-options>
     <app-major-filters
-      [majorFilterState]="majorFiltersState"
-      [majorFilterOptions]="majorFilterOptions"
-      (facultyChange)="majorFiltersState.selectedFaculty = $event"
-      (typeChange)="majorFiltersState.selectedType = $event"
-      (subtypeChange)="majorFiltersState.selectedSubtype = $event"
-      (searchTextChange)="internalSearchText = $event">
+      [majorFilterState]="majorFiltersState()"
+      [majorFilterOptions]="majorFilterOptions()"
+      (facultyChange)="updateFilters({ selectedFaculty: $event })"
+      (typeChange)="updateFilters({ selectedType: $event })"
+      (subtypeChange)="updateFilters({ selectedSubtype: $event })"
+      (searchTextChange)="internalSearchText.set($event)">
     </app-major-filters>
   </div>
   <app-major-table
-    [majorFiltersState]="majorFiltersState"
-    [searchText]="internalSearchText">
+    [majorFiltersState]="majorFiltersState()"
+    [searchText]="internalSearchText()">
   </app-major-table>
 </div>

@@ -1,4 +1,4 @@
-import {Component, DestroyRef, inject, OnInit} from '@angular/core';
+import {Component, DestroyRef, inject, OnInit, signal, WritableSignal} from '@angular/core';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {catchError, combineLatest, map, merge, of, switchMap} from 'rxjs';
 
@@ -22,30 +22,25 @@ export class MajorPanel implements OnInit {
   private facultyService = inject(FacultyService);
   private destroyRef: DestroyRef = inject(DestroyRef);
 
-  // searchText: string = '';
-  // selectedFaculty: string = '';
-  // selectedType: string = '';
-  // selectedSubtype: string = '';
-  //
-  // faculties: { id: string; name: string }[] = [];
-  // types: string[] = [];
-  // subtypes: string[] = [];
-  //
   private majors: MajorElm[] = [];
   private facultyMap: Map<string, string> = new Map<string, string>();
 
-  protected internalSearchText: string = '';
+  protected internalSearchText: WritableSignal<string> = signal('');
 
-  protected majorFiltersState: MajorFilterState = {
+  protected majorFiltersState: WritableSignal<MajorFilterState> = signal({
     selectedFaculty: '',
     selectedType: '',
     selectedSubtype: '',
-  };
+  });
 
-  protected majorFilterOptions: MajorFilterOptions = {
+  protected majorFilterOptions: WritableSignal<MajorFilterOptions> = signal({
     faculties: [],
     types: [],
     subtypes: [],
+  });
+
+  protected updateFilters(change: Partial<MajorFilterState>): void {
+    this.majorFiltersState.update((state) => ({ ...state, ...change }));
   }
 
   ngOnInit(): void {
@@ -72,29 +67,22 @@ export class MajorPanel implements OnInit {
         this.facultyMap = facultyMap;
         this.majors = majors;
         const options = MajorTable.getFilterOptions(this.majors, this.facultyMap);
+        const current = this.majorFiltersState();
 
-        this.majorFiltersState = {
-          ...this.majorFiltersState,
+        this.majorFiltersState.set({
+          selectedFaculty: options.faculties.some((f) => f.id === current.selectedFaculty)
+            ? current.selectedFaculty : '',
+          selectedType: options.types.includes(current.selectedType)
+            ? current.selectedType : '',
+          selectedSubtype: options.subtypes.includes(current.selectedSubtype)
+            ? current.selectedSubtype : '',
+        });
 
-          selectedFaculty: options.faculties.some(
-            (f: { id: string, name: string }): boolean => f.id === this.majorFiltersState.selectedFaculty
-          ) ? this.majorFiltersState.selectedFaculty : '',
-
-          selectedType: options.types.includes(
-            this.majorFiltersState.selectedType
-          ) ? this.majorFiltersState.selectedType : '',
-
-          selectedSubtype: options.subtypes.includes(
-            this.majorFiltersState.selectedSubtype
-          ) ? this.majorFiltersState.selectedSubtype : '',
-        };
-
-        this.majorFilterOptions = {
-          ...this.majorFilterOptions,
+        this.majorFilterOptions.set({
           faculties: options.faculties,
           types: options.types,
-          subtypes: options.subtypes
-        }
+          subtypes: options.subtypes,
+        });
       });
   }
 }

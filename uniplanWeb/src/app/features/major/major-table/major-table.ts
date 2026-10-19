@@ -72,7 +72,7 @@ export class MajorTable implements OnInit {
       const matchesSubtype =
         !this.majorFiltersState().selectedSubtype || major.courseSubtype === this.majorFiltersState().selectedSubtype;
       const matchesSearch =
-        !this.searchText ||
+        !this.searchText() ||
         major.majorName.toLowerCase().includes(this.searchText().toLowerCase());
 
       return matchesFaculty && matchesType && matchesSubtype && matchesSearch;
