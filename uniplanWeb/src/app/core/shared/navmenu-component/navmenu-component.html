@@ -78,10 +78,10 @@
               </li>
 
               <li class="logout">
-                <a (click)="onLogoutClick()">
-                  <i class="bx bx-log-out icon"></i>
-                  <span class="link">Изход</span>
-                </a>
+                <button type="button" class="nav-link logout-button" (click)="onLogoutClick()">
+                  <i class="bx bx-log-out icon" aria-hidden="true"></i>
+                  <span class="link">{{ 'navmenu.logout' | translate }}</span>
+                </button>
               </li>
           </ul>
         </li>
