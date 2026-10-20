@@ -4,6 +4,8 @@
   overflow: auto;
   display: flex;
   justify-content: center;
+  padding-left: max(0px, calc(220px - 15vw));
+  box-sizing: border-box;
 }
 
 .components-wrapper {

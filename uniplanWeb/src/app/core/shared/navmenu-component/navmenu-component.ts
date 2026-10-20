@@ -43,32 +43,8 @@ export class NavmenuComponent implements OnInit {
     this.isSidebarCollapsed = !this.isSidebarCollapsed;
   }
 
-  onHomeClick(): void {
-    this.router.navigate(['/']);
-  }
-
-  onFacultyClick(): void {
-    this.router.navigate(['/faculties]']);
-  }
-
-  onMajorClick(): void {
-    this.router.navigate(['/majors']);
-  }
-
-  onStudentClick(): void {
-    this.router.navigate(['/students']);
-  }
-
-  protected onLoginClick(): void {
-    this.router.navigate(['/login']);
-  }
-
   protected onLogoutClick(): void {
     this.authService.logout();
-    this.router.navigate(['/']);
-  }
-
-  protected onProfileOpenClick(): void {
     this.router.navigate(['/']);
   }
 }

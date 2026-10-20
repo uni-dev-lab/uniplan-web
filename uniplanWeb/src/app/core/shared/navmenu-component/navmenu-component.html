@@ -72,13 +72,13 @@
             </a>
             <ul class="dropdown-menu">
               <li>
-                <a href="#" (click)="onProfileOpenClick()">
+                <a routerLink="/">
                   <span class="link">Отвори</span>
                 </a>
               </li>
 
               <li class="logout">
-                <a href="#" (click)="onLogoutClick()">
+                <a (click)="onLogoutClick()">
                   <i class="bx bx-log-out icon"></i>
                   <span class="link">Изход</span>
                 </a>
@@ -89,7 +89,7 @@
 
       @if (!authService.isLoggedIn()) {
         <li class="list">
-          <a href="#" class="nav-link" (click)="onLoginClick()">
+          <a routerLink="/login" routerLinkActive="active" class="nav-link">
             <i class="bx bx-log-in icon"></i>
             <span class="link">Вход</span>
           </a>
