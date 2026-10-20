@@ -20,6 +20,10 @@ import {StudentFilterOptions} from '../../interfaces/student-filter-options';
 
 @Component({
   selector: 'app-main-panel',
+  standalone: true,
+  templateUrl: './main-panel.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
+  styleUrl: './main-panel.scss',
   imports: [
     FacultyOptions,
     MajorOptions,
@@ -30,11 +34,7 @@ import {StudentFilterOptions} from '../../interfaces/student-filter-options';
     StudentTable,
     StudentFilters,
     LoginForm,
-],
-  standalone: true,
-  templateUrl: './main-panel.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
-  styleUrl: './main-panel.scss',
+  ],
 })
 export class MainPanel implements OnInit {
   protected currentView: string = 'home';
@@ -65,7 +65,7 @@ export class MainPanel implements OnInit {
   private readonly majorService: MajorService = inject(MajorService);
   private readonly facultyService: FacultyService = inject(FacultyService);
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.loadMajorFilters();
     this.loadStudentFilters();
 

@@ -1,13 +1,13 @@
+* {
+  box-sizing: border-box;
+}
+
 :host {
   display: block;
   width: 100%;
   max-width: 56.25rem;
   margin-inline: auto;
   margin-top: 2rem;
-}
-
-* {
-  box-sizing: border-box;
 }
 
 .login-form {
