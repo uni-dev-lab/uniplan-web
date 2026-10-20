@@ -1,4 +1,13 @@
-import {ChangeDetectionStrategy, Component, inject, input, InputSignal, OnInit, signal} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  input,
+  InputSignal,
+  OnInit,
+  signal,
+  WritableSignal
+} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatTableModule} from '@angular/material/table';
@@ -11,6 +20,7 @@ import {MajorService} from '../major-service';
 import {FacultyService} from '../../faculty/faculty-service';
 import {TranslatePipe} from '@ngx-translate/core';
 import {MajorFilterState} from '../../../core/interfaces/major-filter-state';
+import {FacultyElm} from '../../../core/interfaces/faculty-elm';
 
 @Component({
   selector: 'app-major-table',
@@ -29,49 +39,49 @@ export class MajorTable implements OnInit {
     'actions',
   ];
 
-  dataSource = signal<MajorElm[]>([]);
-  facultyMap = signal(new Map<string, string>());
+  protected dataSource: WritableSignal<MajorElm[]> = signal<MajorElm[]>([]);
+  protected facultyMap: WritableSignal<Map<string, string>> = signal(new Map<string, string>());
 
   public searchText: InputSignal<string> = input<string>('');
   public majorFiltersState: InputSignal<MajorFilterState> = input.required<MajorFilterState>()
 
-    private dialog = inject(MatDialog);
-    private service = inject(MajorService);
-    private facultyService = inject(FacultyService);
+  private dialog: MatDialog = inject(MatDialog);
+  private service: MajorService = inject(MajorService);
+  private facultyService: FacultyService = inject(FacultyService);
 
   ngOnInit(): void {
     this.loadMajors();
     this.loadFaculties();
 
-    this.service.refreshNeeded.subscribe(() => {
+    this.service.refreshNeeded.subscribe((): void => {
       this.loadMajors();
       this.loadFaculties();
     });
   }
 
-  loadMajors(): void {
-    this.service.getMajors().subscribe((data) => {
+  private loadMajors(): void {
+    this.service.getMajors().subscribe((data: MajorElm[]): void => {
       this.dataSource.set(data);
     });
   }
 
-  loadFaculties(): void {
-    this.facultyService.getFaculties().subscribe((faculties) => {
-     this.facultyMap.set(new Map(faculties.map((f) => [f.id, f.facultyName])));
+  private loadFaculties(): void {
+    this.facultyService.getFaculties().subscribe((faculties: FacultyElm[]): void => {
+      this.facultyMap.set(new Map(faculties.map((f: FacultyElm): [string, string] => [f.id, f.facultyName])));
     });
   }
 
-  getFacultyName(id: string): string {
+  protected getFacultyName(id: string): string {
     return this.facultyMap().get(id) || '—';
   }
 
   get filteredMajors(): MajorElm[] {
-    return this.dataSource().filter((major) => {
-      const matchesFaculty = !this.majorFiltersState().selectedFaculty || major.facultyId === this.majorFiltersState().selectedFaculty;
-      const matchesType = !this.majorFiltersState().selectedType || major.courseType === this.majorFiltersState().selectedType;
-      const matchesSubtype =
+    return this.dataSource().filter((major: MajorElm): boolean => {
+      const matchesFaculty: boolean = !this.majorFiltersState().selectedFaculty || major.facultyId === this.majorFiltersState().selectedFaculty;
+      const matchesType: boolean = !this.majorFiltersState().selectedType || major.courseType === this.majorFiltersState().selectedType;
+      const matchesSubtype: boolean =
         !this.majorFiltersState().selectedSubtype || major.courseSubtype === this.majorFiltersState().selectedSubtype;
-      const matchesSearch =
+      const matchesSearch: boolean =
         !this.searchText() ||
         major.majorName.toLowerCase().includes(this.searchText().toLowerCase());
 
@@ -79,7 +89,7 @@ export class MajorTable implements OnInit {
     });
   }
 
-  onEdit(element: MajorElm): void {
+  protected onEdit(element: MajorElm): void {
     this.dialog.open(MajorEditForm, {
       data: {
         id: element.id,
@@ -89,7 +99,7 @@ export class MajorTable implements OnInit {
     });
   }
 
-  onDelete(element: MajorElm): void {
+  protected onDelete(element: MajorElm): void {
     this.dialog.open(MajorDeleteForm, {
       data: {
         id: element.id,
@@ -100,17 +110,23 @@ export class MajorTable implements OnInit {
     });
   }
 
-  static getFilterOptions(
+  public static getFilterOptions(
     data: MajorElm[],
     facultyMap: Map<string, string>
   ): MajorFilterOptions {
-    const faculties = [...new Set(data.map((e) => e.facultyId))].map((id) => ({
+    const faculties: {
+      id: string,
+      name: string
+    }[] = [...new Set(data.map((e: MajorElm): string => e.facultyId))].map((id: string): {
+      id: string,
+      name: string
+    } => ({
       id,
       name: facultyMap.get(id) || '—',
     }));
 
-    const types = [...new Set(data.map((e) => e.courseType))];
-    const subtypes = [...new Set(data.map((e) => e.courseSubtype))];
+    const types: string[] = [...new Set(data.map((e: MajorElm): string => e.courseType))];
+    const subtypes: string[] = [...new Set(data.map((e: MajorElm): string => e.courseSubtype))];
 
     return { faculties, types, subtypes };
   }

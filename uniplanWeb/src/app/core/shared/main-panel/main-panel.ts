@@ -14,6 +14,9 @@ import {FacultyService} from '../../../features/faculty/faculty-service';
 import {MajorService} from '../../../features/major/major-service';
 import {MajorFilterState} from '../../interfaces/major-filter-state';
 import {MajorFilterOptions} from '../../interfaces/major-filter-options';
+import {StudentElm} from '../../interfaces/student-elm';
+import {FacultyElm} from '../../interfaces/faculty-elm';
+import {StudentFilterOptions} from '../../interfaces/student-filter-options';
 
 @Component({
   selector: 'app-main-panel',
@@ -34,21 +37,16 @@ import {MajorFilterOptions} from '../../interfaces/major-filter-options';
   styleUrl: './main-panel.scss',
 })
 export class MainPanel implements OnInit {
-  currentView = 'home';
+  protected currentView: string = 'home';
 
-  majors: MajorElm[] = [];
-  students = ELEMENT_STUDENT_DATA;
+  protected majors: MajorElm[] = [];
+  protected students: StudentElm[] = ELEMENT_STUDENT_DATA;
 
-
-  searchText = '';
-  searchFacNum = '';
-  searchMajor = '';
-  selectedStudentSubtype = '';
-  studentSubtypes: string[] = [];
-
-  // selectedFaculty = '';
-  // selectedType = '';
-  // selectedSubtype = '';
+  protected searchText: string = '';
+  protected searchFacNum: string = '';
+  protected searchMajor: string = '';
+  protected selectedStudentSubtype: string = '';
+  protected studentSubtypes: string[] = [];
 
   protected majorFiltersState: MajorFilterState = {
     selectedFaculty: '',
@@ -62,10 +60,10 @@ export class MainPanel implements OnInit {
     subtypes: [],
   }
 
-  private facultyMap = new Map<string, string>();
+  private facultyMap: Map<string, string> = new Map<string, string>();
 
-  private readonly majorService = inject(MajorService);
-  private readonly facultyService = inject(FacultyService);
+  private readonly majorService: MajorService = inject(MajorService);
+  private readonly facultyService: FacultyService = inject(FacultyService);
 
   ngOnInit(): void {
     this.loadMajorFilters();
@@ -77,20 +75,17 @@ export class MainPanel implements OnInit {
   }
 
   private loadMajorFilters(): void {
-    this.facultyService.getFaculties().subscribe((faculties) => {
-      this.facultyMap = new Map(faculties.map((f) => [f.id, f.facultyName]));
+    this.facultyService.getFaculties().subscribe((faculties: FacultyElm[]): void => {
+      this.facultyMap = new Map(faculties.map((f: FacultyElm): [string, string] => [f.id, f.facultyName]));
 
-      this.majorService.getMajors().subscribe((data) => {
+      this.majorService.getMajors().subscribe((data: MajorElm[]): void => {
         this.majors = data;
 
-        const filterOptionsMajor = MajorTable.getFilterOptions(
+        const filterOptionsMajor: MajorFilterOptions = MajorTable.getFilterOptions(
           this.majors,
           this.facultyMap
         );
 
-        // this.faculties = filterOptionsMajor.faculties;
-        // this.types = filterOptionsMajor.types;
-        // this.subtypes = filterOptionsMajor.subtypes;
         this.majorFilterOptions = {
           ...this.majorFilterOptions,
           faculties: filterOptionsMajor.faculties,
@@ -102,7 +97,7 @@ export class MainPanel implements OnInit {
   }
 
   private loadStudentFilters(): void {
-    const filterOptionsStudent = StudentTable.getFilterOptions(this.students);
+    const filterOptionsStudent: StudentFilterOptions = StudentTable.getFilterOptions(this.students);
     this.studentSubtypes = filterOptionsStudent.subtypes;
   }
 }
