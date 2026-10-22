@@ -1,21 +1,29 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LoginAuthService {
-  private loggedIn = false;
 
-  constructor() {
-    this.loggedIn = !!localStorage.getItem('user');
+  public login(username: string, password: string): boolean {
+    if (!username || !password) {
+      return false;
+    }
+
+    localStorage.setItem('user', username);
+
+    return true;
   }
 
-  isLoggedIn(): boolean {
-    return this.loggedIn;
+  public isLoggedIn(): boolean {
+    return !!localStorage.getItem('user');
   }
 
-  logout(): void {
+  public logout(): void {
     localStorage.removeItem('user');
-    this.loggedIn = false;
+  }
+
+  public getUsername(): string {
+    return localStorage.getItem('user') ?? '';
   }
 }
