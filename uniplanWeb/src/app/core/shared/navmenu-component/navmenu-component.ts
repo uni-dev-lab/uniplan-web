@@ -14,11 +14,11 @@ import { LoginAuthService } from '../../../services/login/login-auth-service';
   styleUrls: ['./navmenu-component.scss'],
 })
 export class NavmenuComponent implements OnInit {
-  isSidebarCollapsed = false;
   isMobileView = window.innerWidth <= 768;
+  isSidebarCollapsed = this.isMobileView;
 
-  protected readonly authService = inject(LoginAuthService);
-  private readonly router = inject(Router);
+  protected readonly authService: LoginAuthService = inject(LoginAuthService);
+  private readonly router: Router = inject(Router);
 
   ngOnInit(): void {
     this.checkViewport();
@@ -31,16 +31,21 @@ export class NavmenuComponent implements OnInit {
 
   private checkViewport(): void {
     const isNowMobile = window.innerWidth <= 768;
+
     if (this.isMobileView !== isNowMobile) {
       this.isMobileView = isNowMobile;
-    }
-    if (!this.isMobileView) {
-      this.isSidebarCollapsed = false;
+      this.isSidebarCollapsed = isNowMobile;
     }
   }
 
   toggleSidebar(): void {
     this.isSidebarCollapsed = !this.isSidebarCollapsed;
+  }
+
+  closeSidebarIfMobile(): void {
+    if (this.isMobileView) {
+      this.isSidebarCollapsed = true;
+    }
   }
 
   protected onLogoutClick(): void {

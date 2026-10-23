@@ -1,100 +1,110 @@
-<div class="sidebar"
-  [ngClass]="{ 'collapsed': isSidebarCollapsed && isMobileView }">
   @if (isMobileView) {
-    <button type="button" class="hamburger" [attr.aria-label]="'navmenu.toggle-aria' | translate" (click)="toggleSidebar()">
+    <button type="button" class="hamburger"
+            [class.open]="!isSidebarCollapsed"
+            [attr.aria-label]="'navmenu.toggle-aria' | translate"
+            [attr.aria-expanded]="!isSidebarCollapsed"
+            (click)="toggleSidebar()">
       <span></span>
       <span></span>
       <span></span>
     </button>
+
+    @if (!isSidebarCollapsed) {
+      <div class="sidebar-backdrop" role="button" tabindex="0"
+           [attr.aria-label]="'navmenu.close-menu-aria' | translate"
+           (click)="closeSidebarIfMobile()"
+           (keydown.enter)="closeSidebarIfMobile()"
+           (keydown.space)="closeSidebarIfMobile()"></div>
+    }
   }
 
-  <div class="logo">
-    <h2>Logo</h2>
-  </div>
+  <div class="sidebar" [ngClass]="{ 'collapsed': isSidebarCollapsed && isMobileView }">
+    <div class="logo">
+      <h2>Logo</h2>
+    </div>
 
-  <div class="sidebar-content">
-    <ul class="list">
-      <li class="list">
-        <a [routerLink]="'/home'" routerLinkActive="active" class="nav-link">
-          <span class="link">{{ 'navmenu.home' | translate }}</span>
-        </a>
-      </li>
-      @if (!authService.isLoggedIn()) {
+    <div class="sidebar-content">
+      <ul class="list">
         <li class="list">
-          <a href="#" class="nav-link"><span class="link">{{ 'navmenu.create-schedule' | translate }}</span></a>
+          <a [routerLink]="'/home'" routerLinkActive="active" class="nav-link" (click)="closeSidebarIfMobile()">
+            <span class="link">{{ 'navmenu.home' | translate }}</span>
+          </a>
         </li>
-      }
-      <li class="list">
-        <a [routerLink]="'/faculty'" routerLinkActive="active" class="nav-link">
-          <span class="link">{{ 'navmenu.faculty' | translate }}</span>
-        </a>
-      </li>
-      <li class="list">
-        <a href="#" class="nav-link"><span class="link">{{ 'navmenu.department' | translate }}</span></a>
-      </li>
-      <li class="list">
-        <a [routerLink]="'/major'" routerLinkActive="active" class="nav-link">
-          <span class="link">{{ 'navmenu.major' | translate }}</span>
-        </a>
-      </li>
-      <li class="list">
-        <a [routerLink]="'/room'" routerLinkActive="active" class="nav-link">
-          <span class="link">{{ 'navmenu.rooms' | translate }}</span>
-        </a>
-      </li>
-      <li class="list">
-        <a [routerLink]="'/student'" routerLinkActive="active" class="nav-link">
-          <span class="link">{{ 'navmenu.students' | translate }}</span>
-        </a>
-      </li>
-      <li class="list">
-        <a href="#" class="nav-link"><span class="link">{{ 'navmenu.teachers' | translate }}</span></a>
-      </li>
-      <li class="list">
-        <a href="#" class="nav-link"><span class="link">{{ 'navmenu.subjects' | translate }}</span></a>
-      </li>
-    </ul>
+        @if (!authService.isLoggedIn()) {
+          <li class="list">
+            <a href="#" class="nav-link" (click)="closeSidebarIfMobile()"><span class="link">{{ 'navmenu.create-schedule' | translate }}</span></a>
+          </li>
+        }
+        <li class="list">
+          <a [routerLink]="'/faculty'" routerLinkActive="active" class="nav-link" (click)="closeSidebarIfMobile()">
+            <span class="link">{{ 'navmenu.faculty' | translate }}</span>
+          </a>
+        </li>
+        <li class="list">
+          <a href="#" class="nav-link" (click)="closeSidebarIfMobile()"><span class="link">{{ 'navmenu.department' | translate }}</span></a>
+        </li>
+        <li class="list">
+          <a [routerLink]="'/major'" routerLinkActive="active" class="nav-link" (click)="closeSidebarIfMobile()">
+            <span class="link">{{ 'navmenu.major' | translate }}</span>
+          </a>
+        </li>
+        <li class="list">
+          <a [routerLink]="'/room'" routerLinkActive="active" class="nav-link" (click)="closeSidebarIfMobile()">
+            <span class="link">{{ 'navmenu.rooms' | translate }}</span>
+          </a>
+        </li>
+        <li class="list">
+          <a [routerLink]="'/student'" routerLinkActive="active" class="nav-link" (click)="closeSidebarIfMobile()">
+            <span class="link">{{ 'navmenu.students' | translate }}</span>
+          </a>
+        </li>
+        <li class="list">
+          <a href="#" class="nav-link" (click)="closeSidebarIfMobile()"><span class="link">{{ 'navmenu.teachers' | translate }}</span></a>
+        </li>
+        <li class="list">
+          <a href="#" class="nav-link" (click)="closeSidebarIfMobile()"><span class="link">{{ 'navmenu.subjects' | translate }}</span></a>
+        </li>
+      </ul>
 
-    <ul class="list">
-      <li class="list">
-        <a href="#" class="nav-link">
-          <i class="bx bx-cog icon"></i><span class="link">{{ 'navmenu.settings' | translate }}</span>
-        </a>
-      </li>
+      <ul class="list">
+        <li class="list">
+          <a href="#" class="nav-link" (click)="closeSidebarIfMobile()">
+            <i class="bx bx-cog icon"></i><span class="link">{{ 'navmenu.settings' | translate }}</span>
+          </a>
+        </li>
 
         @if (authService.isLoggedIn()) {
           <li class="list dropdown profile">
             <a href="#" class="nav-link">
               <div class="profile-link">
-                <img alt="" />
+                <img src class="profile-img" alt="" />
                 <span class="profile-name">{{ authService.getUsername() }}</span>
               </div>
             </a>
             <ul class="dropdown-menu">
               <li>
-                <a routerLink="/">
-                  <span class="link">Отвори</span>
+                <a routerLink="/" class="nav-link" (click)="closeSidebarIfMobile()">
+                  <span class="link">{{ 'navmenu.open-profile' | translate }}</span>
                 </a>
               </li>
-
               <li class="logout">
                 <button type="button" class="nav-link logout-button" (click)="onLogoutClick()">
                   <i class="bx bx-log-out icon" aria-hidden="true"></i>
                   <span class="link">{{ 'navmenu.logout' | translate }}</span>
                 </button>
               </li>
-          </ul>
-        </li>
-      }
+            </ul>
+          </li>
+        }
 
-      @if (!authService.isLoggedIn()) {
-        <li class="list">
-          <a routerLink="/login" routerLinkActive="active" class="nav-link">
-            <i class="bx bx-log-in icon"></i>
-            <span class="link">Вход</span>
-          </a>
-      </li>
-    }
-  </ul>
-</div>
+        @if (!authService.isLoggedIn()) {
+          <li class="list">
+            <a routerLink="/login" routerLinkActive="active" class="nav-link" (click)="closeSidebarIfMobile()">
+              <i class="bx bx-log-in icon"></i>
+              <span class="link">Вход</span>
+            </a>
+          </li>
+        }
+      </ul>
+    </div>
 </div>

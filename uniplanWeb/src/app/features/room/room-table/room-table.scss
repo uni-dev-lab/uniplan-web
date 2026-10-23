@@ -1,80 +1,95 @@
+$table-min-width: 710px;
+
 .table-wrapper {
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  overflow-x: auto;
+  overflow-y: hidden;
+  background-color: #fff;
+  -webkit-overflow-scrolling: touch;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
-.table-header {
-    width: 100%;
-    table-layout: fixed;
-     padding-right: 14px;
+.table-wrapper .table-header,
+.table-wrapper .table-body {
+  min-width: $table-min-width;
+}
+
+.table-wrapper .table-header {
+  width: 100%;
+  table-layout: fixed;
 }
 
 .scrollable-body {
-    max-height: 510px;
-    overflow-y: scroll;
-    overflow-x: hidden;
+  min-width: $table-min-width;
+  max-height: 510px;
+  overflow-y: auto;
+  overflow-x: visible;
 }
 
 @media (min-width: 900px) {
-    .scrollable-body {
-        max-height: 510px;
-    }
+  .scrollable-body {
+    max-height: 510px;
+  }
 }
 
 @media (min-width: 1800px) {
-    .scrollable-body {
-        max-height: 680px;
-    }
+  .scrollable-body {
+    max-height: 680px;
+  }
 }
 
-.table-body {
-    width: 100%;
-    table-layout: fixed;
-    border-collapse: collapse;
+.table-wrapper .table-body {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
 }
 
 .table-body tr:hover td {
-    background-color: #f8f8f8;
-    cursor: pointer;
+  background-color: #f8f8f8;
+  cursor: pointer;
 }
 
 th,
 td {
-    text-align: center;
-    padding: 8px 10px;
-    word-wrap: break-word;
+  text-align: center;
+  padding: 8px 10px;
+  word-wrap: break-word;
 }
 
 th {
-    background-color: #f7f7f7 !important;
+  background-color: #f7f7f7 !important;
 }
 
 td {
-    background-color: #fff;
+  background-color: #fff;
 }
 
 .col-position {
-    width: 10%;
-    border-right: 1px solid #e0e0e0;
+  width: 10%;
+  border-right: 1px solid #e0e0e0;
 }
 
 .col-name {
-    width: 25%;
-    border-right: 1px solid #e0e0e0;
+  width: 25%;
+  border-right: 1px solid #e0e0e0;
 }
 
 .col-room-number {
-    width: 20%;
-    border-right: 1px solid #e0e0e0;
+  width: 20%;
+  border-right: 1px solid #e0e0e0;
 }
 
 .col-category {
-    width: 30%;
-    border-right: 1px solid #e0e0e0;
+  width: 30%;
+  border-right: 1px solid #e0e0e0;
 }
 
 .col-actions {
-    width: 15%;
+  width: 15%;
+  border-right: none;
+  white-space: nowrap;
+  overflow: visible;
+  text-overflow: clip;
 }

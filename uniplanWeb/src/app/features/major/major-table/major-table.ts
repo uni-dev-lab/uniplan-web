@@ -91,6 +91,7 @@ export class MajorTable implements OnInit {
 
   protected onEdit(element: MajorElm): void {
     this.dialog.open(MajorEditForm, {
+      maxWidth: '90vw',
       data: {
         id: element.id,
         majorName: element.majorName,
@@ -101,6 +102,7 @@ export class MajorTable implements OnInit {
 
   protected onDelete(element: MajorElm): void {
     this.dialog.open(MajorDeleteForm, {
+      maxWidth: '90vw',
       data: {
         id: element.id,
         courseId: element.courseId,

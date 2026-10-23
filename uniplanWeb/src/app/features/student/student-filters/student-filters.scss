@@ -12,3 +12,18 @@
 ::ng-deep .mat-form-field-infix {
   padding: 4px 0 !important;
 }
+
+@media screen and (max-width: 600px) {
+  .filters-panel {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .filters-panel app-filters-form,
+  .filters-panel app-input-filter,
+  .filters-panel .filter {
+    width: 100%;
+    max-width: none;
+  }
+}

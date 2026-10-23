@@ -114,6 +114,7 @@ export const ELEMENT_STUDENT_DATA: StudentElm[] = [
   imports: [MatTableModule, MatIconModule, MatButtonModule, TranslatePipe],
 })
 export class StudentTable implements OnInit, OnChanges {
+
   @Input() searchText = '';
   @Input() searchFacNum = '';
   @Input() searchMajor = '';
