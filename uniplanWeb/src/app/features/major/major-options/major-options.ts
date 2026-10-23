@@ -1,11 +1,11 @@
-import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { MajorAddForm } from '../major-add-form/major-add-form';
+import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
+import {MatDialog} from '@angular/material/dialog';
+import {MajorAddForm} from '../major-add-form/major-add-form';
 
-import { MatTableModule } from '@angular/material/table';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { AddButton } from '../../../core/shared/add-button/add-button';
+import {MatTableModule} from '@angular/material/table';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import {AddButton} from '../../../core/shared/add-button/add-button';
 
 @Component({
   selector: 'app-major-options',
@@ -22,7 +22,7 @@ import { AddButton } from '../../../core/shared/add-button/add-button';
 export class MajorOptions {
   private dialog = inject(MatDialog);
 
-  openAddForm(): void {
+  protected openAddForm(): void {
     this.dialog.open(MajorAddForm, {
       width: '400px',
       maxWidth: '90vw',

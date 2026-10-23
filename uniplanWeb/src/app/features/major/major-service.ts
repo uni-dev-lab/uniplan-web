@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { map, Observable, Subject, switchMap, tap } from 'rxjs';
 import { MajorElm } from '../../core/interfaces/major-elm';
 import {API_ENDPOINTS} from '../../config/endpoints';
@@ -9,9 +9,9 @@ import { CourseElm } from '../../core/interfaces/course-elm';
   providedIn: 'root',
 })
 export class MajorService {
-  private http = inject(HttpClient);
-
   refreshNeeded = new Subject<void>();
+
+  private http = inject(HttpClient);
 
   getMajors(): Observable<MajorElm[]> {
     return this.http.get<MajorElm[]>(API_ENDPOINTS.majors).pipe(
@@ -54,7 +54,6 @@ export class MajorService {
       })
     );
   }
-
   createMajorWithCourse(majorData: {
     facultyId: string;
     majorName: string;
