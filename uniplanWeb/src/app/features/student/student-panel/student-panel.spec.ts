@@ -6,20 +6,57 @@ import { translateTestingProviders } from '@testing/translate-testing';
 import { StudentPanel } from './student-panel';
 import { StudentFilters } from '../student-filters/student-filters';
 import { StudentTable } from '../student-table/student-table';
+import { StudentService } from "../student-service";
+import {of, Subject } from "rxjs";
+import {StudentElm} from '../../../core/interfaces/student-elm';
 
 describe('StudentPanel', () => {
   let component: StudentPanel;
   let fixture: ComponentFixture<StudentPanel>;
   let dialogSpy: jasmine.SpyObj<MatDialog>;
+  let studentServiceSpy: jasmine.SpyObj<StudentService>;
+
+  const students: StudentElm[] = [
+    {
+      id: 's1',
+      position: 1,
+      name: 'Ivan Ivanov',
+      facultyNumber: '123456',
+      majorId: 'm1',
+      majorName: 'Computer Science',
+      courseType: 'bachelor',
+      courseSubtype: 'редовно',
+      courseYear: 3,
+    },
+    {
+      id: 's2',
+      position: 2,
+      name: 'Maria Petrova',
+      facultyNumber: '234567',
+      majorId: 'm2',
+      majorName: 'History',
+      courseType: 'bachelor',
+      courseSubtype: 'задочно',
+      courseYear: 2,
+    },
+  ];
 
   beforeEach(async () => {
     dialogSpy = jasmine.createSpyObj<MatDialog>('MatDialog', ['open']);
+
+    studentServiceSpy = jasmine.createSpyObj<StudentService>(
+      'StudentService',
+      ['getStudents'],
+      { refreshNeeded: new Subject<void>() }
+    );
+    studentServiceSpy.getStudents.and.returnValue(of(students));
 
     await TestBed.configureTestingModule({
       imports: [StudentPanel],
       providers: [
         ...translateTestingProviders,
         { provide: MatDialog, useValue: dialogSpy },
+        { provide: StudentService, useValue: studentServiceSpy },
       ],
     }).compileComponents();
 
@@ -62,7 +99,7 @@ describe('StudentPanel', () => {
     const names = Array.from(compiled.querySelectorAll('td.col-name')).map(
       (el) => el.textContent?.trim()
     );
-    expect(names).toEqual(['Иван Иванов']);
+    expect(names).toEqual(['Ivan Ivanov']);
   });
 
   it('should propagate the selected subtype from filters down to the table', () => {
