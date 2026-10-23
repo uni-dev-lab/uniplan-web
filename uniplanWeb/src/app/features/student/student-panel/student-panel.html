@@ -18,6 +18,7 @@
     [searchFacNum]="searchFacNum"
     [searchMajor]="searchMajor"
     [subtype]="selectedStudentSubtype"
-    [subtypes]="studentSubtypes">
+    [subtypes]="studentSubtypes"
+    (subtypesLoaded)="studentSubtypes=$event">
   </app-student-table>
 </div>
