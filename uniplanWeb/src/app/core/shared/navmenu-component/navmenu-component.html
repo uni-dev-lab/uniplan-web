@@ -83,7 +83,7 @@
             </a>
             <ul class="dropdown-menu">
               <li>
-                <a routerLink="/">
+                <a routerLink="/" class="nav-link" (click)="closeSidebarIfMobile()">
                   <span class="link">{{ 'navmenu.open-profile' | translate }}</span>
                 </a>
               </li>
@@ -99,7 +99,7 @@
 
         @if (!authService.isLoggedIn()) {
           <li class="list">
-            <a routerLink="/login" routerLinkActive="active" class="nav-link">
+            <a routerLink="/login" routerLinkActive="active" class="nav-link" (click)="closeSidebarIfMobile()">
               <i class="bx bx-log-in icon"></i>
               <span class="link">Вход</span>
             </a>

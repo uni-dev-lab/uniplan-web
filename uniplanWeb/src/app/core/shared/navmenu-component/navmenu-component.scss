@@ -108,16 +108,6 @@
   transition: background-color 0.3s, color 0.3s;
 }
 
-.profile-link {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  border-radius: 8px;
-  text-decoration: none;
-  color: #707070;
-  transition: background-color 0.3s, color 0.3s;
-}
-
 .profile-link:hover {
   background-color: hsl(224, 89%, 60%);
   color: #fff;
@@ -143,6 +133,21 @@
   font-weight: 400;
   color: #707070;
   font-size: 16px;
+}
+
+.dropdown-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.dropdown-menu li {
+  list-style: none;
+}
+
+.dropdown-menu li a {
+  color: #707070;
+  text-decoration: none;
 }
 
 .dropdown-menu .logout .link {
