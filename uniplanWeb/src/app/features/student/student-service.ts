@@ -3,16 +3,17 @@ import { map, Observable, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { StudentElm } from '../../core/interfaces/student-elm';
 import { API_ENDPOINTS } from '../../config/endpoints';
+import {StudentRequest} from '../../core/interfaces/student-request';
 
 @Injectable({
     providedIn: 'root'
 })
 export class StudentService {
-    private apiUrl = API_ENDPOINTS.students;
+    private readonly apiUrl = API_ENDPOINTS.students;
 
     refreshNeeded = new Subject<void>();
 
-    private http = inject(HttpClient);
+    private readonly http = inject(HttpClient);
 
     getStudents(): Observable<StudentElm[]> {
         return this.http.get<StudentElm[]>(this.apiUrl).pipe(
@@ -31,7 +32,7 @@ export class StudentService {
             )
         );
     }
-    createStudent(student: Omit<StudentElm, 'position' | 'id'>): Observable<void> {
+    createStudent(student: StudentRequest): Observable<void> {
         return this.http.post<void>(`${this.apiUrl}`, student).pipe(
             map((res) => {
                 this.refreshNeeded.next();
@@ -41,7 +42,7 @@ export class StudentService {
     }
 
     editStudent(id: string,
-         updatedStudent: Omit<StudentElm, 'position' | 'id'>): Observable<void> {
+         updatedStudent: StudentRequest): Observable<void> {
         return this.http.put<void>(`${this.apiUrl}/${id}`, updatedStudent).pipe(
             map((res) => {
                 this.refreshNeeded.next();

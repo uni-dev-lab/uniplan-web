@@ -18,6 +18,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { StudentService } from '../student-service';
 import { MatDialog } from '@angular/material/dialog';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import {
+  catchError,
+  merge,
+  Observable,
+  of,
+  switchMap
+} from 'rxjs';
 
 @Component({
   selector: 'app-student-table',
@@ -27,9 +34,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   imports: [MatTableModule, MatIconModule, MatButtonModule, TranslatePipe],
 })
 export class StudentTable implements OnInit, OnChanges {
-  private dialog = inject(MatDialog)
-  private studentService = inject(StudentService)
-  private destroyRef = inject(DestroyRef);
+  private readonly dialog = inject(MatDialog)
+  private readonly studentService = inject(StudentService)
+  private readonly destroyRef = inject(DestroyRef);
   @Input() searchText = '';
   @Input() searchFacNum = '';
   @Input() searchMajor = '';
@@ -54,32 +61,26 @@ export class StudentTable implements OnInit, OnChanges {
   dataSourceFilter: StudentElm[] = [];
 
   ngOnInit(): void {
-    this.loadStudents();
-    this.studentService.refreshNeeded
+    const students$: Observable<StudentElm[]> = merge(of(undefined), this.studentService.refreshNeeded).pipe(
+      switchMap((): Observable<StudentElm[]> =>
+        this.studentService.getStudents().pipe(
+          catchError((): Observable<StudentElm[]> => of(this.originalData)),
+        ),
+      ),
+    );
+
+    students$
     .pipe(takeUntilDestroyed(this.destroyRef))
-    .subscribe(() => {
-      this.loadStudents();
+    .subscribe((students: StudentElm[]) => {
+      this.originalData = students;
+      this.subtypes = StudentTable.getFilterOptions(students).subtypes;
+      this.subtypesLoaded.emit(this.subtypes);
+      this.applyFilters();
     });
   }
 
   ngOnChanges(): void {
     this.applyFilters();
-  }
-
-  loadStudents(): void {
-    this.studentService.getStudents()
-    .pipe(takeUntilDestroyed(this.destroyRef))
-    .subscribe({
-      next: (students) => {
-        this.originalData = students;
-        this.subtypes = StudentTable.getFilterOptions(students).subtypes;
-        this.subtypesLoaded.emit(this.subtypes);
-        this.applyFilters();
-      },
-      error: () => {
-        console.error('Failed to load students');
-      }
-    });
   }
 
   applyFilters(): void {
