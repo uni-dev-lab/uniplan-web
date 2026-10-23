@@ -16,7 +16,6 @@ import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { StudentService } from '../student-service';
-import { MatDialog } from '@angular/material/dialog';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   catchError,
@@ -34,7 +33,6 @@ import {
   imports: [MatTableModule, MatIconModule, MatButtonModule, TranslatePipe],
 })
 export class StudentTable implements OnInit, OnChanges {
-  private readonly dialog = inject(MatDialog)
   private readonly studentService = inject(StudentService)
   private readonly destroyRef = inject(DestroyRef);
   @Input() searchText = '';

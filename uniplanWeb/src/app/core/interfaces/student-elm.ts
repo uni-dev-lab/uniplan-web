@@ -1,5 +1,3 @@
-import { CourseSubtype } from "../../features/course/course-subtype";
-
 export interface StudentElm {
   id: string;
   position: number;
@@ -8,6 +6,6 @@ export interface StudentElm {
   majorId: string;
   majorName: string;
   courseType: string;
-  courseSubtype: CourseSubtype;
+  courseSubtype: string;
   courseYear: number;
 }
