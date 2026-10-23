@@ -1,10 +1,6 @@
-import { Component, Inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import {
-  MatDialogModule,
-  MatDialogRef,
-  MAT_DIALOG_DATA,
-} from '@angular/material/dialog';
+import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA,} from '@angular/material/dialog';
 import { MatFormField } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -32,27 +28,21 @@ import { TranslatePipe } from '@ngx-translate/core';
   ],
 })
 export class FacultyEdit {
-  facultyName = '';
-  location = '';
-  universityId = '';
 
-  constructor(
-    private dialogRef: MatDialogRef<EditForm>,
-    private facultyService: FacultyService,
-    @Inject(MAT_DIALOG_DATA)
-    public data: {
-      id: string;
-      facultyName: string;
-      location: string;
-      universityId: string;
-    }
-  ) {
-    this.facultyName = data.facultyName;
-    this.location = data.location;
-    this.universityId = data.universityId;
-  }
+  private dialogRef = inject(MatDialogRef<EditForm>);
+  private facultyService = inject(FacultyService);
+  public data = inject<{
+    id: string;
+    facultyName: string;
+    location: string;
+    universityId: string;
+  }>(MAT_DIALOG_DATA);
 
-  save() {
+  facultyName = this.data.facultyName;
+  location = this.data.location;
+  universityId = this.data.universityId;
+
+  save(): void {
     if (!this.facultyName.trim()) {
       alert('Please enter faculty name.');
       return;

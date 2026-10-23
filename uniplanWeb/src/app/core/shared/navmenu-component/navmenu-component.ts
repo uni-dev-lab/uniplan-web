@@ -1,9 +1,9 @@
-import { Component, HostListener, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, HostListener, OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 
-import { LoginAuthService } from '../../../services/login-auth-service';
+import { LoginAuthService } from '../../../services/login/login-auth-service';
 
 @Component({
   selector: 'app-navmenu-component',
@@ -17,14 +17,15 @@ export class NavmenuComponent implements OnInit {
   isSidebarCollapsed = false;
   isMobileView = window.innerWidth <= 768;
 
-  constructor(public authService: LoginAuthService) {}
+  protected readonly authService = inject(LoginAuthService);
+  private readonly router = inject(Router);
 
   ngOnInit(): void {
     this.checkViewport();
   }
 
-  @HostListener('window:resize', ['$event'])
-  onResize(event: Event): void {
+  @HostListener('window:resize')
+  onResize(): void {
     this.checkViewport();
   }
 
@@ -40,5 +41,10 @@ export class NavmenuComponent implements OnInit {
 
   toggleSidebar(): void {
     this.isSidebarCollapsed = !this.isSidebarCollapsed;
+  }
+
+  protected onLogoutClick(): void {
+    this.authService.logout();
+    this.router.navigate(['/']);
   }
 }

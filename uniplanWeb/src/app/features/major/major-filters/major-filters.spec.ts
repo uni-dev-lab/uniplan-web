@@ -16,6 +16,16 @@ describe('MajorFilters', () => {
 
     fixture = TestBed.createComponent(MajorFilters);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput('majorFilterState', {
+      selectedFaculty: '',
+      selectedType: '',
+      selectedSubtype: '',
+    });
+    fixture.componentRef.setInput('majorFilterOptions', {
+      faculties: [],
+      types: [],
+      subtypes: [],
+    });
     fixture.detectChanges();
   });
 

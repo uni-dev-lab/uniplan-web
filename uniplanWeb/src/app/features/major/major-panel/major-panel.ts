@@ -1,13 +1,16 @@
-import { Component, DestroyRef, OnInit, inject } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { catchError, combineLatest, map, merge, of, switchMap } from 'rxjs';
+import {Component, DestroyRef, inject, OnInit, signal, WritableSignal} from '@angular/core';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {catchError, combineLatest, map, merge, Observable, of, switchMap} from 'rxjs';
 
-import { MajorElm } from '../../../core/interfaces/major-elm';
-import { FacultyService } from '../../faculty/faculty-service';
-import { MajorOptions } from '../major-options/major-options';
-import { MajorFilters } from '../major-filters/major-filters';
-import { MajorTable } from '../major-table/major-table';
-import { MajorService } from '../major-service';
+import {MajorElm} from '../../../core/interfaces/major-elm';
+import {FacultyService} from '../../faculty/faculty-service';
+import {MajorOptions} from '../major-options/major-options';
+import {MajorFilters} from '../major-filters/major-filters';
+import {MajorTable} from '../major-table/major-table';
+import {MajorService} from '../major-service';
+import {MajorFilterState} from "../../../core/interfaces/major-filter-state";
+import {MajorFilterOptions} from '../../../core/interfaces/major-filter-options';
+import {FacultyElm} from '../../../core/interfaces/faculty-elm';
 
 @Component({
   selector: 'app-major-panel',
@@ -16,61 +19,78 @@ import { MajorService } from '../major-service';
   styleUrl: './major-panel.scss'
 })
 export class MajorPanel implements OnInit {
-  searchText: string = '';
-  selectedFaculty: string = '';
-  selectedType: string = '';
-  selectedSubtype: string = '';
-
-  faculties: { id: string; name: string }[] = [];
-  types: string[] = [];
-  subtypes: string[] = [];
+  private majorService: MajorService = inject(MajorService);
+  private facultyService: FacultyService = inject(FacultyService);
+  private destroyRef: DestroyRef = inject(DestroyRef);
 
   private majors: MajorElm[] = [];
   private facultyMap: Map<string, string> = new Map<string, string>();
-  private destroyRef: DestroyRef = inject(DestroyRef);
 
-  constructor(
-    private majorService: MajorService,
-    private facultyService: FacultyService
-  ) {}
+  protected internalSearchText: WritableSignal<string> = signal('');
+
+  protected majorFiltersState: WritableSignal<MajorFilterState> = signal({
+    selectedFaculty: '',
+    selectedType: '',
+    selectedSubtype: '',
+  });
+
+  protected majorFilterOptions: WritableSignal<MajorFilterOptions> = signal({
+    faculties: [],
+    types: [],
+    subtypes: [],
+  });
+
+  protected updateFilters(change: Partial<MajorFilterState>): void {
+    this.majorFiltersState.update((state: MajorFilterState): {
+      selectedFaculty: string;
+      selectedType: string;
+      selectedSubtype: string
+    } => ({...state, ...change}));
+  }
 
   ngOnInit(): void {
-    const facultyMap$ = merge(of(undefined), this.facultyService.refreshNeeded).pipe(
-      switchMap(() =>
+    const facultyMap$: Observable<Map<string, string>> = merge(of(undefined), this.facultyService.refreshNeeded).pipe(
+      switchMap((): Observable<Map<string, string>> =>
         this.facultyService.getFaculties().pipe(
-          map((faculties) => new Map(faculties.map((f) => [f.id, f.facultyName]))),
-          catchError(() => of(this.facultyMap)),
+          map((faculties: FacultyElm[]): Map<string, string> => new Map(faculties.map((f: FacultyElm): [string, string] => [f.id, f.facultyName]))),
+          catchError((): Observable<Map<string, string>> => of(this.facultyMap)),
         ),
       ),
     );
 
-    const majors$ = merge(of(undefined), this.majorService.refreshNeeded).pipe(
-      switchMap(() =>
+    const majors$: Observable<MajorElm[]> = merge(of(undefined), this.majorService.refreshNeeded).pipe(
+      switchMap((): Observable<MajorElm[]> =>
         this.majorService.getMajors().pipe(
-          catchError(() => of(this.majors)),
+          catchError((): Observable<MajorElm[]> => of(this.majors)),
         ),
       ),
     );
 
     combineLatest([facultyMap$, majors$])
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(([facultyMap, majors]) => {
+      .subscribe(([facultyMap, majors]: [Map<string, string>, MajorElm[]]): void => {
         this.facultyMap = facultyMap;
         this.majors = majors;
-        const options = MajorTable.getFilterOptions(this.majors, this.facultyMap);
-        this.faculties = options.faculties;
-        this.types = options.types;
-        this.subtypes = options.subtypes;
+        const options: MajorFilterOptions = MajorTable.getFilterOptions(this.majors, this.facultyMap);
+        const current: MajorFilterState = this.majorFiltersState();
 
-        if (this.selectedFaculty && !this.faculties.some((f) => f.id === this.selectedFaculty)) {
-          this.selectedFaculty = '';
-        }
-        if (this.selectedType && !this.types.includes(this.selectedType)) {
-          this.selectedType = '';
-        }
-        if (this.selectedSubtype && !this.subtypes.includes(this.selectedSubtype)) {
-          this.selectedSubtype = '';
-        }
+        this.majorFiltersState.set({
+          selectedFaculty: options.faculties.some((f: {
+            id: string,
+            name: string
+          }): boolean => f.id === current.selectedFaculty)
+            ? current.selectedFaculty : '',
+          selectedType: options.types.includes(current.selectedType)
+            ? current.selectedType : '',
+          selectedSubtype: options.subtypes.includes(current.selectedSubtype)
+            ? current.selectedSubtype : '',
+        });
+
+        this.majorFilterOptions.set({
+          faculties: options.faculties,
+          types: options.types,
+          subtypes: options.subtypes,
+        });
       });
   }
 }

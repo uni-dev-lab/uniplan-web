@@ -1,0 +1,68 @@
+name: Angular CI
+
+on:
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    working-directory: uniplanWeb
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version-file: 'uniplanWeb/.nvmrc'
+          cache: 'npm'
+          cache-dependency-path: uniplanWeb/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: |
+          set -o pipefail
+          npm run lint | tee lint-output.log
+
+      - name: Run unit tests
+        run: |
+          set -o pipefail
+          npm run test -- --no-watch --no-progress --browsers=ChromeHeadless --code-coverage | tee test-output.log
+
+      - name: Build
+        run: npm run build
+
+      - name: Job summary
+        if: always()
+        run: |
+          {
+            echo "## Lint"
+            echo '```'
+            if [ -f lint-output.log ]; then
+              cat lint-output.log
+            else
+              echo "Lint did not run (an earlier step failed)."
+            fi
+            echo '```'
+            echo
+            echo "## Coverage"
+            echo '```'
+            if [ -f test-output.log ]; then
+              grep -A 5 "Coverage summary" test-output.log || echo "No coverage data captured."
+            else
+              echo "Tests did not run (an earlier step failed)."
+            fi
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"

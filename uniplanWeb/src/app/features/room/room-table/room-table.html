@@ -12,6 +12,12 @@
       <th mat-header-cell *matHeaderCellDef class="col-room-number"> {{ 'room.room-number' | translate }} </th>
     </ng-container>
 
+    <ng-container matColumnDef="categoryId">
+      <th mat-header-cell *matHeaderCellDef class="col-category">
+        {{ 'room.category-label' | translate }}
+      </th>
+    </ng-container>
+
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef class="col-actions"> {{ 'features.actions-label' | translate }} </th>
     </ng-container>
@@ -38,10 +44,16 @@
           {{ element.facultyId | facultyNamePipe: facultyMap }} </td>
       </ng-container>
 
-
       <ng-container matColumnDef="roomNumber">
         <td mat-cell *matCellDef="let element" class="col-room-number">
-          {{ element.roomNumber }} </td>
+          {{ element.roomNumber }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="categoryId">
+        <td mat-cell *matCellDef="let element" class="col-category">
+          {{ element.categoryId | categoryDisplayPipe: categoryMap }}
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="actions">
