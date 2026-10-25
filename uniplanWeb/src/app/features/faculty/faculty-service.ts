@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { map, Observable, Subject, tap } from 'rxjs';
 import { FacultyElm } from '../../core/interfaces/faculty-elm';
 import { API_ENDPOINTS } from '../../config/endpoints';

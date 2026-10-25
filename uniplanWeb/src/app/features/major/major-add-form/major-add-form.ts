@@ -45,7 +45,7 @@ export class MajorAddForm implements OnInit {
       next: (data: FacultyElm[]) => {
         this.faculties = data;
       },
-      error: (err: any): void => console.error('Failed to load faculties', err),
+      error: (err) => console.error('Failed to load faculties', err),
     });
   }
 

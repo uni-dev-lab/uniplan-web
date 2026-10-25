@@ -68,6 +68,16 @@ describe('MajorPanel', () => {
     component = fixture.componentInstance;
   });
 
+  function getFilters(): MajorFilters {
+    return fixture.debugElement.query(By.directive(MajorFilters))
+      .componentInstance as MajorFilters;
+  }
+
+  function getTable(): MajorTable {
+    return fixture.debugElement.query(By.directive(MajorTable))
+      .componentInstance as MajorTable;
+  }
+
   it('should create', () => {
     fixture.detectChanges();
     expect(component).toBeTruthy();
@@ -86,11 +96,12 @@ describe('MajorPanel', () => {
 
     expect(facultyServiceSpy.getFaculties).toHaveBeenCalled();
     expect(majorServiceSpy.getMajors).toHaveBeenCalled();
-    expect(component.faculties).toEqual([
+    const options = getFilters().majorFilterOptions();
+    expect(options.faculties).toEqual([
       { id: 'f1', name: 'Faculty of Engineering' },
     ]);
-    expect(component.types).toEqual(['bachelor']);
-    expect(component.subtypes).toEqual(['full-time']);
+    expect(options.types).toEqual(['bachelor']);
+    expect(options.subtypes).toEqual(['full-time']);
   });
 
   it('should leave filter options empty when there are no majors', () => {
@@ -98,48 +109,44 @@ describe('MajorPanel', () => {
 
     fixture.detectChanges();
 
-    expect(component.faculties).toEqual([]);
-    expect(component.types).toEqual([]);
-    expect(component.subtypes).toEqual([]);
+    expect(getFilters().majorFilterOptions()).toEqual({
+      faculties: [],
+      types: [],
+      subtypes: [],
+    });
   });
 
-  it('should reload filter options when majorService.refreshNeeded fires', () => {
-    fixture.detectChanges();
-    expect(component.types).toEqual(['bachelor']);
+  it('should reload filter options when majorService.refreshNeeded fires', () => {    fixture.detectChanges();
+    expect(getFilters().majorFilterOptions().types).toEqual(['bachelor']);
 
     majorServiceSpy.getMajors.and.returnValue(
       of([{ ...major, courseType: 'master' }])
     );
     majorServiceSpy.refreshNeeded.next();
+    fixture.detectChanges();
 
-    expect(component.types).toEqual(['master']);
+    expect(getFilters().majorFilterOptions().types).toEqual(['master']);
   });
 
   it('should propagate faculty selection from filters down to the table', () => {
     fixture.detectChanges();
 
-    const filters = fixture.debugElement.query(By.directive(MajorFilters))
-      .componentInstance as MajorFilters;
-    filters.facultyChange.emit('f1');
+    fixture.debugElement
+      .query(By.directive(MajorFilters))
+      .triggerEventHandler('facultyChange', 'f1');
     fixture.detectChanges();
 
-    expect(component.selectedFaculty).toBe('f1');
-    const table = fixture.debugElement.query(By.directive(MajorTable))
-      .componentInstance as MajorTable;
-    expect(table.faculty).toBe('f1');
+    expect(getTable().majorFiltersState().selectedFaculty).toBe('f1');
   });
 
   it('should propagate search text from filters down to the table', () => {
     fixture.detectChanges();
 
-    const filters = fixture.debugElement.query(By.directive(MajorFilters))
-      .componentInstance as MajorFilters;
-    filters.searchTextChange.emit('science');
+    fixture.debugElement
+      .query(By.directive(MajorFilters))
+      .triggerEventHandler('searchTextChange', 'science');
     fixture.detectChanges();
 
-    expect(component.searchText).toBe('science');
-    const table = fixture.debugElement.query(By.directive(MajorTable))
-      .componentInstance as MajorTable;
-    expect(table.searchText).toBe('science');
+    expect(getTable().searchText()).toBe('science');
   });
 });

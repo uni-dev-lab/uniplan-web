@@ -21,14 +21,14 @@ import { TranslatePipe } from '@ngx-translate/core';
   ],
 })
 export class StudentAddForm {
-  private dialogRef = inject<MatDialogRef<AddForm>>(MatDialogRef);
-
   protected studentName: string = '';
   protected facultyNumber: string = '';
   protected faculty: string = '';
   protected major: string = '';
   protected course: string = '';
   protected type: string = '';
+
+  private dialogRef = inject(MatDialogRef<AddForm>);
 
   save(): void {
     if (!this.studentName.trim()) {
