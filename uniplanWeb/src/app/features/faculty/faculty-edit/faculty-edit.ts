@@ -1,14 +1,13 @@
-import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA,} from '@angular/material/dialog';
-import { MatFormField } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-import { MatOptionModule } from '@angular/material/core';
-import { MatLabel } from '@angular/material/form-field';
-import { FacultyService } from '../faculty-service';
-import { EditForm } from '../../../core/shared/edit-form/edit-form';
-import { TranslatePipe } from '@ngx-translate/core';
+import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
+import {FormsModule} from '@angular/forms';
+import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef,} from '@angular/material/dialog';
+import {MatFormField, MatLabel} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
+import {MatOptionModule} from '@angular/material/core';
+import {FacultyService} from '../faculty-service';
+import {EditForm} from '../../../core/shared/edit-form/edit-form';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-faculty-edit',
@@ -29,20 +28,25 @@ import { TranslatePipe } from '@ngx-translate/core';
 })
 export class FacultyEdit {
 
-  private dialogRef = inject(MatDialogRef<EditForm>);
-  private facultyService = inject(FacultyService);
-  public data = inject<{
+  private readonly dialogRef:MatDialogRef<EditForm> = inject(MatDialogRef<EditForm>);
+  private readonly facultyService:FacultyService = inject(FacultyService);
+  public data: {
+    id: string;
+    facultyName: string;
+    location: string;
+    universityId: string;
+  } = inject<{
     id: string;
     facultyName: string;
     location: string;
     universityId: string;
   }>(MAT_DIALOG_DATA);
 
-  facultyName = this.data.facultyName;
-  location = this.data.location;
-  universityId = this.data.universityId;
+  protected facultyName:string = this.data.facultyName;
+  protected location:string = this.data.location;
+  protected universityId:string = this.data.universityId;
 
-  save(): void {
+  protected save(): void {
     if (!this.facultyName.trim()) {
       alert('Please enter faculty name.');
       return;

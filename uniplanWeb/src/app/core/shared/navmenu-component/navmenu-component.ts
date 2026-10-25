@@ -1,9 +1,9 @@
-import { Component, HostListener, OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { TranslatePipe } from '@ngx-translate/core';
+import {ChangeDetectionStrategy, Component, HostListener, inject, OnInit} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {Router, RouterLink, RouterLinkActive} from '@angular/router';
+import {TranslatePipe} from '@ngx-translate/core';
 
-import { LoginAuthService } from '../../../services/login/login-auth-service';
+import {LoginAuthService} from '../../../services/login/login-auth-service';
 
 @Component({
   selector: 'app-navmenu-component',
@@ -17,8 +17,8 @@ export class NavmenuComponent implements OnInit {
   protected isSidebarCollapsed: boolean = false;
   protected isMobileView: boolean = window.innerWidth <= 768;
 
-  protected readonly authService = inject(LoginAuthService);
-  private readonly router = inject(Router);
+  protected readonly authService: LoginAuthService = inject(LoginAuthService);
+  private readonly router: Router = inject(Router);
 
   ngOnInit(): void {
     this.checkViewport();

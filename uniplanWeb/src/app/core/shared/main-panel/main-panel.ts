@@ -69,7 +69,7 @@ export class MainPanel implements OnInit {
     this.loadMajorFilters();
     this.loadStudentFilters();
 
-    this.majorService.refreshNeeded.subscribe(() => {
+    this.majorService.refreshNeeded.subscribe(():void => {
       this.loadMajorFilters();
     });
   }

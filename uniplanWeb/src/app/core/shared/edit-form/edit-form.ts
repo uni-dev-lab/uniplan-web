@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
-import { MatDialogModule } from '@angular/material/dialog';
-import { TranslatePipe } from '@ngx-translate/core';
+import {ChangeDetectionStrategy, Component, input, InputSignal, output, OutputEmitterRef} from '@angular/core';
+import {MatDialogModule} from '@angular/material/dialog';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-edit-form',
@@ -12,7 +12,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 
 })
 export class EditForm {
-  @Input() public title: string = '';
+  public title: InputSignal<string> = input<string>('');
 
-  @Output() public readonly saveClicked:EventEmitter<void> = new EventEmitter<void>();
+  public readonly saveClicked: OutputEmitterRef<void> = output<void>();
 }

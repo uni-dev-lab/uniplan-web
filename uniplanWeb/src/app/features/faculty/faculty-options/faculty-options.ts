@@ -1,10 +1,10 @@
-import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatTableModule } from '@angular/material/table';
-import { MatDialog } from '@angular/material/dialog';
-import { FacultyAddForm } from '../faculty-add-form/faculty-add-form';
-import { AddButton } from '../../../core/shared/add-button/add-button';
+import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
+import {MatTableModule} from '@angular/material/table';
+import {MatDialog} from '@angular/material/dialog';
+import {FacultyAddForm} from '../faculty-add-form/faculty-add-form';
+import {AddButton} from '../../../core/shared/add-button/add-button';
 
 @Component({
   selector: 'app-faculty-options',
@@ -19,7 +19,7 @@ import { AddButton } from '../../../core/shared/add-button/add-button';
   ],
 })
 export class FacultyOptions {
-  private dialog = inject(MatDialog);
+  private readonly dialog: MatDialog = inject(MatDialog);
 
   protected openAddForm(): void {
     this.dialog.open(FacultyAddForm, {

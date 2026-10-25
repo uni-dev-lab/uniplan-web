@@ -1,8 +1,8 @@
-import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatInputModule } from '@angular/material/input';
-import { TranslatePipe } from '@ngx-translate/core';
+import {ChangeDetectionStrategy, Component, input, InputSignal, output, OutputEmitterRef} from '@angular/core';
+import {FormsModule} from '@angular/forms';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatInputModule} from '@angular/material/input';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-add-form',
@@ -13,7 +13,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   imports: [MatDialogModule, FormsModule, MatInputModule, TranslatePipe],
 })
 export class AddForm {
-  @Input() public title: string = '';
+  public title: InputSignal<string> = input<string>('');
 
-  @Output() public readonly saveClicked :EventEmitter<void> = new EventEmitter<void>();
+  public readonly saveClicked: OutputEmitterRef<void> = output<void>();
 }

@@ -1,9 +1,8 @@
-
-import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
-import { MatOptionModule } from '@angular/material/core';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
-import { TranslatePipe } from '@ngx-translate/core';
+import {ChangeDetectionStrategy, Component, input, InputSignal, output, OutputEmitterRef} from '@angular/core';
+import {MatOptionModule} from '@angular/material/core';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatSelectModule} from '@angular/material/select';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-filters-form',
@@ -14,20 +13,20 @@ import { TranslatePipe } from '@ngx-translate/core';
   imports: [MatFormFieldModule, MatSelectModule, MatOptionModule, TranslatePipe],
 })
 export class FiltersForm {
-  @Input() public label: string = '';
+  public label: InputSignal<string> = input<string>('');
 
-  @Input() public options: string[] = [];
+  public options: InputSignal<string[]> = input<string[]>([]);
 
-  @Input() public objectOptions: { id: string; name: string }[] = [];
+  public objectOptions: InputSignal<{ id: string; name: string }[]> = input<{ id: string; name: string }[]>([]);
 
-  @Input() public selected = '';
-  @Output() public readonly selectionChange = new EventEmitter<string>();
+  public selected: InputSignal<string> = input<string>('');
+  public readonly selectionChange: OutputEmitterRef<string> = output<string>();
 
   public onChange(value: string): void {
     this.selectionChange.emit(value);
   }
 
   public isObjectMode(): boolean {
-    return this.objectOptions && this.objectOptions.length > 0;
+    return this.objectOptions() && this.objectOptions().length > 0;
   }
 }
