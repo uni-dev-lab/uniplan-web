@@ -1,0 +1,8 @@
+<app-delete-form (deleteClicked)="deleteLector()">
+    <mat-dialog-content>
+        <p>
+          {{'lector.delete-confirmation' | translate }}
+          <strong>{{ data.firstName }} {{ data.lastName }}</strong>?
+        </p>
+    </mat-dialog-content>
+</app-delete-form>

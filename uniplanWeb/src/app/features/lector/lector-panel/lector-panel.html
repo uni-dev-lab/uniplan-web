@@ -1,0 +1,14 @@
+<div class="component-panel lector">
+  <div class="panel-controls-row">
+    <app-lector-options class="panel-options"></app-lector-options>
+    <app-lector-filters
+      [lectorFiltersState]="lectorFiltersState()"
+      (searchTextChange)="updateFilters({searchText:$event})"
+      (facultyChange)="updateFilters({selectedFaculty:$event})">
+    </app-lector-filters>
+  </div>
+  <app-lector-table
+    [searchText]="lectorFiltersState().searchText"
+    [faculty]="lectorFiltersState().selectedFaculty">
+  </app-lector-table>
+</div>

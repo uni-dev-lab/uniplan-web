@@ -33,6 +33,11 @@ export const routes: Routes = [
           import('./features/room/room-panel/room-panel').then(m => m.RoomPanel),
       },
       {
+        path: 'lector',
+        loadComponent: () =>
+          import('./features/lector/lector-panel/lector-panel').then(m => m.LectorPanel),
+      },
+      {
         path: 'login',
         loadComponent: () =>
           import('./features/login/login-form/login-form').then(m => m.LoginForm),
