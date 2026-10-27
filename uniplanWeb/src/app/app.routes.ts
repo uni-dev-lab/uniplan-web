@@ -38,6 +38,11 @@ export const routes: Routes = [
           import('./features/lector/lector-panel/lector-panel').then(m => m.LectorPanel),
       },
       {
+        path: 'login',
+        loadComponent: () =>
+          import('./features/login/login-form/login-form').then(m => m.LoginForm),
+      },
+      {
         path: '**',
         loadComponent: () =>
           import('./features/not-found/not-found-panel/not-found-panel').then(m => m.NotFoundPanel),

@@ -28,7 +28,10 @@ import { TranslatePipe } from '@ngx-translate/core';
     TranslatePipe],
 })
 export class MajorEditForm implements OnInit {
-  private dialogRef = inject<MatDialogRef<EditForm>>(MatDialogRef);
+
+  faculties: FacultyElm[] = [];
+
+  private dialogRef = inject(MatDialogRef<EditForm>);
   private majorService = inject(MajorService);
   private facultyService = inject(FacultyService);
   public data = inject<{
@@ -37,15 +40,8 @@ export class MajorEditForm implements OnInit {
     facultyId?: string;
   }>(MAT_DIALOG_DATA);
 
-  majorName = '';
-  facultyId = '';
-
-  faculties: FacultyElm[] = [];
-
-  constructor() {
-    this.majorName = this.data.majorName;
-    this.facultyId = this.data.facultyId || '';
-  }
+  majorName = this.data.majorName;
+  facultyId = this.data.facultyId || '';
 
   ngOnInit(): void {
     this.facultyService.getFaculties().subscribe({
