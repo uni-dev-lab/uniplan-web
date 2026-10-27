@@ -1,26 +1,20 @@
-import { Component, OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
-import { AddForm } from '../../../core/shared/add-form/add-form';
-import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import {
-  MatFormField,
-  MatFormFieldModule,
-  MatLabel,
-} from '@angular/material/form-field';
-import {
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-import { LectorService } from '../lector-service';
-import { FacultyElm } from '../../../core/interfaces/faculty-elm';
-import { FacultyService } from '../../faculty/faculty-service';
-import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import {ChangeDetectionStrategy, Component, inject, OnInit} from '@angular/core';
+import {AddForm} from '../../../core/shared/add-form/add-form';
+import {MatDialogModule, MatDialogRef} from '@angular/material/dialog';
+import {MatFormField, MatFormFieldModule, MatLabel,} from '@angular/material/form-field';
+import {FormControl, FormGroup, ReactiveFormsModule, Validators,} from '@angular/forms';
+import {MatInputModule} from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
+import {LectorService} from '../lector-service';
+import {FacultyElm} from '../../../core/interfaces/faculty-elm';
+import {FacultyService} from '../../faculty/faculty-service';
+import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-lector-add-form',
+  templateUrl: './lector-add-form.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
+  styleUrl: './lector-add-form.scss',
   imports: [
     MatDialogModule,
     MatFormField,
@@ -32,9 +26,6 @@ import { TranslatePipe, TranslateService } from '@ngx-translate/core';
     MatSelectModule,
     TranslatePipe,
   ],
-  templateUrl: './lector-add-form.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
-  styleUrl: './lector-add-form.scss',
 })
 export class LectorAddForm implements OnInit {
   protected readonly form = new FormGroup({
@@ -58,17 +49,17 @@ export class LectorAddForm implements OnInit {
 
   protected faculties: FacultyElm[] = [];
 
-  private dialogRef = inject(MatDialogRef<AddForm>);
-  private lectorService = inject(LectorService);
-  private facultyService = inject(FacultyService);
-  private translate = inject(TranslateService);
+  private readonly dialogRef: MatDialogRef<AddForm> = inject(MatDialogRef<AddForm>);
+  private readonly lectorService: LectorService = inject(LectorService);
+  private readonly facultyService: FacultyService = inject(FacultyService);
+  private readonly translate: TranslateService = inject(TranslateService);
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.facultyService.getFaculties().subscribe({
-      next: (data) => {
+      next: (data: FacultyElm[]): void => {
         this.faculties = data;
       },
-      error: (err) => console.error('Failed to load faculties', err),
+      error: (err: Error): void => console.error('Failed to load faculties', err),
     });
   }
 
@@ -88,10 +79,10 @@ export class LectorAddForm implements OnInit {
         facultyId,
       })
       .subscribe({
-        next: () => {
+        next: (): void => {
           this.dialogRef.close(true);
         },
-        error: () => alert(this.translate.instant('lector.create-error')),
+        error: (): void => alert(this.translate.instant('lector.create-error')),
       });
   }
 }

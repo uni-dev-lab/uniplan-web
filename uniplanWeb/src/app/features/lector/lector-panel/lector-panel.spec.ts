@@ -1,21 +1,14 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import {
-  HttpClientTestingModule,
-  HttpTestingController,
-} from '@angular/common/http/testing';
-import { MatDialog } from '@angular/material/dialog';
-import { Observable, of } from 'rxjs';
-import {
-  TranslateLoader,
-  TranslationObject,
-  provideTranslateService,
-} from '@ngx-translate/core';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {By} from '@angular/platform-browser';
+import {HttpClientTestingModule, HttpTestingController,} from '@angular/common/http/testing';
+import {MatDialog} from '@angular/material/dialog';
+import {Observable, of} from 'rxjs';
+import {provideTranslateService, TranslateLoader, TranslationObject,} from '@ngx-translate/core';
 
-import { LectorPanel } from './lector-panel';
-import { LectorFilters } from '../lector-filters/lector-filters';
-import { LectorTable } from '../lector-table/lector-table';
-import { API_ENDPOINTS } from '../../../config/endpoints';
+import {LectorPanel} from './lector-panel';
+import {LectorFilters} from '../lector-filters/lector-filters';
+import {LectorTable} from '../lector-table/lector-table';
+import {API_ENDPOINTS} from '../../../config/endpoints';
 
 class FakeTranslateLoader implements TranslateLoader {
   getTranslation(): Observable<TranslationObject> {
@@ -88,7 +81,7 @@ describe('LectorPanel', () => {
   it('should derive the faculty filter options from the faculty data on init', () => {
     fixture.detectChanges();
     flushInitialRequests();
-    expect(component.lectorFaculties).toEqual([{ id: 'f1', name: 'Faculty A' }]);
+    expect(component.lectorFiltersState().faculties).toEqual([{id: 'f1', name: 'Faculty A'}]);
   });
 
   it('should render the lector options, filters and table', () => {
@@ -109,7 +102,7 @@ describe('LectorPanel', () => {
     filters.searchTextChange.emit('ivan');
     fixture.detectChanges();
 
-    expect(component.lectorSearchText).toBe('ivan');
+    expect(component.lectorFiltersState().searchText).toBe('ivan');
     const table = fixture.debugElement.query(By.directive(LectorTable))
       .componentInstance as LectorTable;
     expect(table.searchText()).toBe('ivan');
@@ -124,7 +117,7 @@ describe('LectorPanel', () => {
     filters.facultyChange.emit('f1');
     fixture.detectChanges();
 
-    expect(component.selectedLectorFaculty).toBe('f1');
+    expect(component.lectorFiltersState().selectedFaculty).toBe('f1');
     const table = fixture.debugElement.query(By.directive(LectorTable))
       .componentInstance as LectorTable;
     expect(table.faculty()).toBe('f1');

@@ -2,15 +2,13 @@
   <div class="panel-controls-row">
     <app-lector-options class="panel-options"></app-lector-options>
     <app-lector-filters
-      [faculties]="lectorFaculties"
-      [internalSearchText]="lectorSearchText"
-      [selectedFaculty]="selectedLectorFaculty"
-      (searchTextChange)="lectorSearchText = $event"
-      (facultyChange)="selectedLectorFaculty = $event">
+      [lectorFiltersState]="lectorFiltersState()"
+      (searchTextChange)="updateFilters({searchText:$event})"
+      (facultyChange)="updateFilters({selectedFaculty:$event})">
     </app-lector-filters>
   </div>
   <app-lector-table
-    [searchText]="lectorSearchText"
-    [faculty]="selectedLectorFaculty">
+    [searchText]="lectorFiltersState().searchText"
+    [faculty]="lectorFiltersState().selectedFaculty">
   </app-lector-table>
 </div>

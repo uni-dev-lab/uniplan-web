@@ -13,6 +13,9 @@ import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-lector-edit-form',
+  templateUrl: './lector-edit-form.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
+  styleUrl: './lector-edit-form.scss',
   imports: [
     EditForm,
     MatDialogModule,
@@ -24,16 +27,18 @@ import { TranslatePipe, TranslateService } from '@ngx-translate/core';
     MatOptionModule,
     TranslatePipe,
   ],
-  templateUrl: './lector-edit-form.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
-  styleUrl: './lector-edit-form.scss',
 })
 export class LectorEditForm implements OnInit {
-  private dialogRef = inject(MatDialogRef<EditForm>);
-  private lectorService = inject(LectorService);
-  private facultyService = inject(FacultyService);
-  private translate = inject(TranslateService);
-  data = inject<{
+  private readonly dialogRef:MatDialogRef<EditForm> = inject(MatDialogRef<EditForm>);
+  private readonly lectorService:LectorService = inject(LectorService);
+  private readonly facultyService:FacultyService = inject(FacultyService);
+  private readonly translate:TranslateService = inject(TranslateService);
+  private readonly data:{id: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    facultyId?: string;
+  } = inject<{
     id: string;
     firstName: string;
     lastName: string;
@@ -62,10 +67,10 @@ export class LectorEditForm implements OnInit {
     }),
   });
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.facultyService.getFaculties().subscribe({
-      next: (data) => (this.faculties = data),
-      error: (err) => console.error('Failed to load faculties', err),
+      next: (data:FacultyElm[]):FacultyElm[] => (this.faculties = data),
+      error: (err:Error):void => console.error('Failed to load faculties', err),
     });
   }
 
@@ -82,11 +87,11 @@ export class LectorEditForm implements OnInit {
         firstName: firstName.trim(),
         lastName: lastName.trim(),
         email: email.trim(),
-        facultyId,
+        facultyId:facultyId.trim(),
       })
       .subscribe({
-        next: () => this.dialogRef.close(true),
-        error: () => alert(this.translate.instant('lector.update-error')),
+        next: ():void => this.dialogRef.close(true),
+        error: ():void => alert(this.translate.instant('lector.update-error')),
       });
   }
 }

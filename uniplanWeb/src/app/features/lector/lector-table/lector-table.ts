@@ -1,54 +1,67 @@
-import {Component, OnInit, ChangeDetectionStrategy, input, signal, computed, inject} from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatTableModule } from '@angular/material/table';
-import { LectorElm } from '../../../core/interfaces/lector-elm';
-import { LectorEditForm } from '../lector-edit-form/lector-edit-form';
-import { MatDialog } from '@angular/material/dialog';
-import { LectorDeleteForm } from '../lector-delete-form/lector-delete-form';
-import { LectorService } from '../lector-service';
-import { FacultyService } from '../../faculty/faculty-service';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  input,
+  InputSignal,
+  OnInit,
+  signal,
+  Signal,
+  WritableSignal
+} from '@angular/core';
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
+import {MatTableModule} from '@angular/material/table';
+import {Lector} from '../../../core/interfaces/lector';
+import {LectorEditForm} from '../lector-edit-form/lector-edit-form';
+import {MatDialog} from '@angular/material/dialog';
+import {LectorDeleteForm} from '../lector-delete-form/lector-delete-form';
+import {LectorService} from '../lector-service';
+import {FacultyService} from '../../faculty/faculty-service';
 import {TranslatePipe} from '@ngx-translate/core';
+import {FacultyElm} from '../../../core/interfaces/faculty-elm';
 
 @Component({
   selector: 'app-lector-table',
-  imports: [MatTableModule, MatIconModule, MatButtonModule, TranslatePipe],
   templateUrl: './lector-table.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './lector-table.scss',
+  imports: [MatTableModule, MatIconModule, MatButtonModule, TranslatePipe],
 })
 export class LectorTable implements OnInit {
-  displayedColumns: string[] = ['position', 'firstName', 'lastName', 'email', 'faculty', 'actions'];
+  protected displayedColumns: string[] = ['position', 'firstName', 'lastName', 'email', 'faculty', 'actions'];
 
-  dataSource = signal<LectorElm[]>([]);
-  facultyMap = new Map<string, string>();
+  private readonly _dataSource: WritableSignal<Lector[]> = signal<Lector[]>([]);
 
-  readonly searchText = input('');
-  readonly faculty = input('');
+  private facultyMap: Map<string, string> = new Map<string, string>();
 
-  private dialog = inject(MatDialog);
-  private service = inject(LectorService);
-  private facultyService = inject(FacultyService);
+  public searchText: InputSignal<string> = input<string>('');
+  public faculty: InputSignal<string> = input<string>('');
 
-  ngOnInit(): void {
+  private readonly dialog: MatDialog = inject(MatDialog);
+  private readonly service: LectorService = inject(LectorService);
+  private readonly facultyService: FacultyService = inject(FacultyService);
+
+  public ngOnInit(): void {
     this.loadLectors();
     this.loadFaculties();
 
-    this.service.refreshNeeded.subscribe(() => {
+    this.service.refreshNeeded.subscribe(():void => {
       this.loadLectors();
       this.loadFaculties();
     });
   }
 
   private loadLectors(): void {
-    this.service.getLectors().subscribe((data) => {
-      this.dataSource.set(data);
+    this.service.getLectors().subscribe((data: Lector[]): void => {
+      this._dataSource.set(data);
     });
   }
 
   private loadFaculties(): void {
-    this.facultyService.getFaculties().subscribe((faculties) => {
-      this.facultyMap = new Map(faculties.map((f) => [f.id, f.facultyName]));
+    this.facultyService.getFaculties().subscribe((faculties: FacultyElm[]): void => {
+      this.facultyMap = new Map(faculties.map((f: FacultyElm): [string, string] => [f.id, f.facultyName]));
     });
   }
 
@@ -56,14 +69,14 @@ export class LectorTable implements OnInit {
     return this.facultyMap.get(id) || '—';
   }
 
-  protected filteredLectors = computed(() => {
-    const faculty = this.faculty();
-    const searchText = this.searchText().toLowerCase();
+  protected filteredLectors:Signal<Lector[]> = computed(():Lector[] => {
+    const faculty:string = this.faculty();
+    const searchText:string = this.searchText().toLowerCase();
 
-    return this.dataSource().filter((lector) => {
-      const matchesFaculty = !faculty || lector.facultyId === faculty;
-      const fullName = `${lector.firstName} ${lector.lastName}`.toLowerCase();
-      const matchesSearch =
+    return this._dataSource().filter((lector:Lector):boolean => {
+      const matchesFaculty:boolean = !faculty || lector.facultyId === faculty;
+      const fullName:string = `${lector.firstName} ${lector.lastName}`.toLowerCase();
+      const matchesSearch:boolean =
         !searchText ||
         fullName.includes(searchText) ||
         lector.email.toLowerCase().includes(searchText);
@@ -71,7 +84,7 @@ export class LectorTable implements OnInit {
     });
   })
 
-  protected onEdit(element: LectorElm): void {
+  protected onEdit(element: Lector): void {
     this.dialog.open(LectorEditForm, {
       data: {
         id: element.id,
@@ -83,7 +96,7 @@ export class LectorTable implements OnInit {
     });
   }
 
-  protected onDelete(element: LectorElm): void {
+  protected onDelete(element: Lector): void {
     this.dialog.open(LectorDeleteForm, {
       data: {
         id: element.id,
@@ -93,11 +106,11 @@ export class LectorTable implements OnInit {
     });
   }
 
-  static getFilterOptions(
-    data: LectorElm[],
+  protected static getFilterOptions(
+    data: Lector[],
     facultyMap: Map<string, string>,
   ): { faculties: { id: string; name: string }[] } {
-    const faculties = [...new Set(data.map((e) => e.facultyId))].map((id) => ({
+    const faculties:{id:string, name:string}[] = [...new Set(data.map((e:Lector):string => e.facultyId))].map((id:string):{id:string, name:string} => ({
       id,
       name: facultyMap.get(id) || '—',
     }));

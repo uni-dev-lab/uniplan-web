@@ -1,22 +1,22 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
-import { map, Observable, Subject } from 'rxjs';
-import { LectorElm } from '../../core/interfaces/lector-elm';
+import {HttpClient} from '@angular/common/http';
+import {inject, Injectable} from '@angular/core';
+import {map, Observable, Subject} from 'rxjs';
+import {Lector} from '../../core/interfaces/lector';
 
-import { API_ENDPOINTS } from '../../config/endpoints';
+import {API_ENDPOINTS} from '../../config/endpoints';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LectorService {
-  private http = inject(HttpClient);
+  private readonly http: HttpClient = inject(HttpClient);
 
-  refreshNeeded = new Subject<void>();
+  readonly refreshNeeded: Subject<void> = new Subject<void>();
 
-  getLectors(): Observable<LectorElm[]> {
-    return this.http.get<LectorElm[]>(API_ENDPOINTS.lectors).pipe(
-      map((lectors) =>
-        lectors.map((lector, index) => ({
+  public getLectors(): Observable<Lector[]> {
+    return this.http.get<Lector[]>(API_ENDPOINTS.lectors).pipe(
+      map((lectors: Lector[]): Lector[] =>
+        lectors.map((lector: Lector, index: number): Lector => ({
           id: lector.id,
           firstName: lector.firstName,
           lastName: lector.lastName,
@@ -28,35 +28,35 @@ export class LectorService {
     );
   }
 
-  createLector(data: {
+  public createLector(data: {
     firstName: string;
     lastName: string;
     email: string;
     facultyId: string;
-  }): Observable<LectorElm> {
-    return this.http.post<LectorElm>(`${API_ENDPOINTS.lectors}`, data).pipe(
-      map((res) => {
+  }): Observable<Lector> {
+    return this.http.post<Lector>(`${API_ENDPOINTS.lectors}`, data).pipe(
+      map((res: Lector): Lector => {
         this.refreshNeeded.next();
         return res;
       })
     );
   }
 
-  editLector(
+  public editLector(
     id: string,
     data: { firstName: string; lastName: string; email: string; facultyId: string }
-  ): Observable<LectorElm> {
-    return this.http.put<LectorElm>(`${API_ENDPOINTS.lectors}/${id}`, data).pipe(
-      map((res) => {
+  ): Observable<Lector> {
+    return this.http.put<Lector>(`${API_ENDPOINTS.lectors}/${id}`, data).pipe(
+      map((res: Lector): Lector => {
         this.refreshNeeded.next();
         return res;
       })
     );
   }
 
-  deleteLector(id: string): Observable<void> {
+  public deleteLector(id: string): Observable<void> {
     return this.http.delete<void>(`${API_ENDPOINTS.lectors}/${id}`).pipe(
-      map((res) => {
+      map((res: void): void => {
         this.refreshNeeded.next();
         return res;
       })
