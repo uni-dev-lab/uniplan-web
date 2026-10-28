@@ -1,9 +1,9 @@
-import { Component, HostListener, OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { TranslatePipe } from '@ngx-translate/core';
+import {ChangeDetectionStrategy, Component, HostListener, inject, OnInit} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {Router, RouterLink, RouterLinkActive} from '@angular/router';
+import {TranslatePipe} from '@ngx-translate/core';
 
-import { LoginAuthService } from '../../../services/login/login-auth-service';
+import {LoginAuthService} from '../../../services/login/login-auth-service';
 
 @Component({
   selector: 'app-navmenu-component',
@@ -14,23 +14,23 @@ import { LoginAuthService } from '../../../services/login/login-auth-service';
   styleUrls: ['./navmenu-component.scss'],
 })
 export class NavmenuComponent implements OnInit {
-  isSidebarCollapsed = false;
-  isMobileView = window.innerWidth <= 768;
+  protected isSidebarCollapsed: boolean = false;
+  protected isMobileView: boolean = window.innerWidth <= 768;
 
-  protected readonly authService = inject(LoginAuthService);
-  private readonly router = inject(Router);
+  protected readonly authService: LoginAuthService = inject(LoginAuthService);
+  private readonly router: Router = inject(Router);
 
   ngOnInit(): void {
     this.checkViewport();
   }
 
   @HostListener('window:resize')
-  onResize(): void {
+  protected onResize(): void {
     this.checkViewport();
   }
 
   private checkViewport(): void {
-    const isNowMobile = window.innerWidth <= 768;
+    const isNowMobile: boolean = window.innerWidth <= 768;
     if (this.isMobileView !== isNowMobile) {
       this.isMobileView = isNowMobile;
     }
@@ -39,7 +39,7 @@ export class NavmenuComponent implements OnInit {
     }
   }
 
-  toggleSidebar(): void {
+  protected toggleSidebar(): void {
     this.isSidebarCollapsed = !this.isSidebarCollapsed;
   }
 

@@ -33,14 +33,16 @@ import {
   imports: [MatTableModule, MatIconModule, MatButtonModule, TranslatePipe],
 })
 export class StudentTable implements OnInit, OnChanges {
+
   private readonly studentService = inject(StudentService)
   private readonly destroyRef = inject(DestroyRef);
-  @Input() searchText = '';
-  @Input() searchFacNum = '';
-  @Input() searchMajor = '';
-  @Input() subtype = '';
 
-  @Input() subtypes: string[] = [];
+  @Input() public searchText: string = '';
+  @Input() public searchFacNum: string = '';
+  @Input() public searchMajor: string = '';
+  @Input() public subtype: string = '';
+
+  @Input() public subtypes: string[] = [];
 
   subtypesLoaded = output<string[]>();
 
@@ -58,7 +60,7 @@ export class StudentTable implements OnInit, OnChanges {
   originalData: StudentElm[] = [];
   dataSourceFilter: StudentElm[] = [];
 
-  ngOnInit(): void {
+ public ngOnInit(): void {
     const students$: Observable<StudentElm[]> = merge(of(undefined), this.studentService.refreshNeeded).pipe(
       switchMap((): Observable<StudentElm[]> =>
         this.studentService.getStudents().pipe(
@@ -77,36 +79,36 @@ export class StudentTable implements OnInit, OnChanges {
     });
   }
 
-  ngOnChanges(): void {
+  public ngOnChanges(): void {
     this.applyFilters();
   }
 
-  applyFilters(): void {
-    const name = this.searchText.toLowerCase();
-    const major = this.searchMajor.toLowerCase();
-    const facNum = this.searchFacNum;
+  private applyFilters(): void {
+    const name: string = this.searchText.toLowerCase();
+    const major: string = this.searchMajor.toLowerCase();
+    const facNum: string = this.searchFacNum;
 
     this.dataSourceFilter = this.originalData.filter((student) => {
-      const matchName = !name || student.name.toLowerCase().includes(name);
-      const matchMajor = !major || student.majorName.toLowerCase().includes(major);
-      const matchFacNum = !facNum || student.facultyNumber.includes(facNum);
-      const matchSubtype = !this.subtype || student.courseSubtype === this.subtype;
+      const matchName:boolean = !name || student.name.toLowerCase().includes(name);
+      const matchMajor:boolean = !major || student.majorName.toLowerCase().includes(major);
+      const matchFacNum:boolean = !facNum || student.facultyNumber.includes(facNum);
+      const matchSubtype:boolean = !this.subtype || student.courseSubtype === this.subtype;
 
       return matchName && matchMajor && matchFacNum && matchSubtype;
     });
   }
 
-  static getFilterOptions(data: StudentElm[]): StudentFilterOptions {
+  public static getFilterOptions(data: StudentElm[]): StudentFilterOptions {
     return {
       subtypes: [...new Set(data.map((e) => e.courseSubtype))],
     };
   }
 
-  onEdit(element: StudentElm): void {
+  protected onEdit(element: StudentElm): void {
     console.log('Editing:', element);
   }
 
-  onDelete(element: StudentElm): void {
+  protected onDelete(element: StudentElm): void {
     console.log('Deleting:', element);
   }
 }
