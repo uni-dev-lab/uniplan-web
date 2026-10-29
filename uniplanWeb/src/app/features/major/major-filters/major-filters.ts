@@ -25,7 +25,7 @@ import {MajorFilterOptions} from '../../../core/interfaces/major-filter-options'
 export class MajorFilters {
   public majorFilterState: InputSignal<MajorFilterState> = input.required<MajorFilterState>()
   public majorFilterOptions: InputSignal<MajorFilterOptions> = input.required<MajorFilterOptions>()
-  public internalSearchText: InputSignal<string> = input<string>('');
+  public internalSearchText: InputSignal<string> = input<string>('Име на специалността');
 
   protected facultyChange: OutputEmitterRef<string> = output<string>();
   protected typeChange: OutputEmitterRef<string> = output<string>();

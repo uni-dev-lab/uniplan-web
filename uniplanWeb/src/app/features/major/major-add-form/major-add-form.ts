@@ -29,27 +29,27 @@ import { TranslatePipe } from '@ngx-translate/core';
 })
 
 export class MajorAddForm implements OnInit {
+  private dialogRef = inject<MatDialogRef<AddForm>>(MatDialogRef);
+  private majorService = inject(MajorService);
+  private facultyService = inject(FacultyService);
+
   majorName = '';
   faculty = '';
   type = '';
   subtype = '';
 
-  faculties: FacultyElm[] = [];
+  protected faculties: FacultyElm[] = [];
 
-    private dialogRef = inject(MatDialogRef<AddForm>);
-    private majorService = inject(MajorService);
-    private facultyService = inject(FacultyService);
-
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.facultyService.getFaculties().subscribe({
-      next: (data) => {
+      next: (data: FacultyElm[]) => {
         this.faculties = data;
       },
       error: (err) => console.error('Failed to load faculties', err),
     });
   }
 
-  save(): void  {
+  protected save(): void {
     if (
       !this.majorName.trim() ||
       !this.faculty ||
@@ -68,10 +68,10 @@ export class MajorAddForm implements OnInit {
         subtype: this.subtype,
       })
       .subscribe({
-        next: () => {
+        next: (): void => {
           this.dialogRef.close(true);
         },
-        error: () => alert('Failed to create major or course.'),
+        error: (): void => alert('Failed to create major or course.'),
       });
   }
 }

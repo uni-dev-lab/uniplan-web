@@ -5,8 +5,8 @@ import { FacultyTable } from '../faculty-table/faculty-table';
 
 @Component({
   selector: 'app-faculty-panel',
-  imports: [FacultyOptions, FacultyTable],
   templateUrl: './faculty-panel.html',
-  styleUrl: './faculty-panel.scss'
+  styleUrl: './faculty-panel.scss',
+  imports: [FacultyOptions, FacultyTable]
 })
 export class FacultyPanel {}

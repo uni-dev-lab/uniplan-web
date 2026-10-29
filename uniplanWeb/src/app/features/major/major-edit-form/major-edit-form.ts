@@ -43,14 +43,14 @@ export class MajorEditForm implements OnInit {
   majorName = this.data.majorName;
   facultyId = this.data.facultyId || '';
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.facultyService.getFaculties().subscribe({
       next: (data) => (this.faculties = data),
       error: (err) => console.error('Failed to load faculties', err),
     });
   }
 
-  save(): void  {
+  protected save(): void {
     if (!this.majorName.trim()) {
       alert('Please enter the major name.');
       return;
@@ -62,8 +62,8 @@ export class MajorEditForm implements OnInit {
         majorName: this.majorName,
       })
       .subscribe({
-        next: () => this.dialogRef.close(true),
-        error: () => alert('Failed to update major.'),
+        next: (): void => this.dialogRef.close(true),
+        error: (): void => alert('Failed to update major.'),
       });
   }
 }

@@ -1,14 +1,14 @@
-import { Component, inject } from '@angular/core';
-import { Router } from '@angular/router';
+import {Component, inject} from '@angular/core';
+import {Router} from '@angular/router';
 import {FormsModule} from '@angular/forms';
 import {LoginAuthService} from '../../../services/login/login-auth-service';
 
 
 @Component({
   selector: 'app-login-form',
-  imports: [FormsModule],
   templateUrl: './login-form.html',
   styleUrl: './login-form.scss',
+  imports: [FormsModule],
 })
 export class LoginForm {
   protected username: string = '';
@@ -16,7 +16,7 @@ export class LoginForm {
   protected errorMessage: string = '';
 
   private readonly authService: LoginAuthService = inject(LoginAuthService);
-  private readonly router = inject(Router);
+  private readonly router: Router = inject(Router);
 
   protected login(event: Event): void {
     event.preventDefault();

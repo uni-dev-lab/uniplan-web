@@ -20,7 +20,7 @@ import {AddButton} from '../../../core/shared/add-button/add-button';
   styleUrl: './major-options.scss',
 })
 export class MajorOptions {
-  private dialog = inject(MatDialog);
+  private dialog:MatDialog = inject(MatDialog);
 
   protected openAddForm(): void {
     this.dialog.open(MajorAddForm, {
