@@ -66,7 +66,7 @@
         </li>
       </ul>
 
-      <ul class="list">
+      <ul class="list account-section">
         <li class="list">
           <a href="#" class="nav-link" (click)="closeSidebarIfMobile()">
             <i class="bx bx-cog icon"></i><span class="link">{{ 'navmenu.settings' | translate }}</span>
@@ -74,26 +74,36 @@
         </li>
 
         @if (authService.isLoggedIn()) {
-          <li class="list dropdown profile">
-            <a href="#" class="nav-link">
+          <li class="list dropdown profile" [class.expanded]="!isProfileCollapsed">
+            <button
+              type="button"
+              class="nav-link profile-trigger"
+              [attr.aria-expanded]="!isProfileCollapsed"
+              (click)="isProfileCollapsed = !isProfileCollapsed">
+
               <div class="profile-link">
-                <img src class="profile-img" alt="" />
+                <img src="/images/default-avatar.svg" class="profile-img" alt="" />
                 <span class="profile-name">{{ authService.getUsername() }}</span>
               </div>
-            </a>
-            <ul class="dropdown-menu">
-              <li>
-                <a routerLink="/" class="nav-link" (click)="closeSidebarIfMobile()">
-                  <span class="link">{{ 'navmenu.open-profile' | translate }}</span>
-                </a>
-              </li>
-              <li class="logout">
-                <button type="button" class="nav-link logout-button" (click)="onLogoutClick()">
-                  <i class="bx bx-log-out icon" aria-hidden="true"></i>
-                  <span class="link">{{ 'navmenu.logout' | translate }}</span>
-                </button>
-              </li>
-            </ul>
+
+              <i class="bx bx-chevron-down profile-chevron"></i>
+            </button>
+
+            @if (!isProfileCollapsed) {
+              <ul class="dropdown-menu">
+                <li>
+                  <a routerLink="/" class="nav-link" (click)="closeSidebarIfMobile()">
+                    <span class="link">{{ 'navmenu.open-profile' | translate }}</span>
+                  </a>
+                </li>
+                <li class="logout">
+                  <button type="button" class="nav-link logout-button" (click)="onLogoutClick()">
+                    <i class="bx bx-log-out icon" aria-hidden="true"></i>
+                    <span class="link">{{ 'navmenu.logout' | translate }}</span>
+                  </button>
+                </li>
+              </ul>
+            }
           </li>
         }
 

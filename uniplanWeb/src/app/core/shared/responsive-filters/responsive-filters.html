@@ -1,0 +1,53 @@
+<div class="responsive-filters">
+
+  <div class="filter-options">
+    <ng-content select="[filterOptions]"></ng-content>
+  </div>
+
+  <button
+    type="button"
+    class="mobile-filter-toggle"
+    [attr.aria-expanded]="isOpen()"
+    (click)="toggle()">
+
+    <span>{{ 'shared.filters-button' | translate }}</span>
+
+    <i
+      class="bx"
+      [class.bx-chevron-up]="isOpen()"
+      [class.bx-chevron-down]="!isOpen()">
+    </i>
+  </button>
+
+  <div class="filter-content" [class.mobile-open]="isOpen()">
+    <div class="filter-content-inner">
+
+      <ng-content></ng-content>
+
+      @if (filterTemplate(); as template) {
+        <ng-container
+          [ngTemplateOutlet]="template"
+          [ngTemplateOutletContext]="templateContext()">
+        </ng-container>
+      }
+
+      @if (isMobile()) {
+        <div class="mobile-filter-actions">
+
+          <button type="button" (click)="reset()">
+            {{ 'shared.clear-filters-button' | translate }}
+          </button>
+
+          <button
+            type="button"
+            class="apply-button"
+            (click)="apply()">
+            {{ 'shared.apply-filters-button' | translate }}
+          </button>
+
+        </div>
+      }
+
+    </div>
+  </div>
+</div>

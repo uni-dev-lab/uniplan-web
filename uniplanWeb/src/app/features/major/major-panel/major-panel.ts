@@ -1,4 +1,4 @@
-import {Component, DestroyRef, inject, OnInit, signal, WritableSignal} from '@angular/core';
+import {Component, DestroyRef, inject, OnInit, signal, WritableSignal, computed, Signal} from '@angular/core';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {catchError, combineLatest, map, merge, Observable, of, switchMap} from 'rxjs';
 
@@ -12,9 +12,14 @@ import {MajorFilterState} from "../../../core/interfaces/major-filter-state";
 import {MajorFilterOptions} from '../../../core/interfaces/major-filter-options';
 import {FacultyElm} from '../../../core/interfaces/faculty-elm';
 
+import {
+  ResponsiveFilters,
+  ResponsiveFilterValues
+} from '../../../core/shared/responsive-filters/responsive-filters';
+
 @Component({
   selector: 'app-major-panel',
-  imports: [MajorOptions, MajorFilters, MajorTable],
+  imports: [MajorOptions, MajorFilters, MajorTable, ResponsiveFilters],
   templateUrl: './major-panel.html',
   styleUrl: './major-panel.scss'
 })
@@ -39,6 +44,29 @@ export class MajorPanel implements OnInit {
     types: [],
     subtypes: [],
   });
+
+  protected readonly emptyResponsiveFilters: ResponsiveFilterValues = {
+    internalSearchText: '',
+    selectedFaculty: '',
+    selectedType: '',
+    selectedSubtype: ''
+  };
+
+  protected readonly responsiveFilterValues: Signal<ResponsiveFilterValues> =
+    computed<ResponsiveFilterValues>((): ResponsiveFilterValues => ({
+      internalSearchText: this.internalSearchText(),
+      ...this.majorFiltersState()
+    }));
+
+  protected onResponsiveFiltersChange(values: ResponsiveFilterValues): void {
+    this.internalSearchText.set(values['internalSearchText'] ?? '');
+
+    this.majorFiltersState.set({
+      selectedFaculty: values['selectedFaculty'] ?? '',
+      selectedType: values['selectedType'] ?? '',
+      selectedSubtype: values['selectedSubtype'] ?? ''
+    });
+  }
 
   protected updateFilters(change: Partial<MajorFilterState>): void {
     this.majorFiltersState.update((state: MajorFilterState): {

@@ -50,8 +50,9 @@
   display: flex;
   height: 100%;
   flex-direction: column;
-  justify-content: space-between;
-  padding: 30px 16px;
+  justify-content: flex-start;
+  gap: 20px;
+  padding: 20px 16px;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   scroll-behavior: smooth;
@@ -65,8 +66,8 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  margin: 8px 0;
-  padding: 14px 12px;
+  margin: 4px 0;
+  padding: 10px 12px;
   min-height: 44px;
   border-radius: 8px;
   text-decoration: none;
@@ -98,6 +99,42 @@
   color: #fff;
 }
 
+.account-section {
+  border-top: 1px solid #e0e0e0;
+  padding-top: 8px;
+
+  .profile {
+    border-top: 1px solid #e0e0e0;
+    margin-top: 8px;
+    padding-top: 8px;
+  }
+}
+
+.profile-trigger {
+  width: 100%;
+  border: none;
+  background: none;
+  font: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.profile-chevron {
+  font-size: 20px;
+  color: #707070;
+  transition: transform 0.2s ease;
+}
+
+.profile.expanded .profile-chevron {
+  transform: rotate(180deg);
+}
+
+.profile-trigger:hover .profile-chevron {
+  color: #fff;
+}
+
 .profile-link {
   display: flex;
   align-items: center;
@@ -108,24 +145,11 @@
   transition: background-color 0.3s, color 0.3s;
 }
 
-.profile-link:hover {
-  background-color: hsl(224, 89%, 60%);
-  color: #fff;
-}
-
-.profile-link:hover .profile-name {
-  color: #fff;
-}
-
-.profile-link:hover .profile-img {
-  border: 2px solid #fff;
-}
-
 .profile-img {
-  width: 40px;
-  height: 40px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
-  object-fit: cover;
+  object-fit: contain;
   transition: border 0.2s;
 }
 
@@ -137,8 +161,8 @@
 
 .dropdown-menu {
   list-style: none;
-  padding: 0;
-  margin: 0;
+  padding: 0 0 0 12px;
+  margin: 6px 0 0;
 }
 
 .dropdown-menu li {

@@ -88,7 +88,10 @@
         "delete-button": "Delete",
         "option-all": "All",
         "confirm-delete": "Confirm deletion",
-        "close-btn": "Close"
+        "close-btn": "Close",
+        "filters-button": "Filters",
+        "clear-filters-button": "Clear",
+        "apply-filters-button": "Apply"
     },
     "home": {
         "title": "Main!"
