@@ -88,7 +88,10 @@
     "delete-button": "Изтрий",
     "option-all": "Всички",
     "confirm-delete": "Потвърдете изтриването",
-    "close-btn": "Затвори"
+    "close-btn": "Затвори",
+    "filters-button": "Филтри",
+    "clear-filters-button": "Изчисти",
+    "apply-filters-button": "Приложи"
   },
   "home": {
     "title": "Начало!"
@@ -99,6 +102,7 @@
   },
   "navmenu": {
     "toggle-aria": "Превключи навигационното меню",
+    "close-menu-aria": "Затвори навигационното меню",
     "home": "Начало",
     "create-schedule": "Създай разписание",
     "faculty": "Факултет",

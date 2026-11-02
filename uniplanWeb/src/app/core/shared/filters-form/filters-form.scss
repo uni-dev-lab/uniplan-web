@@ -3,3 +3,10 @@
   min-width: 80px;
   max-width: 180px;
 }
+
+@media screen and (max-width: 600px) {
+  .filter-field {
+    max-width: none;
+    width: 100%;
+  }
+}

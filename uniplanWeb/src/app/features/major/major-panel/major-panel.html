@@ -1,17 +1,39 @@
 <div class="component-panel major">
-  <div class="panel-controls-row">
-    <app-major-options class="panel-options"></app-major-options>
-    <app-major-filters
-      [majorFilterState]="majorFiltersState()"
-      [majorFilterOptions]="majorFilterOptions()"
-      (facultyChange)="updateFilters({ selectedFaculty: $event })"
-      (typeChange)="updateFilters({ selectedType: $event })"
-      (subtypeChange)="updateFilters({ selectedSubtype: $event })"
-      (searchTextChange)="internalSearchText.set($event)">
-    </app-major-filters>
-  </div>
+
+  <app-responsive-filters
+    [filters]="responsiveFilterValues()"
+    [emptyFilters]="emptyResponsiveFilters"
+    (filtersChange)="onResponsiveFiltersChange($event)">
+
+    <app-major-options filterOptions></app-major-options>
+
+    <ng-template
+      #filterFields
+      let-draft
+      let-update="update">
+
+      <app-major-filters
+        [majorFilterState]="{
+          selectedFaculty: draft.selectedFaculty,
+          selectedType: draft.selectedType,
+          selectedSubtype: draft.selectedSubtype
+        }"
+        [majorFilterOptions]="majorFilterOptions()"
+        [internalSearchText]="draft.internalSearchText"
+
+        (facultyChange)="update({ selectedFaculty: $event })"
+        (typeChange)="update({ selectedType: $event })"
+        (subtypeChange)="update({ selectedSubtype: $event })"
+        (searchTextChange)="update({ internalSearchText: $event })">
+      </app-major-filters>
+
+    </ng-template>
+
+  </app-responsive-filters>
+
   <app-major-table
     [majorFiltersState]="majorFiltersState()"
     [searchText]="internalSearchText()">
   </app-major-table>
+
 </div>

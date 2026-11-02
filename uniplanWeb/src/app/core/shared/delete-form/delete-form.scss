@@ -1,7 +1,13 @@
 mat-dialog-content {
   display: flex;
   flex-direction: column;
-  min-width: 300px;
+  min-width: min(300px, 100%);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+mat-dialog-actions {
+  flex-wrap: wrap;
 }
 
 button {
@@ -12,6 +18,7 @@ button {
   transition: background-color 0.3s ease;
   margin: 1%;
   padding: 3.5%;
+  min-height: 44px;
 }
 
 .deleteButton {

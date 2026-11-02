@@ -1,4 +1,4 @@
-<div class="table-wrapper">
+<div class="table-wrapper" #scrollContainer>
     <table mat-table [dataSource]="dataSourceFilter" class="mat-elevation-z8 table-header">
         <ng-container matColumnDef="position">
             <th mat-header-cell *matHeaderCellDef class="col-position"> {{ 'features.number-label' | translate }}
