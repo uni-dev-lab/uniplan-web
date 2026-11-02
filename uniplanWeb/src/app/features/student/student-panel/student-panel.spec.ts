@@ -42,6 +42,8 @@ describe('StudentPanel', () => {
   ];
 
   beforeEach(async () => {
+    spyOnProperty(window, 'innerWidth', 'get').and.returnValue(1024);
+
     dialogSpy = jasmine.createSpyObj<MatDialog>('MatDialog', ['open']);
 
     studentServiceSpy = jasmine.createSpyObj<StudentService>(
@@ -71,7 +73,12 @@ describe('StudentPanel', () => {
 
   it('should derive the available subtypes from the student data on init', () => {
     fixture.detectChanges();
-    expect(component.studentSubtypes).toEqual(['редовно', 'задочно']);
+
+    const filters: StudentFilters = fixture.debugElement
+      .query(By.directive(StudentFilters))
+      .componentInstance as StudentFilters;
+
+    expect(filters.subtypes()).toEqual(['редовно', 'задочно']);
   });
 
   it('should render the student options, filters and table', () => {
@@ -85,14 +92,18 @@ describe('StudentPanel', () => {
   it('should propagate a faculty-number search from filters down to the table and filter the rendered rows', () => {
     fixture.detectChanges();
 
-    const filters = fixture.debugElement.query(By.directive(StudentFilters))
+    const filters: StudentFilters = fixture.debugElement
+      .query(By.directive(StudentFilters))
       .componentInstance as StudentFilters;
+
     filters.searchFacNumChange.emit('123456');
+
     fixture.detectChanges();
 
-    expect(component.searchFacNum).toBe('123456');
-    const table = fixture.debugElement.query(By.directive(StudentTable))
+    const table: StudentTable = fixture.debugElement
+      .query(By.directive(StudentTable))
       .componentInstance as StudentTable;
+
     expect(table.searchFacNum).toBe('123456');
 
     const compiled = fixture.nativeElement as HTMLElement;
@@ -105,14 +116,18 @@ describe('StudentPanel', () => {
   it('should propagate the selected subtype from filters down to the table', () => {
     fixture.detectChanges();
 
-    const filters = fixture.debugElement.query(By.directive(StudentFilters))
+    const filters: StudentFilters = fixture.debugElement
+      .query(By.directive(StudentFilters))
       .componentInstance as StudentFilters;
+
     filters.subtypeChange.emit('задочно');
+
     fixture.detectChanges();
 
-    expect(component.selectedStudentSubtype).toBe('задочно');
-    const table = fixture.debugElement.query(By.directive(StudentTable))
+    const table: StudentTable = fixture.debugElement
+      .query(By.directive(StudentTable))
       .componentInstance as StudentTable;
+
     expect(table.subtype).toBe('задочно');
   });
 });

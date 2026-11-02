@@ -38,6 +38,8 @@ describe('MajorPanel', () => {
   };
 
   beforeEach(async () => {
+    spyOnProperty(window, 'innerWidth', 'get').and.returnValue(1024);
+
     majorServiceSpy = jasmine.createSpyObj<MajorService>(
       'MajorService',
       ['getMajors'],
