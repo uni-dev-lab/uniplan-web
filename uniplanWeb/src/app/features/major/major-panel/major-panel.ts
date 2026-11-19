@@ -68,14 +68,6 @@ export class MajorPanel implements OnInit {
     });
   }
 
-  protected updateFilters(change: Partial<MajorFilterState>): void {
-    this.majorFiltersState.update((state: MajorFilterState): {
-      selectedFaculty: string;
-      selectedType: string;
-      selectedSubtype: string
-    } => ({...state, ...change}));
-  }
-
   ngOnInit(): void {
     const facultyMap$: Observable<Map<string, string>> = merge(of(undefined), this.facultyService.refreshNeeded).pipe(
       switchMap((): Observable<Map<string, string>> =>

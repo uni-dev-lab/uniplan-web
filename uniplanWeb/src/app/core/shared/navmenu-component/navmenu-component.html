@@ -10,15 +10,17 @@
     </button>
 
     @if (!isSidebarCollapsed) {
-      <div class="sidebar-backdrop" role="button" tabindex="0"
-           [attr.aria-label]="'navmenu.close-menu-aria' | translate"
-           (click)="closeSidebarIfMobile()"
-           (keydown.enter)="closeSidebarIfMobile()"
-           (keydown.space)="closeSidebarIfMobile()"></div>
+      <button type="button" class="sidebar-backdrop"
+        [attr.aria-label]="'navmenu.close-menu-aria' | translate"
+        (click)="closeSidebarIfMobile()">
+      </button>
     }
   }
 
-  <div class="sidebar" [ngClass]="{ 'collapsed': isSidebarCollapsed && isMobileView }">
+  <div class="sidebar"
+       [ngClass]="{ 'collapsed': isSidebarCollapsed && isMobileView }"
+       [attr.inert]="isSidebarCollapsed && isMobileView ? '' : null">
+
     <div class="logo">
       <h2>Logo</h2>
     </div>
