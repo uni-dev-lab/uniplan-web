@@ -3,14 +3,13 @@
     margin-top: 2rem;
   }
 
-  .panel-controls-row {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 16px;
-    align-items: center;
-  }
-
   .panel-options {
     padding-bottom: 20px;
+  }
+
+  @media screen and (max-width: 600px) {
+    .component-panel {
+      margin-top: 1rem;
+    }
   }
 }

@@ -16,6 +16,7 @@ export class StudentOptions {
   protected openAddForm(): void {
     this.dialog.open(StudentAddForm, {
       width: '400px',
+      maxWidth: '90vw',
     });
   }
 }

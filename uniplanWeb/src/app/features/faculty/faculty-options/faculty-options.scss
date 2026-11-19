@@ -1,0 +1,11 @@
+.add-button :hover {
+  background-color: #e3f2fd;
+}
+
+@media screen and (max-width: 768px) {
+  :host {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+  }
+}

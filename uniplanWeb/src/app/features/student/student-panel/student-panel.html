@@ -1,24 +1,41 @@
 <div class="component-panel student">
-  <div class="panel-controls-row">
-    <app-student-options class="panel-options"></app-student-options>
-    <app-student-filters
-      [internalSearchText]="searchText"
-      (searchTextChange)="searchText = $event"
-      [internalSearchFacNum]="searchFacNum"
-      (searchFacNumChange)="searchFacNum = $event"
-      [internalSearchMajor]="searchMajor"
-      (searchMajorChange)="searchMajor = $event"
-      [subtypes]="studentSubtypes"
-      [selectedSubtype]="selectedStudentSubtype"
-      (subtypeChange)="selectedStudentSubtype = $event">
-    </app-student-filters>
-  </div>
+
+  <app-responsive-filters
+    [filters]="responsiveFilterValues()"
+    [emptyFilters]="emptyResponsiveFilters"
+    (filtersChange)="onResponsiveFiltersChange($event)">
+
+    <app-student-options filterOptions></app-student-options>
+
+    <ng-template
+      #filterFields
+      let-draft
+      let-update="update">
+
+      <app-student-filters
+        [internalSearchText]="draft.internalSearchText"
+        [internalSearchFacNum]="draft.searchFacNum"
+        [internalSearchMajor]="draft.searchMajor"
+        [selectedSubtype]="draft.selectedSubtype"
+        [subtypes]="studentFilterOptions().subtypes"
+
+        (searchTextChange)="update({ internalSearchText: $event })"
+        (searchFacNumChange)="update({ searchFacNum: $event })"
+        (searchMajorChange)="update({ searchMajor: $event })"
+        (subtypeChange)="update({ selectedSubtype: $event })">
+      </app-student-filters>
+
+    </ng-template>
+
+  </app-responsive-filters>
+
   <app-student-table
-    [searchText]="searchText"
-    [searchFacNum]="searchFacNum"
-    [searchMajor]="searchMajor"
-    [subtype]="selectedStudentSubtype"
-    [subtypes]="studentSubtypes"
-    (subtypesLoaded)="studentSubtypes=$event">
+    [searchText]="internalSearchText()"
+    [searchFacNum]="studentFilterState().searchFacNum"
+    [searchMajor]="studentFilterState().searchMajor"
+    [subtype]="studentFilterState().selectedSubtype"
+    [subtypes]="studentFilterOptions().subtypes"
+    (subtypesLoaded)="studentFilterOptions.set({ subtypes: $event })">
   </app-student-table>
+
 </div>

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, input, InputSignal, output, OutputEmitterRef } from '@angular/core';
 import { InputFilter } from '../../../core/shared/input-filter/input-filter';
 import { FiltersForm } from '../../../core/shared/filters-form/filters-form';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -11,16 +11,16 @@ import { TranslatePipe } from '@ngx-translate/core';
   imports: [InputFilter, FiltersForm, TranslatePipe],
 })
 export class StudentFilters {
-  @Input() public internalSearchText: string = '';
-  @Output() public readonly searchTextChange: EventEmitter<string> = new EventEmitter<string>();
+  public readonly internalSearchText: InputSignal<string> = input<string>('');
+  public readonly searchTextChange: OutputEmitterRef<string> = output<string>();
 
-  @Input() public internalSearchFacNum: string = '';
-  @Output() public readonly searchFacNumChange: EventEmitter<string> = new EventEmitter<string>();
+  public readonly internalSearchFacNum: InputSignal<string> = input<string>('');
+  public readonly searchFacNumChange: OutputEmitterRef<string> = output<string>();
 
-  @Input() public internalSearchMajor: string = '';
-  @Output() public readonly searchMajorChange: EventEmitter<string> = new EventEmitter<string>();
+  public readonly internalSearchMajor: InputSignal<string> = input<string>('');
+  public readonly searchMajorChange: OutputEmitterRef<string> = output<string>();
 
-  @Input() public subtypes: string[] = [];
-  @Input() public selectedSubtype: string = '';
-  @Output() public readonly subtypeChange: EventEmitter<string> = new EventEmitter<string>();
+  public readonly subtypes: InputSignal<string[]> = input<string[]>([]);
+  public readonly selectedSubtype: InputSignal<string> = input<string>('');
+  public readonly subtypeChange: OutputEmitterRef<string> = output<string>();
 }

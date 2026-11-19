@@ -2,3 +2,10 @@
   min-width: 80px;
   max-width: 210px;
 }
+
+@media screen and (max-width: 600px) {
+  .filter {
+    max-width: none;
+    width: 100%;
+  }
+}
