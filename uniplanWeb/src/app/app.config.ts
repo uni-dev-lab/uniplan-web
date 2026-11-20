@@ -10,6 +10,7 @@ import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideHttpClient, withXhr } from '@angular/common/http';
+import { DEFAULT_LANGUAGE, getStoredLanguage } from './config/language';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -18,8 +19,8 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(withXhr()),
     provideTranslateService({
-      lang: 'bg',
-      fallbackLang: 'bg',
+      lang: getStoredLanguage(),
+      fallbackLang: DEFAULT_LANGUAGE,
       loader: provideTranslateHttpLoader({
         prefix: '/i18n/',
         suffix: '.json'

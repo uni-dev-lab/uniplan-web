@@ -14,8 +14,8 @@ import {LoginAuthService} from '../../../services/login/login-auth-service';
   styleUrls: ['./navmenu-component.scss'],
 })
 export class NavmenuComponent implements OnInit {
-  protected isSidebarCollapsed: boolean = false;
   protected isMobileView: boolean = window.innerWidth <= 768;
+  protected isSidebarCollapsed: boolean = this.isMobileView;
 
   protected readonly authService: LoginAuthService = inject(LoginAuthService);
   private readonly router: Router = inject(Router);
@@ -33,9 +33,7 @@ export class NavmenuComponent implements OnInit {
     const isNowMobile: boolean = window.innerWidth <= 768;
     if (this.isMobileView !== isNowMobile) {
       this.isMobileView = isNowMobile;
-    }
-    if (!this.isMobileView) {
-      this.isSidebarCollapsed = false;
+      this.isSidebarCollapsed = isNowMobile;
     }
   }
 

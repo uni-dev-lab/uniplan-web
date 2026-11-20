@@ -76,8 +76,11 @@
     }
   },
   "settings": {
-    "title": "Заглавие",
-    "span": "Смени езика",
+    "title": "Настройки",
+    "profile-title": "Моят профил",
+    "language-title": "Език",
+    "loading": "Зареждане…",
+    "load-error": "Неуспешно зареждане на профила",
     "bulgarian": "български",
     "english": "английски"
   },
