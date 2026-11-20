@@ -1,30 +1,26 @@
-import { Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Observable } from 'rxjs';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { StudentProfile } from '../../../core/interfaces/student-profile';
-import { LectorProfile } from '../../../core/interfaces/lector-profile';
 import { SettingsService } from '../settings-service';
-import { DEFAULT_LANGUAGE, LANGUAGE_STORAGE_KEY } from '../../../config/language';
+import { getStoredLanguage, LANGUAGE_STORAGE_KEY } from '../../../config/language';
 
 @Component({
   selector: 'app-settings-panel',
   templateUrl: './settings-panel.html',
   styleUrl: './settings-panel.scss',
   imports: [TranslatePipe, MatButtonToggleModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class SettingsPanel implements OnInit {
   private translate = inject(TranslateService);
   private settingsService = inject(SettingsService);
   private destroyRef = inject(DestroyRef);
 
-  activeLanguage = localStorage.getItem(LANGUAGE_STORAGE_KEY) ?? DEFAULT_LANGUAGE;
-
-  currentRole: 'student' | 'lector' = 'student';
+  activeLanguage = getStoredLanguage();
 
   studentProfile: StudentProfile | null = null;
-  lectorProfile: LectorProfile | null = null;
 
   loading = true;
   loadError = false;
@@ -36,32 +32,23 @@ export class SettingsPanel implements OnInit {
         this.activeLanguage = lang;
       });
 
-    if (this.currentRole === 'lector') {
-      this.loadProfile(this.settingsService.getCurrentLector(), (profile) => {
-        this.lectorProfile = profile;
+    this.settingsService
+      .getCurrentStudent()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (profile) => {
+          this.studentProfile = profile;
+          this.loading = false;
+        },
+        error: () => {
+          this.loadError = true;
+          this.loading = false;
+        },
       });
-    } else {
-      this.loadProfile(this.settingsService.getCurrentStudent(), (profile) => {
-        this.studentProfile = profile;
-      });
-    }
   }
 
   useLanguage(language: string): void {
     this.translate.use(language);
     localStorage.setItem(LANGUAGE_STORAGE_KEY, language);
-  }
-
-  private loadProfile<T>(source$: Observable<T>, assign: (value: T) => void): void {
-    source$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
-      next: (value) => {
-        assign(value);
-        this.loading = false;
-      },
-      error: () => {
-        this.loadError = true;
-        this.loading = false;
-      },
-    });
   }
 }

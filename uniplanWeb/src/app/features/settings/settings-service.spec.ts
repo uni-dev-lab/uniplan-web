@@ -20,13 +20,4 @@ describe('SettingsService', () => {
       done();
     });
   });
-
-  it('should return the current lector profile', (done) => {
-    service.getCurrentLector().subscribe((profile) => {
-      expect(profile.firstName).toBe('Георги');
-      expect(profile.lastName).toBe('Гошов');
-      expect(profile.email).toBe('georgi.goshov@uni.bg');
-      done();
-    });
-  });
 });

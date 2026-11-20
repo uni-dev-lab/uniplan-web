@@ -1,14 +1,16 @@
+@use '../../styles/layout' as *;
+
 .main-content {
   height: 100%;
-  width: calc(100% - 220px);
-  margin-left: 220px;
+  width: calc(100% - #{$sidebar-width});
+  margin-left: $sidebar-width;
   overflow: auto;
   display: flex;
   justify-content: center;
 
   @media screen and (max-width: 768px) {
-    width: 100%;
-    margin-left: 0;
+    width: calc(100% - #{$sidebar-collapsed-width});
+    margin-left: $sidebar-collapsed-width;
   }
 }
 

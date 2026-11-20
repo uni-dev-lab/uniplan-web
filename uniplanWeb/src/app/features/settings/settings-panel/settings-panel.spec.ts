@@ -5,7 +5,6 @@ import { translateTestingProviders } from '@testing/translate-testing';
 import { SettingsPanel } from './settings-panel';
 import { SettingsService } from '../settings-service';
 import { StudentProfile } from '../../../core/interfaces/student-profile';
-import { LectorProfile } from '../../../core/interfaces/lector-profile';
 
 describe('SettingsPanel', () => {
   let component: SettingsPanel;
@@ -26,25 +25,12 @@ describe('SettingsPanel', () => {
     ...overrides,
   });
 
-  const buildLectorProfile = (
-    overrides: Partial<LectorProfile> = {}
-  ): LectorProfile => ({
-    id: 'l1',
-    facultyId: 'f1',
-    email: 'georgi.goshov@uni.bg',
-    firstName: 'Georgi',
-    lastName: 'Goshov',
-    ...overrides,
-  });
-
   beforeEach(async () => {
     localStorage.removeItem('lang');
     settingsServiceSpy = jasmine.createSpyObj<SettingsService>('SettingsService', [
       'getCurrentStudent',
-      'getCurrentLector',
     ]);
     settingsServiceSpy.getCurrentStudent.and.returnValue(of(buildProfile()));
-    settingsServiceSpy.getCurrentLector.and.returnValue(of(buildLectorProfile()));
 
     await TestBed.configureTestingModule({
       imports: [SettingsPanel],
@@ -110,33 +96,14 @@ describe('SettingsPanel', () => {
     spyOn(translate, 'use').and.callThrough();
 
     component.useLanguage('en');
+    fixture.detectChanges();
 
     expect(translate.use).toHaveBeenCalledWith('en');
     expect(localStorage.getItem('lang')).toBe('en');
-  });
-
-  it('should render the lector profile when currentRole is lector', () => {
-    component.currentRole = 'lector';
-    fixture.detectChanges();
-
-    expect(settingsServiceSpy.getCurrentLector).toHaveBeenCalled();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.profile-info')?.textContent).toContain(
-      'Georgi Goshov'
+    expect(component.activeLanguage).toBe('en');
+    const checkedToggle = (fixture.nativeElement as HTMLElement).querySelector(
+      'mat-button-toggle.mat-button-toggle-checked'
     );
-    expect(compiled.querySelector('.profile-info')?.textContent).toContain(
-      'georgi.goshov@uni.bg'
-    );
-  });
-
-  it('should show an error state when loading the lector profile fails', () => {
-    settingsServiceSpy.getCurrentLector.and.returnValue(
-      throwError(() => new Error('network error'))
-    );
-    component.currentRole = 'lector';
-    fixture.detectChanges();
-
-    expect(component.loadError).toBeTrue();
-    expect(component.loading).toBeFalse();
+    expect(checkedToggle?.textContent).toContain('settings.english');
   });
 });

@@ -82,8 +82,7 @@
         "loading": "Loading…",
         "load-error": "Failed to load your profile",
         "bulgarian": "Bulgarian",
-        "english": "English",
-        "email-label": "Email"
+        "english": "English"
     },
     "shared": {
         "add-button": "Add",

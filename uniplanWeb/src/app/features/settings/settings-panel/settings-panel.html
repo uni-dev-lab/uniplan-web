@@ -10,7 +10,7 @@
           <p>{{ 'settings.loading' | translate }}</p>
         } @else if (loadError) {
           <p>{{ 'settings.load-error' | translate }}</p>
-        } @else if (currentRole === 'student' && studentProfile) {
+        } @else if (studentProfile) {
           <dl class="profile-info">
             <dt>{{ 'features.name-label' | translate }}</dt>
             <dd>{{ studentProfile.name }}</dd>
@@ -29,17 +29,6 @@
 
             <dt>{{ 'student.course-label' | translate }}</dt>
             <dd>{{ studentProfile.courseYear }}</dd>
-          </dl>
-        } @else if (currentRole === 'lector' && lectorProfile) {
-          <dl class="profile-info">
-            <dt>{{ 'features.name-label' | translate }}</dt>
-            <dd>{{ lectorProfile.firstName }} {{ lectorProfile.lastName }}</dd>
-
-            <dt>{{ 'settings.email-label' | translate }}</dt>
-            <dd>{{ lectorProfile.email }}</dd>
-
-            <dt>{{ 'features.faculty-label' | translate }}</dt>
-            <dd>{{ lectorProfile.facultyId }}</dd>
           </dl>
         }
       </div>
