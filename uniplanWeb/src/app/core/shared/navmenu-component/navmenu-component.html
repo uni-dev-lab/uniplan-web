@@ -62,30 +62,39 @@
         </a>
       </li>
 
-      @if (authService.isLoggedIn()) {
-        <li class="list dropdown profile">
-          <a href="#" class="nav-link">
-            <div class="profile-link">
-              <img src class="profile-img" alt="" />
-              <span class="profile-name">Иван Иванов</span>
-            </div>
-          </a>
-          <ul class="dropdown-menu">
-            <li><a href="#"><span class="link">{{ 'navmenu.open-profile' | translate }}</span></a></li>
-            <li class="logout">
-              <a href="#"><i class="bx bx-log-out icon"></i><span class="link">{{ 'navmenu.logout' | translate }}</span></a>
-            </li>
+        @if (authService.isLoggedIn()) {
+          <li class="list dropdown profile">
+            <a href="#" class="nav-link">
+              <div class="profile-link">
+                <img alt="" />
+                <span class="profile-name">{{ authService.getUsername() }}</span>
+              </div>
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+                <a routerLink="/">
+                  <span class="link">Отвори</span>
+                </a>
+              </li>
+
+              <li class="logout">
+                <button type="button" class="nav-link logout-button" (click)="onLogoutClick()">
+                  <i class="bx bx-log-out icon" aria-hidden="true"></i>
+                  <span class="link">{{ 'navmenu.logout' | translate }}</span>
+                </button>
+              </li>
           </ul>
         </li>
       }
 
       @if (!authService.isLoggedIn()) {
         <li class="list">
-          <a href="#" class="nav-link">
-            <i class="bx bx-log-in icon"></i><span class="link">{{ 'navmenu.login' | translate }}</span>
+          <a routerLink="/login" routerLinkActive="active" class="nav-link">
+            <i class="bx bx-log-in icon"></i>
+            <span class="link">Вход</span>
           </a>
-        </li>
-      }
-    </ul>
-  </div>
+      </li>
+    }
+  </ul>
+</div>
 </div>

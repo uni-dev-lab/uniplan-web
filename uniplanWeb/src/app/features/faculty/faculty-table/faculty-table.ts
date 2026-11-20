@@ -1,13 +1,13 @@
-import { Component, ChangeDetectionStrategy, signal, inject, OnInit } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatTableModule } from '@angular/material/table';
-import { FacultyElm } from '../../../core/interfaces/faculty-elm';
-import { FacultyService } from '../faculty-service';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { FacultyEdit } from '../faculty-edit/faculty-edit';
-import { FacultyDeleteForm } from '../faculty-delete-form/faculty-delete-form';
-import { TranslatePipe } from '@ngx-translate/core';
+import {ChangeDetectionStrategy, Component, inject, OnInit, Signal, signal, WritableSignal} from '@angular/core';
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
+import {MatTableModule} from '@angular/material/table';
+import {FacultyElm} from '../../../core/interfaces/faculty-elm';
+import {FacultyService} from '../faculty-service';
+import {MatDialog, MatDialogModule} from '@angular/material/dialog';
+import {FacultyEdit} from '../faculty-edit/faculty-edit';
+import {FacultyDeleteForm} from '../faculty-delete-form/faculty-delete-form';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-faculty-table',
@@ -23,32 +23,35 @@ import { TranslatePipe } from '@ngx-translate/core';
     ],
 })
 export class FacultyTable implements OnInit{
-  displayedColumns: string[] = [
+
+  protected displayedColumns: string[] = [
     'position',
     'facultyName',
     'location',
     'actions',
   ];
-  dataSource = signal<FacultyElm[]>([]);
 
-    private facultyService = inject(FacultyService);
-    private dialog = inject(MatDialog);
+  private readonly _dataSource: WritableSignal<FacultyElm[]> = signal<FacultyElm[]>([]);
+  protected dataSource: Signal<FacultyElm[]> = this._dataSource.asReadonly();
 
-  ngOnInit(): void {
+  private readonly facultyService: FacultyService = inject(FacultyService);
+  private readonly dialog: MatDialog = inject(MatDialog);
+
+  public ngOnInit(): void {
     this.loadFaculties();
 
-    this.facultyService.refreshNeeded.subscribe(() => {
+    this.facultyService.refreshNeeded.subscribe((): void => {
       this.loadFaculties();
     });
   }
 
-  loadFaculties(): void {
-    this.facultyService.getFaculties().subscribe((data) => {
-      this.dataSource.set(data);
+  private loadFaculties(): void {
+    this.facultyService.getFaculties().subscribe((data: FacultyElm[]): void => {
+      this._dataSource.set(data);
     });
   }
 
-  onEdit(element: FacultyElm): void {
+  protected onEdit(element: FacultyElm): void {
     this.dialog.open(FacultyEdit, {
       data: {
         id: element.id,
@@ -59,7 +62,7 @@ export class FacultyTable implements OnInit{
     });
   }
 
-  onDelete(element: FacultyElm): void {
+  protected onDelete(element: FacultyElm): void {
     this.dialog.open(FacultyDeleteForm, {
       data: {
         id: element.id,

@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
-import { TranslatePipe } from '@ngx-translate/core';
+import {ChangeDetectionStrategy, Component, output, OutputEmitterRef} from '@angular/core';
+import {MatIconModule} from '@angular/material/icon';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-add-button',
@@ -11,9 +11,9 @@ import { TranslatePipe } from '@ngx-translate/core';
   imports: [MatIconModule, TranslatePipe],
 })
 export class AddButton {
-  @Output() addClicked = new EventEmitter<void>();
+  public addClicked: OutputEmitterRef<void> = output<void>();
 
-  onClick(): void {
+  protected onClick(): void {
     this.addClicked.emit();
   }
 }

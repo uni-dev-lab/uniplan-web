@@ -18,15 +18,15 @@ export class MajorDeleteForm {
   private dialogRef = inject(MatDialogRef<MajorDeleteForm>);
   public data = inject<{ id: string; courseId: string; name: string }>(MAT_DIALOG_DATA);
 
-  deleteMajor(): void {
+  protected deleteMajor(): void {
     this.majorService
       .deleteMajor(this.data.id)
       .subscribe({
-        next: () => {
+        next: (): void => {
           this.dialogRef.close(true);
         },
-        error: () => {
-          alert('Възникна грешка при изтриването на специалността.');
+        error: (): void => {
+          alert('Възникна грешка при изтриването на специалността или курса.');
         },
       });
   }

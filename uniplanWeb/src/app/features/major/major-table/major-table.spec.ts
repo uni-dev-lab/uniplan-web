@@ -17,6 +17,11 @@ describe('MajorTable', () => {
 
     fixture = TestBed.createComponent(MajorTable);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput('majorFiltersState', {
+      selectedFaculty: '',
+      selectedType: '',
+      selectedSubtype: '',
+    });
     fixture.detectChanges();
   });
 

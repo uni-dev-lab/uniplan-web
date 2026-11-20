@@ -1,7 +1,7 @@
 export interface CourseElm {
-    id: string;
-    majorId: string;
-    courseYear: number;
-    locaticourseTypeon: string;
-    courseSubtype: string;
+  id: string;
+  majorId: string;
+  courseYear: number;
+  courseType: string;
+  courseSubtype: string;
 }
