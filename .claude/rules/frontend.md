@@ -1,11 +1,5 @@
 # Frontend Rules — Angular 22 / TypeScript 6 / Angular Material 22
 
-## On-demand Skills
-
-Invoke these skills via the `Skill` tool **only when the task actually calls for them** — do not auto-load them for every frontend edit. The project frontend reviewer agent already carries the distilled ruleset.
-
-- `web-design-guidelines` — explicit accessibility or UI audits.
-
 ## Stack
 
 - Angular 22 (standalone components by default, no NgModules anywhere)
@@ -45,16 +39,19 @@ uniplanWeb/                        # All Angular code lives here, not at repo ro
 │       │   └── shared/           # cross-feature UI (add-form, edit-form,
 │       │                         # delete-form, filters-form, input-filter,
 │       │                         # add-button, navmenu-component, settings,
-│       │                         # pipes/faculty-name-pipe)
+│       │                         # pipes/{faculty,category}/)
 │       ├── features/
 │       │   ├── faculty/          # *-panel, *-options, *-table, *-add-form,
 │       │   ├── major/            # *-edit-form, *-delete-form, *-filters,
 │       │   ├── room/             # <feature>-service.ts
 │       │   ├── student/
+│       │   ├── course/           # service only
 │       │   ├── university/       # service only
 │       │   ├── home/             # panel only
+│       │   ├── login/            # login-form (/login route)
 │       │   └── not-found/        # panel only (** route)
-│       └── services/             # cross-cutting services (auth stub, etc.)
+│       └── services/             # cross-cutting services:
+│                                 # category/, login/ (auth stub)
 ├── angular.json
 ├── eslint.config.js
 ├── package.json
@@ -67,8 +64,7 @@ All `npm` / `ng` commands run from `uniplanWeb/`, not the repo root.
 
 - File and folder names are **kebab-case** and match the component selector minus the `app-` prefix:
   `app-faculty-add-form` ↔ `faculty-add-form/faculty-add-form.ts`.
-- Class names are **PascalCase without the `Component` / `Service` suffix**:
-  `FacultyAddForm` (not `FacultyAddFormComponent`), `MajorService` (not `MajorServiceService`). Legacy exceptions: `NavmenuComponent`, `LayoutComponent` — don't copy them.
+- Class names are PascalCase. Components take no `Component` suffix (`FacultyAddForm`, not `FacultyAddFormComponent`). Services keep a single `Service` suffix (`MajorService`). Legacy exceptions: `NavmenuComponent`, `LayoutComponent` — don't copy them.
 - Feature service files are named `<feature>-service.ts` (single hyphen), not `<feature>.service.ts` — this is intentional and predates Angular's default. **Do not "fix" it.**
 - Domain interface files end in `-elm.ts` and export `<Entity>Elm` (e.g. `major-elm.ts` → `MajorElm`). One existing exception is `UniversityElm` co-located in `university-service.ts`. (Issue #87 proposes dropping the `Elm` suffix; until it lands, keep the current naming.)
 - Test files live alongside source as `*.spec.ts`.
@@ -83,7 +79,7 @@ All `npm` / `ng` commands run from `uniplanWeb/`, not the repo root.
 - Many components set `changeDetection: ChangeDetectionStrategy.Eager`. Follow the surrounding feature for new components.
 - Shared form skeletons live in `core/shared/{add,edit,delete}-form/` and expose a `saveClicked` output that the feature-specific dialog wires to its own `save()`. Wrap the skeleton; do not inline its template.
 - Dialogs use `MatDialog` with width `'400px'`, data passed via `MAT_DIALOG_DATA`, result returned via `MatDialogRef.close(value)`.
-- To show a related entity's name instead of its id, use a pure pipe (see `FacultyNamePipe` in `core/shared/pipes/`).
+- To show a related entity's name instead of its id, use a pure pipe (see `FacultyNamePipe` in `core/shared/pipes/faculty/`).
 
 ### Component placement
 
@@ -94,13 +90,13 @@ All `npm` / `ng` commands run from `uniplanWeb/`, not the repo root.
 
 ## Routing (project-specific)
 
-Navigation uses the Angular Router. `app.routes.ts` has one parent route `""` → `LayoutComponent` (navmenu + `<router-outlet>`). Feature pages are **lazy-loaded children** via `loadComponent`: `home`, `faculty`, `major`, `student`, `room`, plus a `**` → `NotFoundPanel` fallback. `""` redirects to `home`.
+Navigation uses the Angular Router. `app.routes.ts` has one parent route `""` → `LayoutComponent` (navmenu + `<router-outlet>`). Feature pages are **lazy-loaded children** via `loadComponent`: `home`, `faculty`, `major`, `student`, `room`, `login`, plus a `**` → `NotFoundPanel` fallback. `""` redirects to `home`.
 
 **To add a new feature page:**
 
 1. Create `features/<feature>/<feature>-panel/`.
 2. Add a child route in `app.routes.ts` with `loadComponent: () => import(...).then(m => m.<Feature>Panel)` — copy the `room` entry and keep it **before** the `**` wildcard.
-3. Add a nav link in `navmenu-component.html`: `<a [routerLink]="'/<feature>'" routerLinkActive="active" class="nav-link">`. Some items (Department, Teachers, Subjects, Settings, Login) are still placeholder `href="#"` links — replace the placeholder instead of adding a duplicate.
+3. Add a nav link in `navmenu-component.html`: `<a [routerLink]="'/<feature>'" routerLinkActive="active" class="nav-link">`. Some items (Create schedule, Department, Teachers, Subjects, Settings) are still placeholder `href="#"` links — replace the placeholder instead of adding a duplicate.
 
 Do not reintroduce view-switching via a service or `@if` blocks in a layout template — the old `ViewService` / `MainPanel` approach was removed (#27).
 
@@ -233,7 +229,7 @@ The styling layer is plain SCSS plus Angular Material. There is no Tailwind CSS,
 - A new feature page that isn't a lazy-loaded route in `app.routes.ts`, or view switching via a service / `@if` in the layout instead of the router.
 - A new nav link using `href="#"` or `(click)` instead of `[routerLink]` + `routerLinkActive`.
 - Hardcoded user-facing text instead of a translation key, or a key added to only one of `bg.json` / `en.json`.
-- `*ngIf` / `*ngFor` (removed repo-wide), or `@for` without `track`.
+- `*ngIf` / `*ngFor` (removed repo-wide), or `@for` tracking by object identity.
 - `alert(...)` for validation errors.
 - `console.log` / `console.error` left in committed code.
 - `any` in a public method signature.
@@ -242,7 +238,7 @@ The styling layer is plain SCSS plus Angular Material. There is no Tailwind CSS,
 - `<div (click)>` instead of `<button>` for an action.
 - Missing `aria-label` on `mat-icon-button`.
 - A new feature service named `<feature>.service.ts` (with the dot) instead of `<feature>-service.ts` — break of project convention.
-- Class named `FooComponent` — repo convention is `Foo` (no suffix).
+- Component class named `FooComponent` — repo convention is `Foo` (no suffix).
 
 ## Content & Typography
 

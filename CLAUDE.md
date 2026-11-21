@@ -25,22 +25,22 @@ There is no e2e runner configured — the README mentions `ng e2e` but no framew
 
 ## Backend dependency
 
-The backend is the Spring Boot `uniplan` repo (served under `/api`). The base URL comes from [environment.ts](uniplanWeb/src/environments/environment.ts) (`baseUrl: 'http://localhost:8080/api'`), and every resource URL is built in [config/endpoints.ts](uniplanWeb/src/app/config/endpoints.ts) (`API_ENDPOINTS.faculties`, `.majors`, `.courses`, `.universities`, `.rooms`). Services must use `API_ENDPOINTS` — never hardcode a URL. When wiring a new backend resource, add its entry to `endpoints.ts` first.
+The backend is the Spring Boot `uniplan` repo (served under `/api`). The base URL comes from [environment.ts](uniplanWeb/src/environments/environment.ts) (`baseUrl: 'http://localhost:8080/api'`), and every resource URL is built in [config/endpoints.ts](uniplanWeb/src/app/config/endpoints.ts) (`API_ENDPOINTS.faculties`, `.majors`, `.courses`, `.universities`, `.students`, `.categories`, `.rooms`). Services must use `API_ENDPOINTS` — never hardcode a URL. When wiring a new backend resource, add its entry to `endpoints.ts` first.
 
 - There is no dev-server proxy and the backend has no CORS configuration, so browser calls from `localhost:4200` to `localhost:8080` can be blocked by CORS.
-- The backend has a full `/students` API, but the Student feature is **not connected yet** — `ELEMENT_STUDENT_DATA` in [student-table.ts](uniplanWeb/src/app/features/student/student-table/student-table.ts) is a hardcoded list, and edit/delete only `console.log`.
+- The Student list is loaded from `/students` via [student-service.ts](uniplanWeb/src/app/features/student/student-service.ts), but the table's edit/delete actions in [student-table.ts](uniplanWeb/src/app/features/student/student-table/student-table.ts) still only `console.log`.
 - `GET /majors` returns only `{ id, facultyId, majorName }`; `MajorElm.courseId` / `courseType` / `courseSubtype` are not populated by it.
 ## Architecture
 
 ### Routing
 
-Navigation uses the Angular Router. [app.routes.ts](uniplanWeb/src/app/app.routes.ts) has one parent route `""` → [`LayoutComponent`](uniplanWeb/src/app/layout-component/layout-component.ts) (navmenu + `<router-outlet>`), with lazy-loaded children via `loadComponent`: `home`, `faculty`, `major`, `student`, `room`, and a `**` → `NotFoundPanel` fallback. `""` redirects to `home`.
+Navigation uses the Angular Router. [app.routes.ts](uniplanWeb/src/app/app.routes.ts) has one parent route `""` → [`LayoutComponent`](uniplanWeb/src/app/layout-component/layout-component.ts) (navmenu + `<router-outlet>`), with lazy-loaded children via `loadComponent`: `home`, `faculty`, `major`, `student`, `room`, `login` (`LoginForm`), and a `**` → `NotFoundPanel` fallback. `""` redirects to `home`.
 
 To add a new feature page:
 
 1. Create a `<feature>-panel` component under `src/app/features/<feature>/`.
 2. Add a child route in `app.routes.ts` (copy the `room` entry) — keep it before the `**` wildcard.
-3. Add a link in [navmenu-component.html](uniplanWeb/src/app/core/shared/navmenu-component/navmenu-component.html) with `[routerLink]="'/<feature>'" routerLinkActive="active"`. Some menu items (Department, Teachers, Subjects, Settings, Login) are still placeholder `href="#"` links.
+3. Add a link in [navmenu-component.html](uniplanWeb/src/app/core/shared/navmenu-component/navmenu-component.html) with `[routerLink]="'/<feature>'" routerLinkActive="active"`. Some menu items (Create schedule, Department, Teachers, Subjects, Settings) are still placeholder `href="#"` links.
 
 ### Feature service refresh pattern
 
@@ -52,9 +52,9 @@ Each feature service (e.g. [faculty-service.ts](uniplanWeb/src/app/features/facu
 - `src/environments/environment.ts` — `baseUrl` for the API.
 - `src/app/layout-component/` — app shell (navmenu + router outlet).
 - `src/app/core/interfaces/` — domain types named `<entity>-elm.ts` exporting `<Entity>Elm` (e.g. `MajorElm`), plus view-model / filter-option types (`room-view-model.ts`, `major-filter-options.ts`). One exception: `UniversityElm` is co-located inside [university-service.ts](uniplanWeb/src/app/features/university/university-service.ts). (Issue #87 proposes dropping the `Elm` suffix — until it lands, keep the current naming.)
-- `src/app/core/shared/` — reusable UI pieces: `add-button`, `add-form`, `edit-form`, `delete-form`, `filters-form`, `input-filter`, `navmenu-component`, `settings` (language switcher, not routed yet), and `pipes/` ([`FacultyNamePipe`](uniplanWeb/src/app/core/shared/pipes/faculty-name-pipe.ts) maps a faculty id to its name). Feature-specific forms wrap the form shells via `imports` and a `saveClicked` output.
-- `src/app/features/<feature>/` — `faculty`, `major`, `student`, `room`, plus `university` (service only), `home` and `not-found` (panels only). Each full feature owns its `*-service.ts` plus `*-panel`, `*-options`, `*-table`, `*-add-form`, `*-edit-form` / `*-edit`, `*-delete-form`, `*-filters` components (Room currently has only panel/options/table/add-form). Note the `*-service.ts` naming (with hyphen) is non-default Angular style — keep it consistent if you add a new service.
-- `src/app/services/` — cross-cutting services. Currently just [login-auth-service.ts](uniplanWeb/src/app/services/login-auth-service.ts), which is a `localStorage`-backed stub (no real auth).
+- `src/app/core/shared/` — reusable UI pieces: `add-button`, `add-form`, `edit-form`, `delete-form`, `filters-form`, `input-filter`, `navmenu-component`, `settings` (language switcher, not routed yet), and `pipes/` ([`FacultyNamePipe`](uniplanWeb/src/app/core/shared/pipes/faculty/faculty-name-pipe.ts) maps a faculty id to its name; `pipes/category/` holds `CategoryDisplayPipe`). Feature-specific forms wrap the form shells via `imports` and a `saveClicked` output.
+- `src/app/features/<feature>/` — `faculty`, `major`, `student`, `room`, plus `university` and `course` (services only), `login` (`login-form`), `home` and `not-found` (panels only). Each full feature owns its `*-service.ts` plus `*-panel`, `*-options`, `*-table`, `*-add-form`, `*-edit-form` / `*-edit`, `*-delete-form`, `*-filters` components (Room currently has only panel/options/table/add-form). Note the `*-service.ts` naming (with hyphen) is non-default Angular style — keep it consistent if you add a new service.
+- `src/app/services/` — cross-cutting services: `category/` (`CategoryService`) and [login/login-auth-service.ts](uniplanWeb/src/app/services/login/login-auth-service.ts), a `localStorage`-backed stub (no real auth).
 - `src/testing/translate-testing.ts` — `translateTestingProviders` for specs (imported as `@testing/translate-testing`, alias defined in `tsconfig.spec.json`).
 - `public/i18n/{bg,en}.json` — translation files.
 
@@ -75,7 +75,7 @@ Add/edit/delete flows use `MatDialog`. The shared skeleton lives in `core/shared
 - Angular 22 / Angular Material 22. Components are standalone by default — **don't add `standalone: true`** (it was removed in #19; six older files in `core/shared/` still carry it). Always declare explicit `imports: [...]`. There are no `NgModule`s — do not introduce one.
 - Use `inject()` for dependencies, not constructor injection.
 - Many components set `changeDetection: ChangeDetectionStrategy.Eager`; follow the surrounding feature when adding components. Signals (`signal()`) are already used in some tables (e.g. `MajorTable`).
-- Selector prefix is `app-`. Class names are PascalCase **without** the `Component` suffix (e.g. `FacultyAddForm`, not `FacultyAddFormComponent`). File and folder names are kebab-case and match the selector minus the `app-` prefix. (Legacy exceptions: `NavmenuComponent`, `LayoutComponent`.)
+- Selector prefix is `app-`. Class names are PascalCase **without** the `Component` suffix (e.g. `FacultyAddForm`, not `FacultyAddFormComponent`); services keep a single `Service` suffix (`MajorService`). File and folder names are kebab-case and match the selector minus the `app-` prefix. (Legacy exceptions: `NavmenuComponent`, `LayoutComponent`.)
 - Tests live next to source as `*.spec.ts`. Most existing specs are scaffolds that only assert the component was created. Run the tests before claiming "tests pass" — don't assume.
 - Default style is SCSS (configured in [angular.json](uniplanWeb/angular.json)). The Material theme is `azure-blue` (prebuilt).
 - TypeScript runs in strict mode plus `noImplicitOverride`, `noPropertyAccessFromIndexSignature`, `noImplicitReturns`, `noFallthroughCasesInSwitch`. Angular templates run with `strictTemplates` + `strictInputAccessModifiers`. Don't loosen these.
@@ -96,7 +96,7 @@ There is no `e2e-test.md` because no e2e runner is configured. If Playwright (or
 
 One project-scoped Claude Code subagent lives under [.claude/agents/](.claude/agents/):
 
-- `uniplan-web-fe-reviewer` — frontend reviewer (read-only); produces review findings against [.claude/rules/frontend.md](.claude/rules/frontend.md). Cannot edit code (no `Write`/`Edit`/`Agent` tools). System prompt carries the distilled ruleset so the agent doesn't need to re-read the rules file on every invocation.
+- `uniplan-web-fe-reviewer` — frontend reviewer (read-only); produces review findings against [.claude/rules/frontend.md](.claude/rules/frontend.md). Cannot edit code (no `Write`/`Edit`/`Agent` tools). System prompt carries the checklist; the agent reads `frontend.md` once per review and treats uncovered rule violations as Important (Minor if cosmetic).
 
 Invoke via the `Agent` tool with `subagent_type: uniplan-web-fe-reviewer`. Used by the `/review-pr` skill and ad-hoc PR reviews. There is intentionally **no implementer agent** yet — the codebase is small enough that loading rules in `CLAUDE.md` is cheaper than dispatching a subagent for every implementation task. Revisit when the rules files outgrow what fits in the orchestrator's context budget.
 
