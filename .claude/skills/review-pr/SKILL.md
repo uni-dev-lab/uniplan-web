@@ -19,7 +19,7 @@ Follow these steps exactly:
 
 Run:
 ```
-gh pr view $ARGUMENTS --json number,title,body,baseRefName,headRefName,author,files
+gh pr view $ARGUMENTS --json number,title,body,baseRefName,headRefName,author,files,reviews
 ```
 
 Extract the PR title, description, base branch, head branch, author, and list of changed files. Display a summary header like:
@@ -56,13 +56,21 @@ Run each command as a **separate Bash call**:
    git fetch origin <headRefName>
    ```
 
-5. Check whether a worktree for this branch already exists:
+5. Fetch the base branch (so the three-dot diff uses a fresh base):
+   ```
+   git fetch origin <baseRefName>
+   ```
+
+6. Check whether a worktree for this branch already exists:
    ```
    git worktree list
    ```
-   - If one already exists, skip to Step 3 and use its path as `<worktree-path>`.
+   - If one already exists, use its path as `<worktree-path>`, update it to the PR head, then skip to Step 3. If it is not a fast-forward, stop and report:
+     ```
+     git -C <worktree-path> merge --ff-only origin/<headRefName>
+     ```
 
-6. If not, create it. Use the branch name (not `origin/<headRefName>`) so git's DWIM behavior creates a local branch tracking the remote — passing `origin/<headRefName>` results in a detached HEAD:
+7. If not, create it. Use the branch name (not `origin/<headRefName>`) so git's DWIM behavior creates a local branch tracking the remote — passing `origin/<headRefName>` results in a detached HEAD:
    ```
    git worktree add <worktree-path> <headRefName>
    ```
@@ -71,7 +79,7 @@ Run each command as a **separate Bash call**:
    git worktree add --track -b <headRefName> <worktree-path> origin/<headRefName>
    ```
 
-7. Install frontend dependencies in the new worktree (skip if reused):
+8. Install frontend dependencies in the new worktree (skip if reused):
    ```
    npm --prefix <worktree-path>/uniplanWeb ci
    ```
@@ -122,11 +130,14 @@ Apply the diff-scope rule from your system prompt: only flag issues in newly
 added or modified lines. Pre-existing issues go under "Pre-existing (out of
 scope)". You may read surrounding code in the worktree for context.
 
+Earlier Claude review findings (Critical/Important; see Step 5, or "none"):
+<findings>
+
 Produce findings in the Review Output Format from your system prompt. If no
 issues are found, state "No issues found."
 ```
 
-Do **not** ask the subagent to modify state files or apply Ralph-Loop behavior — this is a single-pass PR review.
+This is a single-pass PR review — do not ask the subagent to modify state files.
 
 ## Step 4b: Orchestrator review of the Other slice
 
@@ -142,7 +153,7 @@ Scope the Other slice by path prefix:
 | `.claude/skills/**/SKILL.md`           | Step-by-step correctness, references to file paths that exist                |
 | `.github/workflows/`                   | Job graph, permissions, secrets usage, no `--no-verify`-style bypasses, gating still intact |
 | `.github/CODEOWNERS`                   | Path patterns valid, team handles correct                                    |
-| Root configs (`.gitignore`, etc.)      | Secrets never committed, ignored paths correct                               |
+| Root configs (`.gitignore`, etc.)      | Secrets never committed, ignored paths correct, no IDE/OS/build junk (`.idea/`, `.vscode/` beyond whitelisted files, `.DS_Store`, `*.log`, `*.diff`, `*.patch`) |
 
 Get the Other-slice diff by running, from the worktree (or current directory in CI):
 ```
@@ -150,7 +161,7 @@ git -C <worktree-path> diff origin/<baseRefName>...HEAD -- <other-paths>
 ```
 where `<other-paths>` is the space-separated list of top-level paths in the slice.
 
-Apply the same diff-scope rule as the subagent (only flag issues in newly added or modified lines). Apply the **Severity Calibration** from `.claude/rules/implementation-common.md`. Produce findings in the **Review Output Format** — they will be merged in Step 5.
+Apply the same diff-scope rule as the subagent (only flag issues in newly added or modified lines). Apply the **Severity calibration** section of `.claude/agents/uniplan-web-fe-reviewer.md`. Produce findings in the **Review Output Format** — they will be merged in Step 5.
 
 If the Other slice is empty, skip this step.
 
@@ -158,7 +169,8 @@ If the Other slice is empty, skip this step.
 
 After the subagent returns, combine its output **together with your own Other-slice findings from Step 4b** into one consolidated review.
 
-- Read `.claude/rules/implementation-common.md` → **Severity Calibration** so the consolidated output matches the project standard.
+- Read the **Severity calibration** section of `.claude/agents/uniplan-web-fe-reviewer.md` so the consolidated output matches the project standard.
+- If an earlier Claude review exists on the PR (in `reviews` from Step 1, a body whose first heading is `## Code Review: PR #` or `## Automated code review`), forward its Critical/Important findings to the subagent and add a `### Previous findings` section (before Critical) listing each as Addressed / Not addressed / Partially, checked against the current code.
 - Preserve every finding from the subagent verbatim, grouped into the sections below. Fold in the Other-slice findings the orchestrator produced in Step 4b at the same severity they were flagged.
 - When the subagent (or the Other-slice pass) returns "No issues found.", treat that stream as contributing zero findings (do not invent any).
 - Cap **Suggestions** at three entries total across both streams — if more are returned, rank by impact and drop the rest.
@@ -174,6 +186,9 @@ Output format (use verbatim):
 
 ### Summary
 <2-3 sentence summary of what this PR does and your overall assessment>
+
+### Previous findings
+<each earlier Critical/Important finding: Addressed / Not addressed / Partially; "None" if no earlier review>
 
 ### Critical (must fix)
 <merged Critical findings; "None" if empty>
